@@ -26,9 +26,9 @@ class DetalleTable
         where Boleta = '29';*/
                 
                 $sqlSelect = $this->DetalleTableGateway->getSql()->select();
-                $sqlSelect->columns(array('Producto','Cantidad'));
-                $sqlSelect->join('productos', 'productos.Cod_Producto = detalle.Producto', array('Nombre_Producto'), 'left');
-                $sqlSelect->where(['Boleta' => $Cod_Boleta]);
+                $sqlSelect->columns(array('Cod_Producto','Cantidad'));
+                $sqlSelect->join('productos', 'productos.Cod_Producto = detalle.Cod_Producto', array('Nombre_Producto'), 'left');
+                $sqlSelect->where(['Cod_Boleta' => $Cod_Boleta]);
                 $resultSet = $this->DetalleTableGateway->selectWith($sqlSelect);
                 return $resultSet;
                 
@@ -43,9 +43,9 @@ class DetalleTable
         for($count = 0; $count < count($Cod_Producto); $count++){
             $data = array();           
              $data=[
-                'Producto' =>$Cod_Producto[$count],
-                'Boleta'   =>$lasId,
-                'Cantidad'     =>$Cantidad[$count],
+                'Cod_Producto' =>$Cod_Producto[$count],
+                'Cod_Boleta'   =>$lasId,
+                'Cantidad' =>$Cantidad[$count],
             ];
           
           $this->DetalleTableGateway->insert($data);

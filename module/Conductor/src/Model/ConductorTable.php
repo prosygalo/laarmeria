@@ -9,7 +9,7 @@ use Zend\Db\TableGateway\TableGatewayInterface;
 
 class ConductorTable
 {
-      private $ConductortableGateway;
+     private $ConductortableGateway;
 
      public function __construct(TableGatewayInterface $ConductortableGateway)
      {
@@ -38,6 +38,7 @@ class ConductorTable
 
                 $rowset = $this->tableGateway->getSql()->select();
                 $rowset->columns(array('Cod_Conductor','Nombres_Conductor'));
+                $rowset->where(['Estado' => 'Disponible']);
                 $rowset->order('Nombres_Conductor Asc');
                 $resultSet = $this->tableGateway->selectWith($rowset); 
 
@@ -53,7 +54,8 @@ class ConductorTable
                 'Cod_Conductor' => $conductor->Cod_Conductor,
                 'Nombres_Conductor'  => $conductor->Nombres_Conductor,
                 'Apellidos_Conductor' =>$conductor->Apellidos_Conductor,
-                'Rtn'  => $conductor->Rtn,
+                'Dni'  => $conductor->Dni,
+                'Estado'  => $conductor->Estado,
 
             ];
            
@@ -72,33 +74,24 @@ class ConductorTable
 
             $data = [
                 'Cod_Conductor' => $conductor->Cod_Conductor,
-                'Nombres_Conductor'  => $conductor->Nombres_Conductor,
-                'Apellidos_conductor' =>$conductor->Apellidos_Conductor,
-                'Rtn'  => $conductor->Rtn,
+                'Nombres_Conductor'  => $conductor->Nombres_Conductor,'Estado'  => $conductor->Estado,
+                'Apellidos_Conductor' =>$conductor->Apellidos_Conductor,
+                'Dni'  => $conductor->Dni,
+                'Estado'  => $conductor->Estado,
 
             ];
 
                $Cod_Conductor = $conductor->Cod_Conductor;
 
-
                 try {
                     
                     $this->getConductor($Cod_Conductor);
                 } catch (RuntimeException $e) {
-                    /*throw new RuntimeException(sprintf(
-                        'No se puede actualizar departamento con identificador',
-                        ));*/
-                        return false;
+                    
+                     return false;
                 }
 
                 $this->tableGateway->update($data, ['Cod_Conductor' => $Cod_Conductor]);
                 return ;
     }
-
-    
-    public function deleteConductor($Cod_Conductor)
-    {
-             $this->tableGateway->delete(['Cod_Conductor'=>$Cod_Conductor]);
-    }
-
 }

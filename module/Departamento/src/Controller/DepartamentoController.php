@@ -1,5 +1,4 @@
 <?php
-
 namespace Departamento\Controller;
 
 use Departamento\Form\DepartamentoForm;
@@ -9,12 +8,11 @@ use Sucursal\Model\SucursalTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Interop\Container\ContainerInterface;
 use Zend\View\Model\ViewModel;
-use Zend\Mvc\Controller\Plugin\FlashMessenger;
+
 
 /**
  * This controller is responsible for 
  */
-
 class DepartamentoController extends AbstractActionController
 {
  // Add this property:
@@ -22,13 +20,16 @@ class DepartamentoController extends AbstractActionController
     //private $DepartamentoTable;
     private $table;
     private $SucursalTable; 
+    private $dbAdapter;
+
     // Add this constructor:
-    public function __construct(ContainerInterface $container, DepartamentoTable  $table, SucursalTable $SucursalTable)
+    public function __construct(ContainerInterface $container, DepartamentoTable  $table, SucursalTable $SucursalTable, $dbAdapter)
     {
             $this->container = $container;
             //$this->DepartamentoTable = $DepartamentoTable;
             $this->SucursalTable = $SucursalTable;
             $this->table = $table;
+            $this->dbAdapter=$dbAdapter;
     }
 
     public function indexAction()
@@ -50,14 +51,15 @@ class DepartamentoController extends AbstractActionController
         if (! $request->isPost()) {
             return ['form' => $form];
         }
-        $departamento = new Departamento();
-        $form->setInputFilter($departamento->getInputFilter());// filtrados y validaciones
+        
+        $form->setInputFilter(new \Departamento\Form\Filter\DepartamentoFilter($this->dbAdapter));// filtrados y validaciones
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
             return ['form' => $form];
         }
 
+         $departamento = new Departamento();
          $departamento->exchangeArray($form->getData());  // validacion de codigo único
          $Cod_Departamento = [
                 'Cod_Departamento' => $departamento->Cod_Departamento,
@@ -66,25 +68,15 @@ class DepartamentoController extends AbstractActionController
          $existe = $this->table->getDepto($Cod_Departamento); 
         
          if ($existe){
-           $flashMessenger =$this->flashMessenger()->addErrorMessage('El Código de sucursal ya esta registrado, intente nuevamente');
+           //$flashMessenger =$this->flashMessenger()->addErrorMessage('El Código de sucursal ya esta registrado, intente nuevamente');
             return ['form' => $form];
- 
          }else{
-
-             $flashMessenger = $this->flashMessenger()->clearCurrentMessages();// limpiar mensages flash
+             //$flashMessenger = $this->flashMessenger()->clearCurrentMessages();// limpiar mensages flash
                   $this->table->saveDepto($departamento);
-            return $this->redirect()->toRoute('departamento'); 
+            return $this->redirect()->toRoute('departamento/listo'); 
         }
     }
 
-    /*
-    public function getSucursalSelectAction(){
-
-              $Sucursal = new SucursalTable();
-              $results = $Sucursal->getSucursalSelectJson();
-              $this->_helper->json($results);
-    }*/
-     
       public function editAction()
      {
         $Cod_Departamento = $this->params()->fromRoute('Cod_Departamento');
@@ -115,7 +107,7 @@ class DepartamentoController extends AbstractActionController
             return $viewData;
         }
 
-        $form->setInputFilter($departamento->getInputFilter());
+        $form->setInputFilter(new \Departamento\Form\Filter\DepartamentoEditFilter($this->dbAdapter));// filtrados y validaciones
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
@@ -154,5 +146,17 @@ class DepartamentoController extends AbstractActionController
             'dep' => $this->table->getDepto($Cod_Departamento),
         ];
             
-        }
+   }
+   public function listoAction()
+    {
+        return new ViewModel([
+                'Guardado'=>'Guardado'
+            ]);
+    }
+    public function errorAction()
+    {
+        return new ViewModel([
+                'error'=>'Lo sentimos ha ocurrido un error'
+            ]);
+    }
 }

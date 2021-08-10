@@ -85,16 +85,26 @@ return [
                         ],
                     ],
                   ],
-                   'prueba' => [
+ 
+                'listo' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/prueba',
+                        'route'    => '/listo',
                         'defaults' => [
-                            'action' => 'prueba',
-                        ],   
+                            'action' => 'listo',
+                        ],
                     ],
-                ], 
                 ],
+                'error' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/error',
+                        'defaults' => [
+                            'action' => 'error',
+                        ],
+                    ],
+                ],
+            ],
             ],
                 
          
@@ -121,6 +131,16 @@ return [
                     ],
                 ],
             ],
+            'denegado' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/denegado',
+                    'defaults' => [
+                        'controller' => Controller\AuthController::class,
+                        'action'     => 'denegado',
+                    ],
+                ],
+            ],
          ],
 
      ],
@@ -134,7 +154,8 @@ return [
 
      'controllers' => [
         'factories' => [
-            Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class
+            Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
+            Controller\UsuarioController::class => Controller\Factory\UsuarioControllerFactory::class
         ],
 
     ],

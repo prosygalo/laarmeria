@@ -28,17 +28,19 @@ class Module implements ConfigProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Conductor());
                     return new TableGateway('conductores', $dbAdapter, null, $resultSetPrototype);
                 },
+                
             ],
         ];
     }
-
     public function getControllerConfig()
     {
         return [
             'factories' => [
-                Controller\ConductorController::class => function($container) {
-                    return new Controller\ConductorController (
-                        $container->get(Model\ConductorTable::class)
+                Controller\ConductorController::class => function($container){
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    return new Controller\ConductorController(
+                        $container->get(Model\ConductorTable::class),
+                        $dbAdapter        
                     );
                 },
             ],

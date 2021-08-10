@@ -18,12 +18,6 @@ class UnidadtransporteTable
      }
      public function fetchAll()
      {
-                /*$sqlSelect = $this->tableGateway->getSql()->select();
-                $sqlSelect->columns(array('Cod_Departamento','Nombre_Depto','Sucursal','Fecha_Ingreso','Fecha_Actualizacion'));
-                $sqlSelect->join('Sucursales', 'sucursales.Cod_sucursal = departamentos.Sucursal', array('Nombre_Sucursal'), 'left');
-
-                 $resultSet = $this->tableGateway->selectWith($sqlSelect);
-                 return $resultSet;*/
                return $this->tableGateway->select();
      }
 
@@ -42,6 +36,7 @@ class UnidadtransporteTable
 
                 $rowset = $this->tableGateway->getSql()->select();
                 $rowset->columns(array('Cod_Unidad','Marca_Vehiculo','Modelo_Vehiculo'));
+                $rowset->where(['Estado' => 'Disponible']);
                 $rowset->order('Marca_Vehiculo Asc');
                 $resultSet = $this->tableGateway->selectWith($rowset); 
                 $data= array();

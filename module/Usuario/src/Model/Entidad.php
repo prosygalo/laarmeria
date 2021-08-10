@@ -1,5 +1,4 @@
 <?php
-
 namespace Usuario\Model;
 
 /**
@@ -21,7 +20,9 @@ class Entidad
     public $Fecha_Ingreso;
     public $Fecha_Actualizacion;
 
-
+   /**
+    * 
+    */
     public function exchangeArray(array $data)
     {   
         $this->Cod_Usuario = !empty($data['Cod_Usuario']) ? $data['Cod_Usuario'] : null;

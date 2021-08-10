@@ -1,5 +1,4 @@
 <?php
-
 namespace Boletasremision;
 
 use Zend\Db\Adapter\AdapterInterface;
@@ -12,6 +11,7 @@ use Conductor\Model\ConductorTable;
 use Unidadtransporte\Model\UnidadtransporteTable;
 use Producto\Model\ProductoTable;
 use Autorizacionsar\Model\AutorizacionsarTable;
+use Usuario\Model\UsuarioTable;
 
 
 class Module implements ConfigProviderInterface
@@ -52,7 +52,8 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Controller\BoletasremisionController::class => function($container) {
+                Controller\BoletasremisionController::class => function($container){
+                  $dbAdapter = $container->get(AdapterInterface::class);
                     return new Controller\BoletasremisionController(
                        $container,
                        $container->get(Model\BoletasremisionTable::class),
@@ -61,7 +62,9 @@ class Module implements ConfigProviderInterface
                        $container->get(ConductorTable::class),
                        $container->get(UnidadtransporteTable::class),
                        $container->get(ProductoTable::class),
-                       $container->get(AutorizacionsarTable::class)
+                       $container->get(AutorizacionsarTable::class),
+                       $container->get(UsuarioTable::class),
+                       $dbAdapter
                        
                     );
                 },

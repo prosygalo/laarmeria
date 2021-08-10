@@ -1,5 +1,4 @@
 <?php
-
 namespace Autorizacionsar\Controller;
 
 use Autorizacionsar\Form\AutorizacionsarForm;
@@ -17,17 +16,20 @@ use Zend\View\Model\ViewModel;
 class AutorizacionsarController extends AbstractActionController
 {
  // Add this property:
-     private $container;
-    //private $DepartamentoTable;
+    private $container;
+    private $dbAdapter;
     private $table;
     private $SucursalTable; 
+    
+
 
     // Add this constructor:
-     public function __construct(ContainerInterface $container,AutorizacionsarTable $table, SucursalTable $SucursalTable)
+     public function __construct(ContainerInterface $container,AutorizacionsarTable $table, SucursalTable $SucursalTable, $dbAdapter)
      {
             $this->container = $container;
             $this->table = $table;
             $this->SucursalTable = $SucursalTable;
+            $this->dbAdapter = $dbAdapter;
      }
     public function indexAction()
      {
@@ -48,19 +50,30 @@ class AutorizacionsarController extends AbstractActionController
                 return ['form' => $form];
             }
 
-            $autorizacionsar = new Autorizacionsar();
-            $form->setInputFilter($autorizacionsar->getInputFilter());
+            $form->setInputFilter(new  \Autorizacionsar\Form\Filter\AutorizacionsarFilter($this->dbAdapter));
             $form->setData($request->getPost());
 
             if (! $form->isValid()) {
                 return ['form' => $form];
             }
-
+            $autorizacionsar = new autorizacionsar();
             $autorizacionsar->exchangeArray($form->getData());
             $this->table->insertAuto($autorizacionsar);
             //view helper
-            return $this->redirect()->toRoute('autorizacionsar');
+            return $this->redirect()->toRoute('autorizacionsar/listo');
             
+    }
+     public function listoAction()
+    {
+        return new ViewModel([
+                'Guardado'=>'Guardado'
+            ]);
+    }
+    public function errorAction()
+    {
+        return new ViewModel([
+                'error'=>'Lo sentimos ha ocurrido un error'
+            ]);
     }
    
 }

@@ -1,21 +1,7 @@
 <?php
-
 namespace Boletasremision\Model;
 
-use DomainException;
-use Zend\Filter\StringTrim;
-use Zend\Filter\StripTags;
-use Zend\Filter\ToInt;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
-use Zend\Validator\StringLength;
-use Zend\Validator\Regex;
-use Zend\Validator\date;
-use Zend\Validator\EmailAddress;
-
-
-class Boletasremision implements InputFilterAwareInterface
+class Boletasremision 
 { 
     public $Cod_Boleta;
     public $Fecha_Emision;
@@ -35,16 +21,18 @@ class Boletasremision implements InputFilterAwareInterface
     public $Conductor;
     public $Fecha_Ingreso;
     public $Usuario;
-    //Propiedad tabla detalle
+    //detalle
     public $Cod_Detalle;
-    public $Producto;
+    public $Cod_Producto;
     public $Cantidad;
-    //Propiedad tabla detalle del producto 
     public $Nombre_Producto;
-  
-   
-    // Add this property:
-    private $inputFilter;
+    //sucursal
+    public $Nombre_Sucursal;
+    public $Direccion;
+    public $Correo;
+    public $Telefono;
+    public $RTN;
+
 
     public function exchangeArray(array $data)
     {   
@@ -66,515 +54,21 @@ class Boletasremision implements InputFilterAwareInterface
         $this->Conductor = !empty($data['Conductor']) ? $data['Conductor'] : null;
         $this->Fecha_Ingreso = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
         $this->Usuario = !empty($data['Usuario']) ? $data['Usuario'] : null;
+        //Propiedad de la tabla producto
+        $this->Cod_Detalle = !empty($data['Cod_Detalle']) ? $data['Cod_Detalle'] : null;
+        $this->Cod_Producto = !empty($data['Cod_Producto']) ? $data['Cod_Producto'] : null;
+        $this->Cantidad= !empty($data['Cantidad']) ? $data['Cantidad'] : null;
+        $this->Nombre_Producto= !empty($data['Nombre_Producto']) ? $data['Nombre_Producto'] : null;
         //Propiedades de otras tablegateway
         $this->Nombre_Sucursal = !empty($data['Nombre_Sucursal']) ? $data['Nombre_Sucursal'] : null;
-        $this->Cod_Detalle = !empty($data['Cod_Detalle']) ? $data['Cod_Detalle'] : null;
-        $this->Producto = !empty($data['Producto']) ? $data['Producto'] : null;
-        $this->Cantidad= !empty($data['Cantidad']) ? $data['Cantidad'] : null;
-        //Priedad de la tabla producto
-        $this->Nombre_Producto= !empty($data['Nombre_Producto']) ? $data['Nombre_Producto'] : null;
+        $this->Direccion = !empty($data['Direccion']) ? $data['Direccion'] : null;
+        $this->Correo = !empty($data['Correo']) ? $data['Correo'] : null;
+        $this->Telefono = !empty($data['Telefono']) ? $data['Telefono'] : null;
+        $this->RTN = !empty($data['RTN']) ? $data['RTN'] : null;
+        
         
     }
-
-     public function setInputFilter(InputFilterInterface $inputFilter)
-    {
-        throw new DomainException(sprintf(
-            '%s does not allow injection of an alternate input filter',
-            __CLASS__
-        ));
-    }
-    public function getInputFilter()
-    {
-
-               if ($this->inputFilter) {
-                  return $this->inputFilter;
-              }
-
-              $inputFilter = new InputFilter();
-
-
-     $inputFilter->add([
-            'name' => 'Cod_Boleta',
-            'required' => true,
-            'filters' => [
-                ['name' => ToInt::class],
-             ],
-        ]);
-
-        $inputFilter->add([
-            'name' => 'Fecha_Emision',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-               ],
-             'validators' => [
-                    ['name'=>date::class,
-                      'options'=>[
-                      'format' => 'Y-m-d',
-                      'messages' => [
-                        \Zend\Validator\date::INVALID=>'Fecha emisión no válida',
-                        \Zend\Validator\date::INVALID_DATE=>'Fecha emisión es obligatorio y  debe tener  10 Caracteres',
-                        \Zend\Validator\date::FALSEFORMAT=>'Formato de fecha incorrecto',
-                         ],
-                      ],
-
-                    ],              
-                ],
-        ]);
-
-       $inputFilter->add([
-            'name' => 'Consecutivo_Actual_Establ',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                ['name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 3,
-                        'max' => 3,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Establ   incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Establ es obligatorio y debe contener 3 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Establ debe contener 3 car&aacute;cteres',
-                        ]
-                    ],
-                ],
-                 ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-
-        ]);
-       $inputFilter->add([
-            'name' => 'Consecutivo_Actual_Punto',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                ['name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 3,
-                        'max' => 3,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Punto   incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Punto es obligatorio y debe contener 3 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Punto debe contener 3 car&aacute;cteres',
-                        ]
-                    ],
-                ],
-                 ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato es incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-
-        ]);
-       $inputFilter->add([
-            'name' => 'Consecutivo_Actual_Tipo',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                ['name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 2,
-                        'max' => 2,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Tipo   incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Tipo es obligatorio',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Tipo debe contener dos car&aacute;cteres',
-                        ]
-                    ],
-                ],
-                 ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-
-        ]);
-       $inputFilter->add([
-            'name' => 'Consecutivo_Actual_Correlativo',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                ['name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' =>8 ,
-                        'max' =>8,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Correlativo  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Correlativo es obligatorio y debe contener 8 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Correlativo debe contener 8 car&aacute;cteres',
-                        ]
-                    ],
-                ],
-                 ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-
-        ]);
-
-     $inputFilter->add([
-            'name' => 'Motivo_Traslado',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-              
-            ],
-            'validators' => [
-                [
-                    'name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 3,
-                        'max' => 50,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Motivo de traslado es  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Motivo traslado debe contener m&aacute;s de 3 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Motivo de traslado  debe contener menos de 50 car&aacute;cteres',
-                        ]
-                    ],
-                ],
-                 ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ\s]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);
-       
-        $inputFilter->add([
-            'name' => 'Num_Transferencia',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               //['name' => StringTrim::class],
-               ],
-             'validators' => [
-                       ['name' => StringLength::class,
-                        'options' => [
-                        'encoding' => 'UTF-8',
-                        //'min' => 1,
-                        'max' => 10,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Número de transferencia es incorrecto',
-                        //\Zend\Validator\StringLength::TOO_SHORT=>'Número de transferencia  es obligatorio',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Número de transferencia  debe tener menos de 10 dígitos',
-                         ],
-                       ],
-                      ],
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);
-        
-         $inputFilter->add([
-            'name' => 'Punto_Partida',
-            'required' => true,
-            'filters' => [
-                ['name' => StripTags::class],
-                ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                [
-                    'name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 4,
-                        'max' => 200,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Punto de artida es  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Punto de partida es obligatorio y  debe contener m&aacute;s de 4 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Punto pde artida  debe contener menos de 200 car&aacute;cteres',
-                        ]
-                    ],
-            
-                ],
-            ],
-        ]);
-          $inputFilter->add([
-            'name' => 'Punto_Destino',
-            'required' => true,
-            'filters' => [
-                ['name' => StripTags::class],
-                ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                [
-                    'name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 4,
-                        'max' => 200,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Punto de destino es  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Punto de destino es obligatorio y  debe contener m&aacute;s de 4 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Punto de destino debe contener menos de 200 car&aacute;cteres',
-                        ]
-                    ],
-            
-                ],
-            ],
-        ]);
-
-          $inputFilter->add([
-            'name' => 'Fecha_Inicio_Traslado',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               //['name' => StringTrim::class],
-               ],
-             'validators' => [ 
-                    ['name'=>date::class,
-                      'options'=>[
-                      'format' => 'Y-m-d',
-                      'messages' => [
-                        \Zend\Validator\date::INVALID=>'Fecha  no válida',
-                        \Zend\Validator\date::INVALID_DATE=>'Fecha es obligatorio y  debe tener  10 Caracteres',
-                        \Zend\Validator\date::FALSEFORMAT=>'Formato de fecha incorrecto',
-                         ],
-                      ],
-
-                    ],              
-                ],
-        ]);
-
-          $inputFilter->add([
-            'name' => 'Fecha_Final_Traslado',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               //['name' => StringTrim::class],
-               ],
-             'validators' => [
-                    ['name'=>date::class,
-                      'options'=>[
-                      'format' => 'Y-m-d',
-                      'messages' => [
-                        \Zend\Validator\date::INVALID=>'Fecha  no válida',
-                        \Zend\Validator\date::INVALID_DATE=>'Fecha es obligatorio y  debe tener  10 Caracteres',
-                        \Zend\Validator\date::FALSEFORMAT=>'Formato de fecha incorrecto',
-                         ],
-                      ],
-
-                    ],              
-                ],
-        ]);
-        $inputFilter->add([
-            'name' => 'Sucursal',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               //['name' => StringTrim::class],
-               ],
-             'validators' => [
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[a-zA-Z0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);
-
-         $inputFilter->add([
-            'name' => 'Autorizacion_Sar',
-            'required' => true,
-            'filters' => [
-                ['name' => ToInt::class],
-             ],
-           ]);
-
-          $inputFilter->add([
-            'name' => 'Unidad_Transporte',
-            'filters' => [
-               ['name' => StripTags::class],
-               //['name' => StringTrim::class],
-               ],
-             'validators' => [
-                       ['name' => StringLength::class,
-                        'options' => [
-                        'encoding' => 'UTF-8',
-                        //'min' => 3,
-                        'max' => 18,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Unidad de transporte es incorrecto',
-                        //\Zend\Validator\StringLength::TOO_SHORT=>'Unidad de transportees obligatorio y  debe tener  m&aacute;s de 3 digitos',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Unidad de transporte debe tener menos de 18 digitos',
-                         ],
-                       ],
-                      ],
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[a-zA-Z0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato  incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);
-          $inputFilter->add([
-            'name' => 'Conductor',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               //['name' => StringTrim::class],
-               ],
-             'validators' => [
-                       ['name' => StringLength::class,
-                        'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 3,
-                        'max' => 18,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Conductor es incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Conductores obligatorio y  debe tener  m&aacute;s de 3 digitos',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Conductor debe tener menos de 18 digitos',
-                         ],
-                       ],
-                      ],
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[a-zA-Z0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato de Conductor incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);
-
-
-      /* $inputFilter->add([
-            'name' => 'Cod_Producto',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-            ],
-             'validators' => [
-                       ['name' => StringLength::class,
-                        'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 3,
-                        'max' => 18,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'C&oacute;digo de producto es incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'C&oacute;digo de producto es obligatorio y  debe tener  m&aacute;s de 3 digitos',
-                        \Zend\Validator\StringLength::TOO_LONG=>'C&oacute;digo  de producto debe tener menos de 18 digitos',
-                         ],
-                       ],
-                      ],
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[a-zA-Z0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato de c&oacute;digo de producto incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);
-               
-        $inputFilter->add([
-            'name' => 'Cantidad',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                       ['name' => StringLength::class,
-                        'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 1,
-                        'max' => 18,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Cantidad es incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Cantidad es obligatorio y  debe tener  m&aacute;s de 1 a 18 digitos',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Cantidad excede el número de  digitos aceptados',
-                         ],
-                       ],
-                      ],
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato de c&oacute;digo incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);*/
-
-        $this->inputFilter = $inputFilter;
-        return $this->inputFilter;
-    }
-
+    
     public function getArrayCopy()
     {
         return [
@@ -597,8 +91,9 @@ class Boletasremision implements InputFilterAwareInterface
             'Fecha_Ingreso'  => $this->Fecha_Ingreso,
             'Usuario'  => $this->Usuario,
             'Cod_Detalle' => $this->Cod_Detalle,
-            'Producto' => $this->Producto,
+            'Cod_Producto' => $this->Cod_Producto,
             'Cantidad'  => $this->Cantidad,
+            
           
         ];
     }

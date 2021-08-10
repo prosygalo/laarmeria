@@ -37,8 +37,10 @@ class Module implements ConfigProviderInterface
         return [
             'factories' => [
                 Controller\ProductoController::class => function($container) {
+                     $dbAdapter = $container->get(AdapterInterface::class);
                     return new Controller\ProductoController (
-                        $container->get(Model\ProductoTable::class)
+                        $container->get(Model\ProductoTable::class),
+                        $dbAdapter
                     );
                 },
             ],

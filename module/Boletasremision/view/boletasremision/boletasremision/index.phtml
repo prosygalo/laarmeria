@@ -5,7 +5,7 @@ $this->headTitle($title);
 <div class="container">
 <h2><?= $this->escapeHtml($title) ?></h2>
    <div>
-      <p><a class="btn btn-success btn-sm menu" href="<?= $this->url('conductor/add')?>"><span class="glyphicon glyphicon-plus"></span>Agregar</a></p>
+      <p><a class="btn btn-success btn-sm menu" href="<?= $this->url('boletasremision/pre')?>"><span class="glyphicon glyphicon-plus"></span>Agregar</a></p>
    </div>
 
 <table class="table table-striped table-bordered table-hover  dt-responsive nowrap "  cellspacing="0"  id="example"  style="width:100%">
@@ -13,7 +13,7 @@ $this->headTitle($title);
      <tr>
         <th>Sucursal</th>
         <th>c&oacute;digo de boleta</th>
-        <th>Fecha de emisi&oacute;n</th>
+        <th>Fecha de Ingreso</th>
         <th>Consecutivo</th>
         <th>Acciones</th>
     </tr>
@@ -23,12 +23,11 @@ $this->headTitle($title);
     <tr>
         <td><?= $this->escapeHtml($a->Nombre_Sucursal) ?></td>
         <td><?= $this->escapeHtml($a->Cod_Boleta) ?></td>
-        <td><?= $this->escapeHtml($a->Fecha_Emision) ?></td>
+        <td><?= $this->escapeHtml($a->Fecha_Ingreso) ?></td>
         <td><?= $this->escapeHtml($a->Consecutivo_Actual_Establ."-".$a->Consecutivo_Actual_Punto."-".$a->Consecutivo_Actual_Tipo."-".$a->Consecutivo_Actual_Correlativo)?></td>
         <td>
-            <a type="button" class=" btn btn-info btn-sm"  href="<?= $this->url('boletasremision/detalle',['Cod_Boleta'=>$a->Cod_Boleta])?>"><span class="glyphicon glyphicon-eye-close"></span>Ver</a>
-            <a type="button" class="btn btn-primary btn-sm"  href="<?= $this->url('boletasremision/reporte',['Cod_Boleta'=>$a->Cod_Boleta])?>"><span class="glyphicon glyphicon-file"></span>Reporte</a>
-            <a type="button" class="btn btn-danger btn-sm"  href="<?= $this->url('boletasremision/pdf',['Cod_Boleta'=>$a->Cod_Boleta])?>"><span class="glyphicon glyphicon-file"></span>PDF</a>      
+            <a type="button"  class=" btn btn-info btn-sm"  href="<?= $this->url('boletasremision/detalle',['Cod_Boleta'=>$a->Cod_Boleta])?>"><span class="glyphicon glyphicon-eye-close"></span>Ver</a>
+            <a type="button"  target="_blank" class="btn btn-danger btn-sm"  href="<?= $this->url('boletasremision/pdf',['Cod_Boleta'=>$a->Cod_Boleta])?>"><span class="glyphicon glyphicon-file"></span>PDF</a>      
         </td>     
     </tr>
 <?php endforeach; ?>

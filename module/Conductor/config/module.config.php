@@ -1,10 +1,8 @@
 <?php
-
 namespace Conductor;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-
 
 return [
     
@@ -65,13 +63,32 @@ return [
                         ],
                     ],
                 ],
+                
+                 'listo' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/listo',
+                        'defaults' => [
+                            'action' => 'listo',
+                        ],
+                    ],
+                ],
+                'error' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/error',
+                        'defaults' => [
+                            'action' => 'error',
+                        ],
+                    ],
+                ],
                  
             ],
 
         ],
     ],
 ],
-   
+
     'view_manager' => [
         'template_path_stack' => [
             'conductor' => __DIR__ . '/../view',

@@ -1,7 +1,12 @@
-<h1>Guardado!</h1>
-
-<p>
-  <div class="alert alert-success">
-    Exitoso
-  </div>
-</p>
+<script type="text/javascript">
+   $(document).ready(function(){
+     swal({ 
+          title: "Listo",
+          text: "Registro enviado",
+          type: "success",
+           },
+           function(){ 
+             window.location.href="<?= $this->url('conductor/add')?>";
+          });
+    });
+</script>

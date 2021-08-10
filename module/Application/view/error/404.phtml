@@ -1,13 +1,13 @@
 <?php
 use Zend\Mvc\Application;
 ?>
-<h1>A 404 error occurred</h1>
+<h1>error 404</h1>
 <h2><?= $this->message ?></h2>
 
 <?php if (! empty($this->reason)) :
     switch ($this->reason) {
         case Application::ERROR_CONTROLLER_CANNOT_DISPATCH:
-            $reasonMessage = 'The requested controller was unable to dispatch the request.';
+            $reasonMessage = 'El controlador solicitado no pudo enviar la solicitud.';
             break;
         case Application::ERROR_MIDDLEWARE_CANNOT_DISPATCH:
             $reasonMessage = 'The requested middleware was unable to dispatch the request.';
@@ -16,13 +16,13 @@ use Zend\Mvc\Application;
             $reasonMessage = 'The requested controller could not be mapped to an existing controller class.';
             break;
         case Application::ERROR_CONTROLLER_INVALID:
-            $reasonMessage = 'The requested controller was not dispatchable.';
+            $reasonMessage = 'El controlador solicitado no se pudo enviar.';
             break;
         case Application::ERROR_ROUTER_NO_MATCH:
-            $reasonMessage = 'The requested URL could not be matched by routing.';
+            $reasonMessage = 'La URL solicitada no puede coincidir con el enrutamiento.';
             break;
         default:
-            $reasonMessage = 'We cannot determine at this time why a 404 was generated.';
+            $reasonMessage = 'No podemos determinar en este momento por qué se generó un 404.';
             break;
     }
 ?>
@@ -100,6 +100,6 @@ use Zend\Mvc\Application;
 </ul>
         <?php endif ?>
     <?php else : ?>
-<h3>No Exception available</h3>
+<h3>No hay excepciones disponibles</h3>
     <?php endif ?>
 <?php endif ?>

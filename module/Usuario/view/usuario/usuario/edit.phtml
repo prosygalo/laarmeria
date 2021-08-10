@@ -4,16 +4,21 @@ $this->headTitle($title);
 
 $Cod_Empleado=$form->get('Cod_Empleado');
 $Cod_Empleado->setAttribute('class', 'form-control autofocus');
+$Cod_Empleado->setAttribute('readonly', 'readonly');
 
 $Usuario=$form->get('Usuario');
 $Usuario->setAttribute('class', 'form-control autofocus');
+$Usuario->setAttribute('readonly', 'readonly');
+
+$Correo=$form->get('Correo');
+$Correo->setAttribute('class', 'form-control autofocus');
+$Correo->setAttribute('readonly', 'readonly');
 
 $Rol=$form->get('Rol');
 $Rol->setAttribute('class', 'form-control autofocus');
 
 $Estado=$form->get('Estado');
 $Estado->setAttribute('class', 'form-control autofocus');
-
 
 $submit=$form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
@@ -43,6 +48,12 @@ echo $this->form()->openTag($form);
                         <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
                     </div>
 
+                    <div class="form-group">
+                        <?= $this->formLabel($Correo) ?>
+                        <?= $this->formElement($Correo) ?>
+                        <?= $this->formElementErrors()->render($Correo, ['class' => 'help-inline  text-danger']) ?>
+                    </div>
+
                      <div class="form-group">
                         <?= $this->formLabel($Rol) ?>
                         <?= $this->formElement($Rol) ?>
@@ -55,7 +66,7 @@ echo $this->form()->openTag($form);
                         <?= $this->formElementErrors()->render($Estado, ['class' => 'help-inline  text-danger']) ?>
                     </div>
 
-                    
+ 
                     <?php
                     echo $this->formSubmit($submit);
                     echo $this->formHidden($form->get('Cod_Usuario'));

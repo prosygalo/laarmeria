@@ -1,6 +1,5 @@
 <?php
-
-namespace Usuario\Form\Validation;
+namespace Usuario\Form\Filter;
 
 use DomainException;
 use Zend\Filter\StringTrim;

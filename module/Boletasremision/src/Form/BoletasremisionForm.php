@@ -1,9 +1,9 @@
 <?php
-
 namespace Boletasremision\Form;
 
 use Zend\Form\Element;
 use Zend\Form\Form;
+use Zend\Form\Element\Date;
 
 class BoletasremisionForm extends Form
 {
@@ -20,6 +20,7 @@ class BoletasremisionForm extends Form
         $Cod_Boleta = new Element\Text('Cod_Boleta');
         $Cod_Boleta->setAttribute('type','hidden');
         $this->add($Cod_Boleta);
+
         //Agregar entada  fecha de emisión
         $Fecha_Emision = new Element\Text('Fecha_Emision');
         $Fecha_Emision->setAttribute('type','text');
@@ -70,24 +71,29 @@ class BoletasremisionForm extends Form
         $Num_Transferencia = new Element\Text('Num_Transferencia');
         $Num_Transferencia->setAttribute('class','form-control');
         $Num_Transferencia->setLabel('Número de transferencia');
+        $Num_Transferencia->setAttribute('onkeypress','return int(event)');
+        $Num_Transferencia->setAttribute('maxlength','10');
+        $Num_Transferencia->setAttribute('required','required');
         $this->add($Num_Transferencia);
         
         //Agregar entrada punto de partida
-        $Punto_Partida = new Element\Text('Punto_Partida');
+        $Punto_Partida = new Element\Select('Punto_Partida');
         $Punto_Partida->setAttribute('class','form-control');
         $Punto_Partida->setLabel('Punto de Partida');
         $this->add($Punto_Partida);
 
        //Agregar entrada Punto de destino
-        $Punto_Destino = new Element\Text('Punto_Destino');
+        $Punto_Destino = new Element\Select('Punto_Destino');
         $Punto_Destino->setAttribute('class','form-control');
         $Punto_Destino->setLabel('Punto de destino');
+        $Punto_Destino->setEmptyOption('Seleccione');
         $this->add($Punto_Destino);
 
         //Agregar entrada fecha inicial de traslado
         $Fecha_Inicio_Traslado = new Element\Date('Fecha_Inicio_Traslado');
         $Fecha_Inicio_Traslado->setLabel('Fecha inicio de traslado');
         $Fecha_Inicio_Traslado->setAttribute('class','form-control');
+        $Fecha_Inicio_Traslado->setAttribute('id','inicio');
         $Fecha_Inicio_Traslado->setAttributes([
             'min'  => '2020-01-01',
             'max'  => '2030-01-01',
@@ -101,6 +107,7 @@ class BoletasremisionForm extends Form
         $Fecha_Final_Traslado = new Element\Date('Fecha_Final_Traslado');
         $Fecha_Final_Traslado->setLabel('Fecha final de traslado');
         $Fecha_Final_Traslado->setAttribute('class','form-control');
+        $Fecha_Final_Traslado->setAttribute('id','final');
         $Fecha_Final_Traslado->setAttributes([
             'min'  => '2020-01-01',
             'max'  => '2030-01-01',
@@ -114,7 +121,7 @@ class BoletasremisionForm extends Form
         //Agregar entrada Autorización de la SAR
         $Autorizacion_Sar = new Element\Text('Autorizacion_Sar');
         $Autorizacion_Sar->setAttribute('class','form-control');
-        $Autorizacion_Sar->setLabel('Código de Autorización SAR');
+        $Autorizacion_Sar->setLabel('Código Autorización SAR');
         $this->add($Autorizacion_Sar);
          
 
@@ -122,6 +129,7 @@ class BoletasremisionForm extends Form
         $Usuario = new Element\Text('Usuario');
         $Usuario->setAttribute('class','form-control');
         $Usuario->setLabel('Usuario');
+        $Usuario->setAttribute('readonly','readonly');
         $this->add($Usuario);
          
         //Agregar objeto de selección productos
@@ -137,7 +145,6 @@ class BoletasremisionForm extends Form
         $Sucursal->setAttribute('name', 'Sucursal');
         $Sucursal->setAttribute('id', 'Sucursal');
         $Sucursal->setLabel('Sucursal');
-        $Sucursal->setEmptyOption('Seleccione');
         $Sucursal->setAttribute('class', 'form-control');
         $this->add($Sucursal);
 
@@ -160,34 +167,49 @@ class BoletasremisionForm extends Form
         $Conductor->setAttribute('class', 'form-control'); 
         $this->add($Conductor);
 
-
+        /*Agregar entrada  Código de detalle
         $Cod_Detalle = new Element\Text('Cod_Detalle');
         $Cod_Detalle->setAttribute('type','hidden');
         $this->add($Cod_Detalle);
 
+    
+        //Agregar entada
         $Cod_Producto = new Element\Text('Cod_Producto');
-        $Cod_Producto->setAttribute('Id','Cod_Producto');
-        $Cod_Producto->setAttribute('type','text');
-        $Cod_Producto->setAttribute('class', 'form-control');
+        $Cod_Producto->setAttribute('class', 'form-control codigo');
+        $Cod_Producto->setAttribute('id','Cod_Producto');
         //$Cod_Producto->setAttribute('readonly', 'readonly');
         $this->add($Cod_Producto);
+        
+        //Agregar entada  fecha de emisión
+        $Cantidad = new Element\Text('Cantidad');
+        $Cantidad ->setAttribute('class', 'form-control autofocus cant');
+        $Cantidad->setAttribute('id','Cantidad');
+        $Cantidad->setAttribute('maxlength','3');
+        $Cantidad->setAttribute('onkeypress','return int(event)');
+        $this->add($Cantidad);*/
 
-        $Cantidad= new Element\Text('Cantidad');
-        $Cantidad->setAttribute('Id','Cantidad');
-        $Cantidad->setAttribute('type','text');
-        $Cantidad->setAttribute('class', 'form-control');
-        $Cantidad->setValue('1');
-        $Cantidad->setAttribute('onkeypress',"return int(event)");
-        $this->add($Cantidad);
+
+        $Cod_Detalle = new Element\Text('Cod_Detalle');
+        $Cod_Detalle->setAttribute('type','hidden');
+        $this->add($Cod_Detalle);
         
         //Agregar botón de agregar productos a la tabla
-        $Agregar = new Element\Button('Agregar');
+        $Agregar = new Element\Button('agregar');
         $Agregar->setLabel("Agregar  productos a la lista");
         $Agregar->setAttribute('type','button');
-        $Agregar->setAttribute('class', 'btn btn-success btn-block');
+        $Agregar->setAttribute('id','agregar');
+        $Agregar->setAttribute('class', 'btn btn-success btn-block blo');
         $Agregar->setAttribute('data-toggle', 'modal');
         $Agregar->setAttribute('data-target', '#myModal');
         $this->add($Agregar);
+
+        //Agregar botón submit
+        $enviar = new Element\Button('enviar');
+        $enviar->setLabel("Enviar");
+        $enviar->setAttribute('type','submit');
+        $enviar->setAttribute('id','enviar');
+        $enviar->setAttribute('class', 'btn btn-primary btn-block');
+        $this->add($enviar);
         
         //Agregar botón submit
         $submit = new Element\Button('submit');
@@ -195,7 +217,7 @@ class BoletasremisionForm extends Form
         $submit->setAttribute('type','button');
         $submit->setAttribute('id','submit');
         $submit->setAttribute('class', 'btn btn-primary btn-block');
-       // $submit->setAttribute('disabled','disabled');
+        $submit->setAttribute('disabled','disabled');
         $this->add($submit);
 
      }

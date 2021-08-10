@@ -25,6 +25,7 @@ class BoletasremisionTable
                 $resultSet = $this->BoletasremisionTableGateway->selectWith($sqlSelect);
                  return $resultSet;
      }
+     
      public function boleta($Cod_Boleta)
      {
 
@@ -34,8 +35,7 @@ class BoletasremisionTable
                 $sqlSelect->where(['Cod_Boleta' => $Cod_Boleta]);
                 $resultSet = $this->BoletasremisionTableGateway->selectWith($sqlSelect);
                  return $resultSet;
-     }
-
+     }  
      public function getBoleta($Cod_Boleta)
      {
                 $Cod_Boleta = $Cod_Boleta;
@@ -46,6 +46,7 @@ class BoletasremisionTable
                 }
                 return $row;
      }
+     
       public function getUltimaBoleta()
      {
                 $rowset = $this->BoletasremisionTableGateway->select();
@@ -62,7 +63,6 @@ class BoletasremisionTable
      }
     public function insertBoleta(Boletasremision $boletasremision)
      {
-
             $data = [
             'Fecha_Emision' =>$boletasremision->Fecha_Emision,
             'Consecutivo_Actual_Establ'  => $boletasremision->Consecutivo_Actual_Establ,

@@ -1,0 +1,12 @@
+<script type="text/javascript">
+   $(document).ready(function(){
+     swal({ 
+          title: "Listo",
+          text: "Registro enviado",
+          type: "success",
+           },
+           function(){ 
+             window.location.href="<?= $this->url('sucursal/add')?>";
+          });
+    });
+</script>

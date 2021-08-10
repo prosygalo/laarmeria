@@ -45,10 +45,12 @@ class Module implements ConfigProviderInterface
         return [
             'factories' => [
                 Controller\AutorizacionsarController::class => function($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
                     return new Controller\AutorizacionsarController (
                         $container,
                         $container->get(Model\AutorizacionsarTable::class),
-                         $container->get(SucursalTable::class)
+                        $container->get(SucursalTable::class),
+                        $dbAdapter
                     );
                 },
             ],

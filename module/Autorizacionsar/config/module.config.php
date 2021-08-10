@@ -1,10 +1,8 @@
 <?php
- 
- namespace Autorizacionsar;
+namespace Autorizacionsar;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-
 
 return [    
 'router' => [
@@ -52,6 +50,24 @@ return [
                         'route'    => '/add',
                         'defaults' => [
                             'action' => 'add',
+                        ],
+                    ],
+                ],
+                 'listo' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/listo',
+                        'defaults' => [
+                            'action' => 'listo',
+                        ],
+                    ],
+                ],
+                'error' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/error',
+                        'defaults' => [
+                            'action' => 'error',
                         ],
                     ],
                 ],

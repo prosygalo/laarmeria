@@ -17,11 +17,11 @@ class AuthenticationServiceFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
 
-    $dbAdapter = $container->get(AdapterInterface::class);
+        $dbAdapter = $container->get(AdapterInterface::class);
 
-    $credentialCallback = function ($passwordInDatabase, $Clave) {
-    return password_verify($Clave, $passwordInDatabase);
-    };
+        $credentialCallback = function ($passwordInDatabase, $Clave) {
+          return password_verify($Clave, $passwordInDatabase);
+        };
 
     /** Crear el adaptor de autenticacion */
     $AuthAdapter = new  CallbackCheckAdapter(
@@ -38,8 +38,6 @@ class AuthenticationServiceFactory implements FactoryInterface
     // Finalmente se crea el servicio
     $authService = new AuthenticationService($container->get(AuthStorage::class), $AuthAdapter);
     return $authService;
-
-
     }
     
 }

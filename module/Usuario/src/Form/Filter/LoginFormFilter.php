@@ -1,6 +1,5 @@
 <?php
-
-namespace Usuario\Form\Validation;
+namespace Usuario\Form\Filter;
 
 use DomainException;
 use Zend\Filter\StringTrim;
@@ -96,21 +95,11 @@ class LoginFormFilter  implements InputFilterAwareInterface
                         \Zend\Validator\StringLength::INVALID=>'Es inválida',
                         \Zend\Validator\StringLength::TOO_SHORT=>'Ingrese contraseña de 8 caracteres',
                         \Zend\Validator\StringLength::TOO_LONG=>'La contraseña excede la longitud permitida ',
-                         ],
-                       ],
+                        ],
                       ],
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[a-zA-Z0-9]+$/',
-                       'messages'=>[
-                        \Zend\Validator\Regex::NOT_MATCH=>'Ingrese contraseña que contenga letras y números',
-                         ],
-                       ],
                     ],
                  ],
               ]);
-
-
 
         $this->inputFilter = $inputFilter;
         return $this->inputFilter;

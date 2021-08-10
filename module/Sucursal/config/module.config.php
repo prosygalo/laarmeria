@@ -53,6 +53,24 @@ return [
                         ],
                     ],
                 ],
+                'listo' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/listo',
+                        'defaults' => [
+                            'action' => 'listo',
+                        ],
+                    ],
+                ],
+                'error' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/error',
+                        'defaults' => [
+                            'action' => 'error',
+                        ],
+                    ],
+                ],
             ],
 
         ],

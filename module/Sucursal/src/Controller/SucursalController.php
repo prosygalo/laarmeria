@@ -14,11 +14,13 @@ class SucursalController extends AbstractActionController
 {
  // Add this property:
     private $table;
+    private $dbAdapter;
 
     // Add this constructor:
-    public function __construct(SucursalTable $table)
+    public function __construct(SucursalTable $table, $dbAdapter)
      {
             $this->table = $table;
+            $this->dbAdapter= $dbAdapter;
      }
 
     public function indexAction()
@@ -39,28 +41,26 @@ class SucursalController extends AbstractActionController
                 return ['form' => $form];
             }
 
-            $sucursal = new Sucursal()
-            ;
-            $form->setInputFilter($sucursal->getInputFilter());
+            $form->setInputFilter(new  \Sucursal\Form\Filter\SucursalFilter($this->dbAdapter));
             $form->setData($request->getPost());
 
             if (! $form->isValid()) {
                 return ['form' => $form];
             }
-
+            $sucursal = new Sucursal();
             $sucursal->exchangeArray($form->getData());
             $this->table->saveSucursal($sucursal);
             //view helper
-            return $this->redirect()->toRoute('sucursal');
+            return $this->redirect()->toRoute('sucursal/listo');
             
     }
    
     public function editAction()
-    {
-        $Cod_Sucursal = $this->params()->fromRoute('Cod_Sucursal',null);
-
-        if (null === $Cod_Sucursal) {
-            return $this->redirect()->toRoute('sucursal/add');
+    {    //recuperar el código enviado 
+        $Cod_Sucursal = $this->params()->fromRoute('Cod_Sucursal');
+        //Si no hay código se redirecciona 
+        if (!$Cod_Sucursal) {
+            return $this->redirect()->toRoute('sucursal');
         }
 
         // Retrieve the album with the specified id. Doing so raises
@@ -71,26 +71,27 @@ class SucursalController extends AbstractActionController
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('sucursal');
         }
-
+        //crear instancia de formulario sucursal
         $form = new SucursalForm();
         $form->bind($sucursal);
         $form->get('submit')->setAttribute('value', 'Actualizar');
-
+       //verificar si la solicitud es enviada
         $request = $this->getRequest();
+        //crear un viewdata
         $viewData = ['Cod_Sucursal' => $Cod_Sucursal, 'form' => $form];
-
+         //redireccionar si la solicitud no es enviada
         if (! $request->isPost()) {
             return $viewData;
         }
-
-        $form->setInputFilter($sucursal->getInputFilter());
+         //Validar y filtrar el formulario
+        $form->setInputFilter(new  \Sucursal\Form\Filter\SucursalEditFilter($this->dbAdapter));
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
             return $viewData;
         }
-
-        $this->table->UpdateSucursal($sucursal);
+        //Actualizar los datos
+        $this->table->updateSucursal($sucursal);
 
         // Redirect to album list
         return $this->redirect()->toRoute('sucursal');
@@ -121,5 +122,17 @@ class SucursalController extends AbstractActionController
             'suc' => $this->table->getSucursal($Cod_Sucursal),
         ];
             
-        }
+   }
+   public function listoAction()
+    {
+        return new ViewModel([
+                'Guardado'=>'Guardado'
+            ]);
+    }
+    public function errorAction()
+    {
+        return new ViewModel([
+                'error'=>'Lo sentimos ha ocurrido un error'
+            ]);
+    }
 }

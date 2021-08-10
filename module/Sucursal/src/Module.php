@@ -36,9 +36,11 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Controller\SucursalController::class => function($container) {
+                Controller\SucursalController::class => function($container){
+                    $dbAdapter = $container->get(AdapterInterface::class);
                     return new Controller\SucursalController (
-                        $container->get(Model\SucursalTable::class)
+                        $container->get(Model\SucursalTable::class),
+                        $dbAdapter
                     );
                 },
             ],

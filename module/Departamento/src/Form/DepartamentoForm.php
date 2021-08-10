@@ -1,10 +1,8 @@
 <?php
-
 namespace Departamento\Form;
 
 use Zend\Form\Element;
 use Zend\Form\Form;
-use Sucursal\Model\SucursalTable;
 
 
 class DepartamentoForm extends Form

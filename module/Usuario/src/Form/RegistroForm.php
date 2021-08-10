@@ -55,8 +55,11 @@ class RegistroForm extends Form
             'name' => 'Clave',
             'type' => 'Password',
             'options' => [
-                'label' => 'Contraseña',
+                'label' => 'Contraseña',    
             ],
+            'attributes' => [
+                'size'  => '8',
+            ]
         ]);
 
         //Agregar campo Confirmarclave
@@ -66,6 +69,9 @@ class RegistroForm extends Form
             'options' => [
                 'label' => 'Repetir contraseña',
             ],
+            'attributes' => [
+                'size'  => '8',
+            ]
         ]);
 
         //Agregar campo clave solo para vista de contraseña user admin
@@ -84,9 +90,9 @@ class RegistroForm extends Form
             'options' => [
                 'label' => 'Rol',
                 'value_options' => [ 
-                      'Invitado' =>  'Invitado', 
-                      'Miembro'   => 'Miembro',
-                      'Admin'   => 'Admin',
+                      'invitado' =>  'Invitado', 
+                      'miembro'   => 'Miembro',
+                      'especial'   => 'Especial',
                ],
             ],
         ]);

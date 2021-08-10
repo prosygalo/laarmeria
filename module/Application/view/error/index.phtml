@@ -1,4 +1,4 @@
-<h1>An error occurred</h1>
+<h1>Un error ha occurrido</h1>
 <h2><?= $this->message ?></h2>
 
 <?php if (! empty($this->display_exceptions)) : ?>
@@ -6,7 +6,7 @@
         && ($this->exception instanceof \Exception || $this->exception instanceof \Error)) : ?>
 <hr/>
 
-<h2>Additional information:</h2>
+<h2>Informatión Adicional:</h2>
 <h3><?= get_class($this->exception) ?></h3>
 <dl>
     <dt>File:</dt>
@@ -58,6 +58,6 @@
 </ul>
         <?php endif ?>
     <?php else : ?>
-        <h3>No Exception available</h3>
+        <h3>No hay excepciones disponibles</h3>
     <?php endif ?>
 <?php endif ?>

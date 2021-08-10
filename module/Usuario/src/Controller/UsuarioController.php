@@ -4,12 +4,13 @@ namespace Usuario\Controller;
 use Usuario\Form\RegistroForm;
 use Usuario\Form\RestablecerForm;
 use Usuario\Model\Entidad;
-use Usuario\Form\Validation\RegistroFormFilter;
-use Usuario\Form\Validation\RestablecerFormFilter;
-use Usuario\Form\Validation\EditarRegistroFilter;
+use Usuario\Form\Filter\RegistroFormFilter;
+use Usuario\Form\Filter\RestablecerFormFilter;
+use Usuario\Form\Filter\EditarRegistroFilter;
 use Usuario\Model\UsuarioTable;
 use Zend\I18n\Validator as I18nValidator;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Db\Adapter\Adapter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -21,12 +22,14 @@ use Zend\View\Model\JsonModel;
 class UsuarioController extends AbstractActionController
 {
  // agregar propiedad:
-    private $UsuarioTable;
+    protected $UsuarioTable;
+    protected $dbAdapter;
 
     // agregar constructor:
-    public function __construct(UsuarioTable $UsuarioTable)
+    public function __construct(UsuarioTable $UsuarioTable, $dbAdapter)
      {
             $this->UsuarioTable = $UsuarioTable;
+            $this->dbAdapter = $dbAdapter;
      }
 
     /**
@@ -44,11 +47,9 @@ class UsuarioController extends AbstractActionController
      */
      public function registroadminuserAction()
      {
-        $userAdmin = $this->UsuarioTable->fetchAll(); 
-        if($userAdmin == null){  
-           return $this->redirect()->toRoute('home');
-        }
-
+        $user = $this->UsuarioTable->fetchAll();
+        if($user == NULL || $user ==''){
+        
         $form = new RegistroForm();
         $form->get('submit')->setValue('Crear usuario administrador');
         
@@ -82,6 +83,11 @@ class UsuarioController extends AbstractActionController
         $this->UsuarioTable->insertUserAdmin($data);
         //Redireccionar al listado de usuarios
         return $this->redirect()->toRoute('login');
+
+        }else{
+            return $this->redirect()->toRoute('home');
+        }
+          
     } 
 
 
@@ -90,6 +96,10 @@ class UsuarioController extends AbstractActionController
      */
      public function registroAction()
      {
+        if ($this->authService->hasIdentity()){
+            return $this->redirect()->toRoute('home');
+        }
+        
         $form = new RegistroForm();
         $form->get('submit')->setValue('Crear');
 
@@ -99,10 +109,8 @@ class UsuarioController extends AbstractActionController
         if (! $request->isPost()) {
             return ['form' => $form];
         }
-
-    
-        $Validation = new RegistroFormFilter();
-        $form->setInputFilter($Validation->getInputFilter());
+        
+        $form->setInputFilter(new \Usuario\Form\Filter\RegistroFormFilter($this->dbAdapter));
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
@@ -174,7 +182,6 @@ class UsuarioController extends AbstractActionController
         } 
          $data = [
             'Cod_Empleado'=>$usuario->Cod_Empleado,
-            'Usuario'=>$usuario->Usuario,
             'Rol'=>$usuario->Rol,
             'Estado'=>$usuario->Estado,
         ];
@@ -261,5 +268,17 @@ class UsuarioController extends AbstractActionController
         
         $this->UsuarioTable->updateClave($data, $Cod_Usuario); 
         return $this->redirect()->toRoute('usuario');        
+    }
+     public function listoAction()
+    {
+        return new ViewModel([
+                'Guardado'=>'Guardado'
+            ]);
+    }
+    public function errorAction()
+    {
+        return new ViewModel([
+                'error'=>'Lo sentimos ha ocurrido un error'
+            ]);
     }
  }

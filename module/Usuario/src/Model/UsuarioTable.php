@@ -34,6 +34,15 @@ class UsuarioTable
         }
             return $row;
      }
+     public function getUsuarioBoleta($Cod_Usuario)
+     {
+        $Cod_Usuario = $Cod_Usuario;
+        $rowset = $this->tableGateway->getSql()->select();
+        $rowset->columns(['Cod_Usuario','Usuario']);
+        $rowset->where(['Cod_Usuario' =>$Cod_Usuario]);
+        $resultSet = $this->tableGateway->selectWith($rowset);
+        return $resultSet;
+     }
      public function getUsuarioExistente($Correo)
      {
         $Correo = $Correo;

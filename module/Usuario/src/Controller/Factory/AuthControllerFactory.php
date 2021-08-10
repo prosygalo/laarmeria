@@ -5,7 +5,7 @@ use Interop\Container\ContainerInterface;
 use Usuario\Controller\AuthController;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Authentication\AuthenticationService;
-use Usuario\Model\UsuarioTable;
+use Zend\Db\Adapter\AdapterInterface;
 
 
 // Factory class
@@ -15,10 +15,8 @@ class AuthControllerFactory implements FactoryInterface
     {
         
         $authService = $container->get(AuthenticationService::class);
-        $UsuarioTable = $container->get(UsuarioTable::class);
-        $controller = new AuthController($authService, $UsuarioTable);
+        $controller = new AuthController($authService);
          
         return $controller;
     }
 }
-

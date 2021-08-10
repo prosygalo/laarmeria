@@ -16,11 +16,13 @@ class ProductoController extends AbstractActionController
 {
  // Add this property:
     private $table;
+    private $dbAdapter;
 
     // Add this constructor:
-    public function __construct(ProductoTable $table)
+    public function __construct(ProductoTable $table, $dbAdapter)
      {
             $this->table = $table;
+            $this->dbAdapter= $dbAdapter;
      }
 
     public function indexAction()
@@ -55,18 +57,18 @@ class ProductoController extends AbstractActionController
                 return ['form' => $form];
             }
 
-            $producto = new Producto();
-            $form->setInputFilter($producto->getInputFilter());
+           
+            $form->setInputFilter(new  \Producto\Form\Filter\ProductoFilter($this->dbAdapter));
             $form->setData($request->getPost());
 
             if (! $form->isValid()) {
                 return ['form' => $form];
             }
-
+            $producto = new Producto();
             $producto->exchangeArray($form->getData());
             $this->table->saveProducto($producto);
             //view helper
-            return $this->redirect()->toRoute('productos');
+            return $this->redirect()->toRoute('productos/listo');
             
     }
    
@@ -98,7 +100,7 @@ class ProductoController extends AbstractActionController
             return $viewData;
         }
 
-        $form->setInputFilter($producto->getInputFilter());
+        $form->setInputFilter(new  \Producto\Form\Filter\ProductoEditFilter($this->dbAdapter));
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
@@ -136,5 +138,17 @@ class ProductoController extends AbstractActionController
             'pro' => $this->table->getproducto($Cod_Producto),
         ];
             
-        }
+    }
+    public function listoAction()
+    {
+        return new ViewModel([
+                'Guardado'=>'Guardado'
+            ]);
+    }
+    public function errorAction()
+    {
+        return new ViewModel([
+                'error'=>'Lo sentimos ha ocurrido un error'
+            ]);
+    }
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Unidadtransporte\Controller;
 
 use Unidadtransporte\Form\UnidadtransporteForm;
@@ -16,11 +15,13 @@ class UnidadtransporteController extends AbstractActionController
 {
  // Add this property:
     private $table;
+    private $dbAdapter;
 
     // Add this constructor:
-    public function __construct(UnidadtransporteTable $table)
+    public function __construct(UnidadtransporteTable $table, $dbAdapter)
      {
             $this->table = $table;
+            $this->dbAdapter = $dbAdapter;
      }
 
     public function indexAction()
@@ -42,17 +43,18 @@ class UnidadtransporteController extends AbstractActionController
             return ['form' => $form];
         }
 
-        $unidadtransporte = new Unidadtransporte();
-        $form->setInputFilter($unidadtransporte->getInputFilter());
+        
+        $form->setInputFilter(new  \Unidadtransporte\Form\Filter\UnidadtransporteFilter($this->dbAdapter));
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
             return ['form' => $form];
         }
-
+        
+        $unidadtransporte = new Unidadtransporte();
         $unidadtransporte->exchangeArray($form->getData());
         $this->table->saveUnidad($unidadtransporte);
-        return $this->redirect()->toRoute('unidadtransporte');
+        return $this->redirect()->toRoute('unidadtransporte/listo');
     }
    
     public function editAction()
@@ -83,7 +85,7 @@ class UnidadtransporteController extends AbstractActionController
             return $viewData;
         }
 
-        $form->setInputFilter($unidadtransporte->getInputFilter());
+        $form->setInputFilter(new  \Unidadtransporte\Form\Filter\UnidadtransporteEditFilter($this->dbAdapter));
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
@@ -122,5 +124,17 @@ class UnidadtransporteController extends AbstractActionController
             'unit' => $this->table->getUnidad($Cod_Unidad),
         ];
             
-        }
+    }
+    public function listoAction()
+    {
+        return new ViewModel([
+                'Guardado'=>'Guardado'
+            ]);
+    }
+    public function errorAction()
+    {
+        return new ViewModel([
+                'error'=>'Lo sentimos ha ocurrido un error'
+            ]);
+    }
 }

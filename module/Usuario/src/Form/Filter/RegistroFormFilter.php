@@ -1,55 +1,43 @@
 <?php
-
-namespace Usuario\Form\Validation;
+namespace Usuario\Form\Filter;
 
 use DomainException;
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
 use Zend\Filter\ToInt;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorAwareTrait;
 use Zend\Validator\StringLength;
 use Zend\Validator\Regex;
 use Zend\Validator\EmailAddress;
 use Zend\Validator\Identical;
+use Zend\Db\Adapter\Adapter;
+use Zend\Validator\Db\NoRecordExists;
+
 
 /**
  * Este método crea input filter (usado para filtering/validation).
  */
-class RegistroFormFilter  implements InputFilterAwareInterface
+class RegistroFormFilter extends InputFilter
 { 
   
     // agrega propiedades
-    private $inputFilter;
+    private $dbAdapter; 
 
-    /**
-     * Este método crea input filter (usado para filtering/validation).
-     */
-     public function setInputFilter(InputFilterInterface $inputFilter)
+    public function __construct(Adapter $dbAdapter)
     {
-        throw new DomainException(sprintf(
-            '%s does not allow injection of an alternate input filter',
-            __CLASS__
-        ));
-    }
+        $this->dbAdapter = $dbAdapter;
 
-    public function getInputFilter()
-    {
-        if ($this->inputFilter) {
-            return $this->inputFilter;
-          }
-
-          $inputFilter = new InputFilter();
-
-          $inputFilter->add([
+        $this->add([
             'name' => 'Cod_Usuario',
             'filters' => [
                 ['name' => ToInt::class],
                ],
-            ]);
+        ]);
 
-          $inputFilter->add([
+        $this->add([
             'name' => 'Cod_Empleado',
             'filters' => [
                ['name' => StripTags::class],
@@ -82,7 +70,7 @@ class RegistroFormFilter  implements InputFilterAwareInterface
         ]);
 
 
-        $inputFilter->add([
+        $this->add([
             'name' => 'Usuario',
             'filters' => [
                ['name' => StripTags::class],
@@ -116,7 +104,7 @@ class RegistroFormFilter  implements InputFilterAwareInterface
         ]);
 
         
-        $inputFilter->add([
+        $this->add([
             'name' => 'Correo',
             'filters' => [
                ['name' => StripTags::class],
@@ -136,8 +124,7 @@ class RegistroFormFilter  implements InputFilterAwareInterface
                         ]
                     ],
                 ],
-                [
-                    'name' => EmailAddress::class,
+                ['name' => EmailAddress::class,
                     'options' => [
                         'messages' => [
                         \Zend\Validator\EmailAddress::INVALID=>'Tipo no válido dado. Cadena esperada',
@@ -153,10 +140,20 @@ class RegistroFormFilter  implements InputFilterAwareInterface
                     ],
 
                 ],
+                ['name' => NoRecordExists::class,
+                        'options' => [
+                            'table' => 'usuarios',
+                            'field' => 'correo',
+                            'adapter' =>$this->dbAdapter,
+                            'messages' => [
+                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El correo ya existe',
+                           ],
+                        ],
+                ],
             ],
         ]);
 
-          $inputFilter->add([
+        $this->add([
             'name' => 'Rol',
             'filters' => [
                ['name' => StripTags::class],
@@ -188,7 +185,7 @@ class RegistroFormFilter  implements InputFilterAwareInterface
             ],
         ]);
 
-         $inputFilter->add([
+        $this->add([
             'name' => 'Clave',
             'filters' => [
                ['name' => StripTags::class],
@@ -217,7 +214,7 @@ class RegistroFormFilter  implements InputFilterAwareInterface
                  ],
               ]);
 
-       $inputFilter->add([
+      $this->add([
            'name' => 'Confirmarclave',
             'filters' => [
                ['name' => StripTags::class],
@@ -257,7 +254,7 @@ class RegistroFormFilter  implements InputFilterAwareInterface
         ]);
 
 
-          $inputFilter->add([
+        $this->add([
             'name' => 'Estado',
             'filters' => [
                ['name' => StripTags::class],
@@ -288,9 +285,5 @@ class RegistroFormFilter  implements InputFilterAwareInterface
                 ],
             ],
         ]);
-
-
-        $this->inputFilter = $inputFilter;
-        return $this->inputFilter;
     }
 }

@@ -21,10 +21,20 @@ return [
             'may_terminate' => true,
              // Child routes begin:
             'child_routes' => [
+
+            'pre' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/pre',
+                        'defaults' => [
+                            'action' => 'pre',
+                        ],
+                    ],
+                ],
              'add' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/add',
+                        'route'    => '/add[/:Sucursal]',
                         'defaults' => [
                             'action' => 'add',
                         ],
@@ -78,6 +88,7 @@ return [
                         ],   
                     ],
                 ],
+                
                  'pdf' => [
                     'type' =>Segment::class,
                     'options' => [
@@ -88,13 +99,31 @@ return [
                     ],
                 ],
                 //atencion linea de pruebas de codigo
-                'productoprueba' => [
+                'prueba' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/productoprueba',
+                        'route'    => '/prueba',
                         'defaults' => [
-                            'action' => 'productoprueba',
+                            'action' => 'prueba',
                         ],   
+                    ],
+                ],
+                'listo' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/listo',
+                        'defaults' => [
+                            'action' => 'listo',
+                        ],
+                    ],
+                ],
+               'error' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/error',
+                        'defaults' => [
+                            'action' => 'error',
+                        ],
                     ],
                 ],
                  

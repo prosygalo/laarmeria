@@ -6,12 +6,25 @@ return [
       'driver_opcions' => array (PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES \'utf8\''),
       'username'=> 'RoselyG',
       'password'=>'RoselyGmysql'),
-      'service_manager' => array(
+
+    /* 'service_manager' => array(
         'factories' => array(
             'Zend\Db\Adapter\Adapter'
                     => 'Zend\Db\Adapter\AdapterServiceFactory',
           ),
-       ), 
+       ),
+
+     'service_manager' => array(
+    'factories' => array(
+        'Conductor/Model/Conductor' => function($sm){
+            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+            $album = new \Conductor\Model\ConductorForm();
+            $album->setDbAdapter($dbAdapter);
+            return $album;
+        },
+    ),
+),*/
+
 	  /* 'Ldap'[
 	          'host'=>'dc-server.ad.alex-tech-adventure.com',
 	          'userStarTls'=>true,

@@ -36,9 +36,11 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Controller\UnidadtransporteController::class => function($container) {
-                    return new Controller\UnidadtransporteController (
-                        $container->get(Model\UnidadtransporteTable::class)
+                Controller\UnidadtransporteController::class => function($container){
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                        return new Controller\UnidadtransporteController (
+                           $container->get(Model\UnidadtransporteTable::class),
+                           $dbAdapter
                     );
                 },
             ],

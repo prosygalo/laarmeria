@@ -1,5 +1,4 @@
 <?php
-
 namespace Conductor\Controller;
 
 use Conductor\Form\ConductorForm;
@@ -12,17 +11,18 @@ use Zend\View\Model\ViewModel;
 /**
  * This controller is responsible for letting the user to log in and log out.
  */
-
-
 class ConductorController extends AbstractActionController
 {
  // Add this property:
+    private $dbAdapter;
     private $table;
 
     // Add this constructor:
-    public function __construct(ConductorTable $table)
+    public function __construct(ConductorTable $table, $dbAdapter)
      {
             $this->table = $table;
+            $this->dbAdapter = $dbAdapter;
+          
      }
 
     public function indexAction()
@@ -57,18 +57,17 @@ class ConductorController extends AbstractActionController
         if (! $request->isPost()) {
             return ['form' => $form];
         }
-
-        $conductor = new Conductor();
-        $form->setInputFilter($conductor->getInputFilter());
+        
+        $form->setInputFilter(new  \Conductor\Form\Filter\ConductorFilter($this->dbAdapter));
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
             return ['form' => $form];
         }
-
+        $conductor = new Conductor();
         $conductor->exchangeArray($form->getData());
         $this->table->insertConductor($conductor);
-        return $this->redirect()->toRoute('conductor');
+        return $this->redirect()->toRoute('conductor/listo');
     }
    
     public function editAction()
@@ -99,7 +98,7 @@ class ConductorController extends AbstractActionController
             return $viewData;
         }
 
-        $form->setInputFilter($conductor->getInputFilter());
+        $form->setInputFilter(new  \Conductor\Form\Filter\ConductorEditFilter($this->dbAdapter));
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
@@ -114,7 +113,7 @@ class ConductorController extends AbstractActionController
     }
         
 
-    public function deleteAction()
+  /*  public function deleteAction()
     {
             $Cod_Conductor = $this->params()->fromRoute('Cod_Conductor');
             
@@ -139,5 +138,17 @@ class ConductorController extends AbstractActionController
             'Cond' => $this->table->getConductor($Cod_Conductor),
         ];
             
-        }
+    }*/
+    public function listoAction()
+    {
+        return new ViewModel([
+                'Guardado'=>'Guardado'
+            ]);
+    }
+    public function errorAction()
+    {
+        return new ViewModel([
+                'error'=>'Lo sentimos ha ocurrido un error'
+            ]);
+    }
 }

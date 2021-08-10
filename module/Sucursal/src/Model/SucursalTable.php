@@ -30,18 +30,20 @@ class SucursalTable
                 $rowset = $this->SucursalTableGateway->select(['Cod_Sucursal' => $Cod_Sucursal]);
                 $row = $rowset->current();
                 if (! $row) {
-                    /*throw new RuntimeException(sprintf(
-                        'no encuentra el codigo de sucursal ',
-                        
-                    ));*/
                     return false;
                 }
                 return $row;
      }
-    
-   
-    public function getSucursalSelect(){
-
+     public function getSucursalMembrete($Cod_Sucursal)
+     {
+                $Cod_Sucursal = $Cod_Sucursal;
+                $rowset=$this->SucursalTableGateway->getSql()->select();
+                $rowset->columns(['Cod_Sucursal','Direccion','Nombre_Sucursal','Telefono','RTN','Correo']);
+                $rowset->where(['Cod_Sucursal' => $Cod_Sucursal]);
+                $resultSet=$this->SucursalTableGateway->selectWith($rowset);
+                return $resultSet;
+     }
+    public function getSucursalListado(){
                 $rowset = $this->SucursalTableGateway->getSql()->select();
                 $rowset->columns(array('Cod_Sucursal','Nombre_Sucursal'));
                 $resultSet = $this->SucursalTableGateway->selectWith($rowset);
@@ -51,7 +53,46 @@ class SucursalTable
                 }
                    return $data;
                  
-     }
+    }
+    public function getSucursalSelect($Cod_Sucursal){
+                $Cod_Sucursal = $Cod_Sucursal;
+                $rowset = $this->SucursalTableGateway->getSql()->select();
+                $rowset->columns(array('Cod_Sucursal','Nombre_Sucursal'));
+                $rowset->where(['Cod_Sucursal' => $Cod_Sucursal]);
+                $resultSet = $this->SucursalTableGateway->selectWith($rowset);
+                $data= array();
+                foreach($resultSet as $row){
+                   $data[$row->Cod_Sucursal] = $row->Nombre_Sucursal;
+                }
+                   return $data;
+                 
+    }
+    public function getSucursalDireccion($Cod_Sucursal){
+                
+                $Cod_Sucursal = $Cod_Sucursal;
+                $rowset = $this->SucursalTableGateway->getSql()->select();
+                $rowset->columns(array('Cod_Sucursal','Direccion'));
+                $rowset->where(['Cod_Sucursal' => $Cod_Sucursal]);
+                $resultSet = $this->SucursalTableGateway->selectWith($rowset);
+                $data= array();
+                foreach($resultSet as $row){
+                   $data[$row->Direccion] = $row->Direccion;
+                }
+                   return $data;
+                 
+    }
+    public function getSucursalDireccionSelect(){
+
+                $rowset = $this->SucursalTableGateway->getSql()->select();
+                $rowset->columns(array('Cod_Sucursal','Direccion'));
+                $resultSet = $this->SucursalTableGateway->selectWith($rowset);
+                $data= array();
+                foreach($resultSet as $row){
+                   $data[$row->Direccion] = $row->Direccion;
+                }
+                   return $data;
+                 
+    }
     public function saveSucursal(Sucursal $sucursal)
      {
              $data = [
@@ -88,10 +129,10 @@ class SucursalTable
                     
                     $this->getSucursal($Cod_Sucursal);
                 } catch (RuntimeException $e) {
-                    /*throw new RuntimeException(sprintf(
-                        'No se puede actualizar sucursal',
+                     throw new RuntimeException(sprintf(
+                        'No se puede actualizar sucursal'
                          
-                    ));*/
+                    ));
                     return false;
                 }
 

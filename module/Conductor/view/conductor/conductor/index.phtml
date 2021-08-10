@@ -14,7 +14,8 @@ $this->headTitle($title);
         <th>c&oacute;digo de  conductor</th>
         <th>Nombres </th>
         <th>Apellidos</th>
-        <th>RTN</th>
+        <th>DNI</th>
+        <th>Estado</th>
         <th>Fecha de ingreso</th>
         <th>Fecha de actualizaci&oacute;n</th>
         <th>Acci&oacute;n</th>
@@ -26,13 +27,13 @@ $this->headTitle($title);
         <td><?= $this->escapeHtml($cond->Cod_Conductor) ?></td>
         <td><?= $this->escapeHtml($cond->Nombres_Conductor) ?></td>
         <td><?= $this->escapeHtml($cond->Apellidos_Conductor) ?></td>
-        <td><?= $this->escapeHtml($cond->Rtn) ?></td>
+        <td><?= $this->escapeHtml($cond->Dni) ?></td>
+        <td><?= $this->escapeHtml($cond->Estado) ?></td>
         <td><?= $this->escapeHtml($cond->Fecha_Ingreso) ?></td>
         <td><?= $this->escapeHtml($cond->Fecha_Actualizacion) ?></td>
         <td>
             
-             <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('conductor/edit',['Cod_Conductor'=>$cond->Cod_Conductor])?>"><span class="glyphicon glyphicon-pencil"></span>Editar</a>
-            <a type="button" class="btn btn-danger btn-sm"  href="<?= $this->url('conductor/delete', ['Cod_Conductor'=>$cond->Cod_Conductor])?>"><span class="glyphicon glyphicon-remove"></span> Eliminar</a>      
+             <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('conductor/edit',['Cod_Conductor'=>$cond->Cod_Conductor])?>"><span class="glyphicon glyphicon-pencil"></span>Editar</a>      
         </td>
     </tr>
 <?php endforeach; ?>
