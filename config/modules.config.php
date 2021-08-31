@@ -30,7 +30,6 @@ return [
     'Zend\Cache',
     'Zend\Router',
     'Zend\Validator',
-    'ZendDeveloperTools',
     'Application',
     'Producto',
     'Departamento',

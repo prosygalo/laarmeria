@@ -12,13 +12,12 @@
           td {
            text-align: left;
            vertical-align: top;
-           padding: 0.2em;
+           
           }
           th{
           	text-align: left;
             width: 100%;
             vertical-align: top;
-            padding: 0.2em;
             font-weight: bold;
             font-size: 0.8em;
           }
@@ -39,7 +38,25 @@
        input{
            display: block;
            width: 75%;
-           height: 25px;
+           height: 20px;
+           padding:  5px 10px;
+           font-size: 14px;
+           line-height: 1.42857143;
+           color: #000;
+           background-color: #fff;
+           background-image: none;
+           border: 1px solid #ccc;
+           border-radius: 3px;
+          -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+          -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+          .d{
+           display: block;
+           width: 75%;
+           height: 40px;
            padding:  5px 10px;
            font-size: 14px;
            line-height: 1.42857143;
@@ -107,9 +124,11 @@ $Num_Transferencia->setAttribute('readonly', 'readonly');
 
 $Punto_Partida=$form->get('Punto_Partida');
 $Punto_Partida->setAttribute('disabled', 'disabled');
+$Punto_Partida->setAttribute('class', 'd');
 
 $Punto_Destino=$form->get('Punto_Destino');
 $Punto_Destino->setAttribute('disabled', 'disabled');
+$Punto_Destino->setAttribute('class', 'd');
 
 $Autorizacion_Sar=$form->get('Autorizacion_Sar');
 $Autorizacion_Sar->setAttribute('readonly', 'readonly');
@@ -147,10 +166,10 @@ echo $this->form()->openTag($form);
                     <tr>
                         <td style="height:10%;width:20%;"><img src="http://guiasremision/img/logo.PNG" style="height:63px;width:98px;"/></td>
                         <td style="width:100%;"><h3 style="text-align:center;"><?= $this->escapeHtml($title) ?></h3></td>
-                        <td style="width:100%;text-align:left;"><?php foreach ($Suc as $g) : ?>
+                        <td style="width:100%;"><?php foreach ($Suc as $g) : ?>
                         <label>La Armeria</label><br>
                         <label><?= $this->escapeHtml($g->Direccion) ?></label><br>
-                        <label>Teléfono:<?= $this->escapeHtml($g->Telefono) ?></label><br>
+                        <label>Tel:<?= $this->escapeHtml($g->Telefono) ?></label><br>
                         <label>RTN:<?= $this->escapeHtml($g->RTN) ?></label> 
                         <?php endforeach; ?>
                         </td>
@@ -192,7 +211,7 @@ echo $this->form()->openTag($form);
                   <tr>
              	      <td><?= $this->formElement($Fecha_Emision)?></td>
                     <td><?= $this->formElement($Autorizacion_Sar)?></td>
-                    <td><?= $this->formElement($Fecha_Final_Traslado)?></td>
+                    <td><?= $this->formElement($Fecha_Inicio_Traslado)?></td>
                     <td><?= $this->formElement($Fecha_Final_Traslado)?></td>
                   </tr>
                 </tbody>
@@ -201,27 +220,27 @@ echo $this->form()->openTag($form);
                 <thead>
                   <tr>
                     <th><?= $this->formLabel($Punto_Partida)?></th>
-                    <th><?= $this->formLabel($Motivo_Traslado)?></th>
+                    <th><?= $this->formLabel($Punto_Destino)?></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td><?= $this->formElement($Punto_Partida)?></td>
-                    <td><?= $this->formElement($Motivo_Traslado)?></td>
+                    <td><?= $this->formElement($Punto_Destino)?></td>  
                   </tr>
                 </tbody>
             </table>
             <table>
                 <thead>
                   <tr>
-                     <th><?= $this->formLabel($Punto_Destino)?></th>
                      <th><?= $this->formLabel($Num_Transferencia)?></th>
+                     <th><?= $this->formLabel($Motivo_Traslado)?></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><?= $this->formElement($Punto_Destino)?></td>
                     <td><?= $this->formElement($Num_Transferencia)?></td>
+                    <td><?= $this->formElement($Motivo_Traslado)?></td>
                   </tr>
                 </tbody>
             </table>

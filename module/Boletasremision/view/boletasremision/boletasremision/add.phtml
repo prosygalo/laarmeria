@@ -11,7 +11,9 @@ $Num_Transferencia=$form->get('Num_Transferencia');
 $Punto_Partida=$form->get('Punto_Partida');
 $Punto_Destino=$form->get('Punto_Destino');
 $Fecha_Inicio_Traslado=$form->get('Fecha_Inicio_Traslado');
+$Fecha_Inicio_Traslado->setAttribute('placeholder','yyyy-mm-dd');
 $Fecha_Final_Traslado=$form->get('Fecha_Final_Traslado');
+$Fecha_Final_Traslado->setAttribute('placeholder','yyyy-mm-dd');
 $Sucursal=$form->get('Sucursal');
 $Unidad_Transporte=$form->get('Unidad_Transporte');
 $Conductor=$form->get('Conductor');
@@ -23,197 +25,195 @@ $Agregar=$form->get('agregar');
 $submit=$form->get('submit');
 
 $form->prepare();
-echo $this->form()->openTag($form);
-?>                                              
-<div class="container">
-    <fieldset>
-        <h3 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h3>
-    </fieldset>   
-        <div class="row">
-            <h4 >N&uacute;mero de documento fiscal</h4>
-                <div class="col-md-3">
-                    <div class="form-group">
+?>
+<section id="cover" style="margin-top: 50px">
+    <div id="cover-caption">
+        <div id="container" class="container">                                              
+            <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+                <?= $this->form()->openTag($form)?>
+                <h5>N&uacute;mero de documento fiscal</h5>
+                <div class="row" style="background-color:#F5F5F5">
+                      <div class="col-md-2">
+                          <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Establ) ?>
                             <?= $this->formElement($Consecutivo_Actual_Establ) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Establ, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
+                          </div>
+                      </div>
+                      <div class="col-md-2">
+                          <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElement($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Punto, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
+                          </div>
+                      </div>
+                      <div class="col-md-2">
+                          <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Tipo, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Correlativo, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                      </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Fecha_Emision) ?>
+                            <?= $this->formElement($Fecha_Emision) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Autorizacion_Sar) ?>
+                            <?= $this->formElement($Autorizacion_Sar) ?>
+                            <?= $this->formElementErrors()->render($Autorizacion_Sar, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Fecha_Inicio_Traslado) ?>
+                            <?= $this->formElement($Fecha_Inicio_Traslado) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Inicio_Traslado, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Fecha_Final_Traslado) ?>
+                            <?= $this->formElement($Fecha_Final_Traslado) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Final_Traslado, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
                     </div>
                 </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <?= $this->formLabel($Fecha_Emision) ?>
-                    <?= $this->formElement($Fecha_Emision) ?>
-                    <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
-                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <?= $this->formLabel($Autorizacion_Sar) ?>
-                    <?= $this->formElement($Autorizacion_Sar) ?>
-                    <?= $this->formElementErrors()->render($Autorizacion_Sar, ['class' => 'help-inline  text-danger']) ?>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <?= $this->formLabel($Fecha_Inicio_Traslado) ?>
-                    <?= $this->formElement($Fecha_Inicio_Traslado) ?>
-                    <?= $this->formElementErrors()->render($Fecha_Inicio_Traslado, ['class' => 'help-inline  text-danger']) ?>
-               </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <?= $this->formLabel($Fecha_Final_Traslado) ?>
-                    <?= $this->formElement($Fecha_Final_Traslado) ?>
-                    <?= $this->formElementErrors()->render($Fecha_Final_Traslado, ['class' => 'help-inline  text-danger']) ?>
-                </div>
-            </div>
-        </div>
     
-        <div class="row">
-             <div class="col-md-8">
-                 <div class="form-group">
-                    <?= $this->formLabel($Punto_Partida) ?>
-                    <?= $this->formElement($Punto_Partida) ?>
-                    <?= $this->formElementErrors()->render($Punto_Partida, ['class' => 'help-inline  text-danger']) ?>
-                 </div>
-             </div>
-             <div class="col-md-4">
-                 <div class="form-group">
-                    <?= $this->formLabel($Motivo_Traslado) ?>
-                    <?= $this->formElement($Motivo_Traslado) ?>
-                    <?= $this->formElementErrors()->render($Motivo_Traslado, ['class' => 'help-inline  text-danger']) ?>
-                 </div>
-             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="form-group">
-                    <?= $this->formLabel($Punto_Destino) ?>
-                    <?= $this->formElement($Punto_Destino) ?>
-                    <?= $this->formElementErrors()->render($Punto_Destino, ['class' => 'help-inline  text-danger']) ?>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <?= $this->formLabel($Punto_Partida) ?>
+                            <?= $this->formElement($Punto_Partida) ?>
+                            <?= $this->formElementErrors()->render($Punto_Partida, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($Motivo_Traslado) ?>
+                            <?= $this->formElement($Motivo_Traslado) ?>
+                            <?= $this->formElementErrors()->render($Motivo_Traslado, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <?= $this->formLabel($Num_Transferencia) ?>
-                    <?= $this->formElement($Num_Transferencia) ?>
-                    <?= $this->formElementErrors()->render($Num_Transferencia, ['class' => 'help-inline  text-danger']) ?>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <?= $this->formLabel($Punto_Destino) ?>
+                            <?= $this->formElement($Punto_Destino) ?>
+                            <?= $this->formElementErrors()->render($Punto_Destino, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($Num_Transferencia) ?>
+                            <?= $this->formElement($Num_Transferencia) ?>
+                            <?= $this->formElementErrors()->render($Num_Transferencia, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Sucursal) ?>
+                            <?= $this->formElement($Sucursal) ?>
+                            <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
         
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <?= $this->formLabel($Sucursal) ?>
-                    <?= $this->formElement($Sucursal) ?>
-                    <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Unidad_Transporte) ?>
+                            <?= $this->formElement($Unidad_Transporte) ?>
+                            <?= $this->formElementErrors()->render($Unidad_Transporte, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Conductor) ?>
+                            <?= $this->formElement($Conductor) ?>
+                            <?= $this->formElementErrors()->render($Conductor, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Usuario) ?>
+                            <?= $this->formElement($Usuario) ?>
+                            <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        
-            <div class="col-md-3">
-                <div class="form-group">
-                    <?= $this->formLabel($Unidad_Transporte) ?>
-                    <?= $this->formElement($Unidad_Transporte) ?>
-                    <?= $this->formElementErrors()->render($Unidad_Transporte, ['class' => 'help-inline  text-danger']) ?>
-                </div>
-            </div>
-            <div class="col-md-3">
-                 <div class="form-group">
-                    <?= $this->formLabel($Conductor) ?>
-                    <?= $this->formElement($Conductor) ?>
-                    <?= $this->formElementErrors()->render($Conductor, ['class' => 'help-inline  text-danger']) ?>
-                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <?= $this->formLabel($Usuario) ?>
-                    <?= $this->formElement($Usuario) ?>
-                    <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
-                </div>
-            </div>
-        </div>
-             
-        <div class="row">
-          <h4>Lista de productos</h4>           
-            <div class="col-md-12">
-                <table id="TablaPro" class="table">
-                    <thead>
-                        <tr>
-                        <th></th>
-                        <th></th>   
-                        <th></th>
-                        <th>Código</th>
-                        <th>Descripci&oacute;n</th>
-                        <th>Cantidad</th>
-                        <th>Acci&oacute;n</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ProSelected">
-                    <!--Ingreso un id al tbody-->
-                    <tr>
+                <h5>Lista de productos</h5> 
+                <div class="row">          
+                    <div class="col-md-12">
+                        <table id="TablaPro" class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>   
+                                    <th></th>
+                                    <th>Código</th>
+                                    <th>Descripci&oacute;n</th>
+                                    <th>Cantidad</th>
+                                    <th>Acci&oacute;n</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ProSelected">
+                            <!--Ingreso un id al tbody-->
+                                <tr>
                     
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-6">
-                 <div class="form-group">
-                <!-- submit agregar-->
-                 <?= $this->formButton($Agregar)?>
-                 <span id="limit" class="text-danger"></span>
-                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                <!-- submit guardado-->
-                <?php
-                  echo  $this->formSubmit($submit);
-                  echo  $this->formHidden($form->get('Cod_Boleta'));
-                ?>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                        <!-- submit agregar-->
+                        <?= $this->formButton($Agregar)?>
+                            <span id="limit" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                        <!-- submit guardado-->
+                        <?php
+                            echo  $this->formSubmit($submit);
+                            echo  $this->formHidden($form->get('Cod_Boleta'));
+                        ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div> 
+              <?=  $this->form()->closeTag() 2?> 
+          </div>
     </div>
-
-  <?php
- if ($prod != NULL){
-  ?>
+</section>
     <!-- Large modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
                     <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><i class="fa fa-shopping-cart"></i>Agregar productos a la lista</h4>
+                   <h4 class="modal-title"><i class="fa fa-shopping-cart"></i>Agregar productos a la lista</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                    </button>            
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-
-                         <?= $this->formElement($productos) ?>
+                      <?= $this->formElement($productos) ?>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -223,93 +223,73 @@ echo $this->form()->openTag($form);
             </div>
         </div>
     </div>
+<script type="text/javascript">
+   $( document ).ready(function(){
+    $('#Fecha_Inicio_Traslado').datepicker({
+      iconsLibrary: 'fontawesome',
+      footer: true,
+      modal: true,
+      format: 'yyyy-mm-dd',
+         //locale: 'es-es'
+      });
+    $('#Fecha_Final_Traslado').datepicker({
+      iconsLibrary: 'fontawesome',
+      footer: true,
+      modal: true,
+      format: 'yyyy-mm-dd',
+         //locale: 'es-es'
+      });
+  });
 
-<?php
-}else{
-?> 
-   <!-- Large modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-                    <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><i class="fa fa-shopping-cart"></i>Agregar productos a la lista</h4>
-                </div>
-            </div>
-        </div>
-    </div>
+  function RefrescaProducto(){
+    var ip = [];
+    var i = 0;
+    $('.contadorfilas').each(function(index, element){
+      i++;
+      ip.push({
+          id_pro: $(this).val()
+        });
+      });
+    if(i != ''){
+      $('#submit').removeAttr('disabled', 'disabled');
+    }else{
+      $('#submit').attr('disabled', 'disabled');
+    }
+    if(i == 10){
+      $('.blo').attr('disabled', 'disabled');
+        var total = document.getElementById("limit");
+          total.innerHTML='*Puede agregar un máximo de 10 tipos de productos a la lista';
+    }
+    if(i <  10){
+      $('.blo').removeAttr('disabled', 'disabled');
+        var total = document.getElementById("limit");
+            total.innerHTML='';
+          }
+    }
 
-
-<?php
-}
-?>
-
-    <script type="text/javascript">
-        function RefrescaProducto(){
-            var ip = [];
-            var i = 0;
-            $('.contadorfilas').each(function(index, element){
-                i++;
-                ip.push({
-                    id_pro: $(this).val()
-                });
-            });
-            //Habilitar el Boton Guardar
-            if(i != ''){
-                $('#submit').removeAttr('disabled', 'disabled');
-             }else{
-                $('#submit').attr('disabled', 'disabled');
-             }
-             //limitar el maximo de articulos
-             if(i == 10){
-                 $('.blo').attr('disabled', 'disabled');
-                 var total = document.getElementById("limit");
-                 total.innerHTML='*Puede agregar un máximo de 10 tipos de productos a la lista';
-             }
-             //limitar el maximo de articulos
-             if(i <  10){
-                 $('.blo').removeAttr('disabled', 'disabled');
-                 var total = document.getElementById("limit");
-                 total.innerHTML='';
-             }
-        }
-
-       function agregarP(){
-
-                var text = $('#pro_id').find(':selected').text(); 
-                var Cod_Producto = $('#pro_id').find(':selected').val(); 
-                
-               var newtr ='<tr class="item">';
-               newtr= newtr+'<td class="contadorfilas"><td><input type="hidden" name="Cod_Detalle[]" required><td/><td><input type="text" class="form-control" readonly="readonly" name="Cod_Producto[]" id="Cod_Producto[]" value="'+Cod_Producto+'"></td><td><input type="text" class="form-control" id="Descripcion[]" readonly="readonly"  required value="'+text+'"></td><td><input type="text" class="form-control" name="Cantidad[]" id="Cantidad[]" value="1" onkeypress="return int(event)" maxlength="4" required ></td>';
+  function agregarP(){
+    var text = $('#pro_id').find(':selected').text(); 
+    var Cod_Producto = $('#pro_id').find(':selected').val(); 
+    var newtr ='<tr class="item">';
+        newtr= newtr+'<td class="contadorfilas"><td><input type="hidden" name="Cod_Detalle[]" required><td/><td><input type="text" class="form-control" readonly="readonly" name="Cod_Producto[]" id="Cod_Producto[]" value="'+Cod_Producto+'"></td><td><input type="text" class="form-control" id="Descripcion[]" readonly="readonly"  required value="'+text+'"></td><td><input type="text" class="form-control" name="Cantidad[]" id="Cantidad[]" value="1" onkeypress="return int(event)" maxlength="4" required ></td>';
                 newtr= newtr+'<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
-
-                $('#ProSelected').append(newtr);
-
-                 RefrescaProducto(); //Refresco Productos
-              
-
-                $('.remove-item').off().click(function(e){
-                $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
-                if ($('#ProSelected tr').length == 0)
-                    $('#ProSelected .no-item').slideDown(300);
-
-                 RefrescaProducto();         
-             
-                 });
+        $('#ProSelected').append(newtr);
+          RefrescaProducto(); //Refresco Productos
+        $('.remove-item').off().click(function(e){
+           $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
+              if ($('#ProSelected tr').length == 0)
+                 $('#ProSelected .no-item').slideDown(300);
+            RefrescaProducto();         
+        });
                
-         }
-
-         function int(e){
-           tecla = (document.all) ? e.keyCode : e.which;
-           if (tecla==8){
-            return true;
-             }
-           patron =/^[1-9]+$/;
-          tecla_final = String.fromCharCode(tecla);
-          return patron.test(tecla_final);
+  }
+   function int(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+       if (tecla==8){
+        return true;
+        }
+        patron =/^[1-9]+$/;
+        tecla_final = String.fromCharCode(tecla);
+        return patron.test(tecla_final);
           }       
-    </script>
-    <?php          
-        echo  $this->form()->closeTag();
-     ?>
+</script>

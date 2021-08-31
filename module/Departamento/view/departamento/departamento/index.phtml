@@ -2,52 +2,49 @@
 $title = 'Listado de departamentos';
 $this->headTitle($title);
 ?>
-<div class="container">
-<h2><?= $this->escapeHtml($title) ?></h2>
-<div>
-   <p>
-      <a class="btn btn-success menu" href="<?= $this->url('departamento/add')?>"><span class="glyphicon glyphicon-plus">Agregar</a></span></a>
-   </p>
-</div>
-<table class="table table-striped table-bordered table-hover  dt-responsive nowrap" cellspacing="0"  id="example"  style="width:100%">
-<thead style="background-color:brown;color:white;">
-     <tr>
-        <th>c&oacute;digo de departamento</th>
-        <th>Nombre de departamento</th>
-        <th>C&oacute;digo de sucursal</th>
-        <th>Nombre sucursal</th>
-        <th>Fecha de ingreso</th>
-        <th>Fecha de actualizaci&oacute;n</th>
-        <th>Acci&oacute;n</th>
-    </tr>
-</thead>
-<tbody>
-<?php foreach ($depto as $dep) : ?>
-    <tr>
-        <td><?= $this->escapeHtml($dep->Cod_Departamento) ?></td>
-        <td><?= $this->escapeHtml($dep->Nombre_Depto) ?></td>
-        <td><?= $this->escapeHtml($dep->Sucursal) ?></td>
-        <td><?= $this->escapeHtml($dep->Nombre_Sucursal) ?></td>
-        <td><?= $this->escapeHtml($dep->Fecha_Ingreso) ?></td>
-        <td><?= $this->escapeHtml($dep->Fecha_Actualizacion) ?></td>
-        <td>
-             <a type="button" class="btn btn-primary btn-sm"  href="<?= $this->url('departamento/edit',['Cod_Departamento'=>$dep->Cod_Departamento])?>"><span class="glyphicon glyphicon-pencil"></span>Editar</a>      
-        </td>
-    </tr>
-<?php endforeach; ?>
-</tbody>
-</table>
+<div class="container-fluid">
+  <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+    <p>
+      <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('departamento/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
+    </p>
+    <table class="display"   id="example"  style="width:100%">
+      <thead style="background-color:brown;color:white;">
+        <tr>
+          <th>c&oacute;digo de departamento</th>
+          <th>Nombre de departamento</th>
+          <th>C&oacute;digo de sucursal</th>
+          <th>Nombre sucursal</th>
+          <th>Fecha de ingreso</th>
+          <th>Fecha de actualizaci&oacute;n</th>
+          <th>Acci&oacute;n</th>
+        </tr> 
+      </thead>
+      <tbody>
+      <?php foreach ($depto as $dep) : ?>
+        <tr>
+          <td><?= $this->escapeHtml($dep->Cod_Departamento) ?></td>
+          <td><?= $this->escapeHtml($dep->Nombre_Depto) ?></td>
+          <td><?= $this->escapeHtml($dep->Sucursal) ?></td>
+          <td><?= $this->escapeHtml($dep->Nombre_Sucursal) ?></td>
+          <td><?= $this->escapeHtml($dep->Fecha_Ingreso) ?></td>
+          <td><?= $this->escapeHtml($dep->Fecha_Actualizacion) ?></td>
+          <td>
+             <a type="button" class="btn btn-primary btn-sm"  href="<?= $this->url('departamento/edit',['Cod_Departamento'=>$dep->Cod_Departamento])?>"><i class="fa fa-pencil"></i></a>      
+          </td>
+        </tr>
+      <?php endforeach; ?>
+      </tbody>
+    </table>
 </div>
 <script type="text/javascript">
  $(document).ready(function() {
     $('#example').DataTable({
     "language": {
-      "url": "datatable/Spanish.json"
+      "url": "datatables/js/Spanish.json"
     }
     });
    });
 </script>
-
 
   
 

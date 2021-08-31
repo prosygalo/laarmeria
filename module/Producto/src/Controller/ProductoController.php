@@ -32,20 +32,6 @@ class ProductoController extends AbstractActionController
             ]);
      }
      
-     public function verproductoAction(){
-            //Recogemos el valor de la ruta
-           $Cod_Producto = $this->params()->fromRoute('Cod_Producto', 0);
-            /*
-            *Le podemos indicar el tipo de dato que va a ser
-            *$id=(int)$this->params()->fromRoute("id",null);
-            */
-             
-            $nombre ='Codigo: '. $Cod_Producto;
-            return new ViewModel([
-                    'nombre' => $nombre,
-                    ]);
-     }
-
      public function addAction()
      {
             $form = new ProductoForm();
@@ -57,7 +43,6 @@ class ProductoController extends AbstractActionController
                 return ['form' => $form];
             }
 
-           
             $form->setInputFilter(new  \Producto\Form\Filter\ProductoFilter($this->dbAdapter));
             $form->setData($request->getPost());
 

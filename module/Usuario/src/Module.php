@@ -80,13 +80,13 @@ class Module implements ConfigProviderInterface
                 Acl::class=> function ($sm){
                     $acl= new Acl();   
                 /**agregar  los roles con la herencia de controles de acceso*/
-                    $acl->addRole(new Role('invitado'))
+                    $acl->addRole(new Role('Invitado'))
                     /**El usuario miembro hereda controles de acceso de invitado*/
-                    ->addRole(new Role('miembro'), 'invitado')
+                    ->addRole(new Role('Miembro'), 'Invitado')
                     /**El usuario especial hereda controles de acceso de miembro*/
-                    ->addRole(new Role('especial'), 'miembro')
+                    ->addRole(new Role('Especial'), 'Miembro')
                     /**El administrador no hereda controles de acceso pues tiene acceso a todo*/
-                    ->addRole(new Role('admin'));
+                    ->addRole(new Role('Admin'));
                     /*
                      *-modulo application,controlador index 
                      *-modulo autorizacionsar,controlador autorizacionsar 
@@ -114,21 +114,21 @@ class Module implements ConfigProviderInterface
                     ->addResource(new Resource('unidadtransporte:unidadtransporte'))
                     ->addResource(new Resource('usuario:usuario'))
                     ->addResource(new Resource('usuario:auth'))
-                    ->allow('invitado','application:index')
-                    ->allow('invitado','usuario:auth',['login'])
-                    ->allow('invitado','usuario:usuario',['registroadminuser'])
-                    ->allow('invitado','boletasremision:boletasremision',['pdf','reporte'])
-                    ->allow('miembro','usuario:auth')
-                    ->allow('miembro','usuario:usuario',['perfil'])
-                    ->allow('miembro','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
-                    ->allow('especial','boletasremision:boletasremision',['index'])
-                    ->allow('especial','autorizacionsar:autorizacionsar',['index','add','listo','error'])
-                    ->allow('especial','conductor:conductor',['index','add','edit','listo','error'])
-                    ->allow('especial','departamento:departamento',['index','add','edit','listo','error'])
-                    ->allow('especial','producto:producto',['index','add','edit','listo','error'])
-                    ->allow('especial','sucursal:sucursal',['index','add','edit','listo','error'])
-                    ->allow('especial','unidadtransporte:unidadtransporte',['index','add','edit','listo','error'])
-                    ->allow('admin');
+                    ->allow('Invitado','application:index')
+                    ->allow('Invitado','usuario:auth',['login'])
+                    ->allow('Invitado','usuario:usuario',['registroadminuser'])
+                    ->allow('Invitado','boletasremision:boletasremision',['pdf','reporte'])
+                    ->allow('Miembro','usuario:auth')
+                    ->allow('Miembro','usuario:usuario',['perfil'])
+                    ->allow('Miembro','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Especial','boletasremision:boletasremision',['index'])
+                    ->allow('Especial','autorizacionsar:autorizacionsar',['index','add','listo','error'])
+                    ->allow('Especial','conductor:conductor',['index','add','edit','listo','error'])
+                    ->allow('Especial','departamento:departamento',['index','add','edit','listo','error'])
+                    ->allow('Especial','producto:producto',['index','add','edit','listo','error'])
+                    ->allow('Especial','sucursal:sucursal',['index','add','edit','listo','error'])
+                    ->allow('Especial','unidadtransporte:unidadtransporte',['index','add','edit','listo','error'])
+                    ->allow('Admin');
                 }
             ],
 
@@ -141,7 +141,7 @@ class Module implements ConfigProviderInterface
        if ($auth->hasIdentity()){   
           return $auth->getIdentity()['Rol'];
        }else{
-           return   'invitado';
+           return   'Invitado';
        }
        
     }

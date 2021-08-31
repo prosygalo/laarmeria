@@ -17,25 +17,23 @@ class DepartamentoController extends AbstractActionController
 {
  // Add this property:
     private $container;
-    //private $DepartamentoTable;
-    private $table;
+    private $DepartamentoTable;
     private $SucursalTable; 
     private $dbAdapter;
 
     // Add this constructor:
-    public function __construct(ContainerInterface $container, DepartamentoTable  $table, SucursalTable $SucursalTable, $dbAdapter)
+    public function __construct(ContainerInterface $container, DepartamentoTable  $DepartamentoTable, SucursalTable $SucursalTable, $dbAdapter)
     {
             $this->container = $container;
-            //$this->DepartamentoTable = $DepartamentoTable;
+            $this->DepartamentoTable = $DepartamentoTable;
             $this->SucursalTable = $SucursalTable;
-            $this->table = $table;
             $this->dbAdapter=$dbAdapter;
     }
 
     public function indexAction()
      {
             return new ViewModel([
-                'depto' => $this->table->fetchAll(),
+                'depto' => $this->DepartamentoTable->fetchAll(),
             ]);
 
      }
@@ -44,10 +42,11 @@ class DepartamentoController extends AbstractActionController
     { 
         $form = new DepartamentoForm(); // mostrar formulario
         $form->get('submit')->setValue('Guardar');
-        $rowset = $this->SucursalTable->getSucursalSelect(); //llenar select sucursal
+        $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal
         $form->get('Sucursal')->setValueOptions($rowset);
        
         $request = $this->getRequest();
+
         if (! $request->isPost()) {
             return ['form' => $form];
         }
@@ -56,25 +55,16 @@ class DepartamentoController extends AbstractActionController
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
-            return ['form' => $form];
+                return ['form' => $form];
         }
 
          $departamento = new Departamento();
-         $departamento->exchangeArray($form->getData());  // validacion de codigo único
-         $Cod_Departamento = [
-                'Cod_Departamento' => $departamento->Cod_Departamento,
-         ];
-              
-         $existe = $this->table->getDepto($Cod_Departamento); 
+         $departamento->exchangeArray($form->getData());
         
-         if ($existe){
-           //$flashMessenger =$this->flashMessenger()->addErrorMessage('El Código de sucursal ya esta registrado, intente nuevamente');
-            return ['form' => $form];
-         }else{
-             //$flashMessenger = $this->flashMessenger()->clearCurrentMessages();// limpiar mensages flash
-                  $this->table->saveDepto($departamento);
-            return $this->redirect()->toRoute('departamento/listo'); 
-        }
+        $this->DepartamentoTable->saveDepto($departamento);
+            //view helper
+        return $this->redirect()->toRoute('departamento/listo');
+         
     }
 
       public function editAction()
@@ -89,14 +79,14 @@ class DepartamentoController extends AbstractActionController
         // an exception if the album is not found, which should result
         // in redirecting to the landing page.
         try {
-            $departamento = $this->table->getDepto($Cod_Departamento);
+            $departamento = $this->DepartamentoTable->getDepto($Cod_Departamento);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('departamento');
         }
 
         $form = new DepartamentoForm();
         $form->bind($departamento);
-        $rowset = $this->SucursalTable->getSucursalSelect(); //llenar select sucursal
+        $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal
         $form->get('Sucursal')->setValueOptions($rowset);
         $form->get('submit')->setAttribute('value', 'Actualizar');
 
@@ -114,39 +104,12 @@ class DepartamentoController extends AbstractActionController
             return $viewData;
         }
 
-        $this->table->UpdateDepto($departamento);
+        $this->DepartamentoTable->UpdateDepto($departamento);
 
         // Redirect to album list
         return $this->redirect()->toRoute('departamento');
     }
         
-
-    public function deleteAction()
-    {
-            $Cod_Departamento = $this->params()->fromRoute('Cod_Departamento');
-            
-            if (!$Cod_Departamento) {
-                return $this->redirect()->toRoute('departamento');
-            }
-
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $del = $request->getPost('del', 'No');
-
-                if ($del == 'Yes') {
-                    $Cod_Departamento=$request->getPost('Cod_Departamento');
-                    $this->table->deleteDepto($Cod_Departamento);
-                }
-
-                // Redirect to list 
-                return $this->redirect()->toRoute('departamento');
-            }
-             return [
-            'Cod_Departamento'    => $Cod_Departamento,
-            'dep' => $this->table->getDepto($Cod_Departamento),
-        ];
-            
-   }
    public function listoAction()
     {
         return new ViewModel([

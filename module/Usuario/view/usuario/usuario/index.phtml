@@ -2,49 +2,50 @@
 $title = 'Listado de Usuarios';
 $this->headTitle($title);
 ?>
-<div class="container">
-<h2><?= $this->escapeHtml($title) ?></h2>
-   <div>
-      <p><a class="btn btn-success btn-sm menu" href="<?= $this->url('usuario/registro')?>"><span class="glyphicon glyphicon-plus"></span>Agregar</a></p>
-   </div>
-<table class="table table-striped table-bordered table-hover  dt-responsive nowrap "  cellspacing="0"  id="example"  style="width:100%">
-<thead style="background-color:brown;color:white;">
-     <tr>
-        <th>c&oacute;digo de  empleado</th>
-        <th>Usuario</th>
-        <th>Correo</th>
-        <th>Rol</th>
-        <th>Estado</th>
-        <th>Fecha de ingreso</th>
-        <th>Fecha de actualizaci&oacute;n</th>
-        <th>Acci&oacute;n</th>
-    </tr>
-</thead>
-<tbody>
-<?php foreach ($usuario as $u) : ?>
-    <tr>
-        <td><?= $this->escapeHtml($u->Cod_Empleado) ?></td>
-        <td><?= $this->escapeHtml($u->Usuario) ?></td>
-        <td><?= $this->escapeHtml($u->Correo) ?></td>
-        <td><?= $this->escapeHtml($u->Rol) ?></td>
-        <td><?= $this->escapeHtml($u->Estado) ?></td>
-        <td><?= $this->escapeHtml($u->Fecha_Ingreso) ?></td>
-        <td><?= $this->escapeHtml($u->Fecha_Actualizacion) ?></td>
-        <td>
-            
-             <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('usuario/edit',['Cod_Usuario'=>$u->Cod_Usuario])?>"><span class="glyphicon glyphicon-pencil"></span>Editar</a>
-            <a type="button" class="btn btn-danger btn-sm"  href="<?= $this->url('usuario/restablecerclave', ['Cod_Usuario'=>$u->Cod_Usuario])?>"><span class="glyphicon glyphicon-lock"></span>Actualizar contraseña</a>      
-        </td>
-    </tr>
-<?php endforeach; ?>
-</tbody>
-</table>
+<div class="container-fluid">
+   <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+      <p>
+        <a class="btn btn-outline-info float-right"  role="button"  href="<?= $this->url('usuario/registro')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
+      </p>
+      <table class="display"   id="example"  style="width:100%">
+        <thead style="background-color:brown;color:white;">
+          <tr>
+            <th>c&oacute;digo de usuario</th>
+            <th>Empleado</th>
+            <th>Usuario</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Fecha de ingreso</th>
+            <th>Fecha de actualizaci&oacute;n</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($usuario as $u) : ?>
+          <tr>
+            <td><?= $this->escapeHtml($u->Cod_Usuario) ?></td>
+            <td><?= $this->escapeHtml($u->Cod_Empleado) ?></td>
+            <td><?= $this->escapeHtml($u->Usuario) ?></td>
+            <td><?= $this->escapeHtml($u->Correo) ?></td>
+            <td><?= $this->escapeHtml($u->Rol) ?></td>
+            <td><?= $this->escapeHtml($u->Estado) ?></td>
+            <td><?= $this->escapeHtml($u->Fecha_Ingreso) ?></td>
+            <td><?= $this->escapeHtml($u->Fecha_Actualizacion) ?></td>
+            <td>
+              <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('usuario/edit',['Cod_Usuario'=>$u->Cod_Usuario])?>"><i class="fa fa-pencil"></i></a>
+              <a type="button" class="btn btn-danger btn-sm"  href="<?= $this->url('usuario/restablecerclave', ['Cod_Usuario'=>$u->Cod_Usuario])?>"><i class="fa fa-lock"></i></a>      
+            </td>
+          </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
 </div>
 <script type="text/javascript">
  $(document).ready(function() {
     $('#example').DataTable({
     "language": {
-      "url": "datatable/Spanish.json"
+      "url": "datatables/js/Spanish.json"
     }
     });
    });

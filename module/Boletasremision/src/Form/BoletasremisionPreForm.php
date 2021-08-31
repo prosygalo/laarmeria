@@ -32,7 +32,7 @@ class BoletasremisionPreForm extends Form
         $enviar->setLabel("Enviar");
         $enviar->setAttribute('type','submit');
         $enviar->setAttribute('id','enviar');
-        $enviar->setAttribute('class', 'btn btn-primary btn-block');
+        $enviar->setAttribute('class', 'btn btn-success btn-block');
         $this->add($enviar);
      }
 

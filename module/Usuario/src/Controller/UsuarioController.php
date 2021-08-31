@@ -48,15 +48,11 @@ class UsuarioController extends AbstractActionController
      public function registroadminuserAction()
      {
         $user = $this->UsuarioTable->fetchAll();
-        if($user == NULL || $user ==''){
         
         $form = new RegistroForm();
         $form->get('submit')->setValue('Crear usuario administrador');
         
         //Comprueba la existencia de usuarios en la base de datos
-        //Encriptación de contraseña
-        $bcrypt = new Bcrypt();
-        $Clavesegura = $bcrypt->create('Secur1ty');
         
         //Datos estáticos
         $form->get('Cod_Empleado')->setValue('ADMIN1');
@@ -65,6 +61,10 @@ class UsuarioController extends AbstractActionController
         $form->get('Usuario')->setValue('Admin');
         $form->get('Rol')->setValueOptions(['Admin'=>'Admin']);
         $form->get('Estado')->setValueOptions(['Activo'=>'Activo']);
+
+        //Encriptación de contraseña
+        $bcrypt = new Bcrypt();
+        $Clavesegura = $bcrypt->create('Secur1ty');
 
         $request = $this->getRequest();
         if (! $request->isPost()) {
@@ -83,10 +83,6 @@ class UsuarioController extends AbstractActionController
         $this->UsuarioTable->insertUserAdmin($data);
         //Redireccionar al listado de usuarios
         return $this->redirect()->toRoute('login');
-
-        }else{
-            return $this->redirect()->toRoute('home');
-        }
           
     } 
 
@@ -96,9 +92,6 @@ class UsuarioController extends AbstractActionController
      */
      public function registroAction()
      {
-        if ($this->authService->hasIdentity()){
-            return $this->redirect()->toRoute('home');
-        }
         
         $form = new RegistroForm();
         $form->get('submit')->setValue('Crear');

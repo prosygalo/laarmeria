@@ -1,5 +1,5 @@
 <?php
-$title = 'Registro';
+$title = 'Registro de usuario';
 $this->headTitle($title);
 
 $Cod_Empleado=$form->get('Cod_Empleado');
@@ -29,80 +29,80 @@ $submit=$form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
 
 $form->prepare();
-
-echo $this->form()->openTag($form);
-?>                                                    
-<div class="container">
-<fieldset>
-    <h3 class="text-center"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h3>
-</fieldset> 
-    <div class="row">
-        <div class="col-md-12 col-md-offset-3"> 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <?= $this->formLabel($Cod_Empleado) ?>
-                        <?= $this->formElement($Cod_Empleado) ?>
-                        <?= $this->formElementErrors()->render($Cod_Empleado, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-
-                    <div class="form-group">
-                        <?= $this->formLabel($Usuario) ?>
-                        <?= $this->formElement($Usuario) ?>
-                        <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-
-                    <div class="form-group">
-                        <?= $this->formLabel($Correo) ?>
-                        <?= $this->formElement($Correo) ?>
-                        <?= $this->formElementErrors()->render($Correo, ['class' => 'help-inline  text-danger']) ?>
+?> 
+<section id="cover">
+    <div id="container-fluid">
+        <div id="container" class="container">
+        <h4 class="text-center"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+            <div class="row justify-content-center">
+                <div class="col-md-12 offset-md-7">
+                    <div class="info-form">
+                        <?=$this->form()->openTag($form) ?>
+                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Cod_Empleado) ?>
+                                        <?= $this->formElement($Cod_Empleado) ?>
+                                        <?= $this->formElementErrors()->render($Cod_Empleado, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Usuario) ?>
+                                        <?= $this->formElement($Usuario) ?>
+                                        <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Correo) ?>
+                                        <?= $this->formElement($Correo) ?>
+                                        <?= $this->formElementErrors()->render($Correo, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Clave) ?>
+                                        <?= $this->formElement($Clave) ?>
+                                        <?= $this->formElementErrors()->render($Clave, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Confirmarclave) ?>
+                                        <?= $this->formElement($Confirmarclave) ?>
+                                        <?= $this->formElementErrors()->render($Confirmarclave, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Estado) ?>
+                                        <?= $this->formElement($Estado) ?>
+                                        <?= $this->formElementErrors()->render($Estado, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Rol) ?>
+                                        <?= $this->formElement($Rol) ?>
+                                        <?= $this->formElementErrors()->render($Rol, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                        echo $this->formSubmit($submit);
+                                        echo $this->formHidden($form->get('Cod_Usuario'));
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?= $this->form()->closeTag()?>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <?= $this->formLabel($Clave) ?>
-                        <?= $this->formElement($Clave) ?>
-                        <?= $this->formElementErrors()->render($Clave, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <?= $this->formLabel($Confirmarclave) ?>
-                        <?= $this->formElement($Confirmarclave) ?>
-                        <?= $this->formElementErrors()->render($Confirmarclave, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                     <div class="form-group">
-                        <?= $this->formLabel($Estado) ?>
-                        <?= $this->formElement($Estado) ?>
-                        <?= $this->formElementErrors()->render($Estado, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                     <div class="form-group">
-                        <?= $this->formLabel($Rol) ?>
-                        <?= $this->formElement($Rol) ?>
-                        <?= $this->formElementErrors()->render($Rol, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                     <div class="form-group">
-                        <?php
-                        echo $this->formSubmit($submit);
-                        echo $this->formHidden($form->get('Cod_Usuario'));
-                        echo $this->form()->closeTag();
-                     ?>
-                    </div>
-                </div>
-
-             </div>          
         </div>
     </div>
-</div>
+</section>

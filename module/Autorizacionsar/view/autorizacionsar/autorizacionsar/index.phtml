@@ -3,58 +3,45 @@ $title = 'Listado de autorizaciones de la SAR para reimpresión';
 $this->headTitle($title);
 ?>
 <div class="container-fluid">
-<h3><?= $this->escapeHtml($title) ?></h3>
-<div>
-   <p>
-      <a class="btn btn-primary menu" href="<?= $this->url('autorizacionsar/add')?>"><span class="glyphicon glyphicon-plus">Agregar</a></span></a>
-   </p>
-</div>
-<table class="table table-striped table-bordered table-hover  dt-responsive nowrap" cellspacing="0"  id="example"  style="width:100%">
-<thead  style="background-color:brown;color:white;">
-     <tr>
-        <th>c&oacute;digo</th>
-        <th>Clave de autorización de impresión</th>
-        <th>Consecutivo Inicial</th>
-        <th>Consecutivo Final</th>
-        <th>Consecutivo Actual</th>
-        <th>Sucursal</th>
-        <th>Fecha l&iacute;mite de emisi&oacute;n</th>
-        <th>Fecha de ingreso</th>
-    </tr>
-</thead>
-<tbody>
-<?php foreach ($auto as $a) : ?>
-    <tr>
-        <td><?= $this->escapeHtml($a->Cod_Autorizacion) ?></td>
-        <td><?= $this->escapeHtml($a->Cai) ?></td>
-        <td><?= $this->escapeHtml($a->Consecutivo_Inicial_Establ."-".$a->Consecutivo_Inicial_Punto."-".$a->Consecutivo_Inicial_Tipo."-".$a->Consecutivo_Inicial_Correlativo) ?></td>
-        <td><?= $this->escapeHtml($a->Consecutivo_Final_Establ."-".$a->Consecutivo_Final_Punto."-".$a->Consecutivo_Final_Tipo."-".$a->Consecutivo_Final_Correlativo)  ?></td>
-        <td><?= $this->escapeHtml($a->Consecutivo_Actual_Establ."-".$a->Consecutivo_Actual_Punto."-".$a->Consecutivo_Actual_Tipo."-".$a->Consecutivo_Actual_Correlativo)?></td>
-        <td><?= $this->escapeHtml($a->Sucursal) ?></td>
-        <td><?= $this->escapeHtml($a->Fecha_Limite) ?></td>
-        <td><?= $this->escapeHtml($a->Fecha_Ingreso) ?></td>
-       
-    </tr>
-<?php endforeach; ?>
-</tbody>
-</table>
-</div>
+    <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+      <p>
+        <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('autorizacionsar/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
+      </p>
+    <table class="display"  id="example"  style="width:100%">
+      <thead  style="background-color:brown;color:white;" rowspan="2">
+        <tr>
+          <th>c&oacute;digo</th>
+          <th>Sucursal</th>
+          <th>Clave de autorización de impresión</th>
+          <th>Consecutivo Inicial</th>
+          <th>Consecutivo Final</th>
+          <th>Consecutivo Actual</th>
+          <th>Fecha l&iacute;mite de emisi&oacute;n</th>
+          <th>Fecha de ingreso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($auto as $a) : ?>
+        <tr>
+          <td><?= $this->escapeHtml($a->Cod_Autorizacion) ?></td>
+           <td><?= $this->escapeHtml($a->Sucursal) ?></td>
+          <td><?= $this->escapeHtml($a->Cai) ?></td>
+          <td><?= $this->escapeHtml($a->Consecutivo_Inicial_Establ."-".$a->Consecutivo_Inicial_Punto."-".$a->Consecutivo_Inicial_Tipo."-".$a->Consecutivo_Inicial_Correlativo) ?></td>
+          <td><?= $this->escapeHtml($a->Consecutivo_Final_Establ."-".$a->Consecutivo_Final_Punto."-".$a->Consecutivo_Final_Tipo."-".$a->Consecutivo_Final_Correlativo)  ?></td>
+          <td><?= $this->escapeHtml($a->Consecutivo_Actual_Establ."-".$a->Consecutivo_Actual_Punto."-".$a->Consecutivo_Actual_Tipo."-".$a->Consecutivo_Actual_Correlativo)?></td>
+          <td><?= $this->escapeHtml($a->Fecha_Limite) ?></td>
+          <td><?= $this->escapeHtml($a->Fecha_Ingreso) ?></td>
+        </tr>
+          <?php endforeach; ?>
+      </tbody>
+    </table>
 <script type="text/javascript">
  $(document).ready(function() {
     $('#example').DataTable({
     "language": {
-      "url": "datatable/Spanish.json"
-    }
+      "url": "dataTables/js/Spanish.json"
+      }
     });
    });
 </script>
-
-
-  
-
-
-  
-  
-  
-        
-        
+</div>

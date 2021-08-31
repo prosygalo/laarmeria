@@ -2,43 +2,46 @@
 $title = 'Listado de boletas para guias de remisión';
 $this->headTitle($title);
 ?>
-<div class="container">
-<h2><?= $this->escapeHtml($title) ?></h2>
-   <div>
-      <p><a class="btn btn-success btn-sm menu" href="<?= $this->url('boletasremision/pre')?>"><span class="glyphicon glyphicon-plus"></span>Agregar</a></p>
-   </div>
-
-<table class="table table-striped table-bordered table-hover  dt-responsive nowrap "  cellspacing="0"  id="example"  style="width:100%">
-<thead style="background-color:brown;color:white;">
-     <tr>
-        <th>Sucursal</th>
-        <th>c&oacute;digo de boleta</th>
-        <th>Fecha de Ingreso</th>
-        <th>Consecutivo</th>
-        <th>Acciones</th>
-    </tr>
-</thead>
-<tbody>
-    <?php foreach ($Boletas as $a) : ?>
-    <tr>
+<div class="container-fluid">
+    <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+      <p>
+         <a class="btn btn-outline-info btn-sm float-right"  role="button" href="<?= $this->url('boletasremision/pre')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
+      </p>
+    <table class="display"    id="example"  style="width:100%">
+      <thead style="background-color:brown;color:white;">
+        <tr>
+          <th>Sucursal</th>
+          <th>c&oacute;digo  boleta</th>
+          <th>N&uacute;mero de documento fiscal</th>
+          <th>Fecha  Inicio de traslado</th>
+          <th>Fecha Final de traslado</th>
+          <th>Fecha  Emisi&oacute;n</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+      <?php foreach ($Boletas as $a) : ?>
+      <tr>
         <td><?= $this->escapeHtml($a->Nombre_Sucursal) ?></td>
         <td><?= $this->escapeHtml($a->Cod_Boleta) ?></td>
-        <td><?= $this->escapeHtml($a->Fecha_Ingreso) ?></td>
         <td><?= $this->escapeHtml($a->Consecutivo_Actual_Establ."-".$a->Consecutivo_Actual_Punto."-".$a->Consecutivo_Actual_Tipo."-".$a->Consecutivo_Actual_Correlativo)?></td>
+        <td><?= $this->escapeHtml($a->Fecha_Inicio_Traslado)?></td>
+        <td><?= $this->escapeHtml($a->Fecha_Final_Traslado)?></td>
+        <td><?= $this->escapeHtml($a->Fecha_Emision) ?></td>
         <td>
-            <a type="button"  class=" btn btn-info btn-sm"  href="<?= $this->url('boletasremision/detalle',['Cod_Boleta'=>$a->Cod_Boleta])?>"><span class="glyphicon glyphicon-eye-close"></span>Ver</a>
-            <a type="button"  target="_blank" class="btn btn-danger btn-sm"  href="<?= $this->url('boletasremision/pdf',['Cod_Boleta'=>$a->Cod_Boleta])?>"><span class="glyphicon glyphicon-file"></span>PDF</a>      
+            <a type="button"  class=" btn btn-info btn-md"  href="<?= $this->url('boletasremision/detalle',['Cod_Boleta'=>$a->Cod_Boleta])?>"><i class="fa fa-eye-slash"></i></a>
+            <a type="button"  target="_blank" class="btn btn-danger btn-md"  href="<?= $this->url('boletasremision/pdf',['Cod_Boleta'=>$a->Cod_Boleta])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>      
         </td>     
-    </tr>
-<?php endforeach; ?>
-</tbody>
+      </tr>
+      <?php endforeach; ?>
+     </tbody>
 </table>
 </div>
 <script type="text/javascript">
  $(document).ready(function() {
     $('#example').DataTable({
     "language": {
-      "url": "datatable/Spanish.json"
+      "url": "datatables/js/Spanish.json"
     }
     });
    });

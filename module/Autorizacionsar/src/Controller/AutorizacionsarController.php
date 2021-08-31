@@ -22,7 +22,6 @@ class AutorizacionsarController extends AbstractActionController
     private $SucursalTable; 
     
 
-
     // Add this constructor:
      public function __construct(ContainerInterface $container,AutorizacionsarTable $table, SucursalTable $SucursalTable, $dbAdapter)
      {
@@ -41,7 +40,7 @@ class AutorizacionsarController extends AbstractActionController
     {
             $form = new AutorizacionsarForm();
             $form->get('submit')->setValue('Guardar');
-            $rowset = $this->SucursalTable->getSucursalSelect(); //llenar select sucursal 
+            $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal 
             $form->get('Sucursal')->setValueOptions($rowset); 
         
             $request = $this->getRequest();

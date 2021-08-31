@@ -46,12 +46,12 @@ class AutorizacionsarFilter  extends InputFilter
                 ['name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 36,
-                        'max' => 36,
+                        'min' => 37,
+                        'max' => 37,
                         'messages' => [
                         \Zend\Validator\StringLength::INVALID=>'CAI es  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'CAI debe contener 36 car&aacute;cteres alfanuméricos',
-                        \Zend\Validator\StringLength::TOO_LONG=>'CAI debe contener máximo 36 car&aacute;cteres alfanuméricos',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'CAI debe contener 32 car&aacute;cteres alfanuméricos separados por guiones',
+                        \Zend\Validator\StringLength::TOO_LONG=>'CAI debe contener máximo 32 car&aacute;cteres alfanuméricos separados por guiones',
                         ]
                     ],
                 ],

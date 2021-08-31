@@ -1,5 +1,4 @@
 <?php
-
 namespace Sucursal\Model;
 
 use RuntimeException;

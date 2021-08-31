@@ -2,60 +2,50 @@
 $title = 'Listado de Conductores';
 $this->headTitle($title);
 ?>
-<div class="container">
-<h2><?= $this->escapeHtml($title) ?></h2>
-   <div>
-      <p><a class="btn btn-success btn-sm menu" href="<?= $this->url('conductor/add')?>"><span class="glyphicon glyphicon-plus"></span>Agregar</a></p>
-   </div>
-
-<table class="table table-striped table-bordered table-hover  dt-responsive nowrap "  cellspacing="0"  id="example"  style="width:100%">
-<thead style="background-color:brown;color:white;">
-     <tr>
-        <th>c&oacute;digo de  conductor</th>
-        <th>Nombres </th>
-        <th>Apellidos</th>
-        <th>DNI</th>
-        <th>Estado</th>
-        <th>Fecha de ingreso</th>
-        <th>Fecha de actualizaci&oacute;n</th>
-        <th>Acci&oacute;n</th>
-    </tr>
-</thead>
-<tbody>
-<?php foreach ($conductor as $cond) : ?>
-    <tr>
-        <td><?= $this->escapeHtml($cond->Cod_Conductor) ?></td>
-        <td><?= $this->escapeHtml($cond->Nombres_Conductor) ?></td>
-        <td><?= $this->escapeHtml($cond->Apellidos_Conductor) ?></td>
-        <td><?= $this->escapeHtml($cond->Dni) ?></td>
-        <td><?= $this->escapeHtml($cond->Estado) ?></td>
-        <td><?= $this->escapeHtml($cond->Fecha_Ingreso) ?></td>
-        <td><?= $this->escapeHtml($cond->Fecha_Actualizacion) ?></td>
-        <td>
-            
-             <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('conductor/edit',['Cod_Conductor'=>$cond->Cod_Conductor])?>"><span class="glyphicon glyphicon-pencil"></span>Editar</a>      
-        </td>
-    </tr>
-<?php endforeach; ?>
-</tbody>
-</table>
-</div>
+<div class="container-fluid">
+<h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+    <div>
+      <p>
+        <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('conductor/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
+      </p>
+    </div>
+    <table class="display"  id="example"  style="width:100%">
+      <thead style="background-color:brown;color:white;" rowspan="2">
+        <tr>
+          <th>c&oacute;digo de  conductor</th>
+          <th>Nombres </th>
+          <th>Apellidos</th>
+          <th>Documento Nacional de Identificaci&oacute;n(DNI)</th>
+          <th>Estado</th>
+          <th>Fecha de ingreso</th>
+          <th>Fecha de actualizaci&oacute;n</th>
+          <th>Acci&oacute;n</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($conductor as $cond) : ?>
+        <tr>
+          <td><?= $this->escapeHtml($cond->Cod_Conductor) ?></td>
+          <td><?= $this->escapeHtml($cond->Nombres_Conductor) ?></td>
+          <td><?= $this->escapeHtml($cond->Apellidos_Conductor) ?></td>
+          <td><?= $this->escapeHtml($cond->Dni) ?></td>
+          <td><?= $this->escapeHtml($cond->Estado) ?></td>
+          <td><?= $this->escapeHtml($cond->Fecha_Ingreso) ?></td>
+          <td><?= $this->escapeHtml($cond->Fecha_Actualizacion) ?></td>
+          <td>
+             <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('conductor/edit',['Cod_Conductor'=>$cond->Cod_Conductor])?>"><i class="fa fa-pencil"></i></a>
+          </td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    </div>
 <script type="text/javascript">
  $(document).ready(function() {
     $('#example').DataTable({
     "language": {
-      "url": "datatable/Spanish.json"
+      "url": "datatables/js/Spanish.json"
     }
     });
    });
 </script>
-
-
-  
-
-
-  
-  
-  
-        
-        

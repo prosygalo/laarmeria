@@ -3,39 +3,36 @@ $title = 'Listado de unidades de transporte';
 $this->headTitle($title);
 ?>
 <div class="container">
-<h2><?= $this->escapeHtml($title) ?></h2>
-<div>
+<h4 class ="text-center"><?= $this->escapeHtml($title) ?></h4>
    <p>
-      <a class="btn btn-success menu" href="<?= $this->url('unidadtransporte/add')?>"><span class="glyphicon glyphicon-plus">Agregar</a></span></a>
+      <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('unidadtransporte/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
    </p>
-</div>
-<table class="table table-striped table-bordered table-hover  dt-responsive nowrap" cellspacing="0"  id="example"  style="width:100%">
-<thead style="background-color:brown;color:white;">
-     <tr>
-        <th>c&oacute;digo</th>
-        <th>Marca de vehiculo</th>
-        <th>Modelo de vehiculo</th>
-        <th>Placa de vehiculo</th>
-        <th>Estado</th>
-        <th>Fecha de ingreso</th>
-        <th>Fecha de actualizaci&oacute;n</th>
-        <th>Acci&oacute;n</th>
-    </tr>
-</thead>
-<tbody>
-<?php foreach ($unit as $unit) : ?>
-    <tr>
-        <td><?= $this->escapeHtml($unit->Cod_Unidad) ?></td>
-        <td><?= $this->escapeHtml($unit->Marca_Vehiculo) ?></td>
-        <td><?= $this->escapeHtml($unit->Modelo_Vehiculo) ?></td>
-        <td><?= $this->escapeHtml($unit->Placa_Vehiculo) ?></td>
-        <td><?= $this->escapeHtml($unit->Estado) ?></td>
-        <td><?= $this->escapeHtml($unit->Fecha_Ingreso) ?></td>
-        <td><?= $this->escapeHtml($unit->Fecha_Actualizacion) ?></td>
-        <td>
-             <a  type="button" class="btn btn-primary btn-sm"  href="<?=$this->url('unidadtransporte/edit',['Cod_Unidad'=>$unit->Cod_Unidad])?>"><span class="glyphicon glyphicon-pencil"></span>Editar</a>
-            <a type="button" class="btn btn-danger btn-sm" href="<?= $this->url('unidadtransporte/delete', ['Cod_Unidad'=>$unit->Cod_Unidad])?>"><span class="glyphicon glyphicon-remove"></span>  Eliminar</a>     
-        </td>
+      <table class="display"   id="example"  style="width:100%">
+        <thead style="background-color:brown;color:white;">
+          <tr>
+            <th>c&oacute;digo</th>
+            <th>Marca de vehiculo</th>
+            <th>Modelo de vehiculo</th>
+            <th>Placa de vehiculo</th>
+            <th>Estado</th>
+            <th>Fecha de ingreso</th>
+            <th>Fecha de actualizaci&oacute;n</th>
+            <th>Acci&oacute;n</th>
+          </tr>
+        </thead>
+      <tbody>
+      <?php foreach ($unit as $unit) : ?>
+        <tr>
+          <td><?= $this->escapeHtml($unit->Cod_Unidad) ?></td>
+          <td><?= $this->escapeHtml($unit->Marca_Vehiculo) ?></td>
+          <td><?= $this->escapeHtml($unit->Modelo_Vehiculo) ?></td>
+          <td><?= $this->escapeHtml($unit->Placa_Vehiculo) ?></td>
+          <td><?= $this->escapeHtml($unit->Estado) ?></td>
+          <td><?= $this->escapeHtml($unit->Fecha_Ingreso) ?></td>
+          <td><?= $this->escapeHtml($unit->Fecha_Actualizacion) ?></td>
+          <td>
+             <a  type="button" class="btn btn-primary btn-sm"  href="<?=$this->url('unidadtransporte/edit',['Cod_Unidad'=>$unit->Cod_Unidad])?>"><i class="fa fa-pencil"></i></a>     
+          </td>
     </tr>
 <?php endforeach; ?>
 </tbody>
@@ -45,18 +42,8 @@ $this->headTitle($title);
  $(document).ready(function() {
     $('#example').DataTable({
     "language": {
-      "url": "datatable/Spanish.json"
+      "url": "datatables/js/Spanish.json"
     }
     });
    });
 </script>
-
-
-  
-
-
-  
-  
-  
-        
-        

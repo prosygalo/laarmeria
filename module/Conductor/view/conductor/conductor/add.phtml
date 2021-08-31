@@ -19,59 +19,58 @@ $Estado=$form->get('Estado');
 $Estado->setAttribute('class', 'form-control autofocus');
 
 $submit=$form->get('submit');
-$submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
+$submit->setAttribute('class', 'btn btn-success btn-lg btn-block');
 
 //$form->setAttribute('action', $this->url('departamento/add'));
 $form->prepare();
-
-echo $this->form()->openTag($form);
 ?>                                                    
-<div class="container">
-<fieldset>
-    <h3 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h3>
-</fieldset>
-    <div class="row">
-        <div class="col-md-12 col-md-offset-3"> 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <?= $this->formLabel($Cod_Conductor) ?>
-                        <?= $this->formElement($Cod_Conductor) ?>
-                        <?= $this->formElementErrors()->render($Cod_Conductor, ['class' => 'help-inline  text-danger']) ?>
+<section id="cover">
+    <div id="cover-caption">
+        <div id="container" class="container">
+        <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+            <div class="row justify-content-center">
+                <div class="col-md-12 offset-md-7">
+                    <div class="info-form">
+                    <?= $this->form()->openTag($form)?>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <?= $this->formLabel($Cod_Conductor) ?>
+                                    <?= $this->formElement($Cod_Conductor) ?>
+                                    <?= $this->formElementErrors()->render($Cod_Conductor, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <?= $this->formLabel($Nombres_Conductor) ?>
+                                    <?= $this->formElement($Nombres_Conductor) ?>
+                                    <?= $this->formElementErrors()->render($Nombres_Conductor, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <?= $this->formLabel($Apellidos_Conductor) ?>
+                                    <?= $this->formElement($Apellidos_Conductor) ?>
+                                    <?= $this->formElementErrors()->render($Apellidos_Conductor, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <?= $this->formLabel($Dni) ?>
+                                    <?= $this->formElement($Dni) ?>
+                                    <?= $this->formElementErrors()->render($Dni, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <?= $this->formLabel($Estado) ?>
+                                    <?= $this->formElement($Estado) ?>
+                                    <?= $this->formElementErrors()->render($Estado, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+                                <?= $this->formSubmit($submit)?> 
+                            </div>
+                        </div>
+                    <?= $this->form()->closeTag()?>
                     </div>
-
-
-                    <div class="form-group">
-                        <?= $this->formLabel($Nombres_Conductor) ?>
-                        <?= $this->formElement($Nombres_Conductor) ?>
-                        <?= $this->formElementErrors()->render($Nombres_Conductor, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-
-                    <div class="form-group">
-                        <?= $this->formLabel($Apellidos_Conductor) ?>
-                        <?= $this->formElement($Apellidos_Conductor) ?>
-                        <?= $this->formElementErrors()->render($Apellidos_Conductor, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-
-                    <div class="form-group">
-                        <?= $this->formLabel($Dni) ?>
-                        <?= $this->formElement($Dni) ?>
-                        <?= $this->formElementErrors()->render($Dni, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-
-                    <div class="form-group">
-                        <?= $this->formLabel($Estado) ?>
-                        <?= $this->formElement($Estado) ?>
-                        <?= $this->formElementErrors()->render($Estado, ['class' => 'help-inline  text-danger']) ?>
-                    </div>
-
-                    
-                    <?php
-                    echo $this->formSubmit($submit);
-                    echo $this->form()->closeTag();
-                    ?>
                 </div>
-             </div>                      
-        </div>       
+            </div>
+        </div>
     </div>
-</div>
+</section>

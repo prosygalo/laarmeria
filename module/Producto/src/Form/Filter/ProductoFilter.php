@@ -119,7 +119,7 @@ class ProductoFilter  extends InputFilter
                 ],
                ['name' => Regex::class, 
                      'options' => [
-                       'pattern' => '/^[a-zA-Z0-9\s]+$/',
+                       'pattern' => '/^[a-zA-Z0-9\s-]+$/',
                        'messages'=>[
                         // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
                         \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',

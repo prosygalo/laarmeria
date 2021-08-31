@@ -90,31 +90,17 @@ class BoletasremisionForm extends Form
         $this->add($Punto_Destino);
 
         //Agregar entrada fecha inicial de traslado
-        $Fecha_Inicio_Traslado = new Element\Date('Fecha_Inicio_Traslado');
+        $Fecha_Inicio_Traslado = new Element\Text('Fecha_Inicio_Traslado');
         $Fecha_Inicio_Traslado->setLabel('Fecha inicio de traslado');
         $Fecha_Inicio_Traslado->setAttribute('class','form-control');
-        $Fecha_Inicio_Traslado->setAttribute('id','inicio');
-        $Fecha_Inicio_Traslado->setAttributes([
-            'min'  => '2020-01-01',
-            'max'  => '2030-01-01',
-        ]);
-        $Fecha_Inicio_Traslado->setOptions([
-            'format' => 'Y-m-d',
-         ]);
+        $Fecha_Inicio_Traslado->setAttribute('id','Fecha_Inicio_Traslado');
         $this->add($Fecha_Inicio_Traslado);
 
         //Agregar entrada fecha final de traslado
-        $Fecha_Final_Traslado = new Element\Date('Fecha_Final_Traslado');
+        $Fecha_Final_Traslado = new Element\Text('Fecha_Final_Traslado');
         $Fecha_Final_Traslado->setLabel('Fecha final de traslado');
         $Fecha_Final_Traslado->setAttribute('class','form-control');
-        $Fecha_Final_Traslado->setAttribute('id','final');
-        $Fecha_Final_Traslado->setAttributes([
-            'min'  => '2020-01-01',
-            'max'  => '2030-01-01',
-        ]);
-        $Fecha_Final_Traslado->setOptions([
-            'format' => 'Y-m-d',
-         ]);
+        $Fecha_Final_Traslado->setAttribute('id','Fecha_Final_Traslado');
         $this->add($Fecha_Final_Traslado);
 
 

@@ -90,9 +90,8 @@ class RegistroForm extends Form
             'options' => [
                 'label' => 'Rol',
                 'value_options' => [ 
-                      'invitado' =>  'Invitado', 
-                      'miembro'   => 'Miembro',
-                      'especial'   => 'Especial',
+                      'Miembro'   => 'Miembro',
+                      'Especial'   => 'Especial',
                ],
             ],
         ]);

@@ -1,5 +1,4 @@
 <?php
-
 namespace Autorizacionsar\Form;
 
 use Zend\Form\Element;
@@ -110,16 +109,16 @@ class AutorizacionsarForm extends Form
 
         $this->add([
             'name' => 'Fecha_Limite',
-            'type' => 'date',
-            //'id' =>'Fecha_Limite',
+            'type' => 'text',
             'options' => [
                 'label' => 'Fecha Límite de emisión',
-                'format' => 'Y-m-d',
             ],
             'attributes' => [
-            'min' => '2020-01-01',
-            'max' => '2030-01-01',
-           ],
+                'id'    => 'Fecha_Limite',
+                'placeholder'=>'dd/mm/aaaa',
+                'readonly'=>'readonly',
+
+            ],
         ]);
     
          $this->add([
