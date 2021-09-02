@@ -174,9 +174,6 @@ class BoletasremisionController extends AbstractActionController
             $rowset6 = $this->SucursalTable->getSucursalDireccionSelect(); //llenar select sucursal direccion
             $form->get('Punto_Destino')->setValueOptions($rowset6); 
 
-            $viewData = [
-            'prod' => $this->ProductoTable->fetchAll(),//Enviar una variable a la tabla donde se mostrará el producto y la cantidad correspondiente al cada codigo de boleta 
-            ];
 
             //-------Solicitud-------------------------
             $request = $this->getRequest();
@@ -189,7 +186,7 @@ class BoletasremisionController extends AbstractActionController
             $form->setData($request->getPost());
                 
             if ($form->isValid()){
-                  //return ['form' => $form];
+                return ['form' => $form];
                   
             }
             //--------Tomar datos del formulario-y los guardamos en la base de datos, para ello realizamos tres procesos.

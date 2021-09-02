@@ -120,7 +120,7 @@ class Module implements ConfigProviderInterface
                     ->allow('Invitado','boletasremision:boletasremision',['pdf','reporte'])
                     ->allow('Miembro','usuario:auth')
                     ->allow('Miembro','usuario:usuario',['perfil'])
-                    ->allow('Miembro','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Miembro','boletasremision:boletasremision',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
                     ->allow('Especial','boletasremision:boletasremision',['index'])
                     ->allow('Especial','autorizacionsar:autorizacionsar',['index','add','listo','error'])
                     ->allow('Especial','conductor:conductor',['index','add','edit','listo','error'])

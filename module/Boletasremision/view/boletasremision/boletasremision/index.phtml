@@ -16,7 +16,8 @@ $this->headTitle($title);
           <th>Fecha  Inicio de traslado</th>
           <th>Fecha Final de traslado</th>
           <th>Fecha  Emisi&oacute;n</th>
-          <th>Acciones</th>
+          <th>Acci&oacute;n1</th>
+          <th>Acci&oacute;n2</th>
         </tr>
       </thead>
       <tbody>
@@ -30,6 +31,8 @@ $this->headTitle($title);
         <td><?= $this->escapeHtml($a->Fecha_Emision) ?></td>
         <td>
             <a type="button"  class=" btn btn-info btn-md"  href="<?= $this->url('boletasremision/detalle',['Cod_Boleta'=>$a->Cod_Boleta])?>"><i class="fa fa-eye-slash"></i></a>
+        </td>
+        <td>
             <a type="button"  target="_blank" class="btn btn-danger btn-md"  href="<?= $this->url('boletasremision/pdf',['Cod_Boleta'=>$a->Cod_Boleta])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>      
         </td>     
       </tr>
