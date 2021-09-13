@@ -35,13 +35,13 @@ class UnidadtransporteTable
      public function getUnidadSelect(){
 
                 $rowset = $this->tableGateway->getSql()->select();
-                $rowset->columns(array('Cod_Unidad','Marca_Vehiculo','Modelo_Vehiculo'));
+                $rowset->columns(array('Cod_Unidad','Marca_Vehiculo','Modelo_Vehiculo','Placa_Vehiculo'));
                 $rowset->where(['Estado' => 'Disponible']);
                 $rowset->order('Marca_Vehiculo Asc');
                 $resultSet = $this->tableGateway->selectWith($rowset); 
                 $data= array();
                 foreach($resultSet as $row){
-                   $data[$row->Cod_Unidad] = $row->Marca_Vehiculo . $row->Modelo_Vehiculo;
+                   $data[$row->Cod_Unidad] = $row->Marca_Vehiculo .'-'.$row->Modelo_Vehiculo.'-'.'Placa'. $row->Placa_Vehiculo;
                 }
                    return $data;  
                  

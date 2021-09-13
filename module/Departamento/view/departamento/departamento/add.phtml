@@ -8,9 +8,6 @@ $Cod_Departamento->setAttribute('class', 'form-control autofocus');
 $Nombre_Depto=$form->get('Nombre_Depto');
 $Nombre_Depto->setAttribute('class', 'form-control autofocus');
 
-$Sucursal=$form->get('Sucursal');
-$Sucursal->setAttribute('class', 'form-control autofocus');
-
 $submit=$form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
 
@@ -40,11 +37,6 @@ $form->prepare();
                                         <?= $this->formElementErrors()->render($Nombre_Depto, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
 
-                                    <div class="form-group">
-                                        <?= $this->formLabel($Sucursal) ?>
-                                        <?= $this->formElement($Sucursal) ?>
-                                        <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
-                                    </div>
                                         <?= $this->formSubmit($submit)?>
                                 </div>
                             </div>

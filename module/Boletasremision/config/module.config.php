@@ -34,7 +34,7 @@ return [
              'add' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/add[/:Sucursal]',
+                        'route'    => '/add[/:Sucursal_Remitente]',
                         'defaults' => [
                             'action' => 'add',
                         ],
@@ -98,16 +98,7 @@ return [
                         ],   
                     ],
                 ],
-                //atencion linea de pruebas de codigo
-                'prueba' => [
-                    'type' =>Segment::class,
-                    'options' => [
-                        'route'    => '/prueba',
-                        'defaults' => [
-                            'action' => 'prueba',
-                        ],   
-                    ],
-                ],
+                
                 'listo' => [
                     'type' =>Segment::class,
                     'options' => [

@@ -15,6 +15,7 @@ use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Application\Controller\IndexController;
 use Autorizacionsar\Controller\AutorizacionsarController;
 use Boletasremision\Controller\BoletasremisionController;
+use Boletacompra\Controller\BoletacompraController;
 use Conductor\Controller\ConductorController;
 use Departamento\Controller\DepartamentoController;
 use Producto\Controller\ProductoController;
@@ -79,8 +80,10 @@ class Module implements ConfigProviderInterface
 
                 Acl::class=> function ($sm){
                     $acl= new Acl();   
-                /**agregar  los roles con la herencia de controles de acceso*/
-                    $acl->addRole(new Role('Invitado'))
+                 /**agregar  los roles con la herencia de controles de acceso*/
+                    $acl->addRole(new Role('Publico'))
+                    /**El usuario invitado hereda controles de acceso de publico*/
+                    ->addRole(new Role('Invitado'), 'Publico')
                     /**El usuario miembro hereda controles de acceso de invitado*/
                     ->addRole(new Role('Miembro'), 'Invitado')
                     /**El usuario especial hereda controles de acceso de miembro*/
@@ -90,7 +93,10 @@ class Module implements ConfigProviderInterface
                     /*
                      *-modulo application,controlador index 
                      *-modulo autorizacionsar,controlador autorizacionsar 
-                     *-modulo boletasremision ,controlador boletasremision  
+                     *-modulo boletasremision ,controlador boletasremision
+                     *-modulo boletasremision ,controlador boletacompra
+                     *-modulo boletasremision ,controlador constanciaretencion
+                     *-modulo boletasremision ,controlador tipodocumento
                      *-modulo conductor ,controlador conductor  
                      *-modulo departamento ,controlador departamento 
                      *-modulo sucursal ,controlador  sucursal 
@@ -107,6 +113,8 @@ class Module implements ConfigProviderInterface
                      return $acl->addResource(new Resource('application:index'))
                     ->addResource(new Resource('autorizacionsar:autorizacionsar'))
                     ->addResource(new Resource('boletasremision:boletasremision'))
+                    ->addResource(new Resource('boletacompra:boletacompra'))
+                    ->addResource(new Resource('tipodocumento:tipodocumento'))
                     ->addResource(new Resource('conductor:conductor'))
                     ->addResource(new Resource('departamento:departamento'))
                     ->addResource(new Resource('producto:producto'))
@@ -114,13 +122,21 @@ class Module implements ConfigProviderInterface
                     ->addResource(new Resource('unidadtransporte:unidadtransporte'))
                     ->addResource(new Resource('usuario:usuario'))
                     ->addResource(new Resource('usuario:auth'))
-                    ->allow('Invitado','application:index')
-                    ->allow('Invitado','usuario:auth',['login'])
-                    ->allow('Invitado','usuario:usuario',['registroadminuser'])
-                    ->allow('Invitado','boletasremision:boletasremision',['pdf','reporte'])
+                    ->allow('Publico','application:index')
+                    ->allow('Publico','usuario:auth',['login'])
+                    ->allow('Publico','usuario:usuario',['registroadminuser'])
+                    ->allow('Publico','boletasremision:boletasremision',['pdf','reporte'])
+                    ->allow('Publico','boletacompra:boletacompra',['pdf','reporte'])
+                    ->allow('Invitado','usuario:auth')
+                    ->allow('Invitado','usuario:usuario',['perfil'])
+                    ->allow('Invitado','boletasremision:boletasremision',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Invitado','boletacompra:boletacompra',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
                     ->allow('Miembro','usuario:auth')
                     ->allow('Miembro','usuario:usuario',['perfil'])
                     ->allow('Miembro','boletasremision:boletasremision',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Miembro','boletacompra:boletacompra',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Especial','boletasremision:boletasremision',['index'])
+                    ->allow('Especial','boletacompra:boletacompra',['index'])
                     ->allow('Especial','boletasremision:boletasremision',['index'])
                     ->allow('Especial','autorizacionsar:autorizacionsar',['index','add','listo','error'])
                     ->allow('Especial','conductor:conductor',['index','add','edit','listo','error'])
@@ -141,7 +157,7 @@ class Module implements ConfigProviderInterface
        if ($auth->hasIdentity()){   
           return $auth->getIdentity()['Rol'];
        }else{
-           return   'Invitado';
+           return   'Publico';
        }
        
     }

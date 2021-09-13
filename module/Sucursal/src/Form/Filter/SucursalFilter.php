@@ -85,6 +85,16 @@ class SucursalFilter   extends InputFilter
                         ]
                     ],
                 ],
+                 ['name' =>NoRecordExists::class,
+                          'options' => [
+                            'table' => 'sucursales',
+                            'field' => 'Nombre_Sucursal',
+                            'adapter' =>  $this->dbAdapter,
+                            'messages' => [
+                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El nombre de sucursal ya existe',
+                           ],
+                    ],
+                ],
             ],
         ]);
 
@@ -197,13 +207,6 @@ class SucursalFilter   extends InputFilter
                     ],
                 ],
                 ['name' => EmailAddress::class,
-                    /*'options' => [
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'correo eletr&oacute;nico',
-                        \Zend\Validator\self::INVALID_FORMAT  =>'correo eletr&oacute;nico ',
-                        \Zend\Validator\StringLength::TOO_LONG=>'correo  eletr&oacute;nico ',
-                        ]
-                    ],¨*/
                 ],      
             ],
         ]);

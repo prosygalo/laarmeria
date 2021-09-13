@@ -23,7 +23,7 @@ class BoletasremisionPreFilter  extends InputFilter
         $this->dbAdapter = $dbAdapter;
 
         $this->add([
-            'name' => 'Sucursal',
+            'name' => 'Sucursal_Remitente',
             'required' => true,
             'filters' => [
                ['name' => StripTags::class],

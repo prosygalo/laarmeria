@@ -10,6 +10,7 @@ class Sucursal
     public $Direccion;
     public $Telefono;
     public $Correo;
+    public $Estado;
     public $Fecha_Ingreso;
     public $Fecha_Actualizacion;
 
@@ -21,6 +22,7 @@ class Sucursal
         $this->Direccion = !empty($data['Direccion']) ? $data['Direccion'] : null;
         $this->Telefono = !empty($data['Telefono']) ? $data['Telefono'] : null;
         $this->Correo = !empty($data['Correo']) ? $data['Correo'] : null;
+        $this->Estado = !empty($data['Estado']) ? $data['Estado'] : null;
         $this->Fecha_Ingreso  = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
         $this->Fecha_Actualizacion  = !empty($data['Fecha_Actualizacion']) ? $data['Fecha_Actualizacion'] : null;
     }
@@ -34,6 +36,7 @@ class Sucursal
             'Direccion'  => $this->Direccion,
             'Telefono'  => $this->Telefono,
             'Correo'  => $this->Correo,
+            'Estado'=>$this->Estado,
             'Fecha_Ingreso'=>$this->Fecha_Ingreso,
             'Fecha_Actualizacion'=>$this->Fecha_Actualizacion,
         ];

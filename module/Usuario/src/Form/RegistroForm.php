@@ -31,6 +31,24 @@ class RegistroForm extends Form
                 'label' => 'Código de empleado',
             ],
         ]);
+        //Agregar campo Sucursal
+        $this->add([
+            'type' => Element\Select::class,
+            'name' => 'Sucursal',
+            'options' => [
+                'label' => 'Sucursal',
+            ],
+        ]);
+        
+        //Agregar campo Departamento
+        $this->add([
+            'type' => Element\Select::class,
+            'name' => 'Departamento',
+            'options' => [
+                'label' => 'Departamento',
+            ],
+        ]);
+        
 
         //Agregar campo Usuario
         $this->add([
@@ -90,6 +108,7 @@ class RegistroForm extends Form
             'options' => [
                 'label' => 'Rol',
                 'value_options' => [ 
+                      'Invitado'=>'Invitado',
                       'Miembro'   => 'Miembro',
                       'Especial'   => 'Especial',
                ],

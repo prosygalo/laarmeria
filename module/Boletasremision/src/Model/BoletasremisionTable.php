@@ -20,8 +20,8 @@ class BoletasremisionTable
      {
 
                 $sqlSelect = $this->BoletasremisionTableGateway->getSql()->select();
-                $sqlSelect->columns(array('Cod_Boleta','Fecha_Emision','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Motivo_Traslado','Num_Transferencia','Punto_Partida','Punto_Destino','Fecha_Inicio_Traslado','Fecha_Final_Traslado','Fecha_Ingreso'));
-                $sqlSelect->join('sucursales', 'sucursales.Cod_Sucursal = boletas_guia_remision.Sucursal', array('Nombre_Sucursal'), 'left');
+                $sqlSelect->columns(array('Cod_Boleta','Fecha_Emision','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Motivo_Traslado','Num_Transferencia','Sucursal_Remitente','Sucursal_Destino','Punto_Partida','Punto_Destino','Fecha_Inicio_Traslado','Fecha_Final_Traslado','Fecha_Ingreso'));
+                $sqlSelect->join('sucursales', 'sucursales.Cod_Sucursal = boletas_guia_remision.Sucursal_Remitente', array('Nombre_Sucursal'), 'left');
                 $resultSet = $this->BoletasremisionTableGateway->selectWith($sqlSelect);
                  return $resultSet;
      }
@@ -31,7 +31,7 @@ class BoletasremisionTable
 
                 $sqlSelect = $this->BoletasremisionTableGateway->getSql()->select();
                 $sqlSelect->columns(array('Cod_Boleta','Fecha_Emision','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Motivo_Traslado','Num_Transferencia','Punto_Partida','Punto_Destino','Fecha_Inicio_Traslado','Fecha_Final_Traslado','Fecha_Ingreso'));
-                $sqlSelect->join('sucursales', 'sucursales.Cod_Sucursal = boletas_guia_remision.Sucursal', array('Nombre_Sucursal'), 'left');
+                $sqlSelect->join('sucursales', 'sucursales.Cod_Sucursal = boletas_guia_remision.Sucursal_Remitente', array('Nombre_Sucursal'), 'left');
                 $sqlSelect->where(['Cod_Boleta' => $Cod_Boleta]);
                 $resultSet = $this->BoletasremisionTableGateway->selectWith($sqlSelect);
                  return $resultSet;
@@ -76,7 +76,8 @@ class BoletasremisionTable
             'Fecha_Inicio_Traslado'  => $boletasremision->Fecha_Inicio_Traslado,
             'Fecha_Final_Traslado' => $boletasremision->Fecha_Final_Traslado,
             'Autorizacion_Sar' => $boletasremision->Autorizacion_Sar,
-            'Sucursal' => $boletasremision->Sucursal,
+            'Sucursal_Remitente' => $boletasremision->Sucursal_Remitente,
+            'Sucursal_Destino' => $boletasremision->Sucursal_Destino,
             'Unidad_Transporte'  => $boletasremision->Unidad_Transporte,
             'Conductor'  => $boletasremision->Conductor,
             'Usuario'  => $boletasremision->Usuario,

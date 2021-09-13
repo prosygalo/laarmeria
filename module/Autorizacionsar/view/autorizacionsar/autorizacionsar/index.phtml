@@ -1,5 +1,5 @@
 <?php
-$title = 'Listado de autorizaciones de la SAR para reimpresión';
+$title = 'Listado de autorizaciones de la SAR para emisión de documentos fiscales';
 $this->headTitle($title);
 ?>
 <div class="container-fluid">
@@ -7,11 +7,12 @@ $this->headTitle($title);
       <p>
         <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('autorizacionsar/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
       </p>
-    <table class="display"  id="example"  style="width:100%">
+    <table class="table table-hover"    id="example"  style="width:100%">
       <thead  style="background-color:brown;color:white;" rowspan="2">
         <tr>
           <th>c&oacute;digo</th>
           <th>Sucursal</th>
+          <th>Tipo de documento fiscal</th>
           <th>Clave de autorización de impresión</th>
           <th>Consecutivo Inicial</th>
           <th>Consecutivo Final</th>
@@ -25,6 +26,7 @@ $this->headTitle($title);
         <tr>
           <td><?= $this->escapeHtml($a->Cod_Autorizacion) ?></td>
            <td><?= $this->escapeHtml($a->Sucursal) ?></td>
+           <td><?= $this->escapeHtml($a->Nombre_Documento)?></td>
           <td><?= $this->escapeHtml($a->Cai) ?></td>
           <td><?= $this->escapeHtml($a->Consecutivo_Inicial_Establ."-".$a->Consecutivo_Inicial_Punto."-".$a->Consecutivo_Inicial_Tipo."-".$a->Consecutivo_Inicial_Correlativo) ?></td>
           <td><?= $this->escapeHtml($a->Consecutivo_Final_Establ."-".$a->Consecutivo_Final_Punto."-".$a->Consecutivo_Final_Tipo."-".$a->Consecutivo_Final_Correlativo)  ?></td>

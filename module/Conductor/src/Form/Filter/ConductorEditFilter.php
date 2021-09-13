@@ -123,7 +123,7 @@ class ConductorEditFilter  extends InputFilter
             ]);
 
           $this->add([
-            'name' => 'Dni',
+            'name' => 'Licencia_Conducir',
                'filters' => [
                     ['name' => StripTags::class],
                   //['name' => StringTrim::class],
@@ -135,9 +135,9 @@ class ConductorEditFilter  extends InputFilter
                         'min' => 13,
                         'max' => 13,
                         'messages' => [
-                            \Zend\Validator\StringLength::INVALID=>'DNI  es incorrecto',
-                            \Zend\Validator\StringLength::TOO_SHORT=>'DNI es obligatorio y  debe tener 13 d&iacute;gitos',
-                            \Zend\Validator\StringLength::TOO_LONG=>'DNI debe tener  13 d&iacute;gitos',
+                            \Zend\Validator\StringLength::INVALID=>'Licencia de conducir  es incorrecto',
+                            \Zend\Validator\StringLength::TOO_SHORT=>'Licencia de conducir debe tener 13 d&iacute;gitos',
+                            \Zend\Validator\StringLength::TOO_LONG=>'Licencia de conducir debe tener  13 d&iacute;gitos',
                            ],
                         ],
                     ],
@@ -146,7 +146,7 @@ class ConductorEditFilter  extends InputFilter
                         'pattern' => '/^[0-9]+$/',
                         'messages'=>[
                             // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                            \Zend\Validator\Regex::NOT_MATCH=>'Formato de DNI incorrecto',
+                            \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto, use solo dígitos',
             
                            ],
                         ],

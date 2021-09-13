@@ -7,11 +7,13 @@ $this->headTitle($title);
       <p>
         <a class="btn btn-outline-info float-right"  role="button"  href="<?= $this->url('usuario/registro')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
       </p>
-      <table class="display"   id="example"  style="width:100%">
+      <table class="table table-hover" id="example"  style="width:100%">
         <thead style="background-color:brown;color:white;">
           <tr>
             <th>c&oacute;digo de usuario</th>
             <th>Empleado</th>
+            <th>Sucursal</th>
+            <th>Departamento</th>
             <th>Usuario</th>
             <th>Correo</th>
             <th>Rol</th>
@@ -26,6 +28,8 @@ $this->headTitle($title);
           <tr>
             <td><?= $this->escapeHtml($u->Cod_Usuario) ?></td>
             <td><?= $this->escapeHtml($u->Cod_Empleado) ?></td>
+            <td><?= $this->escapeHtml($u->Sucursal) ?></td>
+            <td><?= $this->escapeHtml($u->Departamento) ?></td>
             <td><?= $this->escapeHtml($u->Usuario) ?></td>
             <td><?= $this->escapeHtml($u->Correo) ?></td>
             <td><?= $this->escapeHtml($u->Rol) ?></td>

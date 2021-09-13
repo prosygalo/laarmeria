@@ -8,6 +8,9 @@ use Usuario\Form\Filter\RegistroFormFilter;
 use Usuario\Form\Filter\RestablecerFormFilter;
 use Usuario\Form\Filter\EditarRegistroFilter;
 use Usuario\Model\UsuarioTable;
+use Sucursal\Model\SucursalTable;
+use Departamento\Model\DepartamentoTable;
+use Conductor\Model\ConductorTable;
 use Zend\I18n\Validator as I18nValidator;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Db\Adapter\Adapter;
@@ -23,13 +26,17 @@ class UsuarioController extends AbstractActionController
 {
  // agregar propiedad:
     protected $UsuarioTable;
+    protected $SucursalTable;
+    protected $DepartamentoTable;
     protected $dbAdapter;
 
     // agregar constructor:
-    public function __construct(UsuarioTable $UsuarioTable, $dbAdapter)
+    public function __construct(UsuarioTable $UsuarioTable,SucursalTable $SucursalTable,DepartamentoTable $DepartamentoTable, $dbAdapter)
      {
             $this->UsuarioTable = $UsuarioTable;
             $this->dbAdapter = $dbAdapter;
+            $this->SucursalTable= $SucursalTable;
+            $this->DepartamentoTable = $DepartamentoTable;
      }
 
     /**
@@ -56,6 +63,8 @@ class UsuarioController extends AbstractActionController
         
         //Datos estáticos
         $form->get('Cod_Empleado')->setValue('ADMIN1');
+        $form->get('Departamento')->setValueOptions(['D23'=>'Tecnología']);
+        $form->get('Sucursal')->setValueOptions(['Sucursal1'=>'Sucursal1']);
         $form->get('Correo')->setValue('admin@example.com');
         $form->get('ClaveView')->setValue('Secur1ty');
         $form->get('Usuario')->setValue('Admin');
@@ -74,6 +83,8 @@ class UsuarioController extends AbstractActionController
         //Enviar al tablegateway
         $data = [
             'Cod_Empleado'=>'ADMIN1',
+            'Departamento'=>'D23',
+            'Sucursal'=>'Sucursal1',
             'Correo'=>'admin@example.com',
             'Usuario'=>'Admin',
             'Clave'=>$Clavesegura,
@@ -95,6 +106,10 @@ class UsuarioController extends AbstractActionController
         
         $form = new RegistroForm();
         $form->get('submit')->setValue('Crear');
+        $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal
+        $form->get('Sucursal')->setValueOptions($rowset);
+        $rowset2 = $this->DepartamentoTable->getDepartamentoListado(); //llenar select sucursal
+        $form->get('Departamento')->setValueOptions($rowset2);
 
         //Verifica si la usuario ha enviado el formulario.
         $request = $this->getRequest();
@@ -126,6 +141,8 @@ class UsuarioController extends AbstractActionController
         //data enviada desde el formulario
         $data = [
             'Cod_Empleado'=>$usuario->Cod_Empleado,
+            'Sucursal'=>$usuario->Sucursal,
+            'Departamento'=>$usuario->Departamento,
             'Correo'=>$usuario->Correo,
             'Usuario'=>$usuario->Usuario,
             'Clave'=>$Clavesegura,
@@ -157,6 +174,10 @@ class UsuarioController extends AbstractActionController
         //Instancia del formulario
         $form = new RegistroForm();
         $form->bind($usuario);
+        $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal
+        $form->get('Sucursal')->setValueOptions($rowset);
+        $rowset2 = $this->DepartamentoTable->getDepartamentoListado(); //llenar select sucursal
+        $form->get('Departamento')->setValueOptions($rowset2);
         $form->get('submit')->setAttribute('value', 'Actualizar');
        //Verifica si la usuario ha enviado el formulario.
         $request = $this->getRequest();
@@ -175,6 +196,8 @@ class UsuarioController extends AbstractActionController
         } 
          $data = [
             'Cod_Empleado'=>$usuario->Cod_Empleado,
+            'Sucursal'=>$usuario->Sucursal,
+            'Departamento'=>$usuario->Departamento,
             'Rol'=>$usuario->Rol,
             'Estado'=>$usuario->Estado,
         ];

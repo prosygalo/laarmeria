@@ -134,7 +134,7 @@ class ConductorFilter  extends InputFilter
             ]);
 
           $this->add([
-            'name' => 'Dni',
+            'name' => 'Licencia_Conducir',
                'filters' => [
                     ['name' => StripTags::class],
                   //['name' => StringTrim::class],
@@ -146,9 +146,9 @@ class ConductorFilter  extends InputFilter
                         'min' => 13,
                         'max' => 13,
                         'messages' => [
-                            \Zend\Validator\StringLength::INVALID=>'DNI  es incorrecto',
-                            \Zend\Validator\StringLength::TOO_SHORT=>'DNI es obligatorio y  debe tener 13 d&iacute;gitos',
-                            \Zend\Validator\StringLength::TOO_LONG=>'DNI debe tener  13 d&iacute;gitos',
+                            \Zend\Validator\StringLength::INVALID=>'Licencia de conducir  es incorrecto',
+                            \Zend\Validator\StringLength::TOO_SHORT=>'Licencia de conducir es obligatorio y debe tener 13 d&iacute;gitos',
+                            \Zend\Validator\StringLength::TOO_LONG=>'Licencia de conducir debe tener  máximo 13 d&iacute;gitos',
                            ],
                         ],
                     ],
@@ -157,7 +157,7 @@ class ConductorFilter  extends InputFilter
                         'pattern' => '/^[0-9]+$/',
                         'messages'=>[
                             // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                            \Zend\Validator\Regex::NOT_MATCH=>'Formato de DNI incorrecto',
+                            \Zend\Validator\Regex::NOT_MATCH=>'Formato  incorrecto, use solo d&iacute;gitos',
             
                            ],
                         ],
@@ -165,10 +165,10 @@ class ConductorFilter  extends InputFilter
                    ['name' =>NoRecordExists::class,
                           'options' => [
                             'table' => 'conductores',
-                            'field' => 'Dni',
+                            'field' => 'Licencia_Conducir',
                             'adapter' =>  $this->dbAdapter,
                             'messages' => [
-                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El Dni ya existe',
+                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'Este número ya esta registrado',
                            ],
                         ],
                   ], 

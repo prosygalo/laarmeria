@@ -27,14 +27,7 @@ class DepartamentoForm extends Form
                 'label' => 'Nombre',
             ],
         ]);
-
-        $Sucursal = new Element\Select('Sucursal');
-        $Sucursal->setAttribute('name', 'Sucursal');
-        $Sucursal->setAttribute('id', 'Sucursal');
-        $Sucursal->setLabel('Sucursal');
-        $Sucursal->setEmptyOption('Seleccione'); 
-        $this->add($Sucursal);
-
+        
          $this->add([
             'name' => 'submit',
             'type' => 'submit',
@@ -43,5 +36,6 @@ class DepartamentoForm extends Form
                 'id'    => 'submitbutton',
             ],
         ]);
+
     }
 }

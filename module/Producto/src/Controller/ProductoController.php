@@ -97,33 +97,6 @@ class ProductoController extends AbstractActionController
         // Redirect to album list
         return $this->redirect()->toRoute('productos');
     }
-
-    public function deleteAction()
-    {
-            $Cod_Producto = $this->params()->fromRoute('Cod_Producto',null);
-            
-            if (!$Cod_Producto) {
-                return $this->redirect()->toRoute('productos');
-            }
-
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $del = $request->getPost('del', 'Cancelar');
-
-                if ($del == 'Borrar') {
-                    $Cod_Producto= $request->getPost('Cod_Producto');
-                    $this->table->deleteProducto($Cod_Producto);
-                }
-
-                // Redirect to list 
-                return $this->redirect()->toRoute('productos');
-            }
-             return [
-            'Cod_Producto'    => $Cod_Producto,
-            'pro' => $this->table->getproducto($Cod_Producto),
-        ];
-            
-    }
     public function listoAction()
     {
         return new ViewModel([

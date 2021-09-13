@@ -13,9 +13,9 @@ $Nombres_Conductor->setAttribute('class', 'form-control');
 $Apellidos_Conductor=$form->get('Apellidos_Conductor');
 $Apellidos_Conductor->setAttribute('class', 'form-control');
 
-$Dni=$form->get('Dni');
-$Dni->setAttribute('class','form-control');
-$Dni->setAttribute('placeholder', '0000000000000');
+$Licencia_Conducir=$form->get('Licencia_Conducir');
+$Licencia_Conducir->setAttribute('class','form-control');
+$Licencia_Conducir->setAttribute('placeholder', '0000000000000');
 
 $Estado=$form->get('Estado');
 $Estado->setAttribute('class','form-control');
@@ -57,9 +57,9 @@ $form->prepare();
                                 </div>
 
                                 <div class="form-group">
-                                    <?= $this->formLabel($Dni) ?>
-                                    <?= $this->formElement($Dni) ?>
-                                    <?= $this->formElementErrors()->render($Dni, ['class' => 'help-inline  text-danger']) ?>
+                                    <?= $this->formLabel($Licencia_Conducir) ?>
+                                    <?= $this->formElement($Licencia_Conducir) ?>
+                                    <?= $this->formElementErrors()->render($Licencia_Conducir, ['class' => 'help-inline  text-danger']) ?>
                                 </div>
 
                                 <div class="form-group">

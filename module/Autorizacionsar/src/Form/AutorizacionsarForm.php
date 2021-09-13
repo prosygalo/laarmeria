@@ -108,6 +108,15 @@ class AutorizacionsarForm extends Form
         ]);
 
         $this->add([
+            'type' => 'select',
+            'name' => 'Tipo_de_Documento',
+            'options' => [
+                'label' => 'Tipo de documento',
+                'empty_option' => 'Seleccione',
+             ],
+        ]);
+
+        $this->add([
             'name' => 'Fecha_Limite',
             'type' => 'text',
             'options' => [

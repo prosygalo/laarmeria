@@ -19,18 +19,13 @@ class DetalleTable
 
     public function detalle($Cod_Boleta)
      {      
-       /* SELECT *
-        FROM detalle
-        inner join boletas_guia_remision
-        ON detalle.Boleta = boletas_guia_remision.Cod_Boleta inner join productos ON productos.Cod_Producto =  detalle.Producto
-        where Boleta = '29';*/
-                
-                $sqlSelect = $this->DetalleTableGateway->getSql()->select();
-                $sqlSelect->columns(array('Cod_Producto','Cantidad'));
-                $sqlSelect->join('productos', 'productos.Cod_Producto = detalle.Cod_Producto', array('Nombre_Producto'), 'left');
-                $sqlSelect->where(['Cod_Boleta' => $Cod_Boleta]);
-                $resultSet = $this->DetalleTableGateway->selectWith($sqlSelect);
-                return $resultSet;
+      
+        $sqlSelect = $this->DetalleTableGateway->getSql()->select();
+        $sqlSelect->columns(array('Cod_Producto','Cantidad'));
+        $sqlSelect->join('productos', 'productos.Cod_Producto = detalle.Cod_Producto', array('Nombre_Producto'), 'left');
+        $sqlSelect->where(['Cod_Boleta' => $Cod_Boleta]);
+        $resultSet = $this->DetalleTableGateway->selectWith($sqlSelect);
+        return $resultSet;
                 
      }  
 

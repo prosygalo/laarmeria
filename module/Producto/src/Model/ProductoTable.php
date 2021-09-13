@@ -84,10 +84,5 @@ class ProductoTable
                 return;
     }
 
-    
-    public function deleteProducto($Cod_Producto)
-    {
-             $this->tableGateway->delete(['Cod_Producto'=>$Cod_Producto]);
-    }
 
 }

@@ -38,6 +38,8 @@ return [
     'Autorizacionsar',
     'Unidadtransporte',
     'Boletasremision',
-    'Usuario'
+    'Usuario',
+    'Boletacompra',
+    'Tipodocumento'
     
 ];

@@ -14,7 +14,8 @@ $Fecha_Inicio_Traslado=$form->get('Fecha_Inicio_Traslado');
 $Fecha_Inicio_Traslado->setAttribute('placeholder','yyyy-mm-dd');
 $Fecha_Final_Traslado=$form->get('Fecha_Final_Traslado');
 $Fecha_Final_Traslado->setAttribute('placeholder','yyyy-mm-dd');
-$Sucursal=$form->get('Sucursal');
+$Sucursal_Remitente=$form->get('Sucursal_Remitente');
+$Sucursal_Destino=$form->get('Sucursal_Destino');
 $Unidad_Transporte=$form->get('Unidad_Transporte');
 $Conductor=$form->get('Conductor');
 $Autorizacion_Sar=$form->get('Autorizacion_Sar');
@@ -26,129 +27,136 @@ $submit=$form->get('submit');
 
 $form->prepare();
 ?>
-<section id="cover" style="margin-top: 50px">
+<section id="cover">
     <div id="cover-caption">
         <div id="container" class="container">                                              
             <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
                 <?= $this->form()->openTag($form)?>
-                <h5>N&uacute;mero de documento fiscal</h5>
-                <div class="row" style="background-color:#F5F5F5">
-                      <div class="col-md-2">
+                <h5>Documento fiscal</h5>
+                <div class="row" style="background-color:#E6E6FA">
+                      <div class="col-md-1">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Establ) ?>
                             <?= $this->formElement($Consecutivo_Actual_Establ) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Establ, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-1" style="background-color:#E6E6FA">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElement($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Punto, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-1" style="background-color:#E6E6FA">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Tipo, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-2" style="background-color:#E6E6FA">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Correlativo, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                </div><br>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <?= $this->formLabel($Fecha_Emision) ?>
-                            <?= $this->formElement($Fecha_Emision) ?>
-                            <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
+                      <div class="col-md-3" style="background-color:#E6E6FA">
                         <div class="form-group">
                             <?= $this->formLabel($Autorizacion_Sar) ?>
                             <?= $this->formElement($Autorizacion_Sar) ?>
                             <?= $this->formElementErrors()->render($Autorizacion_Sar, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                     <div class="col-md-3" style="background-color:#E6E6FA">
+                          <div class="form-group">
+                            <?= $this->formLabel($Fecha_Emision) ?>
+                            <?= $this->formElement($Fecha_Emision) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                      </div>
+                </div><br>
+                 <h5>Información de sucursales</h5>
+                <div class="row" style="background-color:#F5F5F5">
+                  <div class="col-md-3">
                         <div class="form-group">
-                            <?= $this->formLabel($Fecha_Inicio_Traslado) ?>
-                            <?= $this->formElement($Fecha_Inicio_Traslado) ?>
-                            <?= $this->formElementErrors()->render($Fecha_Inicio_Traslado, ['class' => 'help-inline  text-danger']) ?>
+                            <?= "<label>Remitente</label>" ?>
+                            <?= $this->formElement($Sucursal_Remitente) ?>
+                            <?= $this->formElementErrors()->render($Sucursal_Remitente, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <?= $this->formLabel($Fecha_Final_Traslado) ?>
-                            <?= $this->formElement($Fecha_Final_Traslado) ?>
-                            <?= $this->formElementErrors()->render($Fecha_Final_Traslado, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <div class="form-group">
                             <?= $this->formLabel($Punto_Partida) ?>
                             <?= $this->formElement($Punto_Partida) ?>
                             <?= $this->formElementErrors()->render($Punto_Partida, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                </div>
+                <div class="row" style="background-color:#F5F5F5">
+                  <div class="col-md-3">
                         <div class="form-group">
-                            <?= $this->formLabel($Motivo_Traslado) ?>
-                            <?= $this->formElement($Motivo_Traslado) ?>
-                            <?= $this->formElementErrors()->render($Motivo_Traslado, ['class' => 'help-inline  text-danger']) ?>
+                            <?= "<label>Destinatario</label>"?>
+                            <?= $this->formElement($Sucursal_Destino) ?>
+                            <?= $this->formElementErrors()->render($Sucursal_Destino, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <div class="form-group">
                             <?= $this->formLabel($Punto_Destino) ?>
                             <?= $this->formElement($Punto_Destino) ?>
                             <?= $this->formElementErrors()->render($Punto_Destino, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
+                </div><br>
+                <h5>Información adicional</h5>
+                <div class="row" style="background-color:#F5F5F5">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <?= $this->formLabel($Num_Transferencia) ?>
-                            <?= $this->formElement($Num_Transferencia) ?>
-                            <?= $this->formElementErrors()->render($Num_Transferencia, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <?= $this->formLabel($Sucursal) ?>
-                            <?= $this->formElement($Sucursal) ?>
-                            <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-        
-                    <div class="col-md-3">
                         <div class="form-group">
                             <?= $this->formLabel($Unidad_Transporte) ?>
                             <?= $this->formElement($Unidad_Transporte) ?>
                             <?= $this->formElementErrors()->render($Unidad_Transporte, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <?= $this->formLabel($Conductor) ?>
                             <?= $this->formElement($Conductor) ?>
                             <?= $this->formElementErrors()->render($Conductor, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($Motivo_Traslado) ?><br>
+                            <?= $this->formElement($Motivo_Traslado) ?>
+                            <?= $this->formElementErrors()->render($Motivo_Traslado, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                </div><br>
+                 <div class="row" style="background-color:#F5F5F5">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($Fecha_Inicio_Traslado) ?>
+                            <?= $this->formElement($Fecha_Inicio_Traslado) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Inicio_Traslado, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($Fecha_Final_Traslado) ?>
+                            <?= $this->formElement($Fecha_Final_Traslado) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Final_Traslado, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                     <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Num_Transferencia) ?>
+                            <?= $this->formElement($Num_Transferencia) ?>
+                            <?= $this->formElementErrors()->render($Num_Transferencia, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
                         <div class="form-group">
                             <?= $this->formLabel($Usuario) ?>
                             <?= $this->formElement($Usuario) ?>
@@ -157,7 +165,7 @@ $form->prepare();
                     </div>
                 </div>
                 <h5>Lista de productos</h5> 
-                <div class="row">          
+                <div class="row" style="background-color:#E6E6FA">          
                     <div class="col-md-12">
                         <table id="TablaPro" class="table">
                             <thead>
@@ -255,12 +263,12 @@ $form->prepare();
     }else{
       $('#submit').attr('disabled', 'disabled');
     }
-    if(i == 10){
+    if(i == 20){
       $('.blo').attr('disabled', 'disabled');
         var total = document.getElementById("limit");
           total.innerHTML='*Puede agregar un máximo de 10 tipos de productos a la lista';
     }
-    if(i <  10){
+    if(i <  20){
       $('.blo').removeAttr('disabled', 'disabled');
         var total = document.getElementById("limit");
             total.innerHTML='';

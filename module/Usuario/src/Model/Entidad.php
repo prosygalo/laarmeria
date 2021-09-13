@@ -11,6 +11,8 @@ class Entidad
    */
     public $Cod_Usuario;
     public $Cod_Empleado;
+    public $Sucursal;
+    public $Departamento;
     public $Usuario;
     public $Correo;
     public $Clave;
@@ -27,6 +29,8 @@ class Entidad
     {   
         $this->Cod_Usuario = !empty($data['Cod_Usuario']) ? $data['Cod_Usuario'] : null;
         $this->Cod_Empleado = !empty($data['Cod_Empleado']) ? $data['Cod_Empleado'] : null;
+        $this->Sucursal = !empty($data['Sucursal']) ? $data['Sucursal'] : null;
+        $this->Departamento = !empty($data['Departamento']) ? $data['Departamento'] : null;
         $this->Usuario = !empty($data['Usuario']) ? $data['Usuario'] : null;
         $this->Correo = !empty($data['Correo']) ? $data['Correo'] : null;
         $this->Clave = !empty($data['Clave']) ? $data['Clave'] : null;
@@ -44,6 +48,8 @@ class Entidad
         return [
             'Cod_Usuario' => $this->Cod_Usuario,
             'Cod_Empleado' => $this->Cod_Empleado,
+            'Departamento' => $this->Departamento,
+            'Sucursal' => $this->Sucursal,
             'Usuario' => $this->Usuario,
             'Correo' => $this->Correo, 
             'Clave' => $this->Clave,

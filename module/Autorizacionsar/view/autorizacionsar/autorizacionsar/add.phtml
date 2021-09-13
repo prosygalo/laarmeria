@@ -2,6 +2,9 @@
 $title = 'Agregar autorización SAR';
 $this->headTitle($title);
 
+$Tipo_de_Documento=$form->get('Tipo_de_Documento');
+$Tipo_de_Documento->setAttribute('class', 'form-control');
+
 $Cai=$form->get('Cai');
 $Cai->setAttribute('class', 'form-control autofocus');
 $Cai->setAttribute('placeholder', '6E7C83-81B02E-9E47B7-BB1747-32EAAE-47');
@@ -67,6 +70,15 @@ $form->prepare();
                                     <?= $this->formLabel($Cai) ?><br>
                                     <?= $this->formElement($Cai) ?>
                                     <?= $this->formElementErrors()->render($Cai, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                    <?= $this->formLabel($Tipo_de_Documento) ?><br>
+                                    <?= $this->formElement($Tipo_de_Documento) ?>
+                                    <?= $this->formElementErrors()->render($Tipo_de_Documento, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
                                 </div>
                             </div>

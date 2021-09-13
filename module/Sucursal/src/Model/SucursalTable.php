@@ -28,9 +28,6 @@ class SucursalTable
 
                 $rowset = $this->SucursalTableGateway->select(['Cod_Sucursal' => $Cod_Sucursal]);
                 $row = $rowset->current();
-                if (! $row) {
-                    return false;
-                }
                 return $row;
      }
      public function getSucursalMembrete($Cod_Sucursal)
@@ -53,11 +50,21 @@ class SucursalTable
                    return $data;
                  
     }
-    public function getSucursalSelect($Cod_Sucursal){
+    public function getSucursalRemitente($Cod_Sucursal){
                 $Cod_Sucursal = $Cod_Sucursal;
                 $rowset = $this->SucursalTableGateway->getSql()->select();
-                $rowset->columns(array('Cod_Sucursal','Nombre_Sucursal'));
+                $rowset->columns(array('Cod_Sucursal','Nombre_Sucursal','Direccion'));
                 $rowset->where(['Cod_Sucursal' => $Cod_Sucursal]);
+                $resultSet = $this->SucursalTableGateway->selectWith($rowset);
+                return $resultSet;
+
+                 
+    }
+    public function getSucursalDestino(){
+
+                $rowset = $this->SucursalTableGateway->getSql()->select();
+                $rowset->columns(array('Cod_Sucursal','Nombre_Sucursal'));
+                $rowset->where(['Estado'=>'Disponible']);
                 $resultSet = $this->SucursalTableGateway->selectWith($rowset);
                 $data= array();
                 foreach($resultSet as $row){
@@ -66,24 +73,11 @@ class SucursalTable
                    return $data;
                  
     }
-    public function getSucursalDireccion($Cod_Sucursal){
-                
-                $Cod_Sucursal = $Cod_Sucursal;
-                $rowset = $this->SucursalTableGateway->getSql()->select();
-                $rowset->columns(array('Cod_Sucursal','Direccion'));
-                $rowset->where(['Cod_Sucursal' => $Cod_Sucursal]);
-                $resultSet = $this->SucursalTableGateway->selectWith($rowset);
-                $data= array();
-                foreach($resultSet as $row){
-                   $data[$row->Direccion] = $row->Direccion;
-                }
-                   return $data;
-                 
-    }
-    public function getSucursalDireccionSelect(){
+    public function getSucursalDireccionListado(){
 
                 $rowset = $this->SucursalTableGateway->getSql()->select();
                 $rowset->columns(array('Cod_Sucursal','Direccion'));
+                $rowset->where(['Estado'=>'Disponible']);
                 $resultSet = $this->SucursalTableGateway->selectWith($rowset);
                 $data= array();
                 foreach($resultSet as $row){
@@ -101,6 +95,7 @@ class SucursalTable
                 'Direccion'  => $sucursal->Direccion,
                 'Telefono'  => $sucursal->Telefono,
                 'Correo'  => $sucursal->Correo,
+                'Estado' =>$sucursal->Estado,
              ];
            
              $Cod_Sucursal = $sucursal->Cod_Sucursal;
@@ -120,6 +115,7 @@ class SucursalTable
                 'Direccion'  => $sucursal->Direccion,
                 'Telefono'  => $sucursal->Telefono,
                 'Correo'  => $sucursal->Correo,
+                'Estado' =>$sucursal->Estado,
                ];
 
                 $Cod_Sucursal = $sucursal->Cod_Sucursal;
@@ -139,10 +135,5 @@ class SucursalTable
                 return;
     }
 
-    
-    public function deleteSucursal($Cod_Sucursal)
-    {
-             $this->SucursalTableGateway->delete(['Cod_Sucursal'=>$Cod_Sucursal]);
-    }
 
 }

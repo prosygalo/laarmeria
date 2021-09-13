@@ -4,7 +4,6 @@ namespace Departamento\Controller;
 use Departamento\Form\DepartamentoForm;
 use Departamento\Model\Departamento;
 use Departamento\Model\DepartamentoTable;
-use Sucursal\Model\SucursalTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Interop\Container\ContainerInterface;
 use Zend\View\Model\ViewModel;
@@ -18,15 +17,13 @@ class DepartamentoController extends AbstractActionController
  // Add this property:
     private $container;
     private $DepartamentoTable;
-    private $SucursalTable; 
     private $dbAdapter;
 
     // Add this constructor:
-    public function __construct(ContainerInterface $container, DepartamentoTable  $DepartamentoTable, SucursalTable $SucursalTable, $dbAdapter)
+    public function __construct(ContainerInterface $container, DepartamentoTable  $DepartamentoTable, $dbAdapter)
     {
             $this->container = $container;
             $this->DepartamentoTable = $DepartamentoTable;
-            $this->SucursalTable = $SucursalTable;
             $this->dbAdapter=$dbAdapter;
     }
 
@@ -42,8 +39,6 @@ class DepartamentoController extends AbstractActionController
     { 
         $form = new DepartamentoForm(); // mostrar formulario
         $form->get('submit')->setValue('Guardar');
-        $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal
-        $form->get('Sucursal')->setValueOptions($rowset);
        
         $request = $this->getRequest();
 
@@ -86,8 +81,6 @@ class DepartamentoController extends AbstractActionController
 
         $form = new DepartamentoForm();
         $form->bind($departamento);
-        $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal
-        $form->get('Sucursal')->setValueOptions($rowset);
         $form->get('submit')->setAttribute('value', 'Actualizar');
 
         $request = $this->getRequest();

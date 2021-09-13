@@ -45,10 +45,10 @@ class ConductorForm extends Form
             ],
         ]);
          $this->add([
-            'name' => 'Dni',
+            'name' => 'Licencia_Conducir',
             'type' => 'text',
             'options' => [
-                'label' => 'Documento Nacional de Identificación(DNI)',
+                'label' => 'Licencia de conducir',
             ],
         ]);
          

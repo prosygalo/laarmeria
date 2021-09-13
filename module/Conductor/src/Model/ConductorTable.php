@@ -34,6 +34,15 @@ class ConductorTable
                 }
                 return $row;
      }
+     public function getLicencia($Cod_Conductor)
+     {
+                $Cod_Conductor = $Cod_Conductor;
+                $rowset = $this->tableGateway->getSql()->select();
+                $rowset->columns(array('Licencia_Conducir'));
+                $rowset->where(['Cod_Conductor' => $Cod_Conductor]);
+                $resultSet = $this->tableGateway->selectWith($rowset); 
+                return $resultSet;
+     }
      public function getConductorSelect(){
 
                 $rowset = $this->tableGateway->getSql()->select();
@@ -54,7 +63,7 @@ class ConductorTable
                 'Cod_Conductor' => $conductor->Cod_Conductor,
                 'Nombres_Conductor'  => $conductor->Nombres_Conductor,
                 'Apellidos_Conductor' =>$conductor->Apellidos_Conductor,
-                'Dni'  => $conductor->Dni,
+                'Licencia_Conducir'  => $conductor->Licencia_Conducir,
                 'Estado'  => $conductor->Estado,
 
             ];
@@ -76,7 +85,7 @@ class ConductorTable
                 'Cod_Conductor' => $conductor->Cod_Conductor,
                 'Nombres_Conductor'  => $conductor->Nombres_Conductor,'Estado'  => $conductor->Estado,
                 'Apellidos_Conductor' =>$conductor->Apellidos_Conductor,
-                'Dni'  => $conductor->Dni,
+                'Licencia_Conducir'  => $conductor->Licencia_Conducir,
                 'Estado'  => $conductor->Estado,
 
             ];

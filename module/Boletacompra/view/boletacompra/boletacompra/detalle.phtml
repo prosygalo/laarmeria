@@ -1,0 +1,125 @@
+<?php
+$title = 'Boleta de guía de remisión';
+$this->headTitle($title);
+
+$Fecha_Emision =$form->get('Fecha_Emision');
+$Fecha_Emision->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
+$Consecutivo_Actual_Establ->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Punto=$form->get('Consecutivo_Actual_Punto');
+$Consecutivo_Actual_Punto->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
+$Consecutivo_Actual_Tipo->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
+$Consecutivo_Actual_Correlativo->setAttribute('readonly', 'readonly');
+
+$Sucursal=$form->get('Sucursal');
+$Sucursal->setAttribute('disabled', 'disabled');
+
+$Autorizacion_Sar=$form->get('Autorizacion_Sar');
+$Autorizacion_Sar->setAttribute('readonly', 'readonly');
+
+$form->prepare();
+?>                                              
+<div class="container"> 
+    <fieldset>
+        <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+        <?= $this->form()->openTag($form) ?>
+        <h5>N&uacute;mero de documento fiscal</h5>
+        <div class="row " style="background-color:#f2f2f2">
+            <div class="col-md-3">
+                <div class="form-group">
+                <?= $this->formLabel($Consecutivo_Actual_Establ) ?>
+                <?= $this->formElement($Consecutivo_Actual_Establ) ?>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                <?= $this->formLabel($Consecutivo_Actual_Punto) ?>
+                <?= $this->formElement($Consecutivo_Actual_Punto) ?>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                <?= $this->formLabel($Consecutivo_Actual_Tipo) ?>
+                <?= $this->formElement($Consecutivo_Actual_Tipo) ?>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                <?= $this->formLabel($Consecutivo_Actual_Correlativo) ?>
+                <?= $this->formElement($Consecutivo_Actual_Correlativo) ?>
+                </div>
+            </div>
+        </div><br>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                <?= $this->formLabel($Autorizacion_Sar) ?>
+                <?= $this->formElement($Autorizacion_Sar) ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                <?= $this->formLabel($Sucursal) ?>
+                <?= $this->formSelect($Sucursal) ?>
+                </div>
+            </div>
+        </div><br>
+        <?= $this->form()->closeTag()?>  
+        <div class="row">     
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered" cellspacing="0"  style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>Código de Producto</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($detalle as $a) : ?>
+                        <tr>
+                        <td><?= $this->escapeHtml($a->Cod_Producto) ?></td>
+                        <td><?= $this->escapeHtml($a->Nombre_Producto) ?></td>
+                        <td><?= $this->escapeHtml($a->Cantidad) ?></td>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+            <table style="padding: 20px 30px;width: 100%">
+                <tbody>
+                    <tr>
+                      <td>Entregado por:_________________________</td>
+                      <td>Recibido por:_________________________</td>
+                    </tr>
+                </tbody>
+            </table><br>
+            <table style="padding: 20px 30px;">
+              <?php foreach ($user as $u) : ?>
+                <tbody>
+                    <tr>
+                      <td><label>Emitida por:</label><label><?= $this->escapeHtml($u->Cod_Usuario)?></label><label><?= $this->escapeHtml($u->Usuario)?></label></td>
+                      <td><label><?= 'Fecha de impresión:'.date('y-m-d H:i:s')?></label></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table> 
+    </fieldset>
+    <fieldset style="padding-top: 20px">
+    <a type="button" class="btn btn-danger btn pull-right" target="_blank"  href="<?= $this->url('boletaboleta/pdf',['Cod_Boleta'=> $Cod_Boleta])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>
+    </fieldset>
+</div>

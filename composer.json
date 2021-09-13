@@ -43,7 +43,9 @@
             "Conductor\\": "module/Conductor/src/",
              "Unidadtransporte\\": "module/Unidadtransporte/src/",
              "Boletasremision\\": "module/Boletasremision/src/",
-             "Usuario\\": "module/Usuario/src/"
+             "Usuario\\": "module/Usuario/src/",
+             "Boletacompra\\": "module/Boletacompra/src/",
+             "Tipodocumento\\": "module/Tipodocumento/src/"
       
         }
     },

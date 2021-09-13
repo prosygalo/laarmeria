@@ -4,6 +4,7 @@ namespace Autorizacionsar\Model;
 class Autorizacionsar 
 { 
     public $Cod_Autorizacion;
+    public $Tipo_de_Documento;
     public $Cai;
     public $Consecutivo_Inicial_Establ;
     public $Consecutivo_Inicial_Punto;
@@ -25,6 +26,7 @@ class Autorizacionsar
     public function exchangeArray(array $data)
     {   
         $this->Cod_Autorizacion = !empty($data['Cod_Autorizacion']) ? $data['Cod_Autorizacion'] : null;
+        $this->Tipo_de_Documento = !empty($data['Tipo_de_Documento']) ? $data['Tipo_de_Documento'] : null;
         $this->Cai = !empty($data['Cai']) ? $data['Cai'] : null;
         $this->Consecutivo_Inicial_Establ = !empty($data['Consecutivo_Inicial_Establ']) ? $data['Consecutivo_Inicial_Establ'] : null;
         $this->Consecutivo_Inicial_Punto = !empty($data['Consecutivo_Inicial_Punto']) ? $data['Consecutivo_Inicial_Punto'] : null;
@@ -41,30 +43,10 @@ class Autorizacionsar
         $this->Sucursal = !empty($data['Sucursal']) ? $data['Sucursal'] : null;
         $this->Fecha_Limite = !empty($data['Fecha_Limite']) ? $data['Fecha_Limite'] : null;
         $this->Fecha_Ingreso  = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
+        //documento fiscales
+        $this->Nombre_Documento  = !empty($data['Nombre_Documento']) ? $data['Nombre_Documento'] : null;
 
-    }
 
-    public function getArrayCopy()
-    {
-        return [
-            'Cod_Autorizacion' => $this->Cod_Autorizacion,
-            'Cai' => $this->Cai,
-            'Consecutivo_Inicial_Establ'=>$this->Consecutivo_Inicial_Establ,
-            'Consecutivo_Inicial_Punto'=>$this->Consecutivo_Inicial_Punto,
-            'Consecutivo_Inicial_Tipo'=>$this->Consecutivo_Inicial_Tipo,
-            'Consecutivo_Inicial_Correlativo'=>$this->Consecutivo_Inicial_Correlativo,
-            'Consecutivo_Final_Establ'=>$this->Consecutivo_Final_Establ,
-            'Consecutivo_Final_Punto'=>$this->Consecutivo_Final_Punto,
-            'Consecutivo_Final_Tipo'=>$this->Consecutivo_Final_Tipo,
-            'Consecutivo_Final_Correlativo'=>$this->Consecutivo_Final_Correlativo,
-            'Consecutivo_Actual_Establ'=>$this->Consecutivo_Actual_Establ,
-            'Consecutivo_Actual_Punto'=>$this->Consecutivo_Actual_Punto,
-            'Consecutivo_Actual_Tipo'=>$this->Consecutivo_Actual_Tipo,
-            'Consecutivo_Actual_Correlativo'=>$this->Consecutivo_Actual_Correlativo,
-            'Sucursal' => $this->Sucursal,
-            'Fecha_Limite'=>$this->Fecha_Limite,
-            'Fecha_Ingreso'=>$this->Fecha_Ingreso,
-        ];
     }
     
 }

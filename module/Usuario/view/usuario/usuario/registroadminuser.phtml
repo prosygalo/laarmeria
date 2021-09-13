@@ -6,6 +6,12 @@ $Cod_Empleado=$form->get('Cod_Empleado');
 $Cod_Empleado->setAttribute('class', 'form-control autofocus');
 $Cod_Empleado->setAttribute('readonly', 'readonly');
 
+$Sucursal=$form->get('Sucursal');
+$Sucursal->setAttribute('class', 'form-control autofocus');
+
+$Departamento=$form->get('Departamento');
+$Departamento->setAttribute('class', 'form-control autofocus');
+
 $Usuario=$form->get('Usuario');
 $Usuario->setAttribute('class', 'form-control autofocus');
 $Usuario->setAttribute('readonly', 'readonly');
@@ -13,7 +19,6 @@ $Usuario->setAttribute('readonly', 'readonly');
 $Correo=$form->get('Correo');
 $Correo->setAttribute('class', 'form-control autofocus');
 $Correo->setAttribute('readonly', 'readonly');
-
 
 $ClaveView=$form->get('ClaveView');
 $ClaveView->setAttribute('class', 'form-control autofocus');
@@ -33,60 +38,74 @@ $form->prepare();
 
 echo $this->form()->openTag($form);
 ?>                                                    
-<form>
-<div class="container">
-<fieldset>
-    <h3 class="text-center"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h3>
-</fieldset> 
-<div class="row">
-    <div class="col-md-12 col-md-offset-3">
-        <div class="row">
-            <div class="col-md-12 col-md-6">
-                    <div class="form-group">
-                        <?= $this->formLabel($Cod_Empleado) ?>
-                        <?= $this->formElement($Cod_Empleado) ?>
-                        
+<section id="cover">
+    <div id="container-fluid">
+        <div id="container" class="container">
+        <h4 class="text-center"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+            <div class="row justify-content-center">
+                <div class="col-md-12 offset-md-7">
+                    <div class="info-form">
+                        <?=$this->form()->openTag($form) ?>
+                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Cod_Empleado) ?>
+                                        <?= $this->formElement($Cod_Empleado) ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Sucursal) ?>
+                                        <?= $this->formElement($Sucursal) ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Departamento) ?>
+                                        <?= $this->formElement($Departamento) ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Usuario) ?>
+                                        <?= $this->formElement($Usuario) ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Correo) ?>
+                                        <?= $this->formElement($Correo) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($ClaveView) ?>
+                                        <?= $this->formElement($ClaveView) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Estado) ?>
+                                        <?= $this->formElement($Estado) ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Rol) ?>
+                                        <?= $this->formElement($Rol) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <?php
+                                        echo $this->formSubmit($submit);
+                                        echo $this->formHidden($form->get('Cod_Usuario'));
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?= $this->form()->closeTag()?>
                     </div>
-
-                    <div class="form-group">
-                        <?= $this->formLabel($Usuario) ?>
-                        <?= $this->formElement($Usuario) ?>
-                       
-                    </div>
-
-                    <div class="form-group">
-                        <?= $this->formLabel($Correo) ?>
-                        <?= $this->formElement($Correo) ?>
-                       
-                    </div>
-
-
-                    <div class="form-group">
-                        <?= $this->formLabel($ClaveView) ?>
-                        <?= $this->formElement($ClaveView) ?>
-                       
-
-                     <div class="form-group">
-                        <?= $this->formLabel($Rol) ?>
-                        <?= $this->formElement($Rol) ?>
-                       
-                    </div>
-
-                    <div class="form-group">
-                        <?= $this->formLabel($Estado) ?>
-                        <?= $this->formElement($Estado) ?>
-                    </div>
-
-                    
-                    <?php
-                    echo $this->formSubmit($submit);
-                    echo $this->formHidden($form->get('Cod_Usuario'));
-                    echo $this->form()->closeTag();
-                    ?>
-                   
-             </div>       
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
-</form>
+</section>

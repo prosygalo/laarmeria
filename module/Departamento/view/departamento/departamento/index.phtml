@@ -2,18 +2,16 @@
 $title = 'Listado de departamentos';
 $this->headTitle($title);
 ?>
-<div class="container-fluid">
+<div class="container">
   <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
     <p>
       <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('departamento/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
     </p>
-    <table class="display"   id="example"  style="width:100%">
+    <table class="table table-hover" id="example"  style="width:100%">
       <thead style="background-color:brown;color:white;">
         <tr>
           <th>c&oacute;digo de departamento</th>
           <th>Nombre de departamento</th>
-          <th>C&oacute;digo de sucursal</th>
-          <th>Nombre sucursal</th>
           <th>Fecha de ingreso</th>
           <th>Fecha de actualizaci&oacute;n</th>
           <th>Acci&oacute;n</th>
@@ -24,8 +22,6 @@ $this->headTitle($title);
         <tr>
           <td><?= $this->escapeHtml($dep->Cod_Departamento) ?></td>
           <td><?= $this->escapeHtml($dep->Nombre_Depto) ?></td>
-          <td><?= $this->escapeHtml($dep->Sucursal) ?></td>
-          <td><?= $this->escapeHtml($dep->Nombre_Sucursal) ?></td>
           <td><?= $this->escapeHtml($dep->Fecha_Ingreso) ?></td>
           <td><?= $this->escapeHtml($dep->Fecha_Actualizacion) ?></td>
           <td>

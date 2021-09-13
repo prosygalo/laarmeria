@@ -80,8 +80,71 @@ class EditarRegistroFilter  implements InputFilterAwareInterface
                 ],
             ],
         ]);
+        
+        $inputFilter->add([
+            'name' => 'Sucursal',
+            'filters' => [
+               ['name' => StripTags::class],
+               //['name' => StringTrim::class],
+               ],
+             'validators' => [
+                       ['name' => StringLength::class,
+                        'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 3,
+                        'max' => 18,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'C&oacute;digo es incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'C&oacute;digo es obligatorio y  debe tener  m&aacute;s de 3 digitos',
+                        \Zend\Validator\StringLength::TOO_LONG=>'C&oacute;digo debe tener menos de 18 digitos',
+                         ],
+                       ],
+                      ],
+                     ['name' => Regex::class, 
+                     'options' => [
+                       'pattern' => '/^[a-zA-Z0-9]+$/',
+                       'messages'=>[
+                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
+                        \Zend\Validator\Regex::NOT_MATCH=>'Formato de c&oacute;digo incorrecto',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
 
-
+        $inputFilter->add([
+            'name' => 'Departamento',
+            'filters' => [
+               ['name' => StripTags::class],
+               //['name' => StringTrim::class],
+               ],
+             'validators' => [
+                       ['name' => StringLength::class,
+                        'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 3,
+                        'max' => 18,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'C&oacute;digo es incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'C&oacute;digo es obligatorio y  debe tener  m&aacute;s de 3 digitos',
+                        \Zend\Validator\StringLength::TOO_LONG=>'C&oacute;digo debe tener menos de 18 digitos',
+                         ],
+                       ],
+                      ],
+                     ['name' => Regex::class, 
+                     'options' => [
+                       'pattern' => '/^[a-zA-Z0-9]+$/',
+                       'messages'=>[
+                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
+                        \Zend\Validator\Regex::NOT_MATCH=>'Formato de c&oacute;digo incorrecto',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+        
         $inputFilter->add([
             'name' => 'Usuario',
             'filters' => [

@@ -24,6 +24,9 @@ $Correo=$form->get('Correo');
 $Correo->setAttribute('class', 'form-control');
 $Correo->setAttribute('placeholder', 'usuario@example.com');
 
+$Estado=$form->get('Estado');
+$Estado->setAttribute('class', 'form-control');
+
 $submit=$form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
 
@@ -58,6 +61,11 @@ $form->prepare();
                                         <?= $this->formLabel($Direccion) ?>
                                         <?= $this->formElement($Direccion) ?>
                                         <?= $this->formElementErrors()->render($Direccion, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Estado) ?>
+                                        <?= $this->formElement($Estado) ?>
+                                        <?= $this->formElementErrors()->render($Estado, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
 
                                 </div>

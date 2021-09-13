@@ -5,6 +5,12 @@ $this->headTitle($title);
 $Cod_Empleado=$form->get('Cod_Empleado');
 $Cod_Empleado->setAttribute('class', 'form-control autofocus');
 
+$Sucursal=$form->get('Sucursal');
+$Sucursal->setAttribute('class', 'form-control autofocus');
+
+$Departamento=$form->get('Departamento');
+$Departamento->setAttribute('class', 'form-control autofocus');
+
 $Usuario=$form->get('Usuario');
 $Usuario->setAttribute('class', 'form-control autofocus');
 
@@ -45,11 +51,34 @@ $form->prepare();
                                         <?= $this->formElement($Cod_Empleado) ?>
                                         <?= $this->formElementErrors()->render($Cod_Empleado, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Sucursal) ?>
+                                        <?= $this->formElement($Sucursal) ?>
+                                        <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <?= $this->formLabel($Departamento) ?>
+                                        <?= $this->formElement($Departamento) ?>
+                                        <?= $this->formElementErrors()->render($Departamento, ['class' => 'help-inline  text-danger']) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+
                                     <div class="form-group">
                                         <?= $this->formLabel($Usuario) ?>
                                         <?= $this->formElement($Usuario) ?>
                                         <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <?= $this->formLabel($Correo) ?>
                                         <?= $this->formElement($Correo) ?>

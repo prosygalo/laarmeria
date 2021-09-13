@@ -1,0 +1,43 @@
+<?php
+$title = 'Listado de documentos fiscales';
+$this->headTitle($title);
+?>
+<div class="container">
+   <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+      <p>
+        <a class="btn btn-outline-info float-right"  role="button"  href="<?= $this->url('tipodocumento/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
+      </p>
+      <table class="display"   id="example"  style="width:100%">
+        <thead style="background-color:brown;color:white;">
+          <tr>
+            <th>c&oacute;digo documento</th>
+            <th>Tipo de documento fiscal</th>
+            <th>Fecha de ingreso</th>
+            <th>Fecha de actualizaci&oacute;n</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($tipodocumento as $u) : ?>
+          <tr>
+            <td><?= $this->escapeHtml($u->Cod_Documento) ?></td>
+            <td><?= $this->escapeHtml($u->Nombre_Documento) ?></td>
+            <td><?= $this->escapeHtml($u->Fecha_Ingreso) ?></td>
+            <td><?= $this->escapeHtml($u->Fecha_Actualizacion) ?></td>
+            <td>
+              <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('tipodocumento/edit',['Cod_Documento'=>$u->Cod_Documento])?>"><i class="fa fa-pencil"></i></a>    
+            </td>
+          </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+</div>
+<script type="text/javascript">
+ $(document).ready(function() {
+    $('#example').DataTable({
+    "language": {
+      "url": "datatables/js/Spanish.json"
+    }
+    });
+   });
+</script>

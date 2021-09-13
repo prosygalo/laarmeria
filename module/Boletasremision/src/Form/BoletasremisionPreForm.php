@@ -17,12 +17,12 @@ class BoletasremisionPreForm extends Form
         //Listado de elementos agregados al formulario
 
         //Agregar ojeto de selección Sucursales
-        $Sucursal = new Element\Select('Sucursal');
-        $Sucursal->setAttribute('name', 'Sucursal');
-        $Sucursal->setAttribute('id', 'Sucursal');
-        $Sucursal->setLabel('Sucursal');
-        $Sucursal->setEmptyOption('Seleccione');
-        $Sucursal->setAttribute('class', 'form-control');
+        $Sucursal_Remitente = new Element\Select('Sucursal_Remitente');
+        $Sucursal_Remitente->setAttribute('name', 'Sucursal_Remitente');
+        $Sucursal_Remitente->setAttribute('id', 'Sucursal');
+        $Sucursal_Remitente->setLabel('Sucursal');
+        $Sucursal_Remitente->setEmptyOption('Seleccione');
+        $Sucursal_Remitente->setAttribute('class', 'form-control');
         $this->add($Sucursal);
 
 

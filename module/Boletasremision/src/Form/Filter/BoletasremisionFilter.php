@@ -189,11 +189,11 @@ class BoletasremisionFilter  extends InputFilter
                 ],
                 ['name' =>NoRecordExists::class,
                           'options' => [
-                            'table' => 'boletas_guia_remision',
+                            'table' => 'autorizaciones_sar',
                             'field' => 'Consecutivo_Actual_Correlativo',
                             'adapter' =>  $this->dbAdapter,
                             'messages' => [
-                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El correlativo ya existe',
+                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'Se detecto inactividad en la aplicación  y su correlativo esta comprometido, favor intentarlo nuevamente',
                            ],
                         ],
                   ],
@@ -234,39 +234,7 @@ class BoletasremisionFilter  extends InputFilter
                 ],
             ],
         ]);
-       
-        $this->add([
-            'name' => 'Num_Transferencia',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               //['name' => StringTrim::class],
-               ],
-             'validators' => [
-                       ['name' => StringLength::class,
-                        'options' => [
-                        'encoding' => 'UTF-8',
-                        //'min' => 1,
-                        'max' => 10,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Número de transferencia es incorrecto',
-                        //\Zend\Validator\StringLength::TOO_SHORT=>'Número de transferencia  es obligatorio',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Número de transferencia  debe tener menos de 10 dígitos',
-                         ],
-                       ],
-                      ],
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);
+      
         
         $this->add([
             'name' => 'Fecha_Inicio_Traslado',
@@ -363,7 +331,27 @@ class BoletasremisionFilter  extends InputFilter
         ]);
         
         $this->add([
-            'name' => 'Sucursal',
+            'name' => 'Sucursal_Remitente',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+               ],
+             'validators' => [
+                     ['name' => Regex::class, 
+                     'options' => [
+                       'pattern' => '/^[a-zA-Z0-9]+$/',
+                       'messages'=>[
+                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
+                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+        $this->add([
+            'name' => 'Sucursal_Destino',
             'required' => true,
             'filters' => [
                ['name' => StripTags::class],

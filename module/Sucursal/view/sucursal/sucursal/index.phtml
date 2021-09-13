@@ -5,13 +5,15 @@ $this->headTitle($title);
 <div class="container-fluid">
   <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
     <p><a class="btn btn-outline-info float-right"  role="button"  href="<?= $this->url('sucursal/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a></p>
-      <table class="display"  id="example"  style="width:100%">
+      <table class="table table-hover"  id="example"  style="width:100%">
           <thead style="background-color:brown;color:white;">
             <tr>
               <th>c&oacute;digo de sucursal</th>
               <th>Nombre  Sucursal</th>
               <th>Registro Nacional Tributario (RTN)</th>
               <th>Direcci&oacute;n</th>
+              <th>Correo</th>
+              <th>Estado</th>
               <th>Fecha de ingreso</th>
               <th>Fecha de actualizaci&oacute;n</th>
               <th>Acci&oacute;n</th>
@@ -24,6 +26,8 @@ $this->headTitle($title);
               <td><?= $this->escapeHtml($suc->Nombre_Sucursal) ?></td>
               <td><?= $this->escapeHtml($suc->RTN) ?></td>
               <td><?= $this->escapeHtml($suc->Direccion) ?></td>
+              <td><?= $this->escapeHtml($suc->Correo) ?></td>
+               <td><?= $this->escapeHtml($suc->Estado) ?></td>
               <td><?= $this->escapeHtml($suc->Fecha_Ingreso) ?></td>
               <td><?= $this->escapeHtml($suc->Fecha_Actualizacion) ?></td>
               <td>

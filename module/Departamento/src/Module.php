@@ -6,7 +6,7 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\FormElementProviderInterface;
-use Sucursal\Model\SucursalTable;
+
 
 class Module implements ConfigProviderInterface
 {
@@ -44,7 +44,6 @@ class Module implements ConfigProviderInterface
                     return new Controller\DepartamentoController(
                        $container,
                        $container->get(Model\DepartamentoTable::class),
-                       $container->get(SucursalTable::class),
                        $dbAdapter
                    );
                 },

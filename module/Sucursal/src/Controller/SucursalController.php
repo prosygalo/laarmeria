@@ -97,32 +97,6 @@ class SucursalController extends AbstractActionController
         return $this->redirect()->toRoute('sucursal');
     }
 
-    public function deleteAction()
-    {
-            $Cod_Sucursal = $this->params()->fromRoute('Cod_Sucursal');
-            
-            if (!$Cod_Sucursal) {
-                return $this->redirect()->toRoute('sucursal');
-            }
-
-            $request = $this->getRequest();
-            if ($request->isPost()) {
-                $del = $request->getPost('del', 'No');
-
-                if ($del == 'Yes') {
-                    $Id= (int) $request->getPost('Cod_Sucursal');
-                    $this->table->deleteSucursal($Cod_Sucursal);
-                }
-
-                // Redirect to list 
-                return $this->redirect()->toRoute('sucursal');
-            }
-             return [
-            'Cod_Sucursal'    => $Cod_Sucursal,
-            'suc' => $this->table->getSucursal($Cod_Sucursal),
-        ];
-            
-   }
    public function listoAction()
     {
         return new ViewModel([

@@ -64,16 +64,6 @@ class AutorizacionsarFilter  extends InputFilter
                       ],
                     ],
                 ],
-                ['name' =>NoRecordExists::class,
-                          'options' => [
-                            'table' => 'autorizaciones_sar',
-                            'field' => 'Cai',
-                            'adapter' =>  $this->dbAdapter,
-                            'messages' => [
-                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El CAI ya existe',
-                           ],
-                        ],
-                  ],
             ],
         ]);
 
@@ -207,16 +197,7 @@ class AutorizacionsarFilter  extends InputFilter
                       ],
                     ],
                 ],
-                ['name' =>NoRecordExists::class,
-                    'options' => [
-                        'table' => 'autorizaciones_sar',
-                        'field' => 'Consecutivo_Inicial_Correlativo',
-                        'adapter' =>  $this->dbAdapter,
-                        'messages' => [
-                            \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El correlativo  ya existe',
-                        ],
-                    ],
-                ],
+               
             ],
 
         ]);
@@ -351,16 +332,6 @@ class AutorizacionsarFilter  extends InputFilter
                       ],
                     ],
                 ],
-                ['name' =>NoRecordExists::class,
-                    'options' => [
-                        'table' => 'autorizaciones_sar',
-                        'field' => 'Consecutivo_Final_Correlativo',
-                        'adapter' =>  $this->dbAdapter,
-                        'messages' => [
-                            \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El correlativo final  ya existe',
-                        ],
-                    ],
-                ],
             ],
 
         ]);
@@ -436,4 +407,3 @@ class AutorizacionsarFilter  extends InputFilter
 
     
 }
-

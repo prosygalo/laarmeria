@@ -83,6 +83,8 @@ class AuthController extends AbstractActionController
                         'Cod_Usuario'   => $resultRow->Cod_Usuario,
                         'Usuario'       => $resultRow->Usuario,
                         'Rol'           => $resultRow->Rol,
+                        'Sucursal'      => $resultRow->Sucursal,
+                        'Departamento'  => $resultRow->Departamento,
                         'Correo'        => $Correo,
                         'Estado'        => $resultRow->Estado,
                         'ip_address'    => $this->getRequest()->getServer('REMOTE_ADDR'),

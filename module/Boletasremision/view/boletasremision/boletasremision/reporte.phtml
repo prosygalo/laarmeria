@@ -1,104 +1,5 @@
-<?= $this->doctype() ?>
-<html lang="en">
-     <head>
-        <meta charset="utf-8">
-        <title>Boleta de guía de remisión</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">   
-       <style type="text/css">
-       	  table {
-           width: 100%;
-          }
-          td {
-           text-align: left;
-           vertical-align: top;
-           
-          }
-          th{
-          	text-align: left;
-            width: 100%;
-            vertical-align: top;
-            font-weight: bold;
-            font-size: 0.8em;
-          }
-
-       caption {
-           color: #000;
-           text-align: left;
-           background: #fff;
-           font-size: 0.8em;
-       }
-       label {
-           display: inline-block;
-           max-width: 100%;
-           margin-bottom: 3px;
-           font-weight: bold;
-           font-size: 0.9em;
-       }
-       input{
-           display: block;
-           width: 75%;
-           height: 20px;
-           padding:  5px 10px;
-           font-size: 14px;
-           line-height: 1.42857143;
-           color: #000;
-           background-color: #fff;
-           background-image: none;
-           border: 1px solid #ccc;
-           border-radius: 3px;
-          -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-          -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-        }
-          .d{
-           display: block;
-           width: 75%;
-           height: 40px;
-           padding:  5px 10px;
-           font-size: 14px;
-           line-height: 1.42857143;
-           color: #000;
-           background-color: #fff;
-           background-image: none;
-           border: 1px solid #ccc;
-           border-radius: 3px;
-          -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-          -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-        }
-        select{
-           display: block;
-           width: 75%;
-           height: 25px;
-           padding:  5px 10px;
-           font-size: 14px;
-           line-height: 1.42857143;
-           color: #000;
-           background-color: #fff;
-           background-image: none;
-           border: 1px solid #ccc;
-           border-radius: 3px;
-          -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-          -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-          -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-        }
-        fieldset {
-            padding: .35em .625em .75em;
-            margin: 0 2px;
-            border: 1px solid #c0c0c0;
-        }
-        
-       </style>
-  </head>
-	<body>
 <?php
+$this->doctype();
 $title = 'Boleta de guía de remisión';
 $this->headTitle($title);
 $Fecha_Emision =$form->get('Fecha_Emision');
@@ -123,12 +24,10 @@ $Num_Transferencia=$form->get('Num_Transferencia');
 $Num_Transferencia->setAttribute('readonly', 'readonly');
 
 $Punto_Partida=$form->get('Punto_Partida');
-$Punto_Partida->setAttribute('disabled', 'disabled');
-$Punto_Partida->setAttribute('class', 'd');
+$Punto_Partida->setAttribute('readonly', 'readonly');
 
 $Punto_Destino=$form->get('Punto_Destino');
 $Punto_Destino->setAttribute('disabled', 'disabled');
-$Punto_Destino->setAttribute('class', 'd');
 
 $Autorizacion_Sar=$form->get('Autorizacion_Sar');
 $Autorizacion_Sar->setAttribute('readonly', 'readonly');
@@ -139,8 +38,11 @@ $Fecha_Inicio_Traslado->setAttribute('readonly', 'readonly');
 $Fecha_Final_Traslado=$form->get('Fecha_Final_Traslado');
 $Fecha_Final_Traslado->setAttribute('readonly', 'readonly');
 
-$Sucursal=$form->get('Sucursal');
-$Sucursal->setAttribute('disabled', 'disabled');
+$Sucursal_Destino=$form->get('Sucursal_Destino');
+$Sucursal_Destino->setAttribute('disabled', 'disabled');
+
+$Sucursal_Remitente=$form->get('Sucursal_Remitente');
+$Sucursal_Remitente->setAttribute('readonly', 'readonly');
 
 $Unidad_Transporte=$form->get('Unidad_Transporte');
 $Unidad_Transporte->setAttribute('disabled', 'disabled');
@@ -156,90 +58,182 @@ $Usuario->setAttribute('readonly', 'readonly');
 
 $Autorizacion_Sar=$form->get('Autorizacion_Sar');
 $Autorizacion_Sar->setAttribute('readonly', 'readonly');
-
-$form->prepare();
-echo $this->form()->openTag($form);
 ?>
-	    <div>
-            <table>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+      <title>Boleta de guía de remisión</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+       <style type="text/css">
+       	  table {
+           width: 100%;
+          }
+          td {
+           text-align: left;
+           vertical-align: top;
+           font-size:x-small;
+          }
+          th{
+          	text-align: left;
+            vertical-align: top;
+            font-weight:bold;
+            font-size:x-small;
+          }
+          label {
+           display: inline-block;
+           max-width: 100%;
+           margin-bottom: 3px;
+           font-weight:bold;
+           font-size:x-small;
+          }
+          input{
+           text-align: center;
+           display: block;
+           width:100%;
+           height: 15px;
+           padding:1px 3px;
+           font-size:xx-small;
+           line-height: 1.42857143;
+           color: #000;
+           background-color: #fff;
+           background-image: none;
+           border: 1px solid #ccc;
+           border-radius: 3px;
+          -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+          -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+        select{
+           display: block;
+           width: 100%;
+           height: 16px;
+           padding: 1px 3px;
+           text-align: center;
+           font-size:xx-small;
+           line-height: 1.42857143;
+           color: #000;
+           background-color: #fff;
+           border: 1px solid #ccc;
+           border-radius: 3px;
+          -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+          -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+         
+        .pro{ 
+          padding: .35em .625em .75em;
+          margin: 0 2px;
+          width:100%;
+          border: 1px solid #c0c0c0;
+        }
+       </style>
+</head>
+<body>
+<section>
+	  <div>
+          <table>
                 <tbody>
                     <tr>
-                        <td style="height:10%;width:20%;"><img src="http://guiasremision/img/logo.PNG" style="height:63px;width:98px;"/></td>
-                        <td style="width:100%;"><h3 style="text-align:center;"><?= $this->escapeHtml($title) ?></h3></td>
-                        <td style="width:100%;"><?php foreach ($Suc as $g) : ?>
-                        <label>La Armeria</label><br>
-                        <label><?= $this->escapeHtml($g->Direccion) ?></label><br>
-                        <label>Tel:<?= $this->escapeHtml($g->Telefono) ?></label><br>
-                        <label>RTN:<?= $this->escapeHtml($g->RTN) ?></label> 
+                        <td  style= "width:30%;"><img src="http://laarmeria/img/logoarmeria.png" style="height:40px; width:100px;display: block;margin-right: auto;margin-left: auto;"></td>
+                        <td style="text-align:center;width:40%">
+                             <strong>FUERZAS ARMADAS DE HONDURAS</strong><br>
+                             <strong>INSTITUTO DE PREVISIÓN MILITAR(IPM)</strong><br>
+                             <strong>LA ARMERIA</strong><br>
+                             <strong>RTN 08019003238214</strong><br>
+                             <strong>LA ARMERIA AEROPUERTO</strong><br>
+                        </td>
+                        <td  style= "width:30%;"><img src="http://laarmeria/img/logoIPM.png" style="height:60px; width:60px;display: block;margin-right:auto;margin-left:60%;"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="pad">
+                <tbody>
+                    <tr>
+                        <td  style="text-align:left;width:40%">
+                          <label>IPM :Colonia Luis landa Blvd Centro America</label><br>
+                          <label>Contiguo a IMPREMA Fco. Morazán, Honduras</label><br>
+                          <label>Tel: 504 2239-1441 meza@grupoipm.hn</label>
+                        </td>
+                        <td style="text-align:left;width:40%">
+                          <?php foreach ($Suc as $g) : ?>
+                          <label><?= $this->escapeHtml($g->Direccion) ?></label><br>
+                          <label><?= $this->escapeHtml($g->Telefono) ?></label><br>
+                          <label><?= $this->escapeHtml($g->Correo) ?></label>
                         <?php endforeach; ?>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <fieldset>
-            <table>
-                <caption>N&Uacute;MERO DE DOCUMENTO FISCAL</caption>
-                <thead>
-                	<tr>
-                    <th><?= $this->formLabel($Consecutivo_Actual_Establ)?></th>
-                		<th><?= $this->formLabel($Consecutivo_Actual_Punto)?></th>
-                		<th><?= $this->formLabel($Consecutivo_Actual_Tipo)?></th> 
-                	  <th><?= $this->formLabel($Consecutivo_Actual_Correlativo)?></th>
-             	    </tr>
-         		    </thead>
-         		    <tbody>
-             		  <tr>
-                 		<td><?= $this->formElement($Consecutivo_Actual_Establ)?></td>
-                 		<td><?= $this->formElement($Consecutivo_Actual_Establ)?></td>
-                 		<td><?= $this->formElement($Consecutivo_Actual_Tipo)?></td>
-                 		<td><?= $this->formElement($Consecutivo_Actual_Correlativo)?></td>
-                    </tr>
-                </tbody>
-            </table>
-          </fieldset>
-          <fieldset>
+            <div style="text-align: center;font-weight: bold">Guía De Remisión</div>
             <table>
                 <thead>
                   <tr>
-                    <th><?= $this->formLabel($Fecha_Emision)?></th>
-                    <th><?= $this->formLabel($Autorizacion_Sar)?></th>
-                    <th><?= $this->formLabel($Fecha_Inicio_Traslado)?></th>
-                    <th><?= $this->formLabel($Fecha_Final_Traslado)?></th>
+                    <th></th>
+                    <th style="text-align: center">No.</th>
+                    <th>Documento</th>
+                    <th>Fiscal</th>
+                    <th></th>
+                    <th></th>
+                    <th>Fecha de emision</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody><?php foreach ($Cai as $b) : ?>
                   <tr>
-             	      <td><?= $this->formElement($Fecha_Emision)?></td>
-                    <td><?= $this->formElement($Autorizacion_Sar)?></td>
-                    <td><?= $this->formElement($Fecha_Inicio_Traslado)?></td>
-                    <td><?= $this->formElement($Fecha_Final_Traslado)?></td>
-                  </tr>
+                      <td style="width:30%"><strong>CAI: <?= $this->escapeHtml($b->Cai) ?></strong></td>
+                      <td style="width:8%"><?= $this->formElement($Consecutivo_Actual_Establ)?></td>
+                      <td style="width:8% "><?= $this->formElement($Consecutivo_Actual_Tipo)?></td>
+                      <td style="width:8%"><?= $this->formElement($Consecutivo_Actual_Punto)?></td>
+                      <td style="width:10%"><?= $this->formElement($Consecutivo_Actual_Correlativo)?></td>
+                      <td style="width:5%"></td>
+                      <td style="width:15%"><?= $this->formElement($Fecha_Emision)?></td>
+                  </tr><?php endforeach;?>
                 </tbody>
             </table>
             <table>
                 <thead>
                   <tr>
+                    <th><?= $this->formlabel($Sucursal_Remitente)?></th>
                     <th><?= $this->formLabel($Punto_Partida)?></th>
-                    <th><?= $this->formLabel($Punto_Destino)?></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><?= $this->formElement($Punto_Partida)?></td>
-                    <td><?= $this->formElement($Punto_Destino)?></td>  
+                    <td style="width:30%"><?= $this->formElement($Sucursal_Remitente)?></td>
+                    <td style="width:70%"><?= $this->formElement($Punto_Partida)?></td>  
                   </tr>
                 </tbody>
             </table>
             <table>
                 <thead>
                   <tr>
-                     <th><?= $this->formLabel($Num_Transferencia)?></th>
-                     <th><?= $this->formLabel($Motivo_Traslado)?></th>
+                    <th style="width:30%"><?= $this->formlabel($Sucursal_Destino)?></th>
+                    <th style="width:70%"><?= $this->formLabel($Punto_Destino)?></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><?= $this->formElement($Num_Transferencia)?></td>
+                    <td><?= $this->formElement($Sucursal_Destino)?></td>
+                    <td><?= $this->formElement($Punto_Destino)?></td>
+                  </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                  <tr>
+                    <th><?= $this->formLabel($Unidad_Transporte)?></th>
+                    <th><?= $this->formLabel($Conductor)?></th>
+                    <th><?= $this->formLabel($Motivo_Traslado)?></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><?= $this->formElement($Unidad_Transporte)?></td>
+                    <td><?= $this->formElement($Conductor)?></td>
                     <td><?= $this->formElement($Motivo_Traslado)?></td>
                   </tr>
                 </tbody>
@@ -247,63 +241,91 @@ echo $this->form()->openTag($form);
             <table>
                 <thead>
                   <tr>
-                    <th><?= $this->formLabel($Sucursal)?></th>
-                    <th><?= $this->formLabel($Unidad_Transporte)?></th>
-                    <th><?= $this->formLabel($Conductor)?></th>
+                    
+                    <th><?= $this->formLabel($Fecha_Inicio_Traslado)?></th>
+                    <th><?= $this->formLabel($Fecha_Final_Traslado)?></th>
+                    <th><?= $this->formLabel($Num_Transferencia)?></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><?= $this->formSelect($Sucursal)?></td>
-                    <td><?= $this->formElement($Unidad_Transporte)?></td>
-                    <td><?= $this->formElement($Conductor)?></td>
+                    <td><?= $this->formElement($Fecha_Inicio_Traslado)?></td>
+                    <td><?= $this->formElement($Fecha_Final_Traslado)?></td>
+                    <td><?= $this->formElement($Num_Transferencia)?></td>
                   </tr>
                 </tbody>
             </table>
-            </fieldset>
-            <fieldset>
-		        <table cellspacing="0"  style="width:100%">
-                <thead style="background-color: #ccc">
+		        <table  class="pro">
+                <thead style="background-color:#E6E6FA ">
                   <tr>
-                    <th>Código de Producto</th>
+                    <th>No.</th>
+                    <th>Código  producto</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
                   </tr>
                 </thead>
-                <tbody>
-              <?php foreach ($Detalle as $a) : ?>
+                <tbody><?php 
+                     $count=1;
+                     foreach ($Detalle as $a) : 
+                        ?>
                     <tr>
+                      <td><?= $count ?></td>
                       <td><?= $this->escapeHtml($a->Cod_Producto) ?></td>
                       <td><?= $this->escapeHtml($a->Nombre_Producto) ?></td>
                       <td><?= $this->escapeHtml($a->Cantidad) ?></td>
-                      <?php endforeach; ?>
+                     </tr><?php
+                      $count++;
+                      endforeach; 
+                      ?>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($Sar as $a) : ?>
+                    <tr>
+                      <td>Rango Autorizado:<?= $this->escapeHtml($a->Consecutivo_Inicial_Establ."-".$a->Consecutivo_Inicial_Punto."-".$a->Consecutivo_Inicial_Tipo."-".$a->Consecutivo_Inicial_Correlativo)?> al <?= $this->escapeHtml($a->Consecutivo_Final_Establ."-".$a->Consecutivo_Final_Punto."-".$a->Consecutivo_Final_Tipo."-".$a->Consecutivo_Final_Correlativo) ?></td>
+                      <td>Fecha límite:<?= $this->escapeHtml($a->Fecha_Limite) ?></td>
+                      <td>Fecha de impresión:<?= date('y-m-d H:i:s')?></td>
                      </tr>
+                  <?php endforeach; ?>
                 </tbody>
             </table>
-            </fieldset>
-            <fieldset>
-            <table style="padding: 20px 30px;">
-                <tbody>
+            <table>
+                <tbody><?php foreach ($Lic as $j) : ?>
                     <tr>
-                      <td>Entregado por:_________________________</td>
-                      <td>Recibido por:_________________________</td>
-                    </tr>
+                      <td><label>Licencia de conducir:<?= $this->escapeHtml($j->Licencia_Conducir)?></label></td>
+                    </tr><?php endforeach; ?>
                 </tbody>
             </table>
-            <table style="padding: 20px 30px;">
-              <?php foreach ($user as $u) : ?>
-                <tbody>
+            <table>
+                <thead>
                     <tr>
-                      <td><label>Emitida por:</label><label><?= $this->escapeHtml($u->Cod_Usuario)?></label><label><?= $this->escapeHtml($u->Usuario)?></label></td>
-                      <td><label><?= 'Fecha de impresión:'.date('y-m-d H:i:s')?></label></td>
+                        <th><?= '<label>Entregado por:</label>' ?></th>
+                        <th><?= '<label>Recibido por:</label>' ?></th>
+                        <th>Usuario</th>
                     </tr>
-                <?php endforeach; ?>
+                </thead>
+                <tbody><?php foreach ($user as $u) : ?>
+                    <tr>
+                      <td><label>_______________________</label></td>
+                      <td><label>_______________________</label></td>
+                      <td><label>COD:<?= $this->escapeHtml($u->Cod_Usuario)?>-<?= $this->escapeHtml($u->Usuario)?></label></td>
+                    </tr><?php endforeach; ?>
                 </tbody>
-            </table> 
-            </fieldset>
-    </div>
-    <?php          
-        echo  $this->form()->closeTag();
-    ?>
-</body>
+                <tfoot>
+                    <td>Original: Destinatario</td>
+                    <td>Copia: Remitente</td>
+                    <td>Copia: Administración tributaria</td>
+                </tfoot>
+            </table>
+        </div>
+     </section>
+  </body>
 </html>

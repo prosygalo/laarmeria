@@ -53,6 +53,7 @@ class SucursalForm extends Form
                 'label' => 'Teléfono',
             ],
         ]);
+
          
          $this->add([
             'name' => 'Correo',
@@ -61,9 +62,21 @@ class SucursalForm extends Form
                 'label' => 'Correo electrónico',
             ],
         ]);
-         
 
-              
+         $this->add([
+            'type' => Element\Select::class,
+            'name' => 'Estado',
+            'options' => [
+                'label' => 'Estado',
+                'empty_option' => 'Seleccione',
+                'value_options' => [
+                       'Disponible' => 'Disponible',
+                       'Cierre Parcial' => 'Cierre Parcial',
+                       'Cierre Total' => 'Cierre Total',
+               ],
+            ],
+        ]);
+               
         $this->add([
               'type'  => 'csrf',
               'name' => 'csrf',

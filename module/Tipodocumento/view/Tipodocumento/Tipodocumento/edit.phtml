@@ -1,0 +1,30 @@
+<?php
+$title = 'Editar tipo de documento fiscal';
+$this->headTitle($title);
+$Nombre_Documento=$form->get('Nombre_Documento');
+$submit=$form->get('submit');
+$form->prepare();
+?>                                              
+<section id="cover">
+    <div id="cover-caption">
+        <div id="container" class="container">
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+                    <div class="info-form">
+                        <?=  $this->form()->openTag($form)?><br>
+                        <div class="form-group">
+                        <?= $this->formElement($Nombre_Documento) ?><br>
+                        <?= $this->formElementErrors()->render($Nombre_Documento, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                        <div class="form-group">
+                         <?=  $this->formSubmit($submit)?><br>
+                         <?= $this->formHidden($form->get('Cod_Documento'))?>   
+                        </div>
+                        <?=  $this->form()->closeTag() ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -9,16 +9,8 @@ use Zend\Db\TableGateway\TableGatewayInterface;
 
 class DepartamentoTable
 {
-      private $DepartamentoTableGateway;
-      /* private $SucursalTableGateway;
-
-      public function __construct(TableGatewayInterface $DepartamentoTableGateway, TableGatewayInterface $SucursalTableGateway)
-     {
-               
-                $this->DepartamentoTableGateway = $DepartamentoTableGateway;
-                $this->SucursalTableGateway = $SucursalTableGateway;
-     }
-    */
+    private $DepartamentoTableGateway;
+    
      public function __construct(TableGatewayInterface $DepartamentoTableGateway)
      {
                
@@ -27,19 +19,22 @@ class DepartamentoTable
  
      public function fetchAll()
      {
-                $sqlSelect = $this->DepartamentoTableGateway->getSql()->select();
-                $sqlSelect->columns(array('Cod_Departamento','Nombre_Depto','Sucursal','Fecha_Ingreso','Fecha_Actualizacion'));
-                $sqlSelect->join('Sucursales', 'sucursales.Cod_Sucursal = departamentos.Sucursal', array('Nombre_Sucursal'), 'left');
-
-                 $resultSet = $this->DepartamentoTableGateway->selectWith($sqlSelect);
-                 return $resultSet;
+                
+              return $this->DepartamentoTableGateway->select();
               
      }
-      public function allDepto()
-     {
-              return $this->DepartamentoTableGateway->select();
 
-     }
+     public function getDepartamentoListado(){
+                $rowset = $this->DepartamentoTableGateway->getSql()->select();
+                $rowset->columns(array('Cod_Departamento','Nombre_Depto'));
+                $resultSet = $this->DepartamentoTableGateway->selectWith($rowset);
+                $data= array();
+                foreach($resultSet as $row){
+                   $data[$row->Cod_Departamento] = $row->Nombre_Depto;
+                }
+                   return $data;
+                 
+    }
     public function getDepto($Cod_Departamento)
      {
                 $Cod_Departamento = $Cod_Departamento;
@@ -56,7 +51,6 @@ class DepartamentoTable
             $data = [
                 'Cod_Departamento' => $departamento->Cod_Departamento,
                 'Nombre_Depto'  => $departamento->Nombre_Depto,
-                'Sucursal'  => $departamento->Sucursal,
             ];
            
             $Cod_Departamento = $departamento->Cod_Departamento;
@@ -73,7 +67,6 @@ class DepartamentoTable
     {          $data = [
                 'Cod_Departamento' => $departamento->Cod_Departamento,
                 'Nombre_Depto'  => $departamento->Nombre_Depto,
-                'Sucursal'  => $departamento->Sucursal,
                  ];
 
                $Cod_Departamento = $departamento->Cod_Departamento;
@@ -91,14 +84,6 @@ class DepartamentoTable
 
                 $this->DepartamentoTableGateway->update($data, ['Cod_Departamento' => $Cod_Departamento]);
                 return;
-    }
-
-    
-    public function deleteDepto($Cod_Departamento)
-    {
-             $this->DepartamentoTableGateway->delete(['Cod_Departamento'=>$Cod_Departamento]);
-    }
-              
-     
+    }     
 
 }

@@ -16,7 +16,8 @@ class Boletasremision
     public $Fecha_Inicio_Traslado;
     public $Fecha_Final_Traslado;
     public $Autorizacion_Sar;
-    public $Sucursal;
+    public $Sucursal_Remitente;
+    public $Sucursal_Destino;
     public $Unidad_Transporte;
     public $Conductor;
     public $Fecha_Ingreso;
@@ -49,7 +50,8 @@ class Boletasremision
         $this->Fecha_Inicio_Traslado = !empty($data['Fecha_Inicio_Traslado']) ? $data['Fecha_Inicio_Traslado'] : null;
         $this->Fecha_Final_Traslado = !empty($data['Fecha_Final_Traslado']) ? $data['Fecha_Final_Traslado'] : null;
         $this->Autorizacion_Sar = !empty($data['Autorizacion_Sar']) ? $data['Autorizacion_Sar'] : null;
-        $this->Sucursal = !empty($data['Sucursal']) ? $data['Sucursal'] : null;
+        $this->Sucursal_Remitente = !empty($data['Sucursal_Remitente']) ? $data['Sucursal_Remitente'] : null;
+        $this->Sucursal_Destino = !empty($data['Sucursal_Destino']) ? $data['Sucursal_Destino'] : null;
         $this->Unidad_Transporte = !empty($data['Unidad_Transporte']) ? $data['Unidad_Transporte'] : null;
         $this->Conductor = !empty($data['Conductor']) ? $data['Conductor'] : null;
         $this->Fecha_Ingreso = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
@@ -85,7 +87,8 @@ class Boletasremision
             'Fecha_Inicio_Traslado'  => $this->Fecha_Inicio_Traslado,
             'Fecha_Final_Traslado' => $this->Fecha_Final_Traslado,
             'Autorizacion_Sar' => $this->Autorizacion_Sar,
-            'Sucursal' => $this->Sucursal,
+            'Sucursal_Remitente' => $this->Sucursal_Remitente,
+            'Sucursal_Destino' => $this->Sucursal_Destino,
             'Unidad_Transporte'  => $this->Unidad_Transporte,
             'Conductor'  => $this->Conductor,
             'Fecha_Ingreso'  => $this->Fecha_Ingreso,

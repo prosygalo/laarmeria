@@ -9,13 +9,13 @@ $this->headTitle($title);
         <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('conductor/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
       </p>
     </div>
-    <table class="display"  id="example"  style="width:100%">
+    <table class="table table-hover"  id="example"  style="width:100%">
       <thead style="background-color:brown;color:white;" rowspan="2">
         <tr>
           <th>c&oacute;digo de  conductor</th>
           <th>Nombres </th>
           <th>Apellidos</th>
-          <th>Documento Nacional de Identificaci&oacute;n(DNI)</th>
+          <th>Licencia de conducir</th>
           <th>Estado</th>
           <th>Fecha de ingreso</th>
           <th>Fecha de actualizaci&oacute;n</th>
@@ -28,7 +28,7 @@ $this->headTitle($title);
           <td><?= $this->escapeHtml($cond->Cod_Conductor) ?></td>
           <td><?= $this->escapeHtml($cond->Nombres_Conductor) ?></td>
           <td><?= $this->escapeHtml($cond->Apellidos_Conductor) ?></td>
-          <td><?= $this->escapeHtml($cond->Dni) ?></td>
+          <td><?= $this->escapeHtml($cond->Licencia_Conducir) ?></td>
           <td><?= $this->escapeHtml($cond->Estado) ?></td>
           <td><?= $this->escapeHtml($cond->Fecha_Ingreso) ?></td>
           <td><?= $this->escapeHtml($cond->Fecha_Actualizacion) ?></td>
