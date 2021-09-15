@@ -17,16 +17,17 @@ class BoletacompraForm extends Form
         //Listado de elementos agregados al formulario
 
         //Agregar entrada  Código de boleta
-        $Cod_Boleta = new Element\Text('Cod_Boleta');
-        $Cod_Boleta->setAttribute('type','hidden');
-        $this->add($Cod_Boleta);
+        $Cod_Boleta_Compra = new Element\Text('Cod_Boleta_Compra');
+        $Cod_Boleta_Compra->setAttribute('type','hidden');
+        $this->add($Cod_Boleta_Compra);
 
         //Agregar entada  fecha de emisión
         $Fecha_Emision = new Element\Text('Fecha_Emision');
         $Fecha_Emision->setAttribute('type','text');
-        $Fecha_Emision->setLabel("Fecha de Emisión");
+        $Fecha_Emision->setLabel("Fecha emisión");
         $Fecha_Emision->setAttribute('class', 'form-control autofocus');
         $Fecha_Emision->setAttribute('readonly', 'readonly');
+        $Fecha_Emision->setAttribute('required', 'required');
         $this->add($Fecha_Emision);
 
         //Agregar entrada Consecutivo Actual establecimiento 
@@ -35,6 +36,7 @@ class BoletacompraForm extends Form
         $Consecutivo_Actual_Establ->setLabel("Establ");
         $Consecutivo_Actual_Establ->setAttribute('placeholder', '000');
         $Consecutivo_Actual_Establ->setAttribute('readonly', 'readonly');
+        $Consecutivo_Actual_Establ->setAttribute('required', 'required');
         $this->add($Consecutivo_Actual_Establ);
 
         //Agregar entrada consecutivo actual punto
@@ -43,6 +45,7 @@ class BoletacompraForm extends Form
         $Consecutivo_Actual_Punto->setLabel("Punto");
         $Consecutivo_Actual_Punto->setAttribute('placeholder', '000');
         $Consecutivo_Actual_Punto->setAttribute('readonly', 'readonly');
+        $Consecutivo_Actual_Punto->setAttribute('required', 'required');
         $this->add($Consecutivo_Actual_Punto);
 
         //Agregar entrada consecutivo actual  tipo
@@ -51,6 +54,7 @@ class BoletacompraForm extends Form
         $Consecutivo_Actual_Tipo->setLabel("Tipo");
         $Consecutivo_Actual_Tipo->setAttribute('placeholder', '00');
         $Consecutivo_Actual_Tipo->setAttribute('readonly', 'readonly');
+        $Consecutivo_Actual_Tipo->setAttribute('required', 'required');
         $this->add($Consecutivo_Actual_Tipo);
 
          //Agregar consecutivo actual correlativo
@@ -59,12 +63,14 @@ class BoletacompraForm extends Form
         $Consecutivo_Actual_Correlativo->setLabel("Correlativo");
         $Consecutivo_Actual_Correlativo->setAttribute('placeholder', '00000000');
         $Consecutivo_Actual_Correlativo->setAttribute('readonly', 'readonly');
+        $Consecutivo_Actual_Correlativo->setAttribute('required', 'required');
         $this->add($Consecutivo_Actual_Correlativo);
 
-                      
+
         //Agregar entrada Autorización de la SAR
         $Autorizacion_Sar = new Element\Text('Autorizacion_Sar');
         $Autorizacion_Sar->setAttribute('class','form-control');
+        $Autorizacion_Sar->setAttribute('required','required');
         $Autorizacion_Sar->setLabel('Código Autorización SAR');
         $this->add($Autorizacion_Sar);
          
@@ -72,57 +78,29 @@ class BoletacompraForm extends Form
         //Agregar entrada Usuario que registra la boleta generada
         $Usuario = new Element\Text('Usuario');
         $Usuario->setAttribute('class','form-control');
+        $Usuario->setAttribute('required','required');
         $Usuario->setLabel('Usuario');
         $Usuario->setAttribute('readonly','readonly');
         $this->add($Usuario);
-         
-        //Agregar objeto de selección productos
-        $productos = new Element\Select('productos');
-        $productos->setAttribute('id', 'pro_id');
-        $productos->setAttribute('data-width', '100%');
-        $productos->setAttribute('data-live-search', 'true');
-        $productos->setAttribute('class', 'form-control selectpicker  pro_id'); 
-        $this->add($productos);
-        
-        //Agregar ojeto de selección Sucursales
-        $Sucursal = new Element\Select('Sucursal');
-        $Sucursal->setAttribute('name', 'Sucursal');
-        $Sucursal->setAttribute('id', 'Sucursal');
-        $Sucursal->setLabel('Sucursal');
-        $Sucursal->setAttribute('class', 'form-control');
-        $this->add($Sucursal);
-
-
-        //Agregar objeto de selección Unidades de transporte
-        $Unidad_Transporte = new Element\Select('Unidad_Transporte');
-        $Unidad_Transporte->setAttribute('name', 'Unidad_Transporte');
-        $Unidad_Transporte->setAttribute('id', 'Unidad_Transporte');
-        $Unidad_Transporte->setLabel('Unidad de Transporte');
-        $Unidad_Transporte->setAttribute('class', 'form-control autofocus');
-        $Unidad_Transporte->setEmptyOption('Seleccione'); 
-        $this->add($Unidad_Transporte);
-
-        //Agregar obeto de selección conductores
-        $Conductor = new Element\Select('Conductor');
-        $Conductor->setAttribute('name', 'Conductor');
-        $Conductor->setAttribute('id', 'Conductor');
-        $Conductor->setLabel('Conductor');
-        $Conductor->setEmptyOption('Seleccione');
-        $Conductor->setAttribute('class', 'form-control'); 
-        $this->add($Conductor);
-
-        /*Agregar entrada  Código de detalle
-        $Cod_Detalle = new Element\Text('Cod_Detalle');
-        $Cod_Detalle->setAttribute('type','hidden');
-        $this->add($Cod_Detalle);
-
+     
+        $Cod_Detalle_Compra = new Element\Text('Cod_Detalle_Compra');
+        $Cod_Detalle_Compra->setAttribute('type','hidden');
+        $this->add($Cod_Detalle_Compra);
     
-        //Agregar entada
         $Cod_Producto = new Element\Text('Cod_Producto');
         $Cod_Producto->setAttribute('class', 'form-control codigo');
         $Cod_Producto->setAttribute('id','Cod_Producto');
-        //$Cod_Producto->setAttribute('readonly', 'readonly');
         $this->add($Cod_Producto);
+     
+        $Nombre_Producto = new Element\Text('Nombre_Producto');
+        $Nombre_Producto->setAttribute('class', 'form-control codigo');
+        $Nombre_Producto->setAttribute('id','Nombre_Producto');
+        $this->add($Nombre_Producto);
+        
+        $Descripcion_Producto = new Element\Text('Descripcion_Producto');
+        $Descripcion_Producto->setAttribute('class', 'form-control codigo');
+        $Descripcion_Producto->setAttribute('id','Descripcion_Producto');
+        $this->add($Descripcion_Producto);
         
         //Agregar entada  fecha de emisión
         $Cantidad = new Element\Text('Cantidad');
@@ -130,12 +108,7 @@ class BoletacompraForm extends Form
         $Cantidad->setAttribute('id','Cantidad');
         $Cantidad->setAttribute('maxlength','3');
         $Cantidad->setAttribute('onkeypress','return int(event)');
-        $this->add($Cantidad);*/
-
-
-        $Cod_Detalle = new Element\Text('Cod_Detalle');
-        $Cod_Detalle->setAttribute('type','hidden');
-        $this->add($Cod_Detalle);
+        $this->add($Cantidad);
         
         //Agregar botón de agregar productos a la tabla
         $Agregar = new Element\Button('agregar');
