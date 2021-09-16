@@ -95,9 +95,12 @@ $form->prepare();
                                     <th></th>
                                     <th></th>   
                                     <th></th>
-                                    <th>Código</th>
+                                    <th>C&oacute;digo</th>
+                                    <th>Nombre</th>
                                     <th>Descripci&oacute;n</th>
                                     <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th>Subtotal</th>
                                     <th>Acci&oacute;n</th>
                                 </tr>
                             </thead>
@@ -142,9 +145,7 @@ $form->prepare();
                     </button>            
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                      <?= $this->formElement($productos) ?>
-                    </div>
+                   
                 </div>
                 <div class="modal-footer">
                      <!--Uso la funcion onclick para llamar a la funcion en javascript-->
@@ -197,12 +198,10 @@ $form->prepare();
           }
     }
 
-  function agregarP(){
-    var text = $('#pro_id').find(':selected').text(); 
-    var Cod_Producto = $('#pro_id').find(':selected').val(); 
+  function agregarP(){ 
     var newtr ='<tr class="item">';
-        newtr= newtr+'<td class="contadorfilas"><td><input type="hidden" name="Cod_Detalle[]" required><td/><td><input type="text" class="form-control" readonly="readonly" name="Cod_Producto[]" id="Cod_Producto[]" value="'+Cod_Producto+'"></td><td><input type="text" class="form-control" id="Descripcion[]" readonly="readonly"  required value="'+text+'"></td><td><input type="text" class="form-control" name="Cantidad[]" id="Cantidad[]" value="1" onkeypress="return int(event)" maxlength="4" required ></td>';
-                newtr= newtr+'<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
+        newtr= newtr+'<td class="contadorfilas"><td><input type="hidden" name="Cod_Detalle[]" required><td/><td><input type="text" class="form-control" name="Cod_Producto[]" id="Cod_Producto[]"></td><td><input type="text" class="form-control" name="Nombre_Producto[]" id="Nombre_Producto[]"  required></td><td><input type="text" class="form-control" id="Descripcion_Producto[]" name="Descripcion_Producto[]" required></td><td><input type="text" class="form-control" id="Precio[]" name="Precio[]" required></td><td><input type="text" class="form-control" name="Cantidad[]" id="Cantidad[]" value="1" onkeypress="return int(event)" maxlength="4" required ></td>';
+               newtr= newtr+'<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
         $('#ProSelected').append(newtr);
           RefrescaProducto(); //Refresco Productos
         $('.remove-item').off().click(function(e){
