@@ -265,7 +265,18 @@ echo $this->form()->openTag($form);
                     <td>Copia: Administración tributaria</td>
                   </tr>
                 </tfoot>
-            </table> 
+            </table><br>
+            <table width="100%">
+                <tbody> 
+                    <tr>
+                      <td></td>
+                      <td width="30%">
+                        <a type="button"  target="_blank" class="btn btn-danger btn-md btn-block"  href="<?= $this->url('boletasremision/pdf',['Cod_Boleta'=>$Cod_Boleta])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>
+                      </td>
+                      <td></td>
+                    </tr>
+                 </tbody>
+            </table><br>
          </div>
     </div>
 </section>

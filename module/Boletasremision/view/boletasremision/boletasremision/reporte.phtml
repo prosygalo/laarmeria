@@ -131,6 +131,7 @@ $Autorizacion_Sar->setAttribute('readonly', 'readonly');
           width:100%;
           border: 1px solid #c0c0c0;
         }
+        
        </style>
 </head>
 <body>
@@ -256,12 +257,12 @@ $Autorizacion_Sar->setAttribute('readonly', 'readonly');
                 </tbody>
             </table>
 		        <table  class="pro">
-                <thead style="background-color:#E6E6FA ">
+                <thead>
                   <tr>
-                    <th>No.</th>
-                    <th>Código  producto</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
+                    <th style="text-align:center;">No.</th>
+                    <th style="text-align:center;">Código  producto</th>
+                    <th style="text-align:center;">Producto</th>
+                    <th style="text-align:center;">Cantidad</th>
                   </tr>
                 </thead>
                 <tbody><?php 
@@ -269,10 +270,10 @@ $Autorizacion_Sar->setAttribute('readonly', 'readonly');
                      foreach ($Detalle as $a) : 
                         ?>
                     <tr>
-                      <td><?= $count ?></td>
-                      <td><?= $this->escapeHtml($a->Cod_Producto) ?></td>
-                      <td><?= $this->escapeHtml($a->Nombre_Producto) ?></td>
-                      <td><?= $this->escapeHtml($a->Cantidad) ?></td>
+                      <td style="text-align:center;"><?= $count ?></td>
+                      <td style="text-align:center;"><?= $this->escapeHtml($a->Cod_Producto) ?></td>
+                      <td style="text-align:center;"><?= $this->escapeHtml($a->Nombre_Producto) ?></td style="text-align:center;">
+                      <td style="text-align:center;"><?= $this->escapeHtml($a->Cantidad) ?></td>
                      </tr><?php
                       $count++;
                       endforeach; 

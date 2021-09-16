@@ -64,6 +64,15 @@ class BoletasremisionController extends AbstractActionController
     {
         //Recibir el código de boleta  para mostrar el detalle que corresponde
         $Sucursal_Remitente = $this->params()->fromRoute('Sucursal_Remitente');
+        $Sucursal_Estado = $this->SucursalTable->getSucursalEstado($Sucursal_Remitente); 
+        foreach ($Sucursal_Estado  as $n):
+            $Estado = $n->Estado;
+        endforeach; 
+
+        if($Estado != 'Disponible'){
+            return $this->redirect()->toRoute('boletasremision/inactiva');                             
+        }
+
         $fecha= date('Y-m-d'); 
         //-------Consecutivo autorizacion sar----
         $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionBoletaRemision($Sucursal_Remitente);
@@ -142,10 +151,10 @@ class BoletasremisionController extends AbstractActionController
             $form->get('Sucursal_Remitente')->setValue($Sucursal_Remitente);
             $form->get('Punto_Partida')->setValue($Punto_Partida); 
             //llenado de  Sucursal Remitente
-            $rowset = $this->SucursalTable->getSucursalDestino(); //llenar select sucursal  remiten
+            $rowset = $this->SucursalTable->getSucursalDestinoDisponible(); //llenar select sucursal  remiten
             $form->get('Sucursal_Destino')->setValueOptions($rowset);   
 
-            $rowset6 = $this->SucursalTable->getSucursalDireccionListado(); //llenar select sucursal direccion
+            $rowset6 = $this->SucursalTable->getSucursalDireccionDisponible(); //llenar select sucursal direccion
             $form->get('Punto_Destino')->setValueOptions($rowset6); 
 
             $rowset2 = $this->UnidadtransporteTable->getUnidadSelect(); //llenar select unidad 
@@ -266,7 +275,7 @@ class BoletasremisionController extends AbstractActionController
              'Cai'=>$Cai,
              'Lic'=>$Lic,
              'user'=>$user,
-             'Cod_Boleta'=>$Cod_Boleta, 
+             'Codigo'=>$Cod_Boleta, 
              'Detalle'=> $Detalle//Enviar una variable a la tabla donde se mostrará el producto y la cantidad correspondiente al cada codigo de boleta
                
         ]);
@@ -389,6 +398,12 @@ class BoletasremisionController extends AbstractActionController
     {   //redirecciona a la vista de error
          return new ViewModel([
                 'Message' => 'La fecha límite de emisión de documento fiscal ha expirado',
+            ]);
+    }
+    public function inactivaAction()
+    {
+        return new ViewModel([
+                'Message'=>'La sucursal a la que se esta asignado, no esta disponible para emitir documentos fiscales'
             ]);
     }
 

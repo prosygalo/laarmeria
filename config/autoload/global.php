@@ -2,7 +2,7 @@
 return [
   'db' => array(
       'driver'         => 'Pdo',
-      'dsn'            => 'mysql:dbname=guias_de_remision;host:localhost',
+      'dsn'            => 'mysql:dbname=la_armeria_db;host:localhost',
       'driver_opcions' => array (PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES \'utf8\''),
       'username'=> 'RoselyG',
       'password'=>'RoselyGmysql'),
