@@ -83,7 +83,8 @@ $form->prepare();
                     <thead>
                       <tr>
                         <th>Código de Producto</th>
-                        <th>Producto</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
                         <th>Cantidad</th>
                       </tr>
                     </thead>
@@ -91,7 +92,8 @@ $form->prepare();
                     <?php foreach ($detalle as $a) : ?>
                         <tr>
                         <td><?= $this->escapeHtml($a->Cod_Producto) ?></td>
-                        <td><?= $this->escapeHtml($a->Nombre_Producto) ?></td>
+                        <td><?= $this->escapeHtml($a->Descripcion) ?></td>
+                        <td><?= $this->escapeHtml($a->Precio) ?></td>
                         <td><?= $this->escapeHtml($a->Cantidad) ?></td>
                         <?php endforeach; ?>
                     </tbody>
@@ -120,6 +122,6 @@ $form->prepare();
             </table> 
     </fieldset>
     <fieldset style="padding-top: 20px">
-    <a type="button" class="btn btn-danger btn pull-right" target="_blank"  href="<?= $this->url('boletaboleta/pdf',['Cod_Boleta'=> $Cod_Boleta])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>
+    <a type="button" class="btn btn-danger btn pull-right" target="_blank"  href="<?= $this->url('boletacompra/pdf',['Cod_Boleta'=> $Cod_Boleta])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>
     </fieldset>
 </div>

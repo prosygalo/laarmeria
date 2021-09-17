@@ -7,6 +7,10 @@ $Consecutivo_Actual_Punto=$form->get('Consecutivo_Actual_Punto');
 $Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
 $Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
 $Sucursal=$form->get('Sucursal');
+$Nombre_Proveedor=$form->get('Nombre_Proveedor');
+$Direccion=$form->get('Direccion');
+$Telefono=$form->get('Telefono');
+$RTN_Proveedor=$form->get('RTN_Proveedor');
 $Autorizacion_Sar=$form->get('Autorizacion_Sar');
 $Autorizacion_Sar->setAttribute('readonly', 'readonly');
 $Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
@@ -20,64 +24,95 @@ $form->prepare();
         <div id="container" class="container">                                              
             <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
                 <?= $this->form()->openTag($form)?>
-                <h5>N&uacute;mero de documento fiscal</h5>
-                <div class="row" style="background-color:#F5F5F5">
-                      <div class="col-md-2">
+                <h5>Documento fiscal</h5>
+                <div class="row" style="background-color:#E6E6FA">
+                      <div class="col-md-1">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Establ) ?>
                             <?= $this->formElement($Consecutivo_Actual_Establ) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Establ, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-1" style="background-color:#E6E6FA">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElement($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Punto, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-1" style="background-color:#E6E6FA">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Tipo, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-2" style="background-color:#E6E6FA">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Correlativo, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                </div><br>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <?= $this->formLabel($Fecha_Emision) ?>
-                            <?= $this->formElement($Fecha_Emision) ?>
-                            <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
+                      <div class="col-md-3" style="background-color:#E6E6FA">
                         <div class="form-group">
                             <?= $this->formLabel($Autorizacion_Sar) ?>
                             <?= $this->formElement($Autorizacion_Sar) ?>
                             <?= $this->formElementErrors()->render($Autorizacion_Sar, ['class' => 'help-inline  text-danger']) ?>
                         </div>
-                    </div>        
-                </div>
-    
-                <div class="row">
-                    <div class="col-md-3">
+                    </div>
+                     <div class="col-md-3" style="background-color:#E6E6FA">
+                          <div class="form-group">
+                            <?= $this->formLabel($Fecha_Emision) ?>
+                            <?= $this->formElement($Fecha_Emision) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                      </div>
+                </div><br>
+                <h5>Información de proveedor</h5>
+                <div class="row" style="background-color:#F5F5F5">
+                  <div class="col-md-2">
+                        <div class="form-group">
+                            <?= $this->formLabel($Nombre_Proveedor) ?>
+                            <?= $this->formElement($Nombre_Proveedor) ?>
+                            <?= $this->formElementErrors()->render($Nombre_Proveedor, ['class' => 'help-inline  text-danger']) ?>
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <?= $this->formLabel($Direccion) ?>
+                            <?= $this->formElement($Direccion) ?>
+                            <?= $this->formElementErrors()->render($Direccion, ['class' => 'help-inline  text-danger']) ?>
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <?= $this->formLabel($Telefono) ?>
+                            <?= $this->formElement($Telefono) ?>
+                            <?= $this->formElementErrors()->render($Telefono, ['class' => 'help-inline  text-danger']) ?>
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <?= $this->formLabel($RTN_Proveedor) ?>
+                            <?= $this->formElement($RTN_Proveedor) ?>
+                            <?= $this->formElementErrors()->render($RTN_Proveedor, ['class' => 'help-inline  text-danger']) ?>
+                           
+                        </div>
+                    </div>
+                </div><br>
+                <h5>Datos Generales</h5>
+                <div class="row"  style="background-color:#F5F5F5">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <?= $this->formLabel($Usuario) ?>
                             <?= $this->formElement($Usuario) ?>
                             <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
                             <?= $this->formLabel($Sucursal) ?>
@@ -86,6 +121,19 @@ $form->prepare();
                         </div>
                     </div>
                 </div>
+                <h5>Datos del Adquiriente exónerado (*Opcional)</h5>
+                <div class="row" style="background-color:#F5F5F5">
+                  <div class="col-md-3">
+                        <div class="form-group">
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                           
+                        </div>
+                    </div>
+                </div><br>
                 <h5>Lista de productos</h5> 
                 <div class="row">          
                     <div class="col-md-12">
@@ -124,7 +172,7 @@ $form->prepare();
                         <!-- submit guardado-->
                         <?php
                             echo  $this->formSubmit($submit);
-                            echo  $this->formHidden($form->get('Cod_Boleta'));
+                            echo  $this->formHidden($form->get('Cod_Boleta_Compra'));
                         ?>
                         </div>
                     </div>

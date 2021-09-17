@@ -4,7 +4,7 @@ namespace Boletacompra\Controller;
 use Boletacompra\Form\BoletacompraForm;
 use Boletacompra\Model\Boletacompra;
 use Boletacompra\Model\BoletacompraTable;
-use Boletacompra\Model\Detalle_CompraTable;
+use Boletacompra\Model\DetallecompraTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Interop\Container\ContainerInterface;
 use Zend\View\Model\ViewModel;
@@ -126,20 +126,11 @@ class BoletacompraController extends AbstractActionController
                   } 
 
             //llenado de  Sucursal Remitente
-            $rowset = $this->SucursalTable->getSucursalRemitente($Sucursal_Remitente);  
+            $rowset = $this->SucursalTable->getSucursalRemitente($Sucursal);  
                 foreach ($rowset  as $s):
-                    $Sucursal_Remitente = $s->Cod_Sucursal;
-                    $Punto_Partida = $s->Direccion;
+                    $Sucursal = $s->Cod_Sucursal;
                 endforeach;
-            $form->get('Sucursal_Remitente')->setValue($Sucursal_Remitente);
-            $form->get('Punto_Partida')->setValue($Punto_Partida); 
-            
-           //llenado de  Sucursal Destino
-            $rowset = $this->SucursalTable->getSucursalDestino(); 
-            $form->get('Sucursal_Destino')->setValueOptions($rowset);   
-
-            $rowset6 = $this->SucursalTable->getSucursalDireccionListado(); 
-            $form->get('Punto_Destino')->setValueOptions($rowset6);
+            $form->get('Sucursal')->setValue($Sucursal);
            
             //-------Solicitud-------------------------
             $request = $this->getRequest();
@@ -160,26 +151,26 @@ class BoletacompraController extends AbstractActionController
             $boletacompra->exchangeArray($form->getData());     
                
             // Almacenar los datos en la tabla boleta de remision  
-               $lasId = $this->BoletacompraTable->insertBoleta($boletacompra);
+               $lastId = $this->BoletacompraTable->insertBoleta($boletacompra);
                
             //Actualice el numero de consecutivo de la boleta de la guia de remision en la tabla autorizaciones SAR 
-                $Cod_Autorizacion= $this->request->getPost("Autorizacion_Sar");
-                $Consecutivo_Actual_Establ= $this->request->getPost("Consecutivo_Actual_Establ");
-                $Consecutivo_Actual_Punto= $this->request->getPost("Consecutivo_Actual_Punto");
-                $Consecutivo_Actual_Tipo= $this->request->getPost("Consecutivo_Actual_Tipo");
+                $Cod_Autorizacion = $this->request->getPost("Autorizacion_Sar");
+                $Consecutivo_Actual_Establ = $this->request->getPost("Consecutivo_Actual_Establ");
+                $Consecutivo_Actual_Punto = $this->request->getPost("Consecutivo_Actual_Punto");
+                $Consecutivo_Actual_Tipo = $this->request->getPost("Consecutivo_Actual_Tipo");
                 $Consecutivo_Actual_Correlativo = $this->request->getPost("Consecutivo_Actual_Correlativo");
                    
                $this->AutorizacionsarTable->UpdateConsecutivoActual($Cod_Autorizacion, $Consecutivo_Actual_Establ, $Consecutivo_Actual_Punto, $Consecutivo_Actual_Tipo, $Consecutivo_Actual_Correlativo);                   
                  
             //Cada producto debe de registrarse con el codigo de boleta  y almacenarse en el detalle
-               $this->DetallecompraTable->insertDetalle($Cod_Producto, $Nombre_Producto, $Descripcion, $lasId, $Cantidad);// Enviar Datos a la tabla detalle a la BD                        
+               $this->DetallecompraTable->insertDetalle($Cod_Producto, $Descripcion, $Cantidad, $Precio, $lastId);// Enviar Datos a la tabla detalle a la BD                        
          //retornar a la pagina de detalle de la boleta   
-         return $this->redirect()->toRoute('boletacompra/detalle',['Cod_Boleta'=>$lasId])
+          return $this->redirect()->toRoute('boletacompra/detalle',['Cod_Boleta_Compra'=>$lastId]);
     }
 
     public function  detalleAction()
     {
-       //Recibir el código de boleta  para mostrar el detalle que corresponde
+        //Recibir el código de boleta  para mostrar el detalle que corresponde
         $Cod_Boleta_Compra = $this->params()->fromRoute('Cod_Boleta_Compra');
         //Si el código es incorrecto redirigie a listado de boletas
         if ($Cod_Boleta_Compra === NULL) {
@@ -187,18 +178,15 @@ class BoletacompraController extends AbstractActionController
         } 
         //consultar registro del código de boleta recibido
         try {
-            $boleta_compra = $this->BoletasremisionTable->getBoleta($Cod_Boleta_Compra);
+            $boleta_compra = $this->BoletacompraTable->getBoleta($Cod_Boleta_Compra);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('home');
         }
         //crear instancia de formulario
-        $form = new BoletasremisionForm();
+        $form = new BoletacompraForm();
         $form->bind($boleta_compra);
-       
-        //Sucursal desde la que se hace la psolicitud de boleta
-        $Sucursal_Remitente = [ 'Sucursal_Remitente'=>$boleta_compra->Sucursal_Remitente];
-        $Suc = $this->SucursalTable->getSucursalMembrete($Sucursal_Remitente);
-
+    
+    
         //Autorizacion datos 
         $Autorizacion_Sar = [ 'Autorizacion_Sar'=>$boleta_compra->Autorizacion_Sar];
         $Sar = $this->AutorizacionsarTable->getAutorizacionReporte($Autorizacion_Sar);
@@ -211,23 +199,15 @@ class BoletacompraController extends AbstractActionController
         //Detalle de la boleta enviada 
         $Detalle = $this->DetalleTable->detalle($Cod_Boleta_Compra);
         
-         //------llenado de los Listado de selección--------------- 
-
-            $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal 
-            $form->get('Sucursal_Destino')->setValueOptions($rowset);
-
-            $rowset6 = $this->SucursalTable->getSucursalDireccionListado(); //llenar select sucursal direccion
-            $form->get('Punto_Destino')->setValueOptions($rowset6);
-        
         //Verifica si la usuario ha enviado el formulario
         $request = $this->getRequest();
         $viewData = new ViewModel([
-             'Cod_Boleta'=> $Cod_Boleta, 'form' => $form,//Bindear formulario y registro de boleta
+             'Cod_Boleta_Compra'=> $Cod_Boleta_Compra, 'form' => $form,//Bindear formulario y registro de boleta
              'Suc'=>$Suc,
              'Sar'=> $Sar,
              'Cai'=>$Cai,
              'user'=>$user,
-             'Cod_Boleta'=>$Cod_Boleta, 
+             'Cod_Boleta_Compra'=>$Cod_Boleta_Compra, 
              'Detalle'=> $Detalle//Enviar una variable a la tabla donde se mostrará el producto y la cantidad correspondiente al cada codigo de boleta
                
         ]);
@@ -255,10 +235,6 @@ class BoletacompraController extends AbstractActionController
         $form = new BoletacompraForm();
         $form->bind($boleta_compra);
        
-        //Sucursal desde la que se hace la solicitud de boleta
-        $Sucursal_Remitente = [ 'Sucursal_Remitente'=>$boleta_compra->Sucursal_Remitente];
-        $Suc = $this->SucursalTable->getSucursalMembrete($Sucursal_Remitente);
-
         //Autorizacion SAR
         $Autorizacion_Sar = [ 'Autorizacion_Sar'=>$boleta_compra->Autorizacion_Sar];
         $Sar = $this->AutorizacionsarTable->getAutorizacionReporte($Autorizacion_Sar);
@@ -270,23 +246,16 @@ class BoletacompraController extends AbstractActionController
         
         //Detalle de la boleta enviada 
         $Detalle = $this->DetalleTable->detalle($Cod_Boleta_Compra);
-        
-         //------llenado de los Listado de selección---------------
-            $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal 
-            $form->get('Sucursal_Destino')->setValueOptions($rowset);
-
-            $rowset6 = $this->SucursalTable->getSucursalDireccionListado(); //llenar select sucursal direccion
-            $form->get('Punto_Destino')->setValueOptions($rowset6);
   
         //Verifica si la usuario ha enviado el formulario
         $request = $this->getRequest();
         $view = new ViewModel([
-             'Cod_Boleta' => $Cod_Boleta, 'form' => $form,//Bindear formulario y registro de boleta
+             'Cod_Boleta_Compra' => $Cod_Boleta_Compra, 'form' => $form,//Bindear formulario y registro de boleta
              'Suc'=> $Suc,
              'Sar'=> $Sar,
              'Cai'=>$Cai,
              'user'=>$user,
-             'Cod_Boleta'=>$Cod_Boleta, 
+             'Cod_Boleta_Compra'=>$Cod_Boleta_Compra, 
              'Detalle'=> $Detalle//Enviar una variable a la tabla donde se mostrará el producto y la cantidad correspondiente al cada codigo de boleta
         ]);
         $view->setTerminal(true);

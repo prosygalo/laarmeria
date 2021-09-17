@@ -73,6 +73,15 @@ class BoletacompraForm extends Form
         $Autorizacion_Sar->setAttribute('required','required');
         $Autorizacion_Sar->setLabel('Código Autorización SAR');
         $this->add($Autorizacion_Sar);
+
+         //Agregar ojeto de selección Sucursales
+        $Sucursal = new Element\Text('Sucursal');
+        $Sucursal->setAttribute('name', 'Sucursal');
+        $Sucursal->setAttribute('class', 'form-control');
+        $Sucursal->setAttribute('required', 'required');
+        $Sucursal->setAttribute('id', 'Sucursal');
+        $Sucursal->setLabel('Sucursal');
+        $this->add($Sucursal);
          
 
         //Agregar entrada Usuario que registra la boleta generada
@@ -82,8 +91,44 @@ class BoletacompraForm extends Form
         $Usuario->setLabel('Usuario');
         $Usuario->setAttribute('readonly','readonly');
         $this->add($Usuario);
+
+        //Agregar entrada codigo de proveedor
+        $Cod_Proveedor = new Element\Hidden('Cod_Proveedor');
+        $Cod_Proveedor->setAttribute('class','form-control');
+        $Cod_Proveedor->setAttribute('required','required');
+        $Cod_Proveedor->setLabel('Cod_Proveedor');
+        $this->add($Cod_Proveedor);
+
+        //Agregar entrada Nombre de proveedor
+        $Nombre_Proveedor = new Element\Text('Nombre_Proveedor');
+        $Nombre_Proveedor->setAttribute('class','form-control');
+        $Nombre_Proveedor->setAttribute('required','required');
+        $Nombre_Proveedor->setLabel('Proveedor');
+        $this->add($Nombre_Proveedor);
+
+        //Agregar entrada Dirección de proveedor
+        $Direccion = new Element\Text('Direccion');
+        $Direccion->setAttribute('class','form-control');
+        $Direccion->setAttribute('required','required');
+        $Direccion->setLabel('Dirección');
+        $this->add($Direccion);
+
+        //Agregar entrada RTN/DNI  proveedor
+        $RTN_Proveedor = new Element\Text('RTN_Proveedor');
+        $RTN_Proveedor->setAttribute('class','form-control');
+        $RTN_Proveedor->setAttribute('required','required');
+        $RTN_Proveedor->setLabel('RTN/DNI');
+        $this->add($RTN_Proveedor);
+
+        //Agregar entrada RTN/DNI  proveedor
+        $Telefono = new Element\Text('Telefono');
+        $Telefono->setAttribute('class','form-control');
+        $Telefono->setAttribute('required','required');
+        $Telefono->setLabel('Teléfono');
+        $this->add($Telefono);
+
      
-        $Cod_Detalle_Compra = new Element\Text('Cod_Detalle_Compra');
+     /*   $Cod_Detalle_Compra = new Element\Text('Cod_Detalle_Compra');
         $Cod_Detalle_Compra->setAttribute('type','hidden');
         $this->add($Cod_Detalle_Compra);
     
@@ -97,10 +142,6 @@ class BoletacompraForm extends Form
         $Nombre_Producto->setAttribute('id','Nombre_Producto');
         $this->add($Nombre_Producto);
         
-        $Descripcion_Producto = new Element\Text('Descripcion_Producto');
-        $Descripcion_Producto->setAttribute('class', 'form-control codigo');
-        $Descripcion_Producto->setAttribute('id','Descripcion_Producto');
-        $this->add($Descripcion_Producto);
         
         //Agregar entada  fecha de emisión
         $Cantidad = new Element\Text('Cantidad');
@@ -108,7 +149,7 @@ class BoletacompraForm extends Form
         $Cantidad->setAttribute('id','Cantidad');
         $Cantidad->setAttribute('maxlength','3');
         $Cantidad->setAttribute('onkeypress','return int(event)');
-        $this->add($Cantidad);
+        $this->add($Cantidad);*/
         
         //Agregar botón de agregar productos a la tabla
         $Agregar = new Element\Button('agregar');
@@ -136,6 +177,7 @@ class BoletacompraForm extends Form
         $submit->setAttribute('class', 'btn btn-primary btn-block');
         $submit->setAttribute('disabled','disabled');
         $this->add($submit);
+    }
 
-     }
+     
 }

@@ -7,8 +7,6 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\FormElementProviderInterface;
 use Sucursal\Model\SucursalTable;
-use Conductor\Model\ConductorTable;
-use Unidadtransporte\Model\UnidadtransporteTable;
 use Producto\Model\ProductoTable;
 use Autorizacionsar\Model\AutorizacionsarTable;
 use Usuario\Model\UsuarioTable;
@@ -59,8 +57,6 @@ class Module implements ConfigProviderInterface
                        $container->get(Model\BoletacompraTable::class),
                        $container->get(Model\DetallecompraTable::class),
                        $container->get(SucursalTable::class),
-                       $container->get(ConductorTable::class),
-                       $container->get(UnidadtransporteTable::class),
                        $container->get(ProductoTable::class),
                        $container->get(AutorizacionsarTable::class),
                        $container->get(UsuarioTable::class),

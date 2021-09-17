@@ -26,31 +26,29 @@ class DetallecompraTable
         where Boleta_Compra = '29';*/
                 
                 $sqlSelect = $this->DetallecompraTableGateway->getSql()->select();
-                $sqlSelect->columns(array('Cod_Producto','Nombre_Producto','Descripcion_Producto','Cantidad','Precio'));
+                $sqlSelect->columns(array('Cod_Producto','Descripcion','Cantidad','Precio'));
                 $sqlSelect->where(['Cod_Boleta_Compra' => $Cod_Boleta_Compra]);
                 $resultSet = $this->DetallecompraTableGateway->selectWith($sqlSelect);
                 return $resultSet;
                 
      }  
 
-    public function insertDetalle($Cod_Producto, $Nombre_Producto, $Descripcion_Producto, $Cantidad, $Precio,  $lasId)
+    public function insertDetalle($Cod_Producto, $Descripcion, $Cantidad, $Precio,  $lastId)
     {  
         $Cod_Producto = $Cod_Producto;
-        $Nombre_Producto = $Nombre_Producto;
-        $Descripcion_Producto = $Descripcion_Producto;
+        $Descripcion = $Descripcion;
         $Cantidad = $Cantidad;
         $Precio = $Precio;
-        $lasId = $lasId;
+        $lastId = $lastId;
 
         for($count = 0; $count < count($Cod_Producto); $count++){
             $data = array();           
              $data=[
                 'Cod_Producto' =>$Cod_Producto[$count],
-                'Nombre_Producto' =>$Nombre_Producto[$count],
-                'Descripcion_Producto' =>$Descripcion_Producto[$count],
+                'Descripcion' =>$Descripcion[$count],
                 'Cantidad' =>$Cantidad[$count],
-                'Cod_Producto' =>$Cod_Producto[$count],
-                'Cod_Boleta'   =>$lasId,
+                'Precio' =>$Precio[$count],
+                'Boleta'   =>$lastId,
             ];
           
           $this->DetallecompraTableGateway->insert($data);

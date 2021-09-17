@@ -1,6 +1,6 @@
 <?php
 $this->doctype();
-$title = 'Boleta de guía de remisión';
+$title = 'BOLETA GUÍA DE REMISIÓN';
 $this->headTitle($title);
 $Fecha_Emision =$form->get('Fecha_Emision');
 $Fecha_Emision->setAttribute('readonly', 'readonly');
@@ -18,13 +18,13 @@ $Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
 $Consecutivo_Actual_Correlativo->setAttribute('readonly', 'readonly');
 
 $Motivo_Traslado=$form->get('Motivo_Traslado');
-$Motivo_Traslado->setAttribute('readonly','readonly');
+$Motivo_Traslado->setAttribute('disabled','disabled');
 
 $Num_Transferencia=$form->get('Num_Transferencia');
 $Num_Transferencia->setAttribute('readonly', 'readonly');
 
 $Punto_Partida=$form->get('Punto_Partida');
-$Punto_Partida->setAttribute('readonly', 'readonly');
+$Punto_Partida->setAttribute('disabled', 'disabled');
 
 $Punto_Destino=$form->get('Punto_Destino');
 $Punto_Destino->setAttribute('disabled', 'disabled');
@@ -42,7 +42,7 @@ $Sucursal_Destino=$form->get('Sucursal_Destino');
 $Sucursal_Destino->setAttribute('disabled', 'disabled');
 
 $Sucursal_Remitente=$form->get('Sucursal_Remitente');
-$Sucursal_Remitente->setAttribute('readonly', 'readonly');
+$Sucursal_Remitente->setAttribute('disabled', 'disabled');
 
 $Unidad_Transporte=$form->get('Unidad_Transporte');
 $Unidad_Transporte->setAttribute('disabled', 'disabled');
@@ -55,9 +55,6 @@ $Autorizacion_Sar->setAttribute('readonly', 'readonly');
 
 $Usuario=$form->get('Usuario');
 $Usuario->setAttribute('readonly', 'readonly');
-
-$Autorizacion_Sar=$form->get('Autorizacion_Sar');
-$Autorizacion_Sar->setAttribute('readonly', 'readonly');
 ?>
 <html lang="en">
 <head>
@@ -170,7 +167,7 @@ $Autorizacion_Sar->setAttribute('readonly', 'readonly');
                     </tr>
                 </tbody>
             </table>
-            <div style="text-align: center;font-weight: bold">Guía De Remisión</div>
+            <div style="text-align: center;font-weight: bold">GUÍA DE REMISIÓN</div>
             <table>
                 <thead>
                   <tr>

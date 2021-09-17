@@ -17,8 +17,7 @@ class Boletacompra
     //detalle
     public $Cod_Detalle;
     public $Cod_Producto;
-    public $Nombre_Producto;
-    public $Descripcion_Producto;
+    public $Descripcion;
     public $Cantidad;
     public $Precio;
     //sucursal
@@ -45,8 +44,7 @@ class Boletacompra
         //Propiedad de la tabla producto
         $this->Cod_Detalle = !empty($data['Cod_Detalle']) ? $data['Cod_Detalle'] : null;
         $this->Cod_Producto = !empty($data['Cod_Producto']) ? $data['Cod_Producto'] : null;
-        $this->Nombre_Producto= !empty($data['Nombre_Producto']) ? $data['Nombre_Producto'] : null;
-        $this->Descripcion_Producto= !empty($data['Descripcion_Producto']) ? $data['Descripcion_Producto'] : null;
+        $this->Descripcion = !empty($data['Descripcion']) ? $data['Descripcion'] : null;
         $this->Cantidad= !empty($data['Cantidad']) ? $data['Cantidad'] : null;
         $this->Precio= !empty($data['Precio']) ? $data['Precio'] : null;
         //Propiedades de otras tablegateway
@@ -75,8 +73,7 @@ class Boletacompra
             'Usuario'  => $this->Usuario,
             'Cod_Detalle' => $this->Cod_Detalle,
             'Cod_Producto' => $this->Cod_Producto,
-            'Nombre_Producto' => $this->Nombre_Producto,
-            'Descripcion_Producto' => $this->Descripcion_Producto,
+            'Descripcion' => $this->Descripcion,
             'Cantidad'  => $this->Cantidad,
             'Precio'  => $this->Precio,  
         ];

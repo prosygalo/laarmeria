@@ -229,6 +229,5 @@ class BoletacompraFilter  extends InputFilter
                 ['name' => ToInt::class],
              ],
            ]); 
-    }
-    
+    }    
 }

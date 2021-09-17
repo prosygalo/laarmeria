@@ -96,9 +96,6 @@ class Boletasremision
             'Cod_Detalle' => $this->Cod_Detalle,
             'Cod_Producto' => $this->Cod_Producto,
             'Cantidad'  => $this->Cantidad,
-            
-          
         ];
-    }
-    
+    }   
 }
