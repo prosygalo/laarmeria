@@ -16,7 +16,15 @@
             ->prependStylesheet($this->basePath('font-awesome/css/font-awesome.css'))
             ->prependStylesheet($this->basePath('bootstrap4/css/gijgo.min.css'))
             ->prependStylesheet($this->basePath('bootstrap4/css/sweetalert.css'))
-        ?> 
+      ?> 
+      <?= $this->inlineScript()
+          ->appendFile($this->basePath('bootstrap4/js/jquery-3.3.1.min.js'))
+          ->appendFile($this->basePath('bootstrap4/js/bootstrap.min.js'))
+          ->appendFile($this->basePath('datatables/js/jquery.dataTables.min.js'))
+          ->appendFile($this->basePath('datatables/js/dataTables.bootstrap.min.js'))
+          ->appendFile($this->basePath('bootstrap4/js/gijgo.min.js'))
+          ->appendFile($this->basePath('bootstrap4/js/sweetalert-dev.js'))
+      ?>
 </head>
 <body>
     <div class="container-fluid">
@@ -179,17 +187,9 @@
               </ul>
             </div>
         </nav>
-    <?= $this->inlineScript()
-      ->appendFile($this->basePath('bootstrap4/js/jquery-3.3.1.min.js'))
-      ->appendFile($this->basePath('bootstrap4/js/bootstrap.min.js'))
-      ->appendFile($this->basePath('datatables/js/jquery.dataTables.min.js'))
-      ->appendFile($this->basePath('datatables/js/dataTables.bootstrap.min.js'))
-      ->appendFile($this->basePath('bootstrap4/js/gijgo.min.js'))
-      ->appendFile($this->basePath('bootstrap4/js/sweetalert-dev.js'))
-      ?>
-      <div style="margin-top:40px">
+      <div class="mt-4">
       <?= $this->content ?>
-      <footer style="margin-top:50px;" class="d-flex justify-content-end">
+      <footer  class="mt-5 d-flex justify-content-end">
           <p>&copy; 2005 - <?= date('Y') ?> by Zend Technologies Ltd. All rights reserved.</p>
       </footer>
       </div>

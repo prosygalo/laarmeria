@@ -98,7 +98,7 @@ class BoletacompraForm extends Form
         $Cod_Proveedor->setAttribute('required','required');
         $Cod_Proveedor->setLabel('Cod_Proveedor');
         $this->add($Cod_Proveedor);
-
+        //-----Datos de Proveedor
         //Agregar entrada Nombre de proveedor
         $Nombre_Proveedor = new Element\Text('Nombre_Proveedor');
         $Nombre_Proveedor->setAttribute('class','form-control');
@@ -120,12 +120,28 @@ class BoletacompraForm extends Form
         $RTN_Proveedor->setLabel('RTN/DNI');
         $this->add($RTN_Proveedor);
 
-        //Agregar entrada RTN/DNI  proveedor
+        //Agregar entrada telefono proveedor
         $Telefono = new Element\Text('Telefono');
         $Telefono->setAttribute('class','form-control');
         $Telefono->setAttribute('required','required');
         $Telefono->setLabel('Teléfono');
         $this->add($Telefono);
+
+        //-------Datos de qdquiriente exonerado
+        $No_Registro_Sag = new Element\Text('No_Registro_Sag');
+        $No_Registro_Sag->setAttribute('class','form-control');
+        $No_Registro_Sag->setLabel('No. de Registro de la  SAG');
+        $this->add($No_Registro_Sag);
+
+        $No_Orden_Compra_Exenta = new Element\Text('No_Orden_Compra_Exenta');
+        $No_Orden_Compra_Exenta->setAttribute('class','form-control');
+        $No_Orden_Compra_Exenta->setLabel('No. Orden de compra exenta');
+        $this->add($No_Orden_Compra_Exenta);
+
+        $No_Constancia_Registro_Exonerado = new Element\Text('No_Constancia_Registro_Exonerado');
+        $No_Constancia_Registro_Exonerado->setAttribute('class','form-control');
+        $No_Constancia_Registro_Exonerado->setLabel('No. Constancia de Registro de Exonerado');
+        $this->add($No_Constancia_Registro_Exonerado);
 
      
      /*   $Cod_Detalle_Compra = new Element\Text('Cod_Detalle_Compra');
@@ -150,16 +166,22 @@ class BoletacompraForm extends Form
         $Cantidad->setAttribute('maxlength','3');
         $Cantidad->setAttribute('onkeypress','return int(event)');
         $this->add($Cantidad);*/
-        
+        //<button type="button" id="blo" onclick="agregarProducto()" class="btn btn-primary btn-danger active btn-lg">Agregar</button>
         //Agregar botón de agregar productos a la tabla
         $Agregar = new Element\Button('agregar');
-        $Agregar->setLabel("Agregar  productos a la lista");
+        $Agregar->setLabel("Agregar");
         $Agregar->setAttribute('type','button');
-        $Agregar->setAttribute('id','agregar');
+        $Agregar->setAttribute('id','blo');
+        $Agregar->setAttribute('onclick','agregarProducto()');
         $Agregar->setAttribute('class', 'btn btn-success btn-block blo');
-        $Agregar->setAttribute('data-toggle', 'modal');
-        $Agregar->setAttribute('data-target', '#myModal');
         $this->add($Agregar);
+
+        $Cancelar = new Element\Button('Cancelar');
+        $Cancelar->setLabel("Cancelar");
+        $Cancelar->setAttribute('type','button');
+        $Cancelar->setAttribute('onclick','cancelar()');
+        $Cancelar->setAttribute('class', 'btn btn-danger btn-block');
+        $this->add($Cancelar);
 
         //Agregar botón submit
         $enviar = new Element\Button('enviar');

@@ -11,20 +11,23 @@ $Nombre_Proveedor=$form->get('Nombre_Proveedor');
 $Direccion=$form->get('Direccion');
 $Telefono=$form->get('Telefono');
 $RTN_Proveedor=$form->get('RTN_Proveedor');
+$No_Registro_Sag=$form->get('No_Registro_Sag');
+$No_Orden_Compra_Exenta=$form->get('No_Orden_Compra_Exenta');
+$No_Constancia_Registro_Exonerado=$form->get('No_Constancia_Registro_Exonerado');
 $Autorizacion_Sar=$form->get('Autorizacion_Sar');
 $Autorizacion_Sar->setAttribute('readonly', 'readonly');
 $Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
 $Agregar=$form->get('agregar');
+$Cancelar=$form->get('Cancelar');
 $submit=$form->get('submit');
-
 $form->prepare();
 ?>
-<section id="cover" style="margin-top: 50px">
+<section id="cover">
     <div id="cover-caption">
         <div id="container" class="container">                                              
             <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
                 <?= $this->form()->openTag($form)?>
-                <h5>Documento fiscal</h5>
+                <h5>Datos de documento fiscal</h5>
                 <div class="row" style="background-color:#E6E6FA">
                       <div class="col-md-1">
                           <div class="form-group">
@@ -79,7 +82,7 @@ $form->prepare();
                            
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <?= $this->formLabel($Direccion) ?>
                             <?= $this->formElement($Direccion) ?>
@@ -95,7 +98,7 @@ $form->prepare();
                            
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <?= $this->formLabel($RTN_Proveedor) ?>
                             <?= $this->formElement($RTN_Proveedor) ?>
@@ -104,7 +107,31 @@ $form->prepare();
                         </div>
                     </div>
                 </div><br>
-                <h5>Datos Generales</h5>
+                <h5>Datos del Adquiriente exónerado (*Opcional)</h5>
+                <div class="row" style="background-color:#F5F5F5">
+                  <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($No_Registro_Sag) ?>
+                            <?= $this->formElement($No_Registro_Sag) ?>
+                            <?= $this->formElementErrors()->render($No_Registro_Sag, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($No_Orden_Compra_Exenta) ?>
+                            <?= $this->formElement($No_Orden_Compra_Exenta) ?>
+                            <?= $this->formElementErrors()->render($No_Orden_Compra_Exenta, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($No_Constancia_Registro_Exonerado) ?>
+                            <?= $this->formElement($No_Constancia_Registro_Exonerado) ?>
+                            <?= $this->formElementErrors()->render($No_Constancia_Registro_Exonerado, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                </div><br>
+                <h5>Datos adicionales</h5>
                 <div class="row"  style="background-color:#F5F5F5">
                     <div class="col-md-2">
                         <div class="form-group">
@@ -121,30 +148,13 @@ $form->prepare();
                         </div>
                     </div>
                 </div>
-                <h5>Datos del Adquiriente exónerado (*Opcional)</h5>
-                <div class="row" style="background-color:#F5F5F5">
-                  <div class="col-md-3">
-                        <div class="form-group">
-                           
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                           
-                        </div>
-                    </div>
-                </div><br>
                 <h5>Lista de productos</h5> 
-                <div class="row">          
+                <div class="row">         
                     <div class="col-md-12">
                         <table id="TablaPro" class="table">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th></th>   
-                                    <th></th>
                                     <th>C&oacute;digo</th>
-                                    <th>Nombre</th>
                                     <th>Descripci&oacute;n</th>
                                     <th>Cantidad</th>
                                     <th>Precio</th>
@@ -153,23 +163,43 @@ $form->prepare();
                                 </tr>
                             </thead>
                             <tbody id="ProSelected">
-                            <!--Ingreso un id al tbody-->
+                              <!--Ingreso al tbody-->
                                 <tr>
                     
                                 </tr>
+                                <tr>
+                                    <td><span id="Cantidad"></span></td>
+                                    <td><span id="Precio"></span></td>
+                                    <td><span id="Subtotal"></span></td>
+                                 </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4"></td>
+                                    <td>Total</td>
+                                    <td><span id="total">0</span><input class="form-control" onFocus="this.blur()" readonly type="hidden" id="total" name="Total"  value="" /><span id="Total"></span></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
-                    <div class="col-md-6">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="form-group">
-                        <!-- submit agregar-->
+                        <!-- cancelar-->
                         <?= $this->formButton($Agregar)?>
                             <span id="limit" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <!--cancelar-->
                         <div class="form-group">
-                        <!-- submit guardado-->
+                        <?= $this->formButton($Cancelar)?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <!-- guardado-->
                         <?php
                             echo  $this->formSubmit($submit);
                             echo  $this->formHidden($form->get('Cod_Boleta_Compra'));
@@ -177,49 +207,14 @@ $form->prepare();
                         </div>
                     </div>
                 </div>
-              <?=  $this->form()->closeTag()?> 
-          </div>
-    </div>
-</section>
-    <!-- Large modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-                    <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                   <h4 class="modal-title"><i class="fa fa-shopping-cart"></i>Agregar productos a la lista</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                       <span aria-hidden="true">&times;</span>
-                    </button>            
-                </div>
-                <div class="modal-body">
-                   
-                </div>
-                <div class="modal-footer">
-                     <!--Uso la funcion onclick para llamar a la funcion en javascript-->
-                    <button type="button" id="blo" onclick="agregarP()" class="btn btn-primary btn-danger active btn-lg" data-dismiss="modal">Agregar</button>
-                </div>
             </div>
+              <?=  $this->form()->closeTag()?> 
         </div>
-    </div>
+</section>
 <script type="text/javascript">
-   $( document ).ready(function(){
-    $('#Fecha_Inicio_Traslado').datepicker({
-      iconsLibrary: 'fontawesome',
-      footer: true,
-      modal: true,
-      format: 'yyyy-mm-dd',
-         //locale: 'es-es'
-      });
-    $('#Fecha_Final_Traslado').datepicker({
-      iconsLibrary: 'fontawesome',
-      footer: true,
-      modal: true,
-      format: 'yyyy-mm-dd',
-         //locale: 'es-es'
-      });
-  });
-
+  function cancelar(){
+     window.location.href="<?= $this->url('home')?>";
+   }
   function RefrescaProducto(){
     var ip = [];
     var i = 0;
@@ -234,39 +229,72 @@ $form->prepare();
     }else{
       $('#submit').attr('disabled', 'disabled');
     }
-    if(i == 10){
+    if(i == 12){
       $('.blo').attr('disabled', 'disabled');
-        var total = document.getElementById("limit");
-          total.innerHTML='*Puede agregar un máximo de 10 tipos de productos a la lista';
     }
-    if(i <  10){
+    if(i <  12){
       $('.blo').removeAttr('disabled', 'disabled');
-        var total = document.getElementById("limit");
-            total.innerHTML='';
-          }
+       
+      }
     }
 
-  function agregarP(){ 
-    var newtr ='<tr class="item">';
-        newtr= newtr+'<td class="contadorfilas"><td><input type="hidden" name="Cod_Detalle[]" required><td/><td><input type="text" class="form-control" name="Cod_Producto[]" id="Cod_Producto[]"></td><td><input type="text" class="form-control" name="Nombre_Producto[]" id="Nombre_Producto[]"  required></td><td><input type="text" class="form-control" id="Descripcion_Producto[]" name="Descripcion_Producto[]" required></td><td><input type="text" class="form-control" id="Precio[]" name="Precio[]" required></td><td><input type="text" class="form-control" name="Cantidad[]" id="Cantidad[]" value="1" onkeypress="return int(event)" maxlength="4" required ></td>';
-               newtr= newtr+'<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
-        $('#ProSelected').append(newtr);
-          RefrescaProducto(); //Refresco Productos
-        $('.remove-item').off().click(function(e){
-           $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
-              if ($('#ProSelected tr').length == 0)
-                 $('#ProSelected .no-item').slideDown(300);
-            RefrescaProducto();         
-        });
-               
-  }
-   function int(e){
-    tecla = (document.all) ? e.keyCode : e.which;
-       if (tecla==8){
-        return true;
-        }
-        patron =/^[1-9]+$/;
-        tecla_final = String.fromCharCode(tecla);
-        return patron.test(tecla_final);
-          }       
+  function agregarProducto(){
+            var newtr = '<tr class="item" data-id="">';//Obtengo en el tr el Id
+            newtr = newtr + '<td class="contadorfilas"><input type="text" class="form-control codigo" name="Cod_Producto[]" id="Cod_Producto[]" ></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" ></td><td><input class="form-control text-center Cantidad" maxlength="4"  type="text" id="Cantidad[]" name="Cantidad[]" value ="1"   onChange="Calcular(this);"/></td><td><input class="form-control text-right Precio" maxlength="10"  type="text" id="Precio[]" name="Precio[]" value ="0" onChange="Calcular(this);" /></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0" onFocus="this.blur()" readonly/></td>';
+            newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
+            $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
+
+            $('.codigo').focus();
+
+            RefrescaProducto(); //Refresco Productos
+            
+            $('.remove-item').off().click(function(e){
+                var total = document.getElementById("total");
+                total.innerHTML = parseFloat(total.innerHTML) - parseFloat(this.parentNode.parentNode.childNodes[3].childNodes[0].value);
+                $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
+                if ($('#ProSelected tr').length == 0)
+                $('#ProSelected .no-item').slideDown(300);
+                RefrescaProducto();
+                
+                Calcular(e.target);
+                });
+
+                $('.contadorfilas').off().change(function(e){
+                RefrescaProducto();
+            
+                }); 
+            }
+
+          function Calcular(ele){
+            var cantidad = 0, precio = 0, subtotal = 0;
+            var tr = ele.parentNode.parentNode;
+            var nodes = tr.childNodes;
+        
+            for (var x = 0; x < nodes.length; x++) {
+                
+                if (nodes[x].firstChild.id == 'Cantidad[]'){
+                    cantidad = parseFloat(nodes[x].firstChild.value,10);
+                }
+                if (nodes[x].firstChild.id == 'Precio[]'){
+                    precio = parseFloat(nodes[x].firstChild.value,10);
+                }
+                if (nodes[x].firstChild.id == 'Subtotal[]'){
+                    anterior = nodes[x].firstChild.value;
+                    subtotal = parseFloat((precio*cantidad),10);
+                    nodes[x].firstChild.value = subtotal;
+                }        
+            }
+            
+            if (total.innerHTML === 'NaN') {
+             total.innerHTML = (parseFloat(total.innerHTML)+ 0).toFixed(2);
+              
+            }else{    
+            total.innerHTML = (parseFloat(total.innerHTML)+ subtotal - anterior).toFixed(2);
+
+            var to = document.querySelector('#total').innerText;
+            var input_to = document.querySelector('input[name="Total"]');
+             input_to.value = to;
+            }
+        }       
+
 </script>
