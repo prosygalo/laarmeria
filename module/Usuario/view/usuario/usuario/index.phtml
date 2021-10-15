@@ -20,7 +20,8 @@ $this->headTitle($title);
             <th>Estado</th>
             <th>Fecha de ingreso</th>
             <th>Fecha de actualizaci&oacute;n</th>
-            <th>Acciones</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -37,8 +38,10 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($u->Fecha_Ingreso) ?></td>
             <td><?= $this->escapeHtml($u->Fecha_Actualizacion) ?></td>
             <td>
-              <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('usuario/edit',['Cod_Usuario'=>$u->Cod_Usuario])?>"><i class="fa fa-pencil"></i></a>
-              <a type="button" class="btn btn-danger btn-sm"  href="<?= $this->url('usuario/restablecerclave', ['Cod_Usuario'=>$u->Cod_Usuario])?>"><i class="fa fa-lock"></i></a>      
+              <a type="button" class=" btn btn-primary btn-block btn-sm"  href="<?= $this->url('usuario/edit',['Cod_Usuario'=>$u->Cod_Usuario])?>"><i class="fa fa-pencil">Editar</i></a>
+            </td>
+            <td>
+              <a type="button" class="btn btn-danger btn-block  btn-sm"  href="<?= $this->url('usuario/restablecerclave', ['Cod_Usuario'=>$u->Cod_Usuario])?>"><i class="fa fa-lock">Restablecer contraseña</i></a>
             </td>
           </tr>
           <?php endforeach; ?>

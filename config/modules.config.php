@@ -40,6 +40,8 @@ return [
     'Boletasremision',
     'Usuario',
     'Boletacompra',
-    'Tipodocumento'
+    'Tipodocumento',
+    'Proveedor',
+    'Constanciaretencion'
     
 ];

@@ -1,0 +1,53 @@
+<?php
+$title = 'Listado de proveedores';
+$this->headTitle($title);
+?>
+<div class="container">
+<h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+    <div>
+      <p>
+        <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('proveedor/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
+      </p>
+    </div>
+    <table class="table table-hover"  id="example"  style="width:100%">
+      <thead style="background-color:brown;color:white;" rowspan="2">
+        <tr>
+          <th>c&oacute;digo de proveedor</th>
+          <th>Nombre</th>
+          <th>Dirección</th>
+          <th>Teléfono</th>
+          <th>RTN</th>
+          <th>CAI</th>
+          <th>Fecha de ingreso</th>
+          <th>Fecha de actualizaci&oacute;n</th>
+          <th>Acci&oacute;n</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($proveedor as $cond) : ?>
+        <tr>
+          <td><?= $this->escapeHtml($cond->Cod_Proveedor) ?></td>
+          <td><?= $this->escapeHtml($cond->Nombre_Proveedor) ?></td>
+          <td><?= $this->escapeHtml($cond->Direccion_Proveedor) ?></td>
+          <td><?= $this->escapeHtml($cond->Telefono_Proveedor) ?></td>
+          <td><?= $this->escapeHtml($cond->RTN_Proveedor) ?></td>
+          <td><?= $this->escapeHtml($cond->Cai_Proveedor) ?></td>
+          <td><?= $this->escapeHtml($cond->Fecha_Ingreso) ?></td>
+          <td><?= $this->escapeHtml($cond->Fecha_Actualizacion) ?></td>
+          <td>
+             <a type="button" class=" btn btn-primary btn-block btn-sm"  href="<?= $this->url('proveedor/edit',['Cod_Proveedor'=>$cond->Cod_Proveedor])?>"><i class="fa fa-pencil">Editar</i></a>
+          </td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    </div>
+<script type="text/javascript">
+ $(document).ready(function() {
+    $('#example').DataTable({
+    "language": {
+      "url": "datatables/js/Spanish.json"
+    }
+    });
+   });
+</script>

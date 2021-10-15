@@ -12,8 +12,6 @@ class Boletacompra
     public $Autorizacion_Sar;
     public $Sucursal;
     public $Total;
-    public $Fecha_Ingreso;
-    public $Usuario;
     //detalle
     public $Cod_Detalle;
     public $Cod_Producto;
@@ -26,7 +24,18 @@ class Boletacompra
     public $Correo;
     public $Telefono;
     public $RTN;
-
+    //Proveedor
+    public $Proveedor;
+    public $Nombre_Proveedor;
+    public $Direccion_Proveedor;
+    public $RTN_Proveedor;
+    public $Telefono_Proveedor;
+    //adquiriente exonerado
+    public $No_Registro_Sag;
+    public $No_Orden_Compra_Exenta;
+    public $No_Constancia_Registro_Exonerado;
+    public $Usuario;
+    public $Fecha_Ingreso;
 
     public function exchangeArray(array $data)
     {   
@@ -39,11 +48,9 @@ class Boletacompra
         $this->Autorizacion_Sar = !empty($data['Autorizacion_Sar']) ? $data['Autorizacion_Sar'] : null;
         $this->Sucursal = !empty($data['Sucursal']) ? $data['Sucursal'] : null;
         $this->Total = !empty($data['Total']) ? $data['Total'] : null;
-        $this->Fecha_Ingreso = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
-        $this->Usuario = !empty($data['Usuario']) ? $data['Usuario'] : null;
         //Propiedad de la tabla producto
         $this->Cod_Detalle = !empty($data['Cod_Detalle']) ? $data['Cod_Detalle'] : null;
-        $this->Cod_Producto = !empty($data['Cod_Producto']) ? $data['Cod_Producto'] : null;
+        $this->Producto = !empty($data['Producto']) ? $data['Producto'] : null;
         $this->Descripcion = !empty($data['Descripcion']) ? $data['Descripcion'] : null;
         $this->Cantidad= !empty($data['Cantidad']) ? $data['Cantidad'] : null;
         $this->Precio= !empty($data['Precio']) ? $data['Precio'] : null;
@@ -53,8 +60,19 @@ class Boletacompra
         $this->Correo = !empty($data['Correo']) ? $data['Correo'] : null;
         $this->Telefono = !empty($data['Telefono']) ? $data['Telefono'] : null;
         $this->RTN = !empty($data['RTN']) ? $data['RTN'] : null;
-        
-        
+        //Propiedades proveedor
+        $this->Proveedor = !empty($data['Proveedor']) ? $data['Proveedor'] : null;
+        $this->Nombre_Proveedor = !empty($data['Nombre_Proveedor']) ? $data['Nombre_Proveedor'] : null;
+        $this->Direccion_Proveedor = !empty($data['Direccion_Proveedor']) ? $data['Direccion_Proveedor'] : null;
+        $this->Telefono_Proveedor = !empty($data['Telefono_Proveedor']) ? $data['Telefono_Proveedor'] : null;
+        $this->RTN_Proveedor = !empty($data['RTN_Proveedor']) ? $data['RTN_Proveedor'] : null;
+        //Propiedades de otras tablegateway
+        $this->No_Registro_Sag = !empty($data['No_Registro_Sag']) ? $data['No_Registro_Sag'] : null;
+        $this->No_Orden_Compra_Exenta = !empty($data['No_Orden_Compra_Exenta']) ? $data['No_Orden_Compra_Exenta'] : null;
+        $this->No_Constancia_Registro_Exonerado = !empty($data['No_Constancia_Registro_Exonerado']) ? $data['No_Constancia_Registro_Exonerado'] : null;
+        $this->Usuario = !empty($data['Usuario']) ? $data['Usuario'] : null;
+        $this->Fecha_Ingreso = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
+
     }
     
     public function getArrayCopy()
@@ -69,13 +87,17 @@ class Boletacompra
             'Autorizacion_Sar' => $this->Autorizacion_Sar,
             'Sucursal' => $this->Sucursal,
             'Total' => $this->Total,
-            'Fecha_Ingreso'  => $this->Fecha_Ingreso,
-            'Usuario'  => $this->Usuario,
             'Cod_Detalle' => $this->Cod_Detalle,
-            'Cod_Producto' => $this->Cod_Producto,
+            'Producto' => $this->Producto,
             'Descripcion' => $this->Descripcion,
             'Cantidad'  => $this->Cantidad,
-            'Precio'  => $this->Precio,  
+            'Precio'  => $this->Precio,
+            'Proveedor' => $this->Proveedor,
+            'No_Registro_Sag' => $this->No_Registro_Sag,
+            'No_Orden_Compra_Exenta' => $this->No_Orden_Compra_Exenta,
+            'No_Constancia_Registro_Exonerado'  => $this->No_Constancia_Registro_Exonerado,
+            'Usuario'  => $this->Usuario,
+            'Fecha_Ingreso'  => $this->Fecha_Ingreso, 
         ];
     }
     

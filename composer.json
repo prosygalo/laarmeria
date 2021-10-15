@@ -45,7 +45,9 @@
              "Boletasremision\\": "module/Boletasremision/src/",
              "Usuario\\": "module/Usuario/src/",
              "Boletacompra\\": "module/Boletacompra/src/",
-             "Tipodocumento\\": "module/Tipodocumento/src/"
+             "Tipodocumento\\": "module/Tipodocumento/src/",
+             "Proveedor\\": "module/Proveedor/src/",
+             "Constanciaretencion\\": "module/Constanciaretencion/src/"
       
         }
     },

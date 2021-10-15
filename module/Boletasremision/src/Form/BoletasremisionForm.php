@@ -221,6 +221,13 @@ class BoletasremisionForm extends Form
         $Cod_Detalle = new Element\Text('Cod_Detalle');
         $Cod_Detalle->setAttribute('type','hidden');
         $this->add($Cod_Detalle);
+
+        $Cancelar = new Element\Button('Cancelar');
+        $Cancelar->setLabel("Cancelar");
+        $Cancelar->setAttribute('type','button');
+        $Cancelar->setAttribute('onclick','cancelar()');
+        $Cancelar->setAttribute('class', 'btn btn-danger btn-block');
+        $this->add($Cancelar);
         
         //Agregar botón de agregar productos a la tabla
         $Agregar = new Element\Button('agregar');

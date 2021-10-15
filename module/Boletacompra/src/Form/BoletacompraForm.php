@@ -24,7 +24,7 @@ class BoletacompraForm extends Form
         //Agregar entada  fecha de emisión
         $Fecha_Emision = new Element\Text('Fecha_Emision');
         $Fecha_Emision->setAttribute('type','text');
-        $Fecha_Emision->setLabel("Fecha emisión");
+        $Fecha_Emision->setLabel('Fecha Emisión');
         $Fecha_Emision->setAttribute('class', 'form-control autofocus');
         $Fecha_Emision->setAttribute('readonly', 'readonly');
         $Fecha_Emision->setAttribute('required', 'required');
@@ -92,14 +92,40 @@ class BoletacompraForm extends Form
         $Usuario->setAttribute('readonly','readonly');
         $this->add($Usuario);
 
+        //Agregar campo total
+        $Total = new Element\Hidden('Total');
+        $Total->setAttribute('class', 'tot');
+        $Total->setAttribute('id','Total');
+        $Total->setAttribute('readonly','readonly');
+        $Total->setAttribute('onFocus','this.blur()');
+        $this->add($Total);
+
+        //Agregar campo total
+        $TotalView = new Element\Text('TotalView');
+        $TotalView->setAttribute('class', 'form-control');
+        $TotalView->setLabel('Total');
+        $TotalView->setAttribute('id','TotalView');
+        $TotalView->setAttribute('readonly','readonly');
+        $TotalView->setAttribute('onFocus','this.blur()');
+        $this->add($TotalView);
+
+        //Agregar campo total
+        $Subtotal = new Element\Text('Subtotal');
+        $Subtotal->setAttribute('class', 'form-control');
+        $Subtotal->setLabel('Subtotal');
+        $Subtotal->setAttribute('id','Subtotal');
+        $Subtotal->setAttribute('readonly','readonly');
+        $Subtotal->setAttribute('onFocus','this.blur()');
+        $this->add($Subtotal);
+       
         //Agregar entrada codigo de proveedor
-        $Cod_Proveedor = new Element\Hidden('Cod_Proveedor');
-        $Cod_Proveedor->setAttribute('class','form-control');
-        $Cod_Proveedor->setAttribute('required','required');
-        $Cod_Proveedor->setLabel('Cod_Proveedor');
-        $this->add($Cod_Proveedor);
+        $Proveedor = new Element\Select('Proveedor');
+        $Proveedor->setAttribute('class','form-control');
+        $Proveedor->setEmptyOption('Seleccione');
+        $Proveedor->setAttribute('required','required');
+        $Proveedor->setLabel('Proveedor');
+        $this->add($Proveedor);
         //-----Datos de Proveedor
-        //Agregar entrada Nombre de proveedor
         $Nombre_Proveedor = new Element\Text('Nombre_Proveedor');
         $Nombre_Proveedor->setAttribute('class','form-control');
         $Nombre_Proveedor->setAttribute('required','required');
@@ -107,25 +133,25 @@ class BoletacompraForm extends Form
         $this->add($Nombre_Proveedor);
 
         //Agregar entrada Dirección de proveedor
-        $Direccion = new Element\Text('Direccion');
-        $Direccion->setAttribute('class','form-control');
-        $Direccion->setAttribute('required','required');
-        $Direccion->setLabel('Dirección');
-        $this->add($Direccion);
+        $Direccion_Proveedor = new Element\Text('Direccion_Proveedor');
+        $Direccion_Proveedor->setAttribute('class','form-control');
+        $Direccion_Proveedor->setAttribute('required','required');
+        $Direccion_Proveedor->setLabel('Dirección');
+        $this->add($Direccion_Proveedor);
 
         //Agregar entrada RTN/DNI  proveedor
         $RTN_Proveedor = new Element\Text('RTN_Proveedor');
         $RTN_Proveedor->setAttribute('class','form-control');
         $RTN_Proveedor->setAttribute('required','required');
-        $RTN_Proveedor->setLabel('RTN/DNI');
+        $RTN_Proveedor->setLabel('RTN');
         $this->add($RTN_Proveedor);
 
         //Agregar entrada telefono proveedor
-        $Telefono = new Element\Text('Telefono');
-        $Telefono->setAttribute('class','form-control');
-        $Telefono->setAttribute('required','required');
-        $Telefono->setLabel('Teléfono');
-        $this->add($Telefono);
+        $Telefono_Proveedor = new Element\Text('Telefono_Proveedor');
+        $Telefono_Proveedor->setAttribute('class','form-control');
+        $Telefono_Proveedor->setAttribute('required','required');
+        $Telefono_Proveedor->setLabel('Teléfono');
+        $this->add($Telefono_Proveedor);
 
         //-------Datos de qdquiriente exonerado
         $No_Registro_Sag = new Element\Text('No_Registro_Sag');

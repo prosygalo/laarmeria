@@ -19,6 +19,7 @@ class Autorizacionsar
     public $Consecutivo_Actual_Tipo;
     public $Consecutivo_Actual_Correlativo;
     public $Sucursal;
+    public $Nombre_Sucursal;
     public $Fecha_Limite;
     public $Fecha_Ingreso;
 
@@ -37,10 +38,11 @@ class Autorizacionsar
         $this->Consecutivo_Final_Tipo = !empty($data['Consecutivo_Final_Tipo']) ? $data['Consecutivo_Final_Tipo'] : null;  
         $this->Consecutivo_Final_Correlativo = !empty($data['Consecutivo_Final_Correlativo']) ? $data['Consecutivo_Final_Correlativo'] : null;  
         $this->Consecutivo_Actual_Establ = !empty($data['Consecutivo_Actual_Establ']) ? $data['Consecutivo_Actual_Establ'] : null;
-         $this->Consecutivo_Actual_Punto = !empty($data['Consecutivo_Actual_Punto']) ? $data['Consecutivo_Actual_Punto'] : null;
-          $this->Consecutivo_Actual_Tipo = !empty($data['Consecutivo_Actual_Tipo']) ? $data['Consecutivo_Actual_Tipo'] : null;
-           $this->Consecutivo_Actual_Correlativo = !empty($data['Consecutivo_Actual_Correlativo']) ? $data['Consecutivo_Actual_Correlativo'] : null;  
+        $this->Consecutivo_Actual_Punto = !empty($data['Consecutivo_Actual_Punto']) ? $data['Consecutivo_Actual_Punto'] : null;
+        $this->Consecutivo_Actual_Tipo = !empty($data['Consecutivo_Actual_Tipo']) ? $data['Consecutivo_Actual_Tipo'] : null;
+        $this->Consecutivo_Actual_Correlativo = !empty($data['Consecutivo_Actual_Correlativo']) ? $data['Consecutivo_Actual_Correlativo'] : null;  
         $this->Sucursal = !empty($data['Sucursal']) ? $data['Sucursal'] : null;
+        $this->Nombre_Sucursal = !empty($data['Nombre_Sucursal']) ? $data['Nombre_Sucursal'] : null;
         $this->Fecha_Limite = !empty($data['Fecha_Limite']) ? $data['Fecha_Limite'] : null;
         $this->Fecha_Ingreso  = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
         //documento fiscales

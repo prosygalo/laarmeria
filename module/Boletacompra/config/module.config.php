@@ -21,16 +21,6 @@ return [
             'may_terminate' => true,
              // Child routes begin:
             'child_routes' => [
-
-            'pre' => [
-                    'type' =>Segment::class,
-                    'options' => [
-                        'route'    => '/pre',
-                        'defaults' => [
-                            'action' => 'pre',
-                        ],
-                    ],
-                ],
              'add' => [
                     'type' =>Segment::class,
                     'options' => [
@@ -72,7 +62,7 @@ return [
                 'detalle' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/detalle[/:Cod_Boleta]',
+                        'route'    => '/detalle[/:Cod_Boleta_Compra]',
                         'defaults' => [
                             'action' => 'detalle',
                         ],   
@@ -82,7 +72,7 @@ return [
                 'reporte' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/reporte[/:Cod_Boleta]',
+                        'route'    => '/reporte[/:Cod_Boleta_Compra]',
                         'defaults' => [
                             'action' => 'reporte',
                         ],   
@@ -92,7 +82,7 @@ return [
                  'pdf' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/pdf[/:Cod_Boleta]',
+                        'route'    => '/pdf[/:Cod_Boleta_Compra]',
                         'defaults' => [
                             'action' => 'pdf',
                         ],   

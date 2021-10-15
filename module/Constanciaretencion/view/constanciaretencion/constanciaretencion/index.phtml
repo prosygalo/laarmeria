@@ -1,0 +1,50 @@
+<?php
+$title = 'Listado guías de remisión';
+$this->headTitle($title);
+?>
+<div class="container-fluid">
+    <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+    
+    <table class="table table-hover"    id="example"  style="width:100%">
+      <thead class="thead-light" style="">
+        <tr>
+          <th>c&oacute;digo  boleta</th>
+          <th>N&uacute;mero de documento fiscal</th>
+          <th>Remitente</th>
+          <th>Destinatario</th>
+          <th>Fecha  Inicio de traslado</th>
+          <th>Fecha final de traslado</th>
+          <th>Fecha emisi&oacute;n</th>
+          <th colspan="2" class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+      <?php foreach ($Boletas as $a) : ?>
+      <tr>
+        <td><?= $this->escapeHtml($a->Cod_Boleta) ?></td>
+        <td><?= $this->escapeHtml($a->Consecutivo_Actual_Establ."-".$a->Consecutivo_Actual_Punto."-".$a->Consecutivo_Actual_Tipo."-".$a->Consecutivo_Actual_Correlativo)?></td>
+        <td><?= $this->escapeHtml($a->Sucursal_Remitente) ?></td>
+        <td><?= $this->escapeHtml($a->Sucursal_Destino) ?></td>
+        <td><?= $this->escapeHtml($a->Fecha_Inicio_Traslado)?></td>
+        <td><?= $this->escapeHtml($a->Fecha_Final_Traslado)?></td>
+        <td><?= $this->escapeHtml($a->Fecha_Emision) ?></td>
+        <td>
+            <a type="button"  class=" btn btn-info btn-block btn-md"  href="<?= $this->url('boletasremision/detalle',['Cod_Boleta'=>$a->Cod_Boleta])?>"><i class="fa fa-eye-slash">Ver</i></a>
+        </td>
+        <td>
+            <a type="button"  target="_blank" class="btn btn-danger btn-block btn-md"  href="<?= $this->url('boletasremision/pdf',['Cod_Boleta'=>$a->Cod_Boleta])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>      
+        </td>     
+      </tr>
+      <?php endforeach; ?>
+     </tbody>
+</table>
+</div>
+<script type="text/javascript">
+ $(document).ready(function() {
+    $('#example').DataTable({
+    "language": {
+      "url": "datatables/js/Spanish.json"
+    }
+    });
+   });
+</script>

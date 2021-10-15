@@ -1,0 +1,173 @@
+<?php
+$title = 'Agregar Constancia de Retención';
+$this->headTitle($title);
+$Fecha_Emision =$form->get('Fecha_Emision');
+$Autorizacion_Sar=$form->get('Autorizacion_Sar');
+$Autorizacion_Sar->setAttribute('readonly', 'readonly');
+$Sucursal=$form->get('Sucursal');
+$Sucursal->setAttribute('readonly', 'readonly');
+$Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
+$Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
+$Consecutivo_Actual_Punto=$form->get('Consecutivo_Actual_Punto');
+$Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
+$Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
+$Tipo_Retencion=$form->get('Tipo_Retencion');
+$Base_Gravable_Impuesto=$form->get('Base_Gravable_Impuesto');
+$Importe_Retencion=$form->get('Importe_Retencion');
+$Importe_Retencion->setAttribute('readonly', 'readonly');
+$Proveedor=$form->get('Proveedor');
+$Direccion_Proveedor=$form->get('Direccion_Proveedor');
+$Documento_Retencion=$form->get('Documento_Retencion');
+$No_Correlativo=$form->get('No_Correlativo');
+$RTN_Proveedor=$form->get('RTN_Proveedor');
+$Cai_Documento=$form->get('Cai_Documento');
+$Descripcion_Tributo_Retenido=$form->get('Descripcion_Tributo_Retenido');
+$Cancelar=$form->get('Cancelar');
+$submit=$form->get('submit');
+
+$form->prepare();
+?>
+<section id="cover">
+    <div id="cover-caption">
+        <div id="container" class="container">                                              
+            <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+                <?= $this->form()->openTag($form)?>
+                <h5>Documento fiscal</h5>
+                    <div class="row" style="background-color:#E6E6FA">
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <?= $this->formLabel($Consecutivo_Actual_Establ) ?>
+                            <?= $this->formElement($Consecutivo_Actual_Establ) ?>
+                            <?= $this->formElementErrors()->render($Consecutivo_Actual_Establ, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <?= $this->formLabel($Consecutivo_Actual_Punto) ?>
+                            <?= $this->formElement($Consecutivo_Actual_Punto) ?>
+                            <?= $this->formElementErrors()->render($Consecutivo_Actual_Punto, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                            <?= $this->formLabel($Consecutivo_Actual_Tipo) ?>
+                            <?= $this->formElement($Consecutivo_Actual_Tipo) ?>
+                            <?= $this->formElementErrors()->render($Consecutivo_Actual_Tipo, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <?= $this->formLabel($Consecutivo_Actual_Correlativo) ?>
+                            <?= $this->formElement($Consecutivo_Actual_Correlativo) ?>
+                            <?= $this->formElementErrors()->render($Consecutivo_Actual_Correlativo, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <?= $this->formLabel($Autorizacion_Sar) ?>
+                            <?= $this->formElement($Autorizacion_Sar) ?>
+                            <?= $this->formElementErrors()->render($Autorizacion_Sar, ['class' => 'help-inline  text-danger']) ?>
+                           </div>
+                        </div>
+                        <div class="col-md-4">
+                           <div class="form-group">
+                            <?= $this->formLabel($Sucursal) ?>
+                            <?= $this->formElement($Sucursal) ?>
+                            <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
+                           </div>
+                        </div>
+                         <div class="col-md-4">
+                           <div class="form-group">
+                            <?= $this->formLabel($Usuario) ?>
+                            <?= $this->formElement($Usuario) ?>
+                            <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
+                           </div>
+                        </div>
+                    </div><br>
+                    <h5>Información Proveedor</h5>
+                    <div class="row">
+                        <div class="col-md-4"> 
+                            <div class="form-group">
+                            <?= $this->formLabel($RTN_Proveedor) ?>
+                            <?= $this->formElement($RTN_Proveedor) ?>
+                            <?= $this->formElementErrors()->render($RTN_Proveedor, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($Proveedor) ?>
+                            <?= $this->formElement($Proveedor) ?>
+                            <?= $this->formElementErrors()->render($Proveedor, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                         <div class="form-group">
+                            <?= $this->formLabel($Direccion_Proveedor) ?>
+                            <?= $this->formElement($Direccion_Proveedor) ?>
+                            <?= $this->formElementErrors()->render($Direccion_Proveedor, ['class' => 'help-inline  text-danger']) ?>
+                        </div><br>
+                        <h5>Datos documento sobre el cual se  retuvo</h5>
+                        <div class="form-group">
+                            <?= $this->formLabel($Tipo_Retencion) ?><br>
+                            <?= $this->formElement($Tipo_Retencion) ?>
+                            <?= $this->formElementErrors()->render($Tipo_Retencion, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($Base_Gravable_Impuesto) ?>
+                            <?= $this->formElement($Base_Gravable_Impuesto) ?>
+                            <?= $this->formElementErrors()->render($Base_Gravable_Impuesto, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($Importe_Retencion) ?>
+                            <?= $this->formElement($Importe_Retencion) ?>
+                            <?= $this->formElementErrors()->render($Importe_Retencion, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                         <div class="form-group">
+                            <?= $this->formLabel($Documento_Retencion) ?>
+                            <?= $this->formElement($Documento_Retencion) ?>
+                            <?= $this->formElementErrors()->render($Documento_Retencion, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($No_Correlativo) ?>
+                            <?= $this->formElement($No_Correlativo) ?>
+                            <?= $this->formElementErrors()->render($No_Correlativo, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($Cai_Documento) ?>
+                            <?= $this->formElement($Cai_Documento) ?>
+                            <?= $this->formElementErrors()->render($Cai_Documento, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($Descripcion_Tributo_Retenido) ?>
+                            <?= $this->formElement($Descripcion_Tributo_Retenido) ?>
+                            <?= $this->formElementErrors()->render($Descripcion_Tributo_Retenido, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                        <div class="form-group">
+                            <?= $this->formLabel($Fecha_Emision) ?>
+                            <?= $this->formElement($Fecha_Emision) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                <div class="row"> 
+                    <div class="col-md-6">       
+                        <!--cancelar-->
+                        <div class="form-group">
+                        <?= $this->formButton($Cancelar)?>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                        <!-- submit guardado-->
+                        <?php
+                            echo  $this->formSubmit($submit);
+                            echo  $this->formHidden($form->get('Cod_Constancia'));
+                        ?>
+                        </div>
+                    </div>
+                </div>    
+              <?=  $this->form()->closeTag()?> 
+          </div>
+    </div>
+</section>
+<script type="text/javascript">
+     
+</script>

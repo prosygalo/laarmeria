@@ -21,6 +21,8 @@ use Departamento\Controller\DepartamentoController;
 use Producto\Controller\ProductoController;
 use Sucursal\Controller\SucursalController;
 use Unidadtransporte\Controller\UnidadtransporteController;
+use Proveedor\Controller\ProveedorController;
+use constanciaretencion\Controller\ConstanciaretencionController;
 use Usuario\Controller\AuthController;
 use Usuario\Controller\UsuarioController;
 
@@ -118,8 +120,10 @@ class Module implements ConfigProviderInterface
                     ->addResource(new Resource('conductor:conductor'))
                     ->addResource(new Resource('departamento:departamento'))
                     ->addResource(new Resource('producto:producto'))
+                    ->addResource(new Resource('proveedor:proveedor'))
                     ->addResource(new Resource('sucursal:sucursal'))
                     ->addResource(new Resource('unidadtransporte:unidadtransporte'))
+                    ->addResource(new Resource('constanciaretencion:constanciaretencion'))
                     ->addResource(new Resource('usuario:usuario'))
                     ->addResource(new Resource('usuario:auth'))
                     ->allow('Publico','application:index')
@@ -127,21 +131,25 @@ class Module implements ConfigProviderInterface
                     ->allow('Publico','usuario:usuario',['registroadminuser'])
                     ->allow('Publico','boletasremision:boletasremision',['pdf','reporte'])
                     ->allow('Publico','boletacompra:boletacompra',['pdf','reporte'])
+                    ->allow('Publico','constanciaretencion:constanciaretencion',['pdf','reporte'])
                     ->allow('Invitado','usuario:auth')
                     ->allow('Invitado','usuario:usuario',['perfil'])
-                    ->allow('Invitado','boletasremision:boletasremision',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
-                    ->allow('Invitado','boletacompra:boletacompra',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Invitado','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Invitado','boletacompra:boletacompra',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Invitado','constanciaretencion:constanciaretencion',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
                     ->allow('Miembro','usuario:auth')
                     ->allow('Miembro','usuario:usuario',['perfil'])
-                    ->allow('Miembro','boletasremision:boletasremision',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Miembro','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                     ->allow('Miembro','constanciaretencion:constanciaretencion',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
                     ->allow('Miembro','boletacompra:boletacompra',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
                     ->allow('Especial','boletasremision:boletasremision',['index'])
                     ->allow('Especial','boletacompra:boletacompra',['index'])
-                    ->allow('Especial','boletasremision:boletasremision',['index'])
+                    ->allow('Especial','constanciaretencion:constanciaretencion',['index'])
                     ->allow('Especial','autorizacionsar:autorizacionsar',['index','add','listo','error'])
                     ->allow('Especial','conductor:conductor',['index','add','edit','listo','error'])
                     ->allow('Especial','departamento:departamento',['index','add','edit','listo','error'])
                     ->allow('Especial','producto:producto',['index','add','edit','listo','error'])
+                    ->allow('Especial','proveedor:proveedor',['index','add','edit','listo','error'])
                     ->allow('Especial','sucursal:sucursal',['index','add','edit','listo','error'])
                     ->allow('Especial','unidadtransporte:unidadtransporte',['index','add','edit','listo','error'])
                     ->allow('Admin');

@@ -17,38 +17,33 @@ class DetallecompraTable
      }
 
 
-    public function detallecompra($Cod_Boleta_Compra)
+    public function getDetalle($Cod_Boleta_Compra)
      {      
-       /* SELECT *
-        FROM detalle
-        inner join boletas_compra
-        ON detalle_compra.Boleta_Compra = boletas_compra.Cod_Boleta_Compra
-        where Boleta_Compra = '29';*/
-                
-                $sqlSelect = $this->DetallecompraTableGateway->getSql()->select();
-                $sqlSelect->columns(array('Cod_Producto','Descripcion','Cantidad','Precio'));
-                $sqlSelect->where(['Cod_Boleta_Compra' => $Cod_Boleta_Compra]);
-                $resultSet = $this->DetallecompraTableGateway->selectWith($sqlSelect);
-                return $resultSet;
+        $Cod_Boleta_Compra = $Cod_Boleta_Compra;
+        $sqlSelect = $this->DetallecompraTableGateway->getSql()->select();
+        $sqlSelect->columns(array('Cod_Detalle','Boleta_Compra','Producto','Descripcion','Precio','Cantidad'));
+        $sqlSelect->where(['Boleta_Compra' => $Cod_Boleta_Compra]);
+        $resultSet = $this->DetallecompraTableGateway->selectWith($sqlSelect);
+        return $resultSet;
                 
      }  
-
-    public function insertDetalle($Cod_Producto, $Descripcion, $Cantidad, $Precio,  $lastId)
+   
+    public function insertDetalle($Producto, $Descripcion, $Cantidad, $Precio,  $lastId)
     {  
-        $Cod_Producto = $Cod_Producto;
+        $Producto = $Producto;
         $Descripcion = $Descripcion;
         $Cantidad = $Cantidad;
         $Precio = $Precio;
         $lastId = $lastId;
 
-        for($count = 0; $count < count($Cod_Producto); $count++){
+        for($count = 0; $count < count($Producto); $count++){
             $data = array();           
              $data=[
-                'Cod_Producto' =>$Cod_Producto[$count],
+                'Producto' =>$Producto[$count],
+                'Boleta_Compra' =>$lastId,
                 'Descripcion' =>$Descripcion[$count],
                 'Cantidad' =>$Cantidad[$count],
                 'Precio' =>$Precio[$count],
-                'Boleta'   =>$lastId,
             ];
           
           $this->DetallecompraTableGateway->insert($data);

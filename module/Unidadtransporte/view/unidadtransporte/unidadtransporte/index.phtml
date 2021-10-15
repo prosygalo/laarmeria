@@ -31,7 +31,7 @@ $this->headTitle($title);
           <td><?= $this->escapeHtml($unit->Fecha_Ingreso) ?></td>
           <td><?= $this->escapeHtml($unit->Fecha_Actualizacion) ?></td>
           <td>
-             <a  type="button" class="btn btn-primary btn-sm"  href="<?=$this->url('unidadtransporte/edit',['Cod_Unidad'=>$unit->Cod_Unidad])?>"><i class="fa fa-pencil"></i></a>     
+             <a  type="button" class="btn btn-primary btn-block btn-sm"  href="<?=$this->url('unidadtransporte/edit',['Cod_Unidad'=>$unit->Cod_Unidad])?>"><i class="fa fa-pencil">Editar</i></a>     
           </td>
     </tr>
 <?php endforeach; ?>

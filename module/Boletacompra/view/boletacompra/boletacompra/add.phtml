@@ -1,5 +1,5 @@
 <?php
-$title = 'Agregar boleta de compra';
+$title = 'Agregar Boleta De Compra';
 $this->headTitle($title);
 $Fecha_Emision =$form->get('Fecha_Emision');
 $Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
@@ -7,9 +7,10 @@ $Consecutivo_Actual_Punto=$form->get('Consecutivo_Actual_Punto');
 $Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
 $Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
 $Sucursal=$form->get('Sucursal');
-$Nombre_Proveedor=$form->get('Nombre_Proveedor');
-$Direccion=$form->get('Direccion');
-$Telefono=$form->get('Telefono');
+$Sucursal->setAttribute('readonly', 'readonly');
+$Proveedor=$form->get('Proveedor');
+$Direccion_Proveedor=$form->get('Direccion_Proveedor');
+$Telefono_Proveedor=$form->get('Telefono_Proveedor');
 $RTN_Proveedor=$form->get('RTN_Proveedor');
 $No_Registro_Sag=$form->get('No_Registro_Sag');
 $No_Orden_Compra_Exenta=$form->get('No_Orden_Compra_Exenta');
@@ -76,25 +77,25 @@ $form->prepare();
                 <div class="row" style="background-color:#F5F5F5">
                   <div class="col-md-2">
                         <div class="form-group">
-                            <?= $this->formLabel($Nombre_Proveedor) ?>
-                            <?= $this->formElement($Nombre_Proveedor) ?>
-                            <?= $this->formElementErrors()->render($Nombre_Proveedor, ['class' => 'help-inline  text-danger']) ?>
+                            <?= $this->formLabel($Proveedor) ?>
+                            <?= $this->formElement($Proveedor) ?>
+                            <?= $this->formElementErrors()->render($Proveedor, ['class' => 'help-inline  text-danger']) ?>
                            
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <?= $this->formLabel($Direccion) ?>
-                            <?= $this->formElement($Direccion) ?>
-                            <?= $this->formElementErrors()->render($Direccion, ['class' => 'help-inline  text-danger']) ?>
+                            <?= $this->formLabel($Direccion_Proveedor) ?>
+                            <?= $this->formElement($Direccion_Proveedor) ?>
+                            <?= $this->formElementErrors()->render($Direccion_Proveedor, ['class' => 'help-inline  text-danger']) ?>
                            
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <?= $this->formLabel($Telefono) ?>
-                            <?= $this->formElement($Telefono) ?>
-                            <?= $this->formElementErrors()->render($Telefono, ['class' => 'help-inline  text-danger']) ?>
+                            <?= $this->formLabel($Telefono_Proveedor) ?>
+                            <?= $this->formElement($Telefono_Proveedor) ?>
+                            <?= $this->formElementErrors()->render($Telefono_Proveedor, ['class' => 'help-inline  text-danger']) ?>
                            
                         </div>
                     </div>
@@ -154,6 +155,7 @@ $form->prepare();
                         <table id="TablaPro" class="table">
                             <thead>
                                 <tr>
+                                    <td></td>
                                     <th>C&oacute;digo</th>
                                     <th>Descripci&oacute;n</th>
                                     <th>Cantidad</th>
@@ -177,8 +179,8 @@ $form->prepare();
                                 <tr>
                                     <td colspan="4"></td>
                                     <td>Total</td>
-                                    <td><span id="total">0</span><input class="form-control" onFocus="this.blur()" readonly type="hidden" id="total" name="Total"  value="" /><span id="Total"></span></td>
-                                </tr>
+                                    <td><span id="total">0</span>
+                                    <?= $this->formHidden($form->get('Total'))?>
                             </tfoot>
                         </table>
                     </div>
@@ -215,6 +217,7 @@ $form->prepare();
   function cancelar(){
      window.location.href="<?= $this->url('home')?>";
    }
+   
   function RefrescaProducto(){
     var ip = [];
     var i = 0;
@@ -240,7 +243,7 @@ $form->prepare();
 
   function agregarProducto(){
             var newtr = '<tr class="item" data-id="">';//Obtengo en el tr el Id
-            newtr = newtr + '<td class="contadorfilas"><input type="text" class="form-control codigo" name="Cod_Producto[]" id="Cod_Producto[]" ></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" ></td><td><input class="form-control text-center Cantidad" maxlength="4"  type="text" id="Cantidad[]" name="Cantidad[]" value ="1"   onChange="Calcular(this);"/></td><td><input class="form-control text-right Precio" maxlength="10"  type="text" id="Precio[]" name="Precio[]" value ="0" onChange="Calcular(this);" /></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0" onFocus="this.blur()" readonly/></td>';
+            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input type="text" class="form-control codigo" name="Producto[]" id="Producto[]" ></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" ></td><td><input class="form-control text-center Cantidad" maxlength="4"  type="text" id="Cantidad[]" name="Cantidad[]" value ="1"   onChange="Calcular(this);"/></td><td><input class="form-control text-right Precio" maxlength="10"  type="text" id="Precio[]" name="Precio[]" value ="0" onChange="Calcular(this);" /></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0" onFocus="this.blur()" readonly/></td>';
             newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
 

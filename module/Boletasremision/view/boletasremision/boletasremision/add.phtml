@@ -1,5 +1,5 @@
 <?php
-$title = 'Agregar boleta de guía de remisión';
+$title = 'Agregar Guía De Remisión';
 $this->headTitle($title);
 $Fecha_Emision =$form->get('Fecha_Emision');
 $Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
@@ -22,6 +22,7 @@ $Autorizacion_Sar=$form->get('Autorizacion_Sar');
 $Autorizacion_Sar->setAttribute('readonly', 'readonly');
 $Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
 $productos=$form->get('productos');
+$Cancelar=$form->get('Cancelar');
 $Agregar=$form->get('agregar');
 $submit=$form->get('submit');
 
@@ -187,14 +188,20 @@ $form->prepare();
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                         <!-- submit agregar-->
                         <?= $this->formButton($Agregar)?>
                             <span id="limit" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <!--cancelar-->
+                        <div class="form-group">
+                        <?= $this->formButton($Cancelar)?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                         <!-- submit guardado-->
                         <?php
@@ -248,6 +255,10 @@ $form->prepare();
          //locale: 'es-es'
       });
   });
+
+  function cancelar(){
+     window.location.href="<?= $this->url('home')?>";
+   }
 
   function RefrescaProducto(){
     var ip = [];

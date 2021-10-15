@@ -10,6 +10,7 @@ use Sucursal\Model\SucursalTable;
 use Producto\Model\ProductoTable;
 use Autorizacionsar\Model\AutorizacionsarTable;
 use Usuario\Model\UsuarioTable;
+use Proveedor\Model\ProveedorTable;
 
 
 class Module implements ConfigProviderInterface
@@ -60,6 +61,7 @@ class Module implements ConfigProviderInterface
                        $container->get(ProductoTable::class),
                        $container->get(AutorizacionsarTable::class),
                        $container->get(UsuarioTable::class),
+                       $container->get(ProveedorTable::class),
                        $dbAdapter
                        
                     );

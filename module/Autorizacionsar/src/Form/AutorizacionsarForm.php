@@ -74,7 +74,7 @@ class AutorizacionsarForm extends Form
                 'label' => 'Tipo',
             ],
         ]);
-           $this->add([
+        $this->add([
             'name' => 'Consecutivo_Final_Correlativo',
             'type' => 'text',
             'options' => [
