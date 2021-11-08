@@ -1,5 +1,5 @@
 <?php
-$title = 'Listado de proveedores';
+$title = 'Proveedores';
 $this->headTitle($title);
 ?>
 <div class="container">
@@ -9,15 +9,14 @@ $this->headTitle($title);
         <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('proveedor/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a>
       </p>
     </div>
-    <table class="table table-hover"  id="example"  style="width:100%">
-      <thead style="background-color:brown;color:white;" rowspan="2">
+    <table class="table table-hover"    id="example"  style="width:100%">
+      <thead  class="thead-light">
         <tr>
           <th>c&oacute;digo de proveedor</th>
           <th>Nombre</th>
           <th>Dirección</th>
           <th>Teléfono</th>
           <th>RTN</th>
-          <th>CAI</th>
           <th>Fecha de ingreso</th>
           <th>Fecha de actualizaci&oacute;n</th>
           <th>Acci&oacute;n</th>
@@ -31,7 +30,6 @@ $this->headTitle($title);
           <td><?= $this->escapeHtml($cond->Direccion_Proveedor) ?></td>
           <td><?= $this->escapeHtml($cond->Telefono_Proveedor) ?></td>
           <td><?= $this->escapeHtml($cond->RTN_Proveedor) ?></td>
-          <td><?= $this->escapeHtml($cond->Cai_Proveedor) ?></td>
           <td><?= $this->escapeHtml($cond->Fecha_Ingreso) ?></td>
           <td><?= $this->escapeHtml($cond->Fecha_Actualizacion) ?></td>
           <td>

@@ -68,7 +68,7 @@ class TipodocumentoController extends AbstractActionController
         // an exception if the album is not found, which should result
         // in redirecting to the landing page.
         try {
-            $tipodocumento = $this->TipodocumentoTable->getdocumento($Cod_Documento);
+            $tipodocumento = $this->TipodocumentoTable->getTipoDocumento($Cod_Documento);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('tipodocumento');
         }

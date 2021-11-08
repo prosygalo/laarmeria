@@ -151,11 +151,8 @@ class BoletasremisionController extends AbstractActionController
             $form->get('Sucursal_Remitente')->setValue($Sucursal_Remitente);
             $form->get('Punto_Partida')->setValue($Punto_Partida); 
             //llenado de  Sucursal Remitente
-            $rowset = $this->SucursalTable->getSucursalDestinoDisponible(); //llenar select sucursal  remiten
+            $rowset = $this->SucursalTable->getSucursalDestino(); //llenar select sucursal  remiten
             $form->get('Sucursal_Destino')->setValueOptions($rowset);   
-
-            $rowset6 = $this->SucursalTable->getSucursalDireccionDisponible(); //llenar select sucursal direccion
-            $form->get('Punto_Destino')->setValueOptions($rowset6); 
 
             $rowset2 = $this->UnidadtransporteTable->getUnidadSelect(); //llenar select unidad 
             $form->get('Unidad_Transporte')->setValueOptions($rowset2); 
@@ -165,8 +162,6 @@ class BoletasremisionController extends AbstractActionController
 
             $rowset4 = $this->ProductoTable->getProductoSelect(); //llenar select Conductor 
             $productos = $form->get('productos')->setValueOptions($rowset4); 
-
-           
 
             //-------Solicitud-------------------------
             $request = $this->getRequest();
@@ -207,6 +202,14 @@ class BoletasremisionController extends AbstractActionController
 
             }
             return $this->redirect()->toRoute('home');
+
+    }
+    public function sucdesAction()
+    {
+        $Sucursal_Destino = $this->params()->fromRoute('Sucursal_Destino');
+        
+        $rowset3 = $this->SucursalTable->getPuntoDestino($Sucursal_Destino); //llenar select sucursal  remiten
+        return  new JsonModel($rowset3);
 
     }
 
@@ -252,9 +255,6 @@ class BoletasremisionController extends AbstractActionController
 
             $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal 
             $form->get('Sucursal_Destino')->setValueOptions($rowset);
-
-            $rowset6 = $this->SucursalTable->getSucursalDireccionListado(); //llenar select sucursal direccion
-            $form->get('Punto_Destino')->setValueOptions($rowset6); 
 
             $rowset2 = $this->UnidadtransporteTable->getUnidadSelect(); //llenar select unidad 
             $form->get('Unidad_Transporte')->setValueOptions($rowset2); 
@@ -303,32 +303,30 @@ class BoletasremisionController extends AbstractActionController
         $form = new BoletasremisionForm();
         $form->bind($boleta);
        
-        //Sucursal desde la que se hace la solicitud de boleta
+        //Sucursal desde la que se hace la psolicitud de boleta
         $Sucursal_Remitente = [ 'Sucursal_Remitente'=>$boleta->Sucursal_Remitente];
         $Suc = $this->SucursalTable->getSucursalMembrete($Sucursal_Remitente);
 
-        //Autorizacion SAR
+        //Autorizacion datos 
         $Autorizacion_Sar = [ 'Autorizacion_Sar'=>$boleta->Autorizacion_Sar];
         $Sar = $this->AutorizacionsarTable->getAutorizacionReporte($Autorizacion_Sar);
         $Cai = $this->AutorizacionsarTable->getCai($Autorizacion_Sar);
-       
-        //Usuario
-        $Cod_Usuario = [ 'Usuario'=>$boleta->Usuario];
-        $user = $this->UsuarioTable->getUsuarioBoleta($Cod_Usuario);
 
         //Usuario
         $Conductor = [ 'Conductor'=>$boleta->Conductor];
         $Lic = $this->ConductorTable->getLicencia($Conductor);
+       
+        //Usuario
+        $Cod_Usuario = [ 'Usuario'=>$boleta->Usuario];
+        $user = $this->UsuarioTable->getUsuarioBoleta($Cod_Usuario);
         
         //Detalle de la boleta enviada 
         $Detalle = $this->DetalleTable->detalle($Cod_Boleta);
         
-         //------llenado de los Listado de selección---------------
+         //------llenado de los Listado de selección--------------- 
+
             $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal 
             $form->get('Sucursal_Destino')->setValueOptions($rowset);
-
-            $rowset6 = $this->SucursalTable->getSucursalDireccionListado(); //llenar select sucursal direccion
-            $form->get('Punto_Destino')->setValueOptions($rowset6); 
 
             $rowset2 = $this->UnidadtransporteTable->getUnidadSelect(); //llenar select unidad 
             $form->get('Unidad_Transporte')->setValueOptions($rowset2); 
@@ -338,7 +336,6 @@ class BoletasremisionController extends AbstractActionController
 
             $rowset4 = $this->ProductoTable->getProductoSelect(); //llenar select Conductor 
             $productos = $form->get('productos')->setValueOptions($rowset4);
-
         
         //Verifica si la usuario ha enviado el formulario
         $request = $this->getRequest();

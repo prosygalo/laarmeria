@@ -28,3 +28,11 @@
 .background{
     background-color: #E6E6FA;
 }
+.fieldset{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.pro{ 
+          padding-top:10px ;
+          margin-left: 300px;
+        }

@@ -32,6 +32,16 @@ return [
                     ],
                 ],
 
+             'proveedor' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/proveedor[/:RTN_Proveedor]',
+                        'defaults' => [
+                            'action' => 'proveedor',
+                        ],
+                    ],
+                ],
+
                 'errorautorizacion' => [
                     'type' =>Segment::class,
                     'options' => [
@@ -92,7 +102,7 @@ return [
                  'pdf' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/pdf[/:Cod-Constancia]',
+                        'route'    => '/pdf[/:Cod_Constancia]',
                         'defaults' => [
                             'action' => 'pdf',
                         ],   

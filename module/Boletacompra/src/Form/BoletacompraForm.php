@@ -93,16 +93,22 @@ class BoletacompraForm extends Form
         $this->add($Usuario);
 
         //Agregar campo total
-        $Total = new Element\Hidden('Total');
-        $Total->setAttribute('class', 'tot');
+        $Total = new Element\Text('Total');
         $Total->setAttribute('id','Total');
         $Total->setAttribute('readonly','readonly');
         $Total->setAttribute('onFocus','this.blur()');
         $this->add($Total);
 
+         //Agregar campo total
+        $cantidad_letras= new Element\Text('cantidad_letras');
+        $cantidad_letras->setAttribute('class', 'form-control');
+        $cantidad_letras->setAttribute('readonly','readonly');
+        $cantidad_letras->setAttribute('onFocus','this.blur()');
+        $this->add($cantidad_letras);
+
         //Agregar campo total
         $TotalView = new Element\Text('TotalView');
-        $TotalView->setAttribute('class', 'form-control');
+        $TotalView->setAttribute('class', 'form-control text-right');
         $TotalView->setLabel('Total');
         $TotalView->setAttribute('id','TotalView');
         $TotalView->setAttribute('readonly','readonly');
@@ -111,7 +117,7 @@ class BoletacompraForm extends Form
 
         //Agregar campo total
         $Subtotal = new Element\Text('Subtotal');
-        $Subtotal->setAttribute('class', 'form-control');
+        $Subtotal->setAttribute('class', 'form-control text-right');
         $Subtotal->setLabel('Subtotal');
         $Subtotal->setAttribute('id','Subtotal');
         $Subtotal->setAttribute('readonly','readonly');
@@ -123,12 +129,16 @@ class BoletacompraForm extends Form
         $Proveedor->setAttribute('class','form-control');
         $Proveedor->setEmptyOption('Seleccione');
         $Proveedor->setAttribute('required','required');
+        $Proveedor->setDisableInArrayValidator(true);
+        $Proveedor->setAttribute('id','Proveedor');
         $Proveedor->setLabel('Proveedor');
         $this->add($Proveedor);
+
         //-----Datos de Proveedor
         $Nombre_Proveedor = new Element\Text('Nombre_Proveedor');
         $Nombre_Proveedor->setAttribute('class','form-control');
         $Nombre_Proveedor->setAttribute('required','required');
+        $Nombre_Proveedor->setAttribute('id','Nombre_Proveedor');
         $Nombre_Proveedor->setLabel('Proveedor');
         $this->add($Nombre_Proveedor);
 
@@ -136,20 +146,31 @@ class BoletacompraForm extends Form
         $Direccion_Proveedor = new Element\Text('Direccion_Proveedor');
         $Direccion_Proveedor->setAttribute('class','form-control');
         $Direccion_Proveedor->setAttribute('required','required');
+        $Direccion_Proveedor->setAttribute('id','Direccion_Proveedor');
         $Direccion_Proveedor->setLabel('Dirección');
         $this->add($Direccion_Proveedor);
 
         //Agregar entrada RTN/DNI  proveedor
-        $RTN_Proveedor = new Element\Text('RTN_Proveedor');
+        $RTN_Proveedor = new Element\Select('RTN_Proveedor');
         $RTN_Proveedor->setAttribute('class','form-control');
+        $RTN_Proveedor->setEmptyOption('Seleccione');
+        $RTN_Proveedor->setAttribute('id','RTN_Proveedor');
         $RTN_Proveedor->setAttribute('required','required');
         $RTN_Proveedor->setLabel('RTN');
         $this->add($RTN_Proveedor);
+
+        $RTN_View = new Element\Text('RTN_View');
+        $RTN_View->setAttribute('class','form-control');
+        $RTN_View->setAttribute('id','RTN_Proveedor');
+        $RTN_View->setAttribute('required','required');
+        $RTN_View->setLabel('RTN');
+        $this->add($RTN_View);
 
         //Agregar entrada telefono proveedor
         $Telefono_Proveedor = new Element\Text('Telefono_Proveedor');
         $Telefono_Proveedor->setAttribute('class','form-control');
         $Telefono_Proveedor->setAttribute('required','required');
+        $Telefono_Proveedor->setAttribute('id','Telefono_Proveedor');
         $Telefono_Proveedor->setLabel('Teléfono');
         $this->add($Telefono_Proveedor);
 

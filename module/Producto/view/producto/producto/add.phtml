@@ -11,6 +11,12 @@ $Nombre_Producto->setAttribute('class', 'form-control');
 $Descripcion=$form->get('Descripcion');
 $Descripcion->setAttribute('class', 'form-control');
 
+$Precio=$form->get('Precio');
+$Precio->setAttribute('class', 'form-control text-right');
+
+$Tipo_Importe=$form->get('Tipo_Importe');
+$Tipo_Importe->setAttribute('class', 'form-control text-center');
+
 $submit=$form->get('submit');
 $submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
 
@@ -18,34 +24,63 @@ $submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
 $form->prepare();
 ?>                                                     
 <section id="cover">
-    <div id="cover-caption">
-        <div id="container" class="container">
-        <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
-            <div class="row justify-content-center">
-                <div class="col-md-12 offset-md-7">
-                    <div class="info-form">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                         <h4 class="text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+                    </div>
+                    <div class="card-body">
                         <?=  $this->form()->openTag($form)?>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <?= $this->formLabel($Cod_Producto) ?>
                                     <?= $this->formElement($Cod_Producto) ?>
                                     <?= $this->formElementErrors()->render($Cod_Producto, ['class' => 'help-inline  text-danger']) ?>
                                 </div> 
-
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-md-6">
                                 <div class="form-group">
                                     <?= $this->formLabel($Nombre_Producto) ?>
                                     <?= $this->formElement($Nombre_Producto) ?>
                                     <?= $this->formElementErrors()->render($Nombre_Producto, ['class' => 'help-inline  text-danger']) ?>
                                 </div>
-
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <?= $this->formLabel($Descripcion) ?>
                                     <?= $this->formElement($Descripcion) ?>
                                     <?= $this->formElementErrors()->render($Descripcion, ['class' => 'help-inline  text-danger']) ?>
                                 </div>
-                                <?= $this->formSubmit($submit)?>
-                            </div>       
+                                   
+                            </div>    
+                        </div>
+                        <div class="row">
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <?= $this->formLabel($Precio)?>
+                                    <?= $this->formElement($Precio) ?>
+                                    <?= $this->formElementErrors()->render($Precio, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <?= $this->formLabel($Tipo_Importe) ?>
+                                    <?= $this->formElement($Tipo_Importe) ?>
+                                    <?= $this->formElementErrors()->render($Tipo_Importe, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                   <?= $this->formSubmit($submit)?>  
+                                </div> 
+                            </div>
                         </div>
                         <?= $this->form()->closeTag() ?>
                     </div>

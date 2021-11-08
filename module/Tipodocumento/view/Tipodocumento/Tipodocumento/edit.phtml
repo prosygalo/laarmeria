@@ -2,7 +2,9 @@
 $title = 'Editar tipo de documento fiscal';
 $this->headTitle($title);
 $Nombre_Documento=$form->get('Nombre_Documento');
-$submit=$form->get('submit');
+$Nombre_Documento->setAttribute('class', 'form-control autofocus');
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
 $form->prepare();
 ?>                                              
 <section id="cover">
@@ -10,7 +12,7 @@ $form->prepare();
         <div id="container" class="container">
             <div class="row">
                 <div class="col-md-4 offset-md-4">
-                    <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
+                    <h4 class="text-center"><i class="fa fa-file"></i><?= $this->escapeHtml($title) ?></h4>
                     <div class="info-form">
                         <?=  $this->form()->openTag($form)?><br>
                         <div class="form-group">

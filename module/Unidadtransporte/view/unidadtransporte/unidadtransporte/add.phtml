@@ -1,5 +1,5 @@
 <?php
-$title = 'Agregar unidad de transporte';
+$title = 'Agregar Unidad de Transporte';
 
 $Cod_Unidad=$form->get('Cod_Unidad');
 $Cod_Unidad->setAttribute('class', 'form-control autofocus');
@@ -23,15 +23,17 @@ $submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
 $form->prepare();
 ?> 
 <section id="cover">
-    <div id="cover-caption">
-        <div id="container" class="container">
-        <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
-            <div class="row justify-content-center">
-                <div class="col-md-12 offset-7">
-                    <div class="info-form">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                         <h4 class="text-center"><i class="fa fa-truck" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+                    </div>
+                    <div class="card-body">
                         <?= $this->form()->openTag($form)?>                                                   
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                          <?= $this->formLabel($Cod_Unidad) ?>
                                          <?= $this->formElement($Cod_Unidad) ?>
@@ -40,14 +42,14 @@ $form->prepare();
                                  </div> 
                              </div> 
                              <div class="row">
-                                 <div class="col-md-3">      
+                                 <div class="col-md-6">      
                                     <div class="form-group">
                                         <?= $this->formLabel($Marca_Vehiculo) ?>
                                         <?= $this->formElement($Marca_Vehiculo) ?>
                                         <?= $this->formElementErrors()->render($Marca_Vehiculo, ['class' => 'help-inline  text-danger']) ?>
                                      </div>
                                 </div>  
-                                <div class="col-md-3"> 
+                                <div class="col-md-6"> 
                                     <div class="form-group">
                                          <?= $this->formLabel($Modelo_Vehiculo) ?>
                                         <?= $this->formElement($Modelo_Vehiculo) ?>
@@ -56,14 +58,14 @@ $form->prepare();
                                 </div>
                             </div> 
                             <div class="row">
-                                <div class="col-md-3">     
+                                <div class="col-md-6">     
                                     <div class="form-group">
                                         <?= $this->formLabel($Placa_Vehiculo) ?>
                                         <?= $this->formElement($Placa_Vehiculo) ?>
                                         <?= $this->formElementErrors()->render($Placa_Vehiculo, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
                                 </div>
-                                <div class="col-md-3">  
+                                <div class="col-md-6">  
                                     <div class="form-group">
                                         <?= $this->formLabel($Estado) ?>
                                         <?= $this->formElement($Estado) ?>
@@ -72,7 +74,7 @@ $form->prepare();
                                 </div>
                             </div>
                              <div class="row">
-                                <div class="col-md-6"> 
+                                <div class="col-md-12"> 
                                     <?= $this->formSubmit($submit)?>
                                  </div>
                             </div>   

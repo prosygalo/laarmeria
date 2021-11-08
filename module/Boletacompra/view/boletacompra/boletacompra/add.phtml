@@ -1,5 +1,5 @@
 <?php
-$title = 'Agregar Boleta De Compra';
+$title = 'Agregar Boleta de Compra';
 $this->headTitle($title);
 $Fecha_Emision =$form->get('Fecha_Emision');
 $Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
@@ -24,12 +24,15 @@ $submit=$form->get('submit');
 $form->prepare();
 ?>
 <section id="cover">
-    <div id="cover-caption">
-        <div id="container" class="container">                                              
-            <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title text-center"><i class="fa fa-file fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h5>
+            </div>
+            <div class="card-body">                                            
                 <?= $this->form()->openTag($form)?>
-                <h5>Datos de documento fiscal</h5>
-                <div class="row" style="background-color:#E6E6FA">
+                <strong>Documento Fiscal No.</strong>
+                <div class="row">
                       <div class="col-md-1">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Establ) ?>
@@ -37,44 +40,38 @@ $form->prepare();
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Establ, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-1" style="background-color:#E6E6FA">
+                      <div class="col-md-1">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElement($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Punto, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-1" style="background-color:#E6E6FA">
+                      <div class="col-md-1">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Tipo, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-2" style="background-color:#E6E6FA">
+                      <div class="col-md-2">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Correlativo, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                       </div>
-                      <div class="col-md-3" style="background-color:#E6E6FA">
+                </div><br>
+                <strong>Información de proveedor</strong>
+                <div class="row" style="background-color:#F5F5F5">
+                   <div class="col-md-4">
                         <div class="form-group">
-                            <?= $this->formLabel($Autorizacion_Sar) ?>
-                            <?= $this->formElement($Autorizacion_Sar) ?>
-                            <?= $this->formElementErrors()->render($Autorizacion_Sar, ['class' => 'help-inline  text-danger']) ?>
+                            <?= $this->formLabel($RTN_Proveedor) ?>
+                            <?= $this->formElement($RTN_Proveedor) ?>
+                            <?= $this->formElementErrors()->render($RTN_Proveedor, ['class' => 'help-inline  text-danger']) ?>
+                           
                         </div>
                     </div>
-                     <div class="col-md-3" style="background-color:#E6E6FA">
-                          <div class="form-group">
-                            <?= $this->formLabel($Fecha_Emision) ?>
-                            <?= $this->formElement($Fecha_Emision) ?>
-                            <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
-                          </div>
-                      </div>
-                </div><br>
-                <h5>Información de proveedor</h5>
-                <div class="row" style="background-color:#F5F5F5">
                   <div class="col-md-2">
                         <div class="form-group">
                             <?= $this->formLabel($Proveedor) ?>
@@ -99,16 +96,8 @@ $form->prepare();
                            
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <?= $this->formLabel($RTN_Proveedor) ?>
-                            <?= $this->formElement($RTN_Proveedor) ?>
-                            <?= $this->formElementErrors()->render($RTN_Proveedor, ['class' => 'help-inline  text-danger']) ?>
-                           
-                        </div>
-                    </div>
                 </div><br>
-                <h5>Datos del Adquiriente exónerado (*Opcional)</h5>
+                <strong>Datos del Adquiriente exónerado (*Opcional)</strong>
                 <div class="row" style="background-color:#F5F5F5">
                   <div class="col-md-4">
                         <div class="form-group">
@@ -132,9 +121,9 @@ $form->prepare();
                         </div>
                     </div>
                 </div><br>
-                <h5>Datos adicionales</h5>
+                <strong>Datos adicionales</strong>
                 <div class="row"  style="background-color:#F5F5F5">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <?= $this->formLabel($Usuario) ?>
                             <?= $this->formElement($Usuario) ?>
@@ -148,8 +137,22 @@ $form->prepare();
                             <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Autorizacion_Sar) ?>
+                            <?= $this->formElement($Autorizacion_Sar) ?>
+                            <?= $this->formElementErrors()->render($Autorizacion_Sar, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                     <div class="col-md-3">
+                          <div class="form-group">
+                            <?= $this->formLabel($Fecha_Emision) ?>
+                            <?= $this->formElement($Fecha_Emision) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                      </div>
                 </div>
-                <h5>Lista de productos</h5> 
+                <strong>Lista de productos</strong> 
                 <div class="row">         
                     <div class="col-md-12">
                         <table id="TablaPro" class="table">
@@ -180,7 +183,8 @@ $form->prepare();
                                     <td colspan="4"></td>
                                     <td>Total</td>
                                     <td><span id="total">0</span>
-                                    <?= $this->formHidden($form->get('Total'))?>
+                                    <?= $this->formHidden($form->get('Total'))?></td>
+                                 </tr>
                             </tfoot>
                         </table>
                     </div>
@@ -212,11 +216,48 @@ $form->prepare();
             </div>
               <?=  $this->form()->closeTag()?> 
         </div>
+     </div>
 </section>
 <script type="text/javascript">
   function cancelar(){
      window.location.href="<?= $this->url('home')?>";
    }
+   $(function(){
+       $('#RTN_Proveedor').change(function(){
+         var RTN_Proveedor = $(this).val();
+         if(RTN_Proveedor){
+            $.ajax({
+             type: "GET",
+             url: "/constanciaretencion/proveedor/" + $(this).val(),
+             async: true,
+             dataType: "json",
+             beforeSend: function(x) {
+                if(x && x.overrideMimeType) {
+                   x.overrideMimeType("application/j-son;charset=UTF-8");
+                }
+             },
+             success: function(data){
+                var Nom_Pro = '';
+                var Dir_Pro = '';
+                var Tel_Pro = '';
+                   for (var i = 0; i < data.length; i++) {
+
+                    Nom_Pro += '<option value="' + data[i].Cod_Proveedor + '">' + data[i].Nombre_Proveedor + '</option>';
+                    Dir_Pro += data[i].Direccion_Proveedor;
+                    Tel_Pro += data[i].Telefono_Proveedor;
+                   }
+                   $('#Proveedor').html(Nom_Pro);
+                   $('#Direccion_Proveedor').val(Dir_Pro);
+                   $('#Telefono_Proveedor').val(Tel_Pro);
+            }
+        });
+      }else{
+           $('#Proveedor').html('<option value>Seleccione RTN</option>');
+           $('#Direccion_Proveedor').val('Seleccione RTN');
+           $('#Telefono_Proveedor').val('Seleccione RTN');
+
+      }});
+    });
    
   function RefrescaProducto(){
     var ip = [];
@@ -243,7 +284,7 @@ $form->prepare();
 
   function agregarProducto(){
             var newtr = '<tr class="item" data-id="">';//Obtengo en el tr el Id
-            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input type="text" class="form-control codigo" name="Producto[]" id="Producto[]" ></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" ></td><td><input class="form-control text-center Cantidad" maxlength="4"  type="text" id="Cantidad[]" name="Cantidad[]" value ="1"   onChange="Calcular(this);"/></td><td><input class="form-control text-right Precio" maxlength="10"  type="text" id="Precio[]" name="Precio[]" value ="0" onChange="Calcular(this);" /></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0" onFocus="this.blur()" readonly/></td>';
+            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input type="text" class="form-control codigo" name="Producto[]" id="Producto[]" required ></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" required ></td><td><input class="form-control text-center Cantidad" maxlength="4"  type="text" id="Cantidad[]" name="Cantidad[]" value ="1" onkeypress="return int(event)"   onChange="Calcular(this);" required/></td><td><input class="form-control text-right Precio" maxlength="10"  type="text" id="Precio[]" name="Precio[]" value ="0" onChange="Calcular(this);" required /></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0"  onChange="Calcular(this);" required onFocus="this.blur()" readonly/></td>';
             newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
 
@@ -284,20 +325,33 @@ $form->prepare();
                 if (nodes[x].firstChild.id == 'Subtotal[]'){
                     anterior = nodes[x].firstChild.value;
                     subtotal = parseFloat((precio*cantidad),10);
-                    nodes[x].firstChild.value = subtotal;
+                    nodes[x].firstChild.value = subtotal.toFixed(2);
                 }        
             }
             
             if (total.innerHTML === 'NaN') {
              total.innerHTML = (parseFloat(total.innerHTML)+ 0).toFixed(2);
               
-            }else{    
+            }
+
+
+            if (total.innerHTML != 'NaN') {   
             total.innerHTML = (parseFloat(total.innerHTML)+ subtotal - anterior).toFixed(2);
+            }
 
             var to = document.querySelector('#total').innerText;
             var input_to = document.querySelector('input[name="Total"]');
              input_to.value = to;
-            }
-        }       
+          }
+          
+          function int(e){
+          tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla==8){
+               return true;
+             }
+            patron =/^[0-9]+$/;
+            tecla_final = String.fromCharCode(tecla);
+               return patron.test(tecla_final);
+           }      
 
 </script>

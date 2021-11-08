@@ -17,6 +17,7 @@ use Usuario\Model\UsuarioTable;
 use Proveedor\Model\ProveedorTable;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Luecano\NumeroALetras\NumeroALetras;
 /**
  * This controller is responsible for 
  */
@@ -139,8 +140,8 @@ class BoletacompraController extends AbstractActionController
             //llenado de  Sucursal Remitente          
             $form->get('Sucursal')->setValue($Sucursal);
             //llenado de  Proveedores
-            $rowset = $this->ProveedorTable->getProveedorSelect(); //llenar select sucursal  remiten
-            $form->get('Proveedor')->setValueOptions($rowset);  
+            $rowset = $this->ProveedorTable->getProveedorSelectRTN(); //llenar select sucursal  remiten
+            $form->get('RTN_Proveedor')->setValueOptions($rowset);  
            
             //-------Solicitud-------------------------
             $request = $this->getRequest();
@@ -195,6 +196,7 @@ class BoletacompraController extends AbstractActionController
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('home');
         }
+
         //crear instancia de formulario
         $form = new BoletacompraForm();
         $form->bind($boleta_compra);
@@ -206,7 +208,17 @@ class BoletacompraController extends AbstractActionController
         $Autorizacion_Sar = [ 'Autorizacion_Sar'=>$boleta_compra->Autorizacion_Sar];
         $Sar = $this->AutorizacionsarTable->getAutorizacionReporte($Autorizacion_Sar);
         $Cai = $this->AutorizacionsarTable->getCai($Autorizacion_Sar);
-       
+
+        foreach ($boleta_compra as $s):
+            $total= $boleta_compra->Total;
+        endforeach;
+        $Tot = 'L.'.number_format($total, 2, ".", ",");
+        $form->get('TotalView')->setValue($Tot);
+
+         $formatter = new NumeroALetras();
+        $Letras = $formatter->toWords($total,2).'  LEMPIRAS';
+        $form->get('cantidad_letras')->setValue($Letras);
+        
         //Usuario
         $Cod_Usuario = [ 'Usuario'=>$boleta_compra->Usuario];
         $user = $this->UsuarioTable->getUsuarioBoleta($Cod_Usuario);
@@ -215,16 +227,16 @@ class BoletacompraController extends AbstractActionController
         $Proveedor = [ 'Proveedor'=>$boleta_compra->Proveedor];
         $Pro = $this->ProveedorTable->getProveedorBoletaCompra($Proveedor); 
         foreach ($Pro  as $s):
+            $RTN_View = $s->RTN_Proveedor;
             $Nombre_Proveedor = $s->Nombre_Proveedor;
             $Direccion_Proveedor= $s->Direccion_Proveedor;
-            $RTN_Proveedor = $s->RTN_Proveedor;
             $Telefono_Proveedor= $s->Telefono_Proveedor;
-        endforeach; 
+        endforeach;
+        $form->get('RTN_View')->setValue($RTN_View); 
         $form->get('Nombre_Proveedor')->setValue($Nombre_Proveedor);
-        $form->get('RTN_Proveedor')->setValue($RTN_Proveedor);
         $form->get('Direccion_Proveedor')->setValue($Direccion_Proveedor);
         $form->get('Telefono_Proveedor')->setValue($Telefono_Proveedor);
-         
+
         //Detalle de la boleta enviada 
         $Detalle = $this->DetallecompraTable->getDetalle($Cod_Boleta_Compra);
         
@@ -263,6 +275,18 @@ class BoletacompraController extends AbstractActionController
         $form = new BoletacompraForm();
         $form->bind($boleta_compra);
 
+
+        foreach ($boleta_compra as $s):
+            $total= $boleta_compra->Total;
+        endforeach;
+        $Tot = 'L.'.number_format($total, 2, ".", ",");
+        $form->get('TotalView')->setValue($Tot);
+        $form->get('Subtotal')->setValue($Tot);
+
+        $formatter = new NumeroALetras();
+        $Letras = $formatter->toWords($total,2).'  LEMPIRAS';
+        $form->get('cantidad_letras')->setValue($Letras);
+        
         $Sucursal = [ 'Sucursal'=>$boleta_compra->Sucursal];
         $Suc = $this->SucursalTable->getSucursalMembrete($Sucursal);
 
@@ -275,20 +299,21 @@ class BoletacompraController extends AbstractActionController
         $Cod_Usuario = [ 'Usuario'=>$boleta_compra->Usuario];
         $user = $this->UsuarioTable->getUsuarioBoleta($Cod_Usuario);
 
-        //Usuario
+       //Proveedor
         $Proveedor = [ 'Proveedor'=>$boleta_compra->Proveedor];
         $Pro = $this->ProveedorTable->getProveedorBoletaCompra($Proveedor); 
         foreach ($Pro  as $s):
+            $RTN_View = $s->RTN_Proveedor;
             $Nombre_Proveedor = $s->Nombre_Proveedor;
             $Direccion_Proveedor= $s->Direccion_Proveedor;
-            $RTN_Proveedor = $s->RTN_Proveedor;
             $Telefono_Proveedor= $s->Telefono_Proveedor;
-        endforeach; 
+        endforeach;
+        $form->get('RTN_View')->setValue($RTN_View); 
         $form->get('Nombre_Proveedor')->setValue($Nombre_Proveedor);
-        $form->get('RTN_Proveedor')->setValue($RTN_Proveedor);
         $form->get('Direccion_Proveedor')->setValue($Direccion_Proveedor);
         $form->get('Telefono_Proveedor')->setValue($Telefono_Proveedor);
-         
+
+
         //Detalle de la boleta enviada 
         $Detalle = $this->DetallecompraTable->getDetalle($Cod_Boleta_Compra);
         

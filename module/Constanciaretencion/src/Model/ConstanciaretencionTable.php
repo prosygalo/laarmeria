@@ -18,20 +18,19 @@ class ConstanciaretencionTable
 
      public function fetchAll()
      {
-
                 $sqlSelect = $this->ConstanciaretencionTableGateway->getSql()->select();
-                $sqlSelect->columns(array('Cod_Constancia','Fecha_Emision','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Sucursal','Tipo_Retencion','Proveedor','Base_Gravable_Impuesto','Importe_Retencion','Documento_Retencion','No_Correlativo','RTN_Proveedor','Descripcion_Tributo_Retenido','Fecha_Ingreso'));
-                $sqlSelect->join('sucursales', 'sucursales.Cod_Sucursal = constancias_retencion.Sucursal', array('Nombre_Sucursal'), 'left');
+                $sqlSelect->columns(array('Cod_Constancia','Fecha_Emision','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Sucursal','Tipo_Retencion','Proveedor','Base_Gravable_Impuesto','Importe_Retencion','Documento_Retencion','No_Correlativo','RTN_Proveedor','Cai_Documento','Descripcion_Tributo_Retenido','Fecha_Ingreso'));
+                $sqlSelect->join('sucursales', 'sucursales.Cod_Sucursal = constancias_de_retencion.Sucursal', array('Nombre_Sucursal'), 'left');
                 $resultSet = $this->ConstanciaretencionTableGateway->selectWith($sqlSelect);
                  return $resultSet;
      }
      
      public function constancia($Cod_Constancia)
      {
-
+                $Cod_Constancia = $Cod_Constancia;
                 $sqlSelect = $this->ConstanciaretencionTableGateway->getSql()->select();
-                $sqlSelect->columns(array('Cod_Constancia','Fecha_Emision','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Tipo_Retencion','Proveedor','Base_Gravable_Impuesto','Importe_Retencion','Documento_Retencion','No_Correlativo','RTN_Proveedor','Descripcion_Tributo_Retenido','Fecha_Ingreso'));
-                $sqlSelect->join('sucursales', 'sucursales.Cod_Sucursal = boletas_guia_remision.Sucursal_Remitente', array('Nombre_Sucursal'), 'left');
+                $sqlSelect->columns(array('Cod_Constancia','Fecha_Emision','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Tipo_Retencion','Proveedor','Base_Gravable_Impuesto','Importe_Retencion','Documento_Retencion','No_Correlativo','RTN_Proveedor','Cai_Documento','Descripcion_Tributo_Retenido','Fecha_Ingreso'));
+                $sqlSelect->join('sucursales', 'sucursales.Cod_Sucursal = constancias_de_retencion.Sucursal', array('Nombre_Sucursal'), 'left');
                 $sqlSelect->where(['Cod_Constancia' => $Cod_Constancia]);
                 $resultSet = $this->ConstanciaretencionTableGateway->selectWith($sqlSelect);
                  return $resultSet;
@@ -63,8 +62,8 @@ class ConstanciaretencionTable
             'Autorizacion_Sar' => $constanciaretencion->Autorizacion_Sar,
             'Sucursal' => $constanciaretencion->Sucursal,
             'RTN_Proveedor' => $constanciaretencion->RTN_Proveedor,
+            'Cai_Documento' => $constanciaretencion->Cai_Documento,
             'Descripcion_Tributo_Retenido' => $constanciaretencion->Descripcion_Tributo_Retenido,
-            'Unidad_Transporte'  => $constanciaretencion->Unidad_Transporte,
             'Usuario'=> $constanciaretencion->Usuario,
             ];
            
@@ -72,7 +71,7 @@ class ConstanciaretencionTable
 
            if ($Cod_Constancia == null) {
                $this->ConstanciaretencionTableGateway->insert($data);
-             return  $this->ConstaciaretencionTableGateway->lastInsertValue;   
+             return  $this->ConstanciaretencionTableGateway->lastInsertValue;   
            } 
 
      }

@@ -126,11 +126,11 @@ class BoletasremisionForm extends Form
         $this->add($Punto_Partida);
 
        //Agregar entrada Punto de destino
-        $Punto_Destino = new Element\Select('Punto_Destino');
+        $Punto_Destino = new Element\Text('Punto_Destino');
         $Punto_Destino->setAttribute('class','form-control');
         $Punto_Destino->setAttribute('required','required');
+        $Punto_Destino->setAttribute('id', 'Punto_Destino');
         $Punto_Destino->setLabel('Punto destino');
-        $Punto_Destino->setEmptyOption('Seleccione');
         $this->add($Punto_Destino);
 
         //Agregar entrada fecha inicial de traslado
@@ -195,27 +195,6 @@ class BoletasremisionForm extends Form
         $Conductor->setLabel('Conductor');
         $Conductor->setEmptyOption('Seleccione');
         $this->add($Conductor);
-
-        /*Agregar entrada  Código de detalle
-        $Cod_Detalle = new Element\Text('Cod_Detalle');
-        $Cod_Detalle->setAttribute('type','hidden');
-        $this->add($Cod_Detalle);
-
-    
-        //Agregar entada
-        $Cod_Producto = new Element\Text('Cod_Producto');
-        $Cod_Producto->setAttribute('class', 'form-control codigo');
-        $Cod_Producto->setAttribute('id','Cod_Producto');
-        //$Cod_Producto->setAttribute('readonly', 'readonly');
-        $this->add($Cod_Producto);
-        
-        //Agregar entada  fecha de emisión
-        $Cantidad = new Element\Text('Cantidad');
-        $Cantidad ->setAttribute('class', 'form-control autofocus cant');
-        $Cantidad->setAttribute('id','Cantidad');
-        $Cantidad->setAttribute('maxlength','3');
-        $Cantidad->setAttribute('onkeypress','return int(event)');
-        $this->add($Cantidad);*/
 
 
         $Cod_Detalle = new Element\Text('Cod_Detalle');

@@ -105,6 +105,16 @@ $this->add([
                       ],
                     ],
                 ],
+                 ['name' =>NoRecordExists::class,
+                          'options' => [
+                            'table' => 'proveedores',
+                            'field' => 'RTN_Proveedor',
+                            'adapter' =>  $this->dbAdapter,
+                            'messages' => [
+                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El proveedor ya existe',
+                           ],
+                    ],
+                ],
             ],
         ]);
 

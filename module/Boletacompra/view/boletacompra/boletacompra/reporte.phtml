@@ -30,8 +30,8 @@ $Direccion_Proveedor->setAttribute('readonly', 'readonly');
 $Telefono_Proveedor=$form->get('Telefono_Proveedor');
 $Telefono_Proveedor->setAttribute('readonly', 'readonly');
 
-$RTN_Proveedor=$form->get('RTN_Proveedor');
-$RTN_Proveedor->setAttribute('readonly', 'readonly');
+$RTN_View=$form->get('RTN_View');
+$RTN_View->setAttribute('readonly', 'readonly');
 
 $No_Registro_Sag=$form->get('No_Registro_Sag');
 $No_Registro_Sag->setAttribute('readonly', 'readonly');
@@ -42,8 +42,10 @@ $No_Orden_Compra_Exenta->setAttribute('readonly', 'readonly');
 $No_Constancia_Registro_Exonerado=$form->get('No_Constancia_Registro_Exonerado');
 $No_Constancia_Registro_Exonerado->setAttribute('readonly', 'readonly');
 
-$TotalView=$form->get('TotalView');
+$Subtotal=$form->get('Subtotal');
 
+$TotalView=$form->get('TotalView');
+$cantidad_letras=$form->get('cantidad_letras');
 
 $Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
 $Usuario->setAttribute('readonly', 'readonly');
@@ -67,7 +69,6 @@ $Usuario->setAttribute('readonly', 'readonly');
           th{
             text-align: left;
             vertical-align: top;
-            font-weight:bold;
             font-size:x-small;
           }
           label {
@@ -83,7 +84,7 @@ $Usuario->setAttribute('readonly', 'readonly');
            width:100%;
            height: 15px;
            padding:1px 3px;
-           font-size:xx-small;
+           font-size:x-small;
            line-height: 1.42857143;
            color: #000;
            background-color: #fff;
@@ -125,6 +126,13 @@ $Usuario->setAttribute('readonly', 'readonly');
          background-color: #E6E6FA;
          width: 100%;
          height: 16px;
+         text-align: center;
+        }
+        .text-right{
+          text-align: right;
+        }
+        .text-center{
+          text-align: center;
         }
        </style>
 </head>
@@ -140,7 +148,6 @@ $Usuario->setAttribute('readonly', 'readonly');
                              <strong>INSTITUTO DE PREVISIÓN MILITAR(IPM)</strong><br>
                              <strong>LA ARMERIA</strong><br>
                              <strong>RTN 08019003238214</strong><br>
-                             <strong>LA ARMERIA AEROPUERTO</strong><br>
                         </td>
                         <td  style= "width:30%;"><img src="http://laarmeria/img/logoIPM.png" style="height:60px; width:60px;display: block;margin-right:auto;margin-left:60%;"></td>
                     </tr>
@@ -191,13 +198,13 @@ $Usuario->setAttribute('readonly', 'readonly');
                 <thead>
                   <tr>
                     <th><?= $this->formlabel($Nombre_Proveedor)?></th>
-                    <th><?= $this->formLabel($RTN_Proveedor)?></th>
+                    <th><?= $this->formLabel($RTN_View)?></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td style="width:30%"><?= $this->formElement($Nombre_Proveedor)?></td>
-                    <td style="width:70%"><?= $this->formElement($RTN_Proveedor)?></td>  
+                    <td style="width:70%"><?= $this->formElement($RTN_View)?></td>  
                   </tr>
                 </tbody>
             </table>
@@ -220,12 +227,12 @@ $Usuario->setAttribute('readonly', 'readonly');
             <table  class="pro">
                 <thead class="pro-th">
                   <tr>
-                    <th style="text-align:center;">No.</th>
-                    <th style="text-align:center;">Código producto</th>
-                    <th style="text-align:center;">Descripción</th>
-                    <th style="text-align:center;">Cantidad</th>
-                    <th style="text-align:center;">Precio</th>
-                    <th style="text-align:center;">Importe</th>
+                    <th class="text-center">No.</th>
+                    <th class="text-center">Código producto</th>
+                    <th class="text-center">Descripción</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Importe</th>
                   </tr>
                 </thead>
                  <tbody><?php  
@@ -235,21 +242,25 @@ $Usuario->setAttribute('readonly', 'readonly');
                       ?>
                     <tr>
                       <td><?= $count ?></td>
-                      <td><?= $this->escapeHtml($a->Producto) ?></td>
-                      <td><?= $this->escapeHtml($a->Descripcion) ?></td>
-                      <td><?= $this->escapeHtml($a->Cantidad)?></td>
-                      <td style="text-align:right;"><?= $this->escapeHtml($a->Precio) ?></td>
-                      <td  style="text-align:right;">
+                      <td class="text-center"><?= $this->escapeHtml($a->Producto) ?></td>
+                      <td class="text-center"><?= $this->escapeHtml($a->Descripcion) ?></td>
+                      <td class="text-center"><?= $this->escapeHtml($a->Cantidad)?></td>
+                      <td class="text-right">
+                        <?php 
+                        $precio = $this->escapeHtml($a->Precio);
+                        echo number_format($precio, 2, ".", ","); 
+                        ?>  
+                        </td>
+                      <td  class="text-right">
                       <?php
                           $cantidad = $this->escapeHtml($a->Cantidad);
                           $precio = $this->escapeHtml($a->Precio);
                           $Importe = $cantidad*$precio;
-                             echo '<label>L. </label>' . number_format($Importe, 2, ".", ",");
+                             echo 'L. '. number_format($Importe, 2, ".", ",");
                       ?>
                       </td>
-                    </tr><?php  
-                          $Importe+$Importe; 
-                          $count++;
+                    </tr><?php 
+                       $count++;   
                       endforeach; 
                       ?>
                 </tbody>
@@ -259,19 +270,20 @@ $Usuario->setAttribute('readonly', 'readonly');
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>Subtotal</td>
-                    <td><label>L. </label></td>
+                    <td class="text-right">Subtotal</td>
+                    <td><?= $this->formElement($Subtotal)?></td>
                   </tr>
                   <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><?= '<label>Total</label>'?></td>
-                    <td><label>L. </label></td>
+                    <td class="text-right">Total</td>
+                    <td><?= $this->formElement($TotalView)?></td>
                   </tr>
                 </tfoot>
             </table>
+            <?= '<label>CANTIDAD EN:</label>'. $this->formElement($cantidad_letras)?>
             <h5>DATOS DEL ADQUIRIENTE EXONERADO</h5>
             <table>
                 <tbody>

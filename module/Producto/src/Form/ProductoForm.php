@@ -3,6 +3,7 @@
 namespace Producto\Form;
 
 use Zend\Form\Form;
+use Zend\Form\Element;
 
 class ProductoForm extends Form
 {
@@ -33,6 +34,30 @@ class ProductoForm extends Form
             'type' => 'text',
             'options' => [
                 'label' => 'Descripción',
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'Precio',
+            'type' => 'text',
+            'options' => [
+                'label' => 'Precio',
+            ],
+            'attributes' => [
+                 'value' => '0',
+            ],
+        ]);
+
+
+         $this->add([
+            'type' => Element\Select::class,
+            'name' => 'Tipo_Importe',
+            'options' => [
+                'label' => 'Tipo de Importe',
+                'value_options' => [
+                       'G' => 'G',
+                       'E' => 'E',
+               ],
             ],
         ]);
 

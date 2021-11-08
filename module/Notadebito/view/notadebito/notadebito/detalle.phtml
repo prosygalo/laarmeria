@@ -1,0 +1,277 @@
+<?php
+$title = 'NOTA DE DÉBITO';
+$this->headTitle($title);
+
+$Fecha_Emision =$form->get('Fecha_Emision');
+$Fecha_Emision->setAttribute('readonly', 'readonly');
+
+$Fecha_Emision_Comprobante =$form->get('Fecha_Emision_Comprobante');
+$Fecha_Emision_Comprobante->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
+$Consecutivo_Actual_Establ->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Punto=$form->get('Consecutivo_Actual_Punto');
+$Consecutivo_Actual_Punto->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
+$Consecutivo_Actual_Tipo->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
+$Consecutivo_Actual_Correlativo->setAttribute('readonly', 'readonly');
+
+$Sucursal=$form->get('Sucursal');
+$Sucursal->setAttribute('disabled', 'disabled');
+
+$Autorizacion_Sar=$form->get('Autorizacion_Sar');
+$Autorizacion_Sar->setAttribute('readonly', 'readonly');
+
+$Nombres_Cliente=$form->get('Nombres_Cliente');
+$Nombres_Cliente->setAttribute('readonly', 'readonly');
+
+$RTN_View=$form->get('RTN_View');
+$RTN_View->setAttribute('readonly', 'readonly');
+
+$Cantidad_Letras=$form->get('Cantidad_Letras');
+$Cantidad_Letras->setAttribute('readonly', 'readonly');
+
+$No_Correlativo=$form->get('No_Correlativo');
+$No_Correlativo->setAttribute('readonly', 'readonly');
+
+
+$Cai_Comprobante=$form->get('Cai_Comprobante');
+$Cai_Comprobante->setAttribute('readonly', 'readonly');
+
+$Motivo=$form->get('Motivo');
+$Motivo->setAttribute('readonly', 'readonly');
+
+$IsvView=$form->get('IsvView');
+
+$GravadoView=$form->get('GravadoView');
+
+$ExentoView = $form->get('ExentoView');
+
+$ExoneradoView=$form->get('ExoneradoView');
+
+$TotalView=$form->get('TotalView');
+
+$Cantidad_Letras=$form->get('Cantidad_Letras');
+
+
+$Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
+$Usuario->setAttribute('readonly', 'readonly');
+
+$form->prepare();
+?>                                              
+<section>
+    <div class="container-fluid">
+          <div class="container">
+            <table>
+                <tbody>
+                    <tr>
+                        <td  style= "width:35%;"><img src="<?= $this->basePath('img/logoarmeria.png') ?>" class="img-responsive" style="height:40%; width:40%;display: block;margin-right: auto;margin-left:0;"></td>
+                        <td style="text-align:center;width:30%">
+                          <strong>FUERZAS ARMADAS DE HONDURAS</strong><br>
+                          <strong>INSTITUTO DE PREVISIÓN MILITAR(IPM)</strong><br>
+                          <strong>LA ARMERIA</strong><br>
+                          <strong>RTN 08019003238214</strong><br>
+                        </td>
+                         <td  style= "width:35%;"><img src="<?= $this->basePath('img/logoIPM.png') ?>" class="img-responsive" style="height:20%; width:20%;display: block;margin-right: auto;margin-left:80%;"></td>
+                    </tr>
+                </tbody>
+            </table><br>
+            <table>
+                <tbody>
+                    <tr>
+                        <td  style="text-align:left;width:40%">
+                          <label>IPM :Colonia Luis landa Blvd Centro America</label><br>
+                          <label>Contiguo a IMPREMA Fco. Morazán, Honduras</label><br>
+                          <label>Tel: 504 2239-1441 meza@grupoipm.hn</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table><br>
+                <h5 style="text-align: center;font-weight: bold"><?= $this->escapeHtml($title)?></h5>
+            <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th  style="text-align: center" colspan="4">No. Documento fiscal</th>
+                  </tr>
+                </thead>
+                <tbody><?php foreach ($Cai as $b) : ?>
+                  <tr>
+                      <td style="width:46%"><strong>CAI:<?= $this->escapeHtml($b->Cai) ?></strong></td>
+                      <td style="width:8%"><?= $this->formElement($Consecutivo_Actual_Establ)?></td>
+                      <td style="width:8% "><?= $this->formElement($Consecutivo_Actual_Tipo)?></td>
+                      <td style="width:8%"><?= $this->formElement($Consecutivo_Actual_Punto)?></td>
+                      <td style="width:10%"><?= $this->formElement($Consecutivo_Actual_Correlativo)?></td>
+                  </tr><?php endforeach;?>
+                </tbody>
+            </table>
+            <table width="100%">
+                <tbody>
+                <?php foreach ($Sar as $a) : ?>
+                    <tr>
+                      <td>Rango Autorizado:<?= $this->escapeHtml($a->Consecutivo_Inicial_Establ."-".$a->Consecutivo_Inicial_Punto."-".$a->Consecutivo_Inicial_Tipo."-".$a->Consecutivo_Inicial_Correlativo)?> al <?= $this->escapeHtml($a->Consecutivo_Final_Establ."-".$a->Consecutivo_Final_Punto."-".$a->Consecutivo_Final_Tipo."-".$a->Consecutivo_Final_Correlativo) ?></td>
+                     </tr>
+                     <tr>
+                        <td>Fecha límite:<?= $this->escapeHtml($a->Fecha_Limite) ?></td>
+                     </tr>
+                  <?php endforeach; ?>
+                </tbody>
+            </table><br>
+                <div class="row">
+                   <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($Fecha_Emision) ?>
+                            <?= $this->formElement($Fecha_Emision) ?>
+                        </div>
+                    </div>
+                     <div class="col-md-8">
+                        <div class="form-group">
+                            <?= $this->formLabel($No_Correlativo) ?>
+                            <?= $this->formElement($No_Correlativo) ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($Nombres_Cliente) ?>
+                            <?= $this->formElement($Nombres_Cliente) ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <?= $this->formLabel($RTN_View) ?>
+                            <?= $this->formElement($RTN_View) ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                           <label>Fecha Emisión Comprobante</label>
+                           <?= $this->formElement($Fecha_Emision_Comprobante) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                           <?= $this->formLabel($Cai_Comprobante) ?>
+                           <?= $this->formElement($Cai_Comprobante) ?>
+                        </div>
+                    </div>
+                </div><br>
+                <table  class="table table-bordered">
+                <thead style="background-color:#E6E6FA">
+                  <tr>
+                    <th>No.</th>
+                    <th colspan="2">Descripcion</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Tipo Importe</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody><?php  
+                     $count=1;
+                     $Importe=0;
+                     foreach ($Detalle as $a) : 
+                      ?>
+                    <tr>
+                      <td><?= $count ?></td>
+                      <td colspan="2"><?= $this->escapeHtml($a->Descripcion) ?></td>
+                      <td><?= $this->escapeHtml($a->Cantidad)?></td>
+                      <td><?= $this->escapeHtml($a->Precio) ?></td>
+                      <td><?= $this->escapeHtml($a->Tipo_Importe) ?></td>
+                      <td class="text-right">
+                      <?php
+                          $cantidad = $this->escapeHtml($a->Cantidad);
+                          $precio = $this->escapeHtml($a->Precio);
+                          $Importe = $cantidad*$precio;
+                             echo 'L. '.number_format($Importe, 2, ".", ",");
+                      ?>
+                      </td>
+                    </tr><?php  
+                          $count++;  
+                      endforeach; 
+                      ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="6" class="text-right" >
+                     <?= $this->formLabel($GravadoView) ?>
+                    </td>
+                    <td><?= $this->formElement($GravadoView)?></td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-right">
+                      <?= $this->formLabel($ExentoView) ?>
+                    </td>
+                    <td><?= $this->formElement($ExentoView) ?></td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-right" >
+                    <?= $this->formLabel($ExoneradoView) ?>
+                  </td>
+                    <td><?= $this->formElement($ExoneradoView) ?></td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-right">
+                      <?= $this->formLabel($IsvView)?>
+                    </td>
+                    <td><?= $this->formElement($IsvView) ?></td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-right" >
+                      <?= $this->formLabel($TotalView) ?>
+                    </td>
+                    <td><?= $this->formElement($TotalView) ?></td>
+                  </tr>
+                </tfoot>
+            </table>
+              <?= '<label>CANTIDAD EN:</label>'. $this->formElement($Cantidad_Letras)?>
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <?= $this->formLabel($Motivo) ?>
+                            <?= $this->formElement($Motivo) ?>
+                        </div>
+                    </div>
+                </div>
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                    </tr>
+                </thead>
+                <tbody><?php foreach ($user as $u) : ?>
+                    <tr>
+                      <td><label>COD:<?= $this->escapeHtml($u->Cod_Usuario)?>-<?= $this->escapeHtml($u->Usuario)?></label></td>
+                    </tr><?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>Original: cliente</td>
+                    <td>Copia1: Obligado tributario</td>
+                    <td>Copia2: Archivo</td>
+                    <td>Fecha de impresión:<?= date('y-m-d H:i:s')?></td>
+                  </tr>
+                </tfoot>
+            </table><br>
+            <table width="100%">
+                <tbody> 
+                    <tr>
+                      <td></td>
+                      <td width="30%">
+                        <a type="button"  target="_blank" class="btn btn-danger btn-md btn-block"  href="<?= $this->url('notadebito/pdf',['Cod_Nota'=>$Cod_Nota])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>
+                      </td>
+                      <td></td>
+                    </tr>
+                 </tbody>
+            </table><br>
+         </div>
+    </div>
+</section>

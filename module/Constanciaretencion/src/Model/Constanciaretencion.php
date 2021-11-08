@@ -59,7 +59,6 @@ class Constanciaretencion
         $this->RTN = !empty($data['RTN']) ? $data['RTN'] : null;
         
         
-        
     }
     
     public function getArrayCopy()
@@ -77,7 +76,7 @@ class Constanciaretencion
             'Proveedor' => $this->Proveedor,
             'Base_Gravable_Impuesto' => $this->Base_Gravable_Impuesto,
             'Importe_Retencion'  => $this->Importe_Retencion,
-            'Documento_Retencion' => $this->Fecha_Inicio_Traslado,
+            'Documento_Retencion' => $this->Documento_Retencion,
             'No_Correlativo' => $this->No_Correlativo,
             'RTN_Proveedor' => $this->RTN_Proveedor,
             'Cai_Documento' => $this->Cai_Documento,

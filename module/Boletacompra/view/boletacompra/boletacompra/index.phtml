@@ -1,8 +1,8 @@
 <?php
-$title = 'Listado de boletas de compra';
+$title = 'Boletas de Compra';
 $this->headTitle($title);
 ?>
-<div class="container-fluid">
+<div class="container">
     <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
 
     <table class="table table-hover"    id="example"  style="width:100%">
@@ -11,7 +11,7 @@ $this->headTitle($title);
           <th>c&oacute;digo boleta</th>
           <th>Sucursal</th>
           <th>N&uacute;mero de documento fiscal</th>
-          <th>Autorización SAR</th>
+          <th  class="text-center">Autorización SAR</th>
           <th>Proveedor</th>
           <th>Total</th>
           <th>Fecha Emisi&oacute;n</th>
@@ -21,16 +21,21 @@ $this->headTitle($title);
       </thead>
       <tbody>
       <?php foreach ($Boleta as $a) : ?>
-      <tr>
+      <tr class="text-center">
         <td><?= $this->escapeHtml($a->Cod_Boleta_Compra) ?></td>
         <td><?= $this->escapeHtml($a->Nombre_Sucursal) ?></td>
         <td><?= $this->escapeHtml($a->Consecutivo_Actual_Establ."-".$a->Consecutivo_Actual_Punto."-".$a->Consecutivo_Actual_Tipo."-".$a->Consecutivo_Actual_Correlativo)?></td>
         <td><?= $this->escapeHtml($a->Autorizacion_Sar) ?></td>
         <td><?= $this->escapeHtml($a->Nombre_Proveedor) ?></td>
-        <td class="text-right">L. <?= $this->escapeHtml($a->Total) ?></td>
+        <td class="text-right">
+        <?Php
+         $total = $this->escapeHtml($a->Total);
+         echo 'L.'.number_format($total, 2, ".", ",");
+        ?>
+        </td>
         <td><?= $this->escapeHtml($a->Fecha_Emision) ?></td>
         <td> <a type="button"  class=" btn btn-info btn-md"  href="<?= $this->url('boletacompra/detalle',['Cod_Boleta_Compra'=>$a->Cod_Boleta_Compra])?>"><i class="fa fa-eye-slash"></i>Ver</a></td>
-        <td> <a type="button"  class=" btn btn-danger btn-md"  href="<?= $this->url('boletacompra/pdf',['Cod_Boleta_Compra'=>$a->Cod_Boleta_Compra])?>"><i class="fa fa-file-pdf-o"></i>PDF</a></td>     
+        <td> <a type="button"  target="_blank" class=" btn btn-danger btn-md"  href="<?= $this->url('boletacompra/pdf',['Cod_Boleta_Compra'=>$a->Cod_Boleta_Compra])?>"><i class="fa fa-file-pdf-o"></i>PDF</a></td>     
       </tr>
       <?php endforeach;?>
      </tbody>

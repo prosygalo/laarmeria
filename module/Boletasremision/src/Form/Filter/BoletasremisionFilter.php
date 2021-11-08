@@ -307,7 +307,7 @@ class BoletasremisionFilter  extends InputFilter
 
         $this->add([
             'name' => 'Punto_Destino',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => StripTags::class],
                 ['name' => StringTrim::class],
@@ -352,7 +352,7 @@ class BoletasremisionFilter  extends InputFilter
         ]);
         $this->add([
             'name' => 'Sucursal_Destino',
-            'required' => true,
+            'required' => false,
             'filters' => [
                ['name' => StripTags::class],
                ['name' => StringTrim::class],

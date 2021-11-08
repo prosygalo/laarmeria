@@ -134,8 +134,9 @@ class ConstanciaretencionController extends AbstractActionController
 
             $form->get('Sucursal')->setValue($Sucursal); 
             
-            $rowset2 = $this->ProveedorTable->getProveedorSelect(); //llenar select sucursal  remiten
-            $form->get('Proveedor')->setValueOptions($rowset2);   
+            $rowset2 = $this->ProveedorTable->getProveedorSelectRTN(); //llenar select sucursal  remiten
+            $form->get('RTN_Proveedor')->setValueOptions($rowset2); 
+               
 
             //-------Solicitud-------------------------
             $request = $this->getRequest();
@@ -143,28 +144,38 @@ class ConstanciaretencionController extends AbstractActionController
                  return ['form' => $form];
 
             }          
-            $form->setInputFilter(new  \Constanciaretencion\Form\Filter\ConstanciaretencionFilter($this->dbAdapter));//Filtrado y vlidacion  de los  datos
+            $form->setInputFilter(new  \Constanciaretencion\Form\Filter\ConstanciaretencionFilter ($this->dbAdapter));//Filtrado y vlidacion  de los  datos
             $form->setData($request->getPost());
                 
-            if ($form->isValid()){
+            if (! $form->isValid()){
                 return ['form' => $form];
-                  
             }
             //--------Tomar datos del formulario-y los guardamos en la base de datos, para ello realizamos tres procesos.
             $constanciaretencion = new Constanciaretencion();
             $constanciaretencion->exchangeArray($form->getData());     
                 
-            $Constancia = $this->ConstanciaretencionTable->insertConstancia($Constanciaretencion);
+            $lastId = $this->ConstanciaretencionTable->insertConstancia($constanciaretencion);
                 //Actualice el numero de consecutivo de la boleta de la guia de remision en la tabla autorizaciones SAR 
             $Cod_Autorizacion= $this->request->getPost("Autorizacion_Sar");
             $Consecutivo_Actual_Establ= $this->request->getPost("Consecutivo_Actual_Establ");
             $Consecutivo_Actual_Punto= $this->request->getPost("Consecutivo_Actual_Punto");
             $Consecutivo_Actual_Tipo= $this->request->getPost("Consecutivo_Actual_Tipo");
             $Consecutivo_Actual_Correlativo = $this->request->getPost("Consecutivo_Actual_Correlativo");
-            $this->AutorizacionsarTable->UpdateConsecutivoActual($Cod_Autorizacion, $Consecutivo_Actual_Establ, $Consecutivo_Actual_Punto, $Consecutivo_Actual_Tipo, $Consecutivo_Actual_Correlativo);                   
-                //
+            $this->AutorizacionsarTable->UpdateConsecutivoActual($Cod_Autorizacion, $Consecutivo_Actual_Establ, $Consecutivo_Actual_Punto, $Consecutivo_Actual_Tipo, $Consecutivo_Actual_Correlativo);
+                       
+            return $this->redirect()->toRoute('constanciaretencion/detalle',['Cod_Constancia'=> $lastId]);
+    }
+    
+    public function proveedorAction()
+    {
+        $RTN_Proveedor = $this->params()->fromRoute('RTN_Proveedor');
+        
+        $rowset3 = $this->ProveedorTable->getProveedorSelectNombre($RTN_Proveedor); //llenar select sucursal  remiten
+        //$form->get('Nombre_Proveedor')->setValueOptions($rowset3); 
+        /*$form->get('Direccion_Proveedor')->setValueOptions($rowset4);*/
+        return  new JsonModel($rowset3);
 
-            return $this->redirect()->toRoute('constanciaretencion/detalle',['Cod_Constancia'=>$Constancia]);
+
     }
 
     public function  detalleAction()
@@ -181,10 +192,21 @@ class ConstanciaretencionController extends AbstractActionController
         } catch (\Exception $e) {
             return $this->redirect()->toRoute('home');
         }
+
         //crear instancia de formulario
         $form = new ConstanciaretencionForm();
-        $form->bind($constancia);
+        $form->bind($constanciaretencion);
+
+        foreach ($constanciaretencion as $s):
+            $Bas= $constanciaretencion->Base_Gravable_Impuesto;
+            $Imp= $constanciaretencion->Importe_Retencion;
+        endforeach;
+        $Base = 'L.'.number_format($Bas, 2, ".", ",");
+        $form->get('Base_Gravable_Impuesto')->setValue($Base);
+        $Impor = 'L.'.number_format($Imp, 2, ".", ",");
+        $form->get('Importe_Retencion')->setValue($Impor);
        
+
         //Sucursal desde la que se hace la psolicitud de boleta
         $Sucursal = [ 'Sucursal'=>$constanciaretencion->Sucursal];
         $Suc = $this->SucursalTable->getSucursalMembrete($Sucursal);
@@ -195,14 +217,19 @@ class ConstanciaretencionController extends AbstractActionController
         $Cai = $this->AutorizacionsarTable->getCai($Autorizacion_Sar);
 
         //Usuario
-        $Cod_Usuario = [ 'Usuario'=>$boleta->Usuario];
+        $Cod_Usuario = [ 'Usuario'=>$constanciaretencion->Usuario];
         $user = $this->UsuarioTable->getUsuarioBoleta($Cod_Usuario);
-                
-         //------llenado de los Listado de selección--------------- 
-
-        $rowset3 = $this->ProveedorTable->getProveedorSelect(); //llenar select unidad 
-        $form->get('Proveedor')->setValueOptions($rowset3); 
-    
+        
+        $RTN_Proveedor = [ 'Proveedor'=>$constanciaretencion->RTN_Proveedor];
+        $rowset2 = $this->ProveedorTable->getProveedorSelectNombre($RTN_Proveedor); //llenar select sucursal  
+        foreach ($rowset2  as $a):
+           $form->get('Proveedor')->setValueOptions([$a->Cod_Proveedor =>$a->Nombre_Proveedor]);
+           $form->get('RTN_Proveedor')->setValueOptions([$a->RTN_Proveedor =>$a->RTN_Proveedor]);
+           $Direccion_Proveedor = $a->Direccion_Proveedor;  
+        endforeach;  
+            $form->get('Direccion_Proveedor')->setValue($Direccion_Proveedor);
+       
+       
         //Verifica si la usuario ha enviado el formulario
         $request = $this->getRequest();
         $viewData = new ViewModel([
@@ -210,11 +237,8 @@ class ConstanciaretencionController extends AbstractActionController
              'Suc'=>$Suc,
              'Sar'=> $Sar,
              'Cai'=>$Cai,
-             'Lic'=>$Lic,
              'user'=>$user,
-             'Codigo'=>$Cod_Constancia, 
-             'Detalle'=> $Detalle//Enviar una variable a la tabla donde se mostrará el producto y la cantidad correspondiente al cada codigo de boleta
-               
+             'Codigo'=>$Cod_Constancia,
         ]);
         //Verifica si la usuario ha enviado el formulario, de lo contrario retorna el viewdata
         if (! $request->isPost()){
@@ -230,7 +254,7 @@ class ConstanciaretencionController extends AbstractActionController
         if ($Cod_Constancia === NULL) {
             return $this->redirect()->toRoute('home');
         } 
-        //consultar registro del código de boleta recibido
+        //consultar registro del código recibido
         try {
             $constanciaretencion = $this->ConstanciaretencionTable->getConstancia($Cod_Constancia);
         } catch (\Exception $e) {
@@ -239,44 +263,47 @@ class ConstanciaretencionController extends AbstractActionController
         //crear instancia de formulario
         $form = new ConstanciaretencionForm();
         $form->bind($constanciaretencion);
+
+        foreach ($constanciaretencion as $s):
+            $Bas= $constanciaretencion->Base_Gravable_Impuesto;
+            $Imp= $constanciaretencion->Importe_Retencion;
+        endforeach;
+        $Base = 'L.'.number_format($Bas, 2, ".", ",");
+        $form->get('Base_Gravable_Impuesto')->setValue($Base);
+        $Impor = 'L.'.number_format($Imp, 2, ".", ",");
+        $form->get('Importe_Retencion')->setValue($Impor);
        
-        //Sucursal desde la que se hace la solicitud de boleta
-        $Sucursal = [ 'Sucursal'=>$boleta->Sucursal];
+        //Sucursal desde la que se hace la psolicitud de boleta
+        $Sucursal = [ 'Sucursal'=>$constanciaretencion->Sucursal];
         $Suc = $this->SucursalTable->getSucursalMembrete($Sucursal);
 
-        //Autorizacion SAR
-        $Autorizacion_Sar = [ 'Autorizacion_Sar'=>$boleta->Autorizacion_Sar];
+        //Autorizacion datos 
+        $Autorizacion_Sar = [ 'Autorizacion_Sar'=>$constanciaretencion->Autorizacion_Sar];
         $Sar = $this->AutorizacionsarTable->getAutorizacionReporte($Autorizacion_Sar);
         $Cai = $this->AutorizacionsarTable->getCai($Autorizacion_Sar);
-       
+
         //Usuario
-        $Cod_Usuario = [ 'Usuario'=>$boleta->Usuario];
+        $Cod_Usuario = [ 'Usuario'=>$constanciaretencion->Usuario];
         $user = $this->UsuarioTable->getUsuarioBoleta($Cod_Usuario);
-
-        //Usuario
-        $Conductor = [ 'Conductor'=>$boleta->Conductor];
-        $Lic = $this->ConductorTable->getLicencia($Conductor);
         
-        //Detalle de la boleta enviada 
-        $Detalle = $this->DetalleTable->detalle($Cod_Boleta);
-             
-          //------llenado de los Listado de selección--------------- 
-
-        $rowset3 = $this->ProveedorTable->getProveedorSelect(); //llenar select unidad 
-        $form->get('Proveedor')->setValueOptions($rowset3); 
-    
+        $RTN_Proveedor = [ 'Proveedor'=>$constanciaretencion->RTN_Proveedor];
+        $rowset2 = $this->ProveedorTable->getProveedorSelectNombre($RTN_Proveedor); //llenar select sucursal  
+        foreach ($rowset2  as $a):
+           $form->get('Proveedor')->setValueOptions([$a->Cod_Proveedor =>$a->Nombre_Proveedor]);
+           $form->get('RTN_Proveedor')->setValueOptions([$a->RTN_Proveedor =>$a->RTN_Proveedor]);
+           $Direccion_Proveedor = $a->Direccion_Proveedor;  
+        endforeach;  
+            $form->get('Direccion_Proveedor')->setValue($Direccion_Proveedor); 
+       
         //Verifica si la usuario ha enviado el formulario
         $request = $this->getRequest();
-        $viewData = new ViewModel([
+        $view = new ViewModel([
              'Cod_Constancia' => $Cod_Constancia, 'form' => $form,//Bindear formulario y registro de boleta
              'Suc'=>$Suc,
              'Sar'=> $Sar,
              'Cai'=>$Cai,
-             'Lic'=>$Lic,
              'user'=>$user,
-             'Codigo'=>$Cod_Constancia, 
-             'Detalle'=> $Detalle//Enviar una variable a la tabla donde se mostrará el producto y la cantidad correspondiente al cada codigo de boleta
-               
+             'Codigo'=>$Cod_Constancia,
         ]);
         $view->setTerminal(true);
         return $view;

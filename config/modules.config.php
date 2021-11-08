@@ -42,6 +42,7 @@ return [
     'Boletacompra',
     'Tipodocumento',
     'Proveedor',
-    'Constanciaretencion'
-    
+    'Constanciaretencion',
+    'Notadebito',
+    'Cliente'  
 ];

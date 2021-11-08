@@ -37,7 +37,7 @@ class AuthController extends AbstractActionController
             return $this->redirect()->toRoute('home');
         }
         $form = new LoginForm();
-        $form->get('submit')->setValue('inicie sesión');
+        $form->get('submit')->setValue('Inicie sesión');
         $request = $this->getRequest();
         //Verifica si la usuario ha enviado el formulario.
         if (!$request->isPost()) {

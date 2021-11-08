@@ -1,5 +1,5 @@
 <?php
-$title = 'Listado de productos';
+$title = 'Productos';
 $this->headTitle($title);
 ?>
 <div class="container">
@@ -8,12 +8,14 @@ $this->headTitle($title);
       <a class="btn btn-outline-info float-right"  role="button" href="<?= $this->url('productos/add')?>">
         <i class="fa fa-plus-circle"></i>Agregar</a>
     </p>
-    <table class="table table-hover" id="example"  style="width:100%">
-      <thead style="background-color:brown;color:white;">
+     <table class="table table-hover"    id="example"  style="width:100%">
+      <thead class="thead-light">
         <tr>
           <th>c&oacute;digo de producto</th>
           <th>Nombre de producto</th>
           <th>Descripci&oacute;n de producto</th>
+          <th>Precio</th>
+          <th>Impuesto</th>
           <th>Fecha de ingreso</th>
           <th>Fecha de actualizaci&oacute;n</th>
           <th>Acci&oacute;n</th>
@@ -25,6 +27,13 @@ $this->headTitle($title);
           <td><?= $this->escapeHtml($pro->Cod_Producto) ?></td>
           <td><?= $this->escapeHtml($pro->Nombre_Producto) ?></td>
           <td><?= $this->escapeHtml($pro->Descripcion) ?></td>
+          <td>
+          <?Php
+              $Pre = $this->escapeHtml($pro->Precio);
+              echo 'L.'.number_format($Pre, 2, ".", ",");
+           ?>
+          </td>
+          <td class="text-center"><?= $this->escapeHtml($pro->Tipo_Importe) ?></td>
           <td><?= $this->escapeHtml($pro->Fecha_Ingreso) ?></td>
           <td><?= $this->escapeHtml($pro->Fecha_Actualizacion) ?></td>
           <td> 

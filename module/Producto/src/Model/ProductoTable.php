@@ -21,6 +21,7 @@ class ProductoTable
      {
                return $this->tableGateway->select();
      }
+    
 
     public function getProducto($Cod_Producto)
      {
@@ -32,10 +33,20 @@ class ProductoTable
                 }
                 return $row;
      } 
+     public function getPrecioProducto($Cod_Producto)
+     {
+                $Cod_Producto = $Cod_Producto;
+                $rowset2 = $this->tableGateway->getSql()->select();
+                $rowset2->columns(array('Precio','Tipo_Importe'));
+                $rowset2->where(['Cod_Producto'=>$Cod_Producto]);
+                $resultSet = $this->tableGateway->selectWith($rowset2);
+                return $resultSet; 
+
+     }
      public function getProductoSelect(){
 
                 $rowset = $this->tableGateway->getSql()->select();
-                $rowset->columns(array('Cod_Producto','Nombre_Producto','Descripcion'));
+                $rowset->columns(array('Cod_Producto','Nombre_Producto','Descripcion','Precio','Tipo_Importe'));
                 $rowset->order('Nombre_Producto Asc');
                 $resultSet = $this->tableGateway->selectWith($rowset); 
                 $data= array();
@@ -51,6 +62,8 @@ class ProductoTable
                 'Cod_Producto' => $producto->Cod_Producto,
                 'Nombre_Producto'  => $producto->Nombre_Producto,
                 'Descripcion'  => $producto->Descripcion,
+                'Precio'  => $producto->Precio,
+                'Tipo_Importe'  => $producto->Tipo_Importe,
             ];
            
             $Cod_Producto = $producto->Cod_Producto;
@@ -69,6 +82,8 @@ class ProductoTable
                     'Cod_Producto'  => $producto->Cod_Producto,
                     'Nombre_Producto' => $producto->Nombre_Producto,
                     'Descripcion'   => $producto->Descripcion,
+                    'Precio'   => $producto->Precio,
+                    'Tipo_Importe'   => $producto->Tipo_Importe,
                 ];
 
                 $Cod_Producto = $producto->Cod_Producto;

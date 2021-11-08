@@ -55,19 +55,17 @@ class AutorizacionsarTable
             $Tipo_de_Documento = '1';
             $Sucursal = $Sucursal;
 
-            $subquery2 =  $this->tableGateway->getSql()->select();
+            $subquery2=$this->tableGateway->getSql()->select();
             $subquery2->columns(['Cod_Autorizacion' => new  Expression('MAX(Cod_Autorizacion)')]);
             $subquery2->Where(['Tipo_de_Documento'=>$Tipo_de_Documento]);
             $subquery2->Having(['Sucursal'=>$Sucursal]);
-          
                     
             $rowset=$this->tableGateway->getSql()->select();
             $rowset->columns(['Cod_Autorizacion' ,'Cai','Consecutivo_Inicial_Establ','Consecutivo_Inicial_Punto','Consecutivo_Inicial_Tipo','Consecutivo_Inicial_Correlativo','Consecutivo_Final_Establ','Consecutivo_Final_Punto','Consecutivo_Final_Tipo','Consecutivo_Final_Correlativo','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Fecha_Limite','Sucursal','Fecha_Ingreso']);
             $rowset->where(['Cod_Autorizacion'=>($subquery2)]);
-            //$rowset->Having(['Sucursal'=>$Sucursal]);
             $resultSet=$this->tableGateway->selectWith($rowset);
-            return $resultSet;             
-     }
+            return $resultSet; 
+        }
      public function getUltimaAutorizacionBoletaCompra($Sucursal)
      {        
             $Tipo_de_Documento = '2';
@@ -89,6 +87,8 @@ class AutorizacionsarTable
       public function getUltimaAutorizacionConstanciaRetencion($Sucursal)
      {        
             $Tipo_de_Documento = '3';
+            $Sucursal = $Sucursal;
+
             $subquery=$this->tableGateway->getSql()->select();
             $subquery->columns(['Cod_Autorizacion' => new  Expression('MAX(Cod_Autorizacion)')]);
             $subquery->Where(['Tipo_de_Documento'=>$Tipo_de_Documento]);
@@ -102,23 +102,20 @@ class AutorizacionsarTable
             return $resultSet;       
      }
      public function getUltimaAutorizacionNotaDebito($Sucursal)
-     {        
-        /*SELECT * FROM `autorizaciones_sar` 
-          WHERE Sucursal ='M89'
-          HAVING max(Cod_Autorizacion);  */
+     {      
             $Tipo_de_Documento = '4';
             $Sucursal = $Sucursal;
-            $subquery =  $this->tableGateway->getSql()->select();
-            $subquery->columns(['Cod_Autorizacion' => new  Expression('MAX(Cod_Autorizacion)')]);
-            $subquery->Where(['Sucursal' => $Sucursal]);
 
+            $subquery2=$this->tableGateway->getSql()->select();
+            $subquery2->columns(['Cod_Autorizacion' => new  Expression('MAX(Cod_Autorizacion)')]);
+            $subquery2->Where(['Tipo_de_Documento'=>$Tipo_de_Documento]);
+            $subquery2->Having(['Sucursal'=>$Sucursal]);
                     
             $rowset=$this->tableGateway->getSql()->select();
             $rowset->columns(['Cod_Autorizacion' ,'Cai','Consecutivo_Inicial_Establ','Consecutivo_Inicial_Punto','Consecutivo_Inicial_Tipo','Consecutivo_Inicial_Correlativo','Consecutivo_Final_Establ','Consecutivo_Final_Punto','Consecutivo_Final_Tipo','Consecutivo_Final_Correlativo','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Fecha_Limite','Sucursal','Fecha_Ingreso']);
-            $rowset->Where(['Sucursal' => $Sucursal]);
-            $rowset->Having(['Cod_Autorizacion'=>($subquery)]);
+            $rowset->where(['Cod_Autorizacion'=>($subquery2)]);
             $resultSet=$this->tableGateway->selectWith($rowset);
-            return $resultSet;       
+            return $resultSet;     
      }
 
      // he definitely knows how to work with the pipe

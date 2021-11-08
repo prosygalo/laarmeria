@@ -42,21 +42,57 @@ class ProveedorTable
                 $resultSet=$this->tableGateway->selectWith($rowset);
                 return $resultSet;
      }
-    
-     public function getProveedorSelect(){
+      public function getProveedorSelectRTN(){
 
                 $rowset = $this->tableGateway->getSql()->select();
-                $rowset->columns(array('Cod_Proveedor','Nombre_Proveedor'));
-                //$rowset->where(['Estado' => 'Disponible']);
-                $rowset->order('Nombre_Proveedor Asc');
+                $rowset->columns(array('RTN_Proveedor'));
+                $rowset->order('RTN_Proveedor Asc');
                 $resultSet = $this->tableGateway->selectWith($rowset); 
 
                 $data= array();
                 foreach($resultSet as $row){
-                   $data[$row->Cod_Proveedor] = $row->Nombre_Proveedor;
+                   $data[$row->RTN_Proveedor] = $row->RTN_Proveedor;
                 }
                    return $data;            
      }
+    
+     public function getProveedorSelectNombre($RTN_Proveedor){
+
+                $RTN_Proveedor = $RTN_Proveedor;
+                $rowset = $this->tableGateway->getSql()->select();
+                $rowset->columns(array('Cod_Proveedor','Nombre_Proveedor','RTN_Proveedor','Direccion_Proveedor','Telefono_Proveedor'));
+                $rowset->where(['RTN_Proveedor'=>$RTN_Proveedor]);
+                $resultSet = $this->tableGateway->selectWith($rowset); 
+                return $resultSet; 
+               
+     }
+
+     public function getProveedorSelect(){
+
+                $rowset = $this->tableGateway->getSql()->select();
+                $rowset->columns(array('Cod_Proveedor','Nombre_Proveedor'));
+                $resultSet = $this->tableGateway->selectWith($rowset); 
+                $data= array();
+                foreach($resultSet as $row){
+                   $data[$row->Cod_Proveedor] = $row->Nombre_Proveedor;
+                }
+                return $data; 
+               
+     }
+     public function getProveedorSelectDireccion($RTN_Proveedor){
+
+                $rowset = $this->tableGateway->getSql()->select();
+                $rowset->columns(array('Direccion_Proveedor'));
+                $rowset->order('Direccion_Proveedor Asc');
+                $resultSet = $this->tableGateway->selectWith($rowset); 
+
+                $data= array();
+                foreach($resultSet as $row){
+                   $data[$row->Direccion_Proveedor] = $row->Direccion_Proveedor;
+                }
+                   return $data;            
+     }
+    
     public function insertProveedor(Proveedor $proveedor)
      {
             $data = [
@@ -64,7 +100,6 @@ class ProveedorTable
                 'Direccion_Proveedor' =>$proveedor->Direccion_Proveedor,
                 'Telefono_Proveedor'  =>$proveedor->Telefono_Proveedor,
                 'RTN_Proveedor'  => $proveedor->RTN_Proveedor,
-                'Cai_Proveedor'  => $proveedor->Cai_Proveedor,
             ];
            
             $Cod_Proveedor = $proveedor->Cod_Proveedor;
@@ -83,7 +118,6 @@ class ProveedorTable
                 'Direccion_Proveedor' =>$proveedor->Direccion_Proveedor,
                 'Telefono_Proveedor'  =>$proveedor->Telefono_Proveedor,
                 'RTN_Proveedor'  => $proveedor->RTN_Proveedor,
-                'Cai_Proveedor'  => $proveedor->Cai_Proveedor,
             ];
 
                 $Cod_Proveedor = $proveedor->Cod_Proveedor;

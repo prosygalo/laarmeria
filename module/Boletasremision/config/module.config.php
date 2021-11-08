@@ -21,22 +21,21 @@ return [
             'may_terminate' => true,
              // Child routes begin:
             'child_routes' => [
-
-            'pre' => [
-                    'type' =>Segment::class,
-                    'options' => [
-                        'route'    => '/pre',
-                        'defaults' => [
-                            'action' => 'pre',
-                        ],
-                    ],
-                ],
              'add' => [
                     'type' =>Segment::class,
                     'options' => [
                         'route'    => '/add[/:Sucursal_Remitente]',
                         'defaults' => [
                             'action' => 'add',
+                        ],
+                    ],
+                ],
+                'sucdes' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/sucdes[/:Sucursal_Destino]',
+                        'defaults' => [
+                            'action' => 'sucdes',
                         ],
                     ],
                 ],

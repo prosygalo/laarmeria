@@ -1,0 +1,61 @@
+<?php
+$title = 'Agregar Cliente';
+$this->headTitle($title);
+
+$Nombres_Cliente=$form->get('Nombres_Cliente');
+$Nombres_Cliente->setAttribute('class', 'form-control autofocus');
+
+$Apellidos_Cliente=$form->get('Apellidos_Cliente');
+$Apellidos_Cliente->setAttribute('class', 'form-control autofocus');
+
+$RTN_DNI=$form->get('RTN_DNI');
+$RTN_DNI->setAttribute('class', 'form-control autofocus');
+$RTN_DNI->setAttribute('placeholder', '00000000000000');
+
+$submit=$form->get('submit');
+$submit->setAttribute('class', 'btn btn-success btn-lg btn-block');
+
+$form->prepare();
+?>                                                    
+<section id="cover">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                         <h4 class="text-center"><i class="fa fa-file fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+                    </div>
+                    <div class="card-body">
+                    <?= $this->form()->openTag($form)?>
+                        <div class="row">
+                            <div class="col-md-12">
+                               <div class="form-group">
+                                    <?= $this->formLabel($Nombres_Cliente) ?>
+                                    <?= $this->formElement($Nombres_Cliente) ?>
+                                    <?= $this->formElementErrors()->render($Nombres_Cliente, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <?= $this->formLabel($Apellidos_Cliente) ?>
+                                    <?= $this->formElement($Apellidos_Cliente) ?>
+                                    <?= $this->formElementErrors()->render($Apellidos_Cliente, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <?= $this->formLabel($RTN_DNI) ?>
+                                    <?= $this->formElement($RTN_DNI) ?>
+                                    <?= $this->formElementErrors()->render($RTN_DNI, ['class' => 'help-inline  text-danger']) ?>
+                                </div>
+                                <?php
+                                    echo $this->formSubmit($submit);
+                                    echo $this->formHidden($form->get('Cod_Cliente'));
+                                ?> 
+                            </div>
+                        </div>
+                    <?= $this->form()->closeTag()?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

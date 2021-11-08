@@ -18,6 +18,7 @@ $Correo=$form->get('Correo');
 $Correo->setAttribute('class', 'form-control autofocus');
 $Correo->setAttribute('placeholder', 'usuario@example.com');
 
+
 $Clave=$form->get('Clave');
 $Clave->setAttribute('class', 'form-control autofocus');
 
@@ -36,16 +37,18 @@ $submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
 
 $form->prepare();
 ?> 
-<section id="cover">
-    <div id="container-fluid">
-        <div id="container" class="container">
-        <h4 class="text-center"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
-            <div class="row justify-content-center">
-                <div class="col-md-12 offset-md-7">
-                    <div class="info-form">
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+             <div class="col-md-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title text-center"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+                    </div>
+                    <div class="card-body">
                         <?=$this->form()->openTag($form) ?>
                              <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <?= $this->formLabel($Cod_Empleado) ?>
                                         <?= $this->formElement($Cod_Empleado) ?>
@@ -54,14 +57,14 @@ $form->prepare();
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->formLabel($Sucursal) ?>
                                         <?= $this->formElement($Sucursal) ?>
                                         <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->formLabel($Departamento) ?>
                                         <?= $this->formElement($Departamento) ?>
@@ -70,7 +73,7 @@ $form->prepare();
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
 
                                     <div class="form-group">
                                         <?= $this->formLabel($Usuario) ?>
@@ -78,7 +81,7 @@ $form->prepare();
                                         <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->formLabel($Correo) ?>
                                         <?= $this->formElement($Correo) ?>
@@ -87,14 +90,14 @@ $form->prepare();
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->formLabel($Clave) ?>
                                         <?= $this->formElement($Clave) ?>
                                         <?= $this->formElementErrors()->render($Clave, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->formLabel($Confirmarclave) ?>
                                         <?= $this->formElement($Confirmarclave) ?>
@@ -103,14 +106,14 @@ $form->prepare();
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->formLabel($Estado) ?>
                                         <?= $this->formElement($Estado) ?>
                                         <?= $this->formElementErrors()->render($Estado, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->formLabel($Rol) ?>
                                         <?= $this->formElement($Rol) ?>
@@ -119,7 +122,7 @@ $form->prepare();
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <?php
                                         echo $this->formSubmit($submit);
@@ -134,4 +137,4 @@ $form->prepare();
             </div>
         </div>
     </div>
-</section>
+</section>    

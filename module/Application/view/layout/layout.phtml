@@ -28,7 +28,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <p><h3 class="text-left zf-brown">Nombre<span class="zf-green">app</span></h3></p>
+        <p><h3 class="text-left zf-green">LA <span class="zf-brown">ARMERIA</span></h3></p>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
             </button>
@@ -48,10 +48,7 @@
                   <i class="fa fa-file" aria-hidden="true"></i>Documentos Fiscales
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="<?= $this->url('boletacompra/add',['Sucursal'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file" aria-hidden="true" ></i>Boleta compra</a>
                   <a class="dropdown-item" href="<?= $this->url('boletasremision/add',['Sucursal_Remitente'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file-text" aria-hidden="true"></i>Boleta  guía de remisión</a>
-                  <a class="dropdown-item" href="<?= $this->url('home')?>"><i class="fa fa-file" aria-hidden="true"></i>Constancia de retención</a>
-                  <a class="dropdown-item" href="<?= $this->url('home')?>"><i class="fa fa-file" aria-hidden="true"></i>Nota de débito</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -73,8 +70,8 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="<?= $this->url('boletacompra/add',['Sucursal'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file" aria-hidden="true" ></i>Boleta compra</a>
                   <a class="dropdown-item" href="<?= $this->url('boletasremision/add',['Sucursal_Remitente'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file-text" aria-hidden="true"></i>Boleta guía de remisión</a>
-                  <a class="dropdown-item" href="<?= $this->url('home')?>"><i class="fa fa-file" aria-hidden="true"></i>Constancia de retención</a>
-                  <a class="dropdown-item" href="<?= $this->url('home')?>"><i class="fa fa-file" aria-hidden="true"></i>Nota de débito</a>
+                  <a class="dropdown-item" href="<?= $this->url('constanciaretencion')?>"><i class="fa fa-file" aria-hidden="true"></i>Constancia de retención</a>
+                  <a class="dropdown-item" href="<?= $this->url('notadebito')?>"><i class="fa fa-file" aria-hidden="true"></i>Nota de débito</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -87,7 +84,7 @@
                       </div>
                 </li>
                 <?php 
-                }elseif ($this->identity()['Rol'] == 'Especial'){
+                }elseif ($this->identity()['Rol'] == 'Admin'){
                 ?>
                  <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,7 +94,7 @@
                   <a class="dropdown-item" href="<?= $this->url('boletacompra/add',['Sucursal'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file" aria-hidden="true" ></i>Boleta  compra</a>
                   <a class="dropdown-item" href="<?= $this->url('boletasremision/add',['Sucursal_Remitente'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file-text" aria-hidden="true"></i>Boleta  guía de remisión</a>
                   <a class="dropdown-item" href="<?= $this->url('constanciaretencion/add',['Sucursal'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file" aria-hidden="true"></i>Constancia de retención</a>
-                  <a class="dropdown-item" href="<?= $this->url('home')?>"><i class="fa fa-file" aria-hidden="true"></i>Nota de débito</a>
+                  <a class="dropdown-item" href="<?= $this->url('notadebito/add',['Sucursal'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file" aria-hidden="true"></i>Nota de débito</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -108,6 +105,7 @@
                     <a class="dropdown-item" href="<?= $this->url('sucursal')?>"><i class="fa fa-building" aria-hidden="true" ></i>Sucursales</a>
                     <a class="dropdown-item" href="<?= $this->url('departamento')?>"><i class="fa fa-file" aria-hidden="true" ></i>Departamentos</a>
                     <a class="dropdown-item" href="<?= $this->url('proveedor')?>"><i class="fa fa-file" aria-hidden="true" ></i>Proveedores</a>
+                    <a class="dropdown-item" href="<?= $this->url('cliente')?>"><i class="fa fa-file" aria-hidden="true" ></i>Clientes</a>
                     <a class="dropdown-item" href="<?= $this->url('conductor')?>"><i class="fa fa-id-card" aria-hidden="true" ></i>Conductores</a>
                     <a class="dropdown-item" href="<?= $this->url('unidadtransporte')?>"><i class="fa fa-truck" aria-hidden="true"></i>Unidades de transporte</a>
                     <a class="dropdown-item" href="<?= $this->url('productos')?>"><i class="fa fa-shopping-car" aria-hidden="true"></i>Productos</a>
@@ -125,7 +123,7 @@
                    </div>
                 </li>
                 <?php  
-                }elseif($this->identity()['Rol'] == 'Admin'){ 
+                }elseif($this->identity()['Rol'] == 'Superadmin'){ 
                 ?>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -135,7 +133,7 @@
                  <a class="dropdown-item" href="<?= $this->url('boletacompra')?>"><i class="fa fa-file" aria-hidden="true" ></i>Consultas Boleta  compra</a>
                   <a class="dropdown-item" href="<?= $this->url('boletasremision')?>"><i class="fa fa-file-text" aria-hidden="true"></i>Consultas Boleta guía de remisión</a>
                   <a class="dropdown-item" href="<?= $this->url('constanciaretencion')?>"><i class="fa fa-file" aria-hidden="true"></i>Consultas Constancia de retención</a>
-                  <a class="dropdown-item" href="<?= $this->url('home')?>"><i class="fa fa-file" aria-hidden="true"></i>Nota de débito</a>
+                  <a class="dropdown-item" href="<?= $this->url('notadebito')?>"><i class="fa fa-file" aria-hidden="true"></i>Nota de débito</a>
                   </div>
                 </li>
                  <li class="nav-item dropdown">
@@ -146,7 +144,7 @@
                  <a class="dropdown-item" href="<?= $this->url('boletacompra/add',['Sucursal'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file" aria-hidden="true" ></i>Boleta compra</a>
                   <a class="dropdown-item" href="<?= $this->url('boletasremision/add',['Sucursal_Remitente'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file-text" aria-hidden="true"></i>Boleta  guía de remisión</a>
                   <a class="dropdown-item" href="<?= $this->url('constanciaretencion/add',['Sucursal'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file" aria-hidden="true"></i>Constancia de retención</a>
-                  <a class="dropdown-item" href="<?= $this->url('home')?>"><i class="fa fa-file" aria-hidden="true"></i>Nota de débito</a>
+                  <a class="dropdown-item" href="<?= $this->url('notadebito/add',['Sucursal'=>$this->identity()['Sucursal']])?>"><i class="fa fa-file" aria-hidden="true"></i>Nota de débito</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -158,6 +156,7 @@
                   <a class="dropdown-item" href="<?= $this->url('sucursal')?>"><i class="fa fa-building" aria-hidden="true" ></i>Sucursales</a>
                   <a class="dropdown-item" href="<?= $this->url('departamento')?>"><i class="fa fa-file" aria-hidden="true" ></i>Departamentos</a>
                    <a class="dropdown-item" href="<?= $this->url('proveedor')?>"><i class="fa fa-file" aria-hidden="true" ></i>Proveedores</a>
+                    <a class="dropdown-item" href="<?= $this->url('cliente')?>"><i class="fa fa-file" aria-hidden="true" ></i>Clientes</a>
                   <a class="dropdown-item" href="<?= $this->url('conductor')?>"><i class="fa fa-id-card fa-md" aria-hidden="true" ></i>Conductores</a>
                   <a class="dropdown-item" href="<?= $this->url('unidadtransporte')?>"><i class="fa fa-truck" aria-hidden="true"></i>Unidades de transporte</a>
                   <a class="dropdown-item" href="<?= $this->url('productos')?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Productos</a>
@@ -189,11 +188,12 @@
               </ul>
             </div>
         </nav>
+      </div>
       <div class="mt-4">
-      <?= $this->content ?>
+            <?= $this->content ?>
+      </div>
       <footer  class="mt-5 d-flex justify-content-end">
           <p>&copy; 2005 - <?= date('Y') ?> by Zend Technologies Ltd. All rights reserved.</p>
       </footer>
-      </div>
-</body>
+    </body>
 </html>

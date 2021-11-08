@@ -1,5 +1,5 @@
 <?php
-$title = 'Agregar sucursal';
+$title = 'Agregar Sucursal';
 $this->headTitle($title);
 
 $Cod_Sucursal=$form->get('Cod_Sucursal');
@@ -10,18 +10,18 @@ $Nombre_Sucursal->setAttribute('class', 'form-control');
 
 $RTN=$form->get('RTN');
 $RTN->setAttribute('class', 'form-control');
-$RTN->setAttribute('placeholder', '0000000000000'); 
+$RTN->setAttribute('placeholder', '00000000000000'); 
 
 $Direccion=$form->get('Direccion');
 $Direccion->setAttribute('class', 'form-control');
 
 $Telefono=$form->get('Telefono');
 $Telefono->setAttribute('class', 'form-control');
-$Telefono->setAttribute('placeholder', '0000-0000');
+$Telefono->setAttribute('placeholder', '1234-5678');
 
 $Correo=$form->get('Correo');
 $Correo->setAttribute('class', 'form-control');
-$Correo->setAttribute('placeholder', 'usuario@example.com');
+$Correo->setAttribute('placeholder', 'ejemplo@mail.com');
 
 $Estado=$form->get('Estado');
 $Estado->setAttribute('class', 'form-control');
@@ -32,15 +32,17 @@ $submit->setAttribute('class', 'btn btn-primary btn-lg btn-block');
 $form->prepare();
 ?> 
 <section id="cover">
-    <div id="cover-caption">
-        <div id="container" class="container">
-        <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
-            <div class="row justify-content-center">
-                <div class="col-md-12 offset-md-7"> 
-                    <div class="info-form">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                         <h4 class="text-center"><i class="fa fa-building" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+                    </div>
+                    <div class="card-body">
                         <?= $this->form()->openTag($form) ?>                                             
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <?= $this->formLabel($Cod_Sucursal) ?>
                                         <?= $this->formElement($Cod_Sucursal) ?>
@@ -69,14 +71,14 @@ $form->prepare();
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->formLabel($Telefono) ?>
                                         <?= $this->formElement($Telefono) ?>
                                         <?= $this->formElementErrors()->render($Telefono, ['class' => 'help-inline  text-danger']) ?>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <?= $this->formLabel($RTN) ?>
                                         <?= $this->formElement($RTN) ?>
@@ -86,7 +88,7 @@ $form->prepare();
                                 </div>  
                             </div> 
                             <div class="row"> 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <?= $this->formSubmit($submit)?>
                                 </div>      
                             </div> 

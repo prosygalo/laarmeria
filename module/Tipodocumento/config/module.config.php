@@ -24,16 +24,6 @@ return [
             'may_terminate' => true,
              // Child routes begin:
             'child_routes' => [
-                'edit' => [
-                    'type' =>Segment::class,
-                    'options' => [
-                        'route'    => '/edit[/:Cod_Conductor]',
-                        'defaults' => [
-                            'action' => 'edit',
-                        ],   
-                    ],
-                ],
-                
                 'add' => [
                     'type' =>Segment::class,
                     'options' => [
@@ -41,6 +31,15 @@ return [
                         'defaults' => [
                             'action' => 'add',
                         ],
+                    ],
+                ],
+                'edit' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/edit[/:Cod_Documento]',
+                        'defaults' => [
+                            'action' => 'edit',
+                        ],   
                     ],
                 ],
                 

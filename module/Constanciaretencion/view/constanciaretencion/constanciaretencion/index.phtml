@@ -1,5 +1,5 @@
 <?php
-$title = 'Listado guías de remisión';
+$title = 'Constancias de Retención ';
 $this->headTitle($title);
 ?>
 <div class="container-fluid">
@@ -8,32 +8,46 @@ $this->headTitle($title);
     <table class="table table-hover"    id="example"  style="width:100%">
       <thead class="thead-light" style="">
         <tr>
-          <th>c&oacute;digo  boleta</th>
-          <th>N&uacute;mero de documento fiscal</th>
-          <th>Remitente</th>
-          <th>Destinatario</th>
-          <th>Fecha  Inicio de traslado</th>
-          <th>Fecha final de traslado</th>
-          <th>Fecha emisi&oacute;n</th>
-          <th colspan="2" class="text-center">Acciones</th>
+          <th>c&oacute;digo  constancia</th>
+          <th>Fecha emisión</th>
+          <th>Documento fiscal</th>
+          <th>Sucursal</th>
+          <th>Proveedor</th>
+          <th>Documento de Retención</th>
+          <th>Tasa retención</th>
+          <th>Base grabable del impuesto</th>
+          <th>Importe de retención</th>
+          <th>Acciones</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-      <?php foreach ($Boletas as $a) : ?>
-      <tr>
-        <td><?= $this->escapeHtml($a->Cod_Boleta) ?></td>
-        <td><?= $this->escapeHtml($a->Consecutivo_Actual_Establ."-".$a->Consecutivo_Actual_Punto."-".$a->Consecutivo_Actual_Tipo."-".$a->Consecutivo_Actual_Correlativo)?></td>
-        <td><?= $this->escapeHtml($a->Sucursal_Remitente) ?></td>
-        <td><?= $this->escapeHtml($a->Sucursal_Destino) ?></td>
-        <td><?= $this->escapeHtml($a->Fecha_Inicio_Traslado)?></td>
-        <td><?= $this->escapeHtml($a->Fecha_Final_Traslado)?></td>
+      <?php foreach ($constancias as $a) : ?>
+      <tr class="text-center">
+        <td><?= $this->escapeHtml($a->Cod_Constancia) ?></td>
         <td><?= $this->escapeHtml($a->Fecha_Emision) ?></td>
+        <td><?= $this->escapeHtml($a->Consecutivo_Actual_Establ."-".$a->Consecutivo_Actual_Punto."-".$a->Consecutivo_Actual_Tipo."-".$a->Consecutivo_Actual_Correlativo)?></td>
+        <td><?= $this->escapeHtml($a->Sucursal) ?></td>
+        <td><?= $this->escapeHtml($a->Proveedor) ?></td>
+        <td><?= $this->escapeHtml($a->Documento_Retencion)?></td>
+        <td><?= $this->escapeHtml($a->Tipo_Retencion).'%'?></td>
         <td>
-            <a type="button"  class=" btn btn-info btn-block btn-md"  href="<?= $this->url('boletasremision/detalle',['Cod_Boleta'=>$a->Cod_Boleta])?>"><i class="fa fa-eye-slash">Ver</i></a>
+          <?Php
+         $base = $this->escapeHtml($a->Base_Gravable_Impuesto);
+         echo number_format($base, 2, ".", ",");
+        ?>
+        </td>
+        <td><?Php
+         $Importe = $this->escapeHtml($a->Importe_Retencion);
+         echo number_format($Importe, 2, ".", ",");
+
+        ?></td>
+        <td>
+            <a type="button"  class=" btn btn-info btn-block btn-md"  href="<?= $this->url('constanciaretencion/detalle',['Cod_Constancia'=>$a->Cod_Constancia])?>"><i class="fa fa-eye-slash">Ver</i></a>
         </td>
         <td>
-            <a type="button"  target="_blank" class="btn btn-danger btn-block btn-md"  href="<?= $this->url('boletasremision/pdf',['Cod_Boleta'=>$a->Cod_Boleta])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>      
-        </td>     
+          <a type="button"  class=" btn btn-danger btn-block btn-md" target="_blank"   href="<?= $this->url('constanciaretencion/pdf',['Cod_Constancia'=>$a->Cod_Constancia])?>"><i class="fa fa-file-pdf-o">PDF</i></a>
+        </td>   
       </tr>
       <?php endforeach; ?>
      </tbody>
@@ -44,7 +58,7 @@ $this->headTitle($title);
     $('#example').DataTable({
     "language": {
       "url": "datatables/js/Spanish.json"
-    }
+      }
     });
    });
 </script>

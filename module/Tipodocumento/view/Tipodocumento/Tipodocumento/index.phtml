@@ -25,7 +25,7 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($u->Fecha_Ingreso) ?></td>
             <td><?= $this->escapeHtml($u->Fecha_Actualizacion) ?></td>
             <td>
-              <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('tipodocumento/edit',['Cod_Documento'=>$u->Cod_Documento])?>"><i class="fa fa-pencil"></i></a>    
+              <a type="button" class=" btn btn-primary btn-sm"  href="<?= $this->url('tipodocumento/edit',['Cod_Documento'=>$u->Cod_Documento])?>"><i class="fa fa-pencil"></i>Editar</a>    
             </td>
           </tr>
           <?php endforeach; ?>

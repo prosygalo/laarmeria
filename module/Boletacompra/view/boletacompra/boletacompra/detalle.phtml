@@ -32,12 +32,14 @@ $Direccion_Proveedor->setAttribute('readonly', 'readonly');
 $Telefono_Proveedor=$form->get('Telefono_Proveedor');
 $Telefono_Proveedor->setAttribute('readonly', 'readonly');
 
-$RTN_Proveedor=$form->get('RTN_Proveedor');
-$RTN_Proveedor->setAttribute('readonly', 'readonly');
+$RTN_View=$form->get('RTN_View');
+$RTN_View->setAttribute('readonly', 'readonly');
 
 $Subtotal=$form->get('Subtotal');
 
-$Total=$form->get('Total');
+$TotalView=$form->get('TotalView');
+
+$cantidad_letras=$form->get('cantidad_letras');
 
 $No_Registro_Sag=$form->get('No_Registro_Sag');
 $No_Registro_Sag->setAttribute('readonly', 'readonly');
@@ -67,7 +69,6 @@ $form->prepare();
                           <strong>INSTITUTO DE PREVISIÓN MILITAR(IPM)</strong><br>
                           <strong>LA ARMERIA</strong><br>
                           <strong>RTN 08019003238214</strong><br>
-                          <strong>LA ARMERIA AEROPUERTO</strong><br>
                         </td>
                          <td  style= "width:35%;"><img src="<?= $this->basePath('img/logoIPM.png') ?>" class="img-responsive" style="height:20%; width:20%;display: block;margin-right: auto;margin-left:80%;"></td>
                     </tr>
@@ -91,7 +92,7 @@ $form->prepare();
                     </tr>
                 </tbody>
             </table><br>
-                <h5 style="text-align: center;font-weight: bold">Guía De Remisión</h5>
+                <h5 style="text-align: center;font-weight: bold">BOLETA DE COMPRA</h5>
             <table>
                 <thead>
                   <tr>
@@ -119,8 +120,8 @@ $form->prepare();
 
                     <div class="col-md-8">
                         <div class="form-group">
-                            <?= $this->formLabel($RTN_Proveedor) ?>
-                            <?= $this->formElement($RTN_Proveedor) ?>
+                            <?= $this->formLabel($RTN_View) ?>
+                            <?= $this->formElement($RTN_View) ?>
                         </div>
                     </div>
                 </div><br>
@@ -171,11 +172,10 @@ $form->prepare();
                           $cantidad = $this->escapeHtml($a->Cantidad);
                           $precio = $this->escapeHtml($a->Precio);
                           $Importe = $cantidad*$precio;
-                             echo number_format($Importe, 2, ".", ",");
+                             echo 'L. '.number_format($Importe, 2, ".", ",");
                       ?>
                       </td>
                     </tr><?php  
-                          $Importe+$Importe; 
                           $count++;  
                       endforeach; 
                       ?>
@@ -183,14 +183,15 @@ $form->prepare();
                 <tfoot>
                   <tr>
                     <td colspan="6" class="text-right"><?= $this->formLabel($Subtotal)?></td>
-                    <td class="text-right"><?= number_format($Importe, 2, ".", ",");?></td>
+                    <td class="text-right"><?=  $this->formElement($TotalView) ?></td>
                   </tr>
                   <tr>
-                    <td colspan="6" class="text-right" ><?= 'Total' ?></td>
-                    <td><?=$this->formHidden($form->get('Total'))?><span id="To"></span></td>
+                    <td colspan="6" class="text-right" ><?= 'Total'?>
+                    <td><?= $this->formElement($TotalView) ?></td>
                   </tr>
                 </tfoot>
             </table>
+              <?= '<label>CANTIDAD EN:</label>'. $this->formElement($cantidad_letras)?>
             <h5>DATOS ADQUIRIENTE EXONERADO</h5>
                  <div class="row">
                     <div class="col-md-4">
@@ -255,9 +256,3 @@ $form->prepare();
          </div>
     </div>
 </section>
-<script type="text/javascript">
-   $(document).ready(function(){
-      var total = $('.Tot').val();
-      To.val(total);
-   });
-</script>

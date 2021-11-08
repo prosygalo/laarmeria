@@ -25,6 +25,8 @@ use Proveedor\Controller\ProveedorController;
 use constanciaretencion\Controller\ConstanciaretencionController;
 use Usuario\Controller\AuthController;
 use Usuario\Controller\UsuarioController;
+use Notadebito\Controller\NotadebitoController;
+use Cliente\Controller\ClienteController;
 
 
 class Module implements ConfigProviderInterface
@@ -64,7 +66,6 @@ class Module implements ConfigProviderInterface
         return include __DIR__ . '/../config/module.config.php';
     }
 
-
     public function getServiceConfig() 
     {
         return [
@@ -79,7 +80,7 @@ class Module implements ConfigProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Entidad());
                     return new TableGateway('usuarios', $dbAdapter, null, $resultSetPrototype);
                 },
-
+              
                 Acl::class=> function ($sm){
                     $acl= new Acl();   
                  /**agregar  los roles con la herencia de controles de acceso*/
@@ -89,9 +90,9 @@ class Module implements ConfigProviderInterface
                     /**El usuario miembro hereda controles de acceso de invitado*/
                     ->addRole(new Role('Miembro'), 'Invitado')
                     /**El usuario especial hereda controles de acceso de miembro*/
-                    ->addRole(new Role('Especial'), 'Miembro')
+                    ->addRole(new Role('Admin'), 'Miembro')
                     /**El administrador no hereda controles de acceso pues tiene acceso a todo*/
-                    ->addRole(new Role('Admin'));
+                    ->addRole(new Role('Superadmin'));
                     /*
                      *-modulo application,controlador index 
                      *-modulo autorizacionsar,controlador autorizacionsar 
@@ -107,10 +108,6 @@ class Module implements ConfigProviderInterface
                      *-modulo usuario ,controlador usuario 
                      *-modulo usuario,controlador auth 
                      *Creando privilegios
-                     *-permitir a invitado acceder a la pagina de inicio y auth ecepto cierre de sesión
-                     *-permitit a miembro acceder a la pagina de inicio, auth y boletas de remision ecepto el index
-                     *-permitir a miembro especial acceder a inicio, boletasremision, conductor, departamento,  producto, sucursal, unidadtransporte, auth
-                     *-permitir a usuario admin el acceso a todos los recursos
                      */
                      return $acl->addResource(new Resource('application:index'))
                     ->addResource(new Resource('autorizacionsar:autorizacionsar'))
@@ -126,33 +123,55 @@ class Module implements ConfigProviderInterface
                     ->addResource(new Resource('constanciaretencion:constanciaretencion'))
                     ->addResource(new Resource('usuario:usuario'))
                     ->addResource(new Resource('usuario:auth'))
+                    ->addResource(new Resource('notadebito:notadebito'))
+                     ->addResource(new Resource('cliente:cliente'))
+                     /**
+                      Permitir al público tener acceso a las siguientes acciones
+                      */
                     ->allow('Publico','application:index')
                     ->allow('Publico','usuario:auth',['login'])
                     ->allow('Publico','usuario:usuario',['registroadminuser'])
                     ->allow('Publico','boletasremision:boletasremision',['pdf','reporte'])
                     ->allow('Publico','boletacompra:boletacompra',['pdf','reporte'])
                     ->allow('Publico','constanciaretencion:constanciaretencion',['pdf','reporte'])
+                    ->allow('Publico','notadebito:notadebito',['pdf','reporte'])
+                    /**
+                      Permitir a invitado  acceder a la pagina de inicio, auth y emision de documentos fiscales,vista, reporte del documento emitido, perfil y cierre de sesión.
+                      */
                     ->allow('Invitado','usuario:auth')
                     ->allow('Invitado','usuario:usuario',['perfil'])
-                    ->allow('Invitado','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Invitado','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error','sucdes'])
                     ->allow('Invitado','boletacompra:boletacompra',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
                     ->allow('Invitado','constanciaretencion:constanciaretencion',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Invitado','notadebito:notadebito',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                     /**
+                      Permitir a miembros  acceder a inicio, emisión de documento fiscales, vista, reporte del documento emitido,perfil y cierre de sesión.
+                     */
                     ->allow('Miembro','usuario:auth')
                     ->allow('Miembro','usuario:usuario',['perfil'])
-                    ->allow('Miembro','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
+                    ->allow('Miembro','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error','sucdes'])
                      ->allow('Miembro','constanciaretencion:constanciaretencion',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
                     ->allow('Miembro','boletacompra:boletacompra',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
-                    ->allow('Especial','boletasremision:boletasremision',['index'])
-                    ->allow('Especial','boletacompra:boletacompra',['index'])
-                    ->allow('Especial','constanciaretencion:constanciaretencion',['index'])
-                    ->allow('Especial','autorizacionsar:autorizacionsar',['index','add','listo','error'])
-                    ->allow('Especial','conductor:conductor',['index','add','edit','listo','error'])
-                    ->allow('Especial','departamento:departamento',['index','add','edit','listo','error'])
-                    ->allow('Especial','producto:producto',['index','add','edit','listo','error'])
-                    ->allow('Especial','proveedor:proveedor',['index','add','edit','listo','error'])
-                    ->allow('Especial','sucursal:sucursal',['index','add','edit','listo','error'])
-                    ->allow('Especial','unidadtransporte:unidadtransporte',['index','add','edit','listo','error'])
-                    ->allow('Admin');
+                    ->allow('Miembro','notadebito:notadebito',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error','sucdes'])
+                    /**
+                     Permitir a usuario admin el acceso a todos los recursos con exepción el módulo usuarios.
+                    */
+                    ->allow('Admin','boletasremision:boletasremision',['index'])
+                    ->allow('Admin','boletacompra:boletacompra',['index'])
+                    ->allow('Admin','constanciaretencion:constanciaretencion',['index'])
+                    ->allow('Admin','notadebito:notadebito',['index'])
+                    ->allow('Admin','autorizacionsar:autorizacionsar',['index','add','listo','error'])
+                    ->allow('Admin','conductor:conductor',['index','add','edit','listo','error'])
+                    ->allow('Admin','cliente:cliente',['index','add','edit','listo','error'])
+                    ->allow('Admin','departamento:departamento',['index','add','edit','listo','error'])
+                    ->allow('Admin','producto:producto',['index','add','edit','listo','error'])
+                    ->allow('Admin','proveedor:proveedor',['index','add','edit','listo','error'])
+                    ->allow('Admin','sucursal:sucursal',['index','add','edit','listo','error'])
+                    ->allow('Admin','unidadtransporte:unidadtransporte',['index','add','edit','listo','error'])
+                    /**
+                       Permitir a usuario Superadmin el acceso a todos los recursos.
+                    */
+                    ->allow('Superadmin');
                 }
             ],
 

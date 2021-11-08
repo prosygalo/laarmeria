@@ -13,14 +13,18 @@ $Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
 $Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
 $Tipo_Retencion=$form->get('Tipo_Retencion');
 $Base_Gravable_Impuesto=$form->get('Base_Gravable_Impuesto');
+$Base_Gravable_Impuesto->setValue('0.00');
 $Importe_Retencion=$form->get('Importe_Retencion');
-$Importe_Retencion->setAttribute('readonly', 'readonly');
+$Importe_Retencion->setValue('0.00');
+$Importe_Retencion->setAttribute('readonly','readonly');
 $Proveedor=$form->get('Proveedor');
 $Direccion_Proveedor=$form->get('Direccion_Proveedor');
 $Documento_Retencion=$form->get('Documento_Retencion');
 $No_Correlativo=$form->get('No_Correlativo');
+$No_Correlativo->setAttribute('placeholder', '000-000-00-00000000');
 $RTN_Proveedor=$form->get('RTN_Proveedor');
 $Cai_Documento=$form->get('Cai_Documento');
+$Cai_Documento->setAttribute('placeholder', '6E7C83-81B02E-9E47B7-BB1747-32EAAE-47');
 $Descripcion_Tributo_Retenido=$form->get('Descripcion_Tributo_Retenido');
 $Cancelar=$form->get('Cancelar');
 $submit=$form->get('submit');
@@ -28,41 +32,44 @@ $submit=$form->get('submit');
 $form->prepare();
 ?>
 <section id="cover">
-    <div id="cover-caption">
-        <div id="container" class="container">                                              
-            <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+    <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                         <h4 class="text-center"><i class="fa fa-file fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+                    </div>
+                    <div class="card-body">
                 <?= $this->form()->openTag($form)?>
-                <h5>Documento fiscal</h5>
-                    <div class="row" style="background-color:#E6E6FA">
-                        <div class="col-md-2">
+                <strong>Documento Fiscal No.</strong>
+                    <div class="row">
+                        <div class="col-md-1">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Establ) ?>
                             <?= $this->formElement($Consecutivo_Actual_Establ) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Establ, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElement($Consecutivo_Actual_Punto) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Punto, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Tipo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Tipo, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                           <div class="form-group">
                             <?= $this->formLabel($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElement($Consecutivo_Actual_Correlativo) ?>
                             <?= $this->formElementErrors()->render($Consecutivo_Actual_Correlativo, ['class' => 'help-inline  text-danger']) ?>
                           </div>
                         </div>
-                    </div>
+               </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -86,27 +93,31 @@ $form->prepare();
                            </div>
                         </div>
                     </div><br>
-                    <h5>Información Proveedor</h5>
+                    <strong>Información Proveedor</strong>
                     <div class="row">
                         <div class="col-md-4"> 
                             <div class="form-group">
                             <?= $this->formLabel($RTN_Proveedor) ?>
                             <?= $this->formElement($RTN_Proveedor) ?>
                             <?= $this->formElementErrors()->render($RTN_Proveedor, ['class' => 'help-inline  text-danger']) ?>
+                            </div>
                         </div>
-                        </div>
-                    </div>
-                        <div class="form-group">
+                        <div class="col-md-4"> 
+                            <div class="form-group">
                             <?= $this->formLabel($Proveedor) ?>
                             <?= $this->formElement($Proveedor) ?>
                             <?= $this->formElementErrors()->render($Proveedor, ['class' => 'help-inline  text-danger']) ?>
+                             </div>
                         </div>
-                         <div class="form-group">
+                        <div class="col-md-4"> 
+                            <div class="form-group">
                             <?= $this->formLabel($Direccion_Proveedor) ?>
                             <?= $this->formElement($Direccion_Proveedor) ?>
                             <?= $this->formElementErrors()->render($Direccion_Proveedor, ['class' => 'help-inline  text-danger']) ?>
-                        </div><br>
-                        <h5>Datos documento sobre el cual se  retuvo</h5>
+                            </div>
+                        </div>
+                    </div>
+                        <strong>Documento sobre el cual se retuvo</strong>
                         <div class="form-group">
                             <?= $this->formLabel($Tipo_Retencion) ?><br>
                             <?= $this->formElement($Tipo_Retencion) ?>
@@ -121,6 +132,7 @@ $form->prepare();
                             <?= $this->formLabel($Importe_Retencion) ?>
                             <?= $this->formElement($Importe_Retencion) ?>
                             <?= $this->formElementErrors()->render($Importe_Retencion, ['class' => 'help-inline  text-danger']) ?>
+                            <span id="ads" class="text-info"></span>
                         </div>
                          <div class="form-group">
                             <?= $this->formLabel($Documento_Retencion) ?>
@@ -166,8 +178,63 @@ $form->prepare();
                 </div>    
               <?=  $this->form()->closeTag()?> 
           </div>
+        </div>
     </div>
 </section>
 <script type="text/javascript">
-     
-</script>
+  function cancelar(){
+     window.location.href="<?= $this->url('home')?>";
+   }
+    $(function(){
+       $('#RTN_Proveedor').change(function(){
+         var RTN_Proveedor = $(this).val();
+         if(RTN_Proveedor){
+            $.ajax({
+             type: "GET",
+             url: "/constanciaretencion/proveedor/" + $(this).val(),
+             async: true,
+             dataType: "json",
+             beforeSend: function(x) {
+                if(x && x.overrideMimeType) {
+                   x.overrideMimeType("application/j-son;charset=UTF-8");
+                }
+             },
+             success: function(data){
+                var Nom_Pro = '';
+                var Dir_Pro = '';
+                   for (var i = 0; i < data.length; i++) {
+
+                    Nom_Pro += '<option value="' + data[i].Cod_Proveedor + '">' + data[i].Nombre_Proveedor + '</option>';
+                    Dir_Pro += data[i].Direccion_Proveedor;
+                   }
+                   $('#Proveedor').html(Nom_Pro);
+                   $('#Direccion_Proveedor').val(Dir_Pro);
+            }
+        });
+      }else{
+           $('#Proveedor').html('<option value>Seleccione RTN</option>');
+           $('#Direccion_Proveedor').val('Seleccione RTN');
+
+      }});
+    });
+
+   $(function(){
+         $('#Base_Gravable_Impuesto').change(function(){ 
+            var Tipo_Retencion = $('input:radio[name = Tipo_Retencion]:checked').val();
+            var tasa = parseFloat(Tipo_Retencion);
+            var Base_Gravable_Impuesto = $(this).val();
+            if (Base_Gravable_Impuesto && tasa){
+                var Importe_Retencion = parseFloat((Base_Gravable_Impuesto * tasa) / 100 ).toFixed(2);
+                $('#Base_Gravable_Impuesto').html(Base_Gravable_Impuesto);
+                $('#Importe_Retencion').val(Importe_Retencion);
+                var ads = document.getElementById("ads");
+                ads.innerHTML='';
+            }else{
+                $('#Base_Gravable_Impuesto').val('00');
+                $('#Importe_Retencion').val('00');
+                var ads = document.getElementById("ads");
+                ads.innerHTML='*Seleccione una tasa de retención e ingrese base gravable del impuesto';
+            }
+        });
+    });
+ </script>

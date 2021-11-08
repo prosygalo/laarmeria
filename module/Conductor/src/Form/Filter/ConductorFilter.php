@@ -116,7 +116,7 @@ class ConductorFilter  extends InputFilter
                             'min' => 3,
                             'max' => 50,
                             'messages' => [
-                            \Zend\Validator\StringLength::INVALID=>'Nombre es  incorrecto',
+                            \Zend\Validator\StringLength::INVALID=>'Apellidos es  incorrecto',
                             \Zend\Validator\StringLength::TOO_SHORT=>'Este campo es obligatorio y debe contener m&aacute;s de 3 car&aacute;cteres',
                             \Zend\Validator\StringLength::TOO_LONG=>'Este campo  debe contener menos de 50 car&aacute;cteres',
                             ],

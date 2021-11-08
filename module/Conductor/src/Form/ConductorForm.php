@@ -24,7 +24,7 @@ class ConductorForm extends Form
             'name' => 'Cod_Conductor',
             'type' => 'text',
             'options' => [
-                'label' => 'Código de conductor',
+                'label' => 'Código',
             ],
         ]);
 

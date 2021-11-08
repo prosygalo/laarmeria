@@ -1,0 +1,372 @@
+<?php
+$this->doctype();
+$Fecha_Emision =$form->get('Fecha_Emision');
+$Fecha_Emision->setAttribute('readonly', 'readonly');
+
+$Fecha_Emision_Comprobante =$form->get('Fecha_Emision_Comprobante');
+$Fecha_Emision_Comprobante->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
+$Consecutivo_Actual_Establ->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Punto=$form->get('Consecutivo_Actual_Punto');
+$Consecutivo_Actual_Punto->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
+$Consecutivo_Actual_Tipo->setAttribute('readonly', 'readonly');
+
+$Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
+$Consecutivo_Actual_Correlativo->setAttribute('readonly', 'readonly');
+
+$Sucursal=$form->get('Sucursal');
+$Sucursal->setAttribute('disabled', 'disabled');
+
+$Autorizacion_Sar=$form->get('Autorizacion_Sar');
+$Autorizacion_Sar->setAttribute('readonly', 'readonly');
+
+$Nombres_Cliente=$form->get('Nombres_Cliente');
+$Nombres_Cliente->setAttribute('readonly', 'readonly');
+
+$RTN_View=$form->get('RTN_View');
+$RTN_View->setAttribute('readonly', 'readonly');
+
+$Cantidad_Letras=$form->get('Cantidad_Letras');
+$Cantidad_Letras->setAttribute('readonly', 'readonly');
+
+$No_Correlativo=$form->get('No_Correlativo');
+$No_Correlativo->setAttribute('readonly', 'readonly');
+
+
+$Cai_Comprobante=$form->get('Cai_Comprobante');
+$Cai_Comprobante->setAttribute('readonly', 'readonly');
+
+$Motivo=$form->get('Motivo');
+$Motivo->setAttribute('readonly', 'readonly');
+
+$IsvView=$form->get('IsvView');
+
+$GravadoView=$form->get('GravadoView');
+
+$ExentoView = $form->get('ExentoView');
+
+$ExoneradoView=$form->get('ExoneradoView');
+
+$TotalView=$form->get('TotalView');
+
+$Cantidad_Letras=$form->get('Cantidad_Letras');
+
+
+$Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
+$Usuario->setAttribute('readonly', 'readonly');
+
+$form->prepare();
+?>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+      <title>Boleta de compra |La Armería</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+       <style type="text/css">
+          table {
+           width: 100%;
+          }
+          td {
+           text-align: left;
+           vertical-align: top;
+           font-size:x-small;
+          }
+          th{
+            text-align: left;
+            vertical-align: top;
+            font-size:x-small;
+          }
+          label {
+           display: inline-block;
+           max-width: 100%;
+           margin-bottom: 3px;
+           font-size:x-small;
+          }
+
+          input{
+           text-align: center;
+           display: block;
+           width:100%;
+           height: 15px;
+           padding:1px 3px;
+           font-size:x-small;
+           line-height: 1.42857143;
+           color: #000;
+           background-color: #fff;
+           background-image: none;
+           border: 1px solid #ccc;
+           border-radius: 3px;
+          -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+          -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+        .pro{ 
+          padding: .35em .625em .75em;
+          margin: 0 2px;
+          width:100%;
+          border: 1px solid #c0c0c0;
+        }
+
+        .prod{ 
+          padding-top:30px ;
+          margin-left: 200px;
+        }
+        .pro-th{ 
+         background-color: #E6E6FA;
+         width: 100%;
+         height: 16px;
+         text-align: center;
+        }
+        .text-right{
+          text-align: right;
+        }
+        .text-center{
+          text-align: center;
+        }
+        .sizetext{
+          text-align: center;
+          font-size: x-small;        }
+        .
+       </style>
+</head>
+<body>
+<section>
+    <div>
+          <table>
+                <tbody>
+                    <tr>
+                        <td style= "width:30%;"><img src="http://laarmeria/img/logoarmeria.png" style="height:40px; width:100px;display: block;margin-right: auto;margin-left: auto;"></td>
+                        <td style="text-align:center;width:40%">
+                             <strong>FUERZAS ARMADAS DE HONDURAS</strong><br>
+                             <strong>INSTITUTO DE PREVISIÓN MILITAR(IPM)</strong><br>
+                             <strong>LA ARMERIA</strong><br>
+                             <strong>RTN 08019003238214</strong><br>
+                        </td>
+                        <td  style= "width:30%;"><img src="http://laarmeria/img/logoIPM.png" style="height:60px; width:60px;display: block;margin-right:auto;margin-left:60%;"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="pad">
+                <tbody>
+                    <tr>
+                        <td  style="text-align:center;width:40%">
+                          <label>IPM :Colonia Luis landa Blvd Centro America</label><br>
+                          <label>Contiguo a IMPREMA Fco. Morazán, Honduras</label><br>
+                          <label>Tel: 504 2239-1441 meza@grupoipm.hn</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="text-align: center;font-weight: bold">NOTA DE DÉBITO</div>
+            <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th style="text-align: center">No.</th>
+                    <th>Documento</th>
+                    <th>Fiscal</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody><?php foreach ($Cai as $b) : ?>
+                  <tr>
+                      <td style="width:30%"><strong>CAI: <?= $this->escapeHtml($b->Cai) ?></strong></td>
+                      <td style="width:8%"><?= $this->formElement($Consecutivo_Actual_Establ)?></td>
+                      <td style="width:8% "><?= $this->formElement($Consecutivo_Actual_Tipo)?></td>
+                      <td style="width:8%"><?= $this->formElement($Consecutivo_Actual_Punto)?></td>
+                      <td style="width:10%"><?= $this->formElement($Consecutivo_Actual_Correlativo)?></td>
+                      <td style="width:5%"></td>
+                  </tr><?php endforeach;?>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                <?php foreach ($Sar as $a) : ?>
+                    <tr>
+                      <td>Rango Autorizado:<?= $this->escapeHtml($a->Consecutivo_Inicial_Establ."-".$a->Consecutivo_Inicial_Punto."-".$a->Consecutivo_Inicial_Tipo."-".$a->Consecutivo_Inicial_Correlativo)?> al <?= $this->escapeHtml($a->Consecutivo_Final_Establ."-".$a->Consecutivo_Final_Punto."-".$a->Consecutivo_Final_Tipo."-".$a->Consecutivo_Final_Correlativo) ?></td>
+                      
+                     </tr>
+                     <tr>
+                       <td>Fecha límite:<?= $this->escapeHtml($a->Fecha_Limite) ?></td>
+                     </tr>
+                  <?php endforeach; ?>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                  <tr>
+                    <th><?= $this->formlabel($Fecha_Emision)?></th>
+                    <th><?= $this->formLabel($No_Correlativo)?></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="width:30%"><?= $this->formElement($Fecha_Emision)?></td>
+                    <td style="width:70%"><?= $this->formElement($No_Correlativo)?></td>  
+                  </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                  <tr>
+                    <th><?= $this->formlabel($Nombres_Cliente)?></th>
+                    <th><?= $this->formLabel($RTN_View)?></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="width:30%"><?= $this->formElement($Nombres_Cliente)?></td>
+                    <td style="width:70%"><?= $this->formElement($RTN_View)?></td>  
+                  </tr>
+                </tbody>
+            </table>
+             <table>
+                <thead>
+                  <tr>
+                    <th><?= $this->formlabel($Fecha_Emision_Comprobante)?></th>
+                    <th><?= $this->formLabel($Cai_Comprobante)?></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="width:30%"><?= $this->formElement($Fecha_Emision_Comprobante)?></td>
+                    <td style="width:70%"><?= $this->formElement($Cai_Comprobante)?></td>  
+                  </tr>
+                </tbody>
+            </table>
+            <table  class="pro">
+                <thead class="pro-th">
+                  <tr>
+                    <th class="text-center">No.</th>
+                    <th class="text-center">Descripción</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Tipo Importe</th>
+                    <th class ="text-left">Subtotal</th>
+                  </tr>
+                </thead>
+                 <tbody><?php  
+                     $count=1;
+                     $Importe=0;
+                     foreach ($Detalle as $a) : 
+                      ?>
+                    <tr>
+                      <td><?= $count ?></td>
+                      <td class="text-center sizetext"><?= $this->escapeHtml($a->Descripcion) ?></td>
+                      <td class="text-center sizetext"><?= $this->escapeHtml($a->Cantidad)?></td>
+                      <td class="text-right  sizetext">
+                        <?php 
+                        $precio = $this->escapeHtml($a->Precio);
+                        echo number_format($precio, 2, ".", ","); 
+                        ?>  
+                      </td>
+                      <td class="text-center  sizetext"><?= $this->escapeHtml($a->Tipo_Importe)?></td>
+                      <td  class="text-right sizetext">
+                      <?php
+                          $cantidad = $this->escapeHtml($a->Cantidad);
+                          $precio = $this->escapeHtml($a->Precio);
+                          $Importe = $cantidad*$precio;
+                             echo 'L. '. number_format($Importe, 2, ".", ",");
+                      ?>
+                      </td>
+                    </tr><?php 
+                       $count++;   
+                      endforeach; 
+                      ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right"><?= $this->formLabel($GravadoView)?></td>
+                    <td><?= $this->formElement($GravadoView)?></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right"><?= $this->formLabel($ExentoView)?></td>
+                    <td><?= $this->formElement($ExentoView)?></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right"><?= $this->formLabel($ExoneradoView)?></td>
+                    <td><?= $this->formElement($ExoneradoView)?></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right"><?= $this->formLabel($IsvView)?></td>
+                    <td><?= $this->formElement($IsvView)?></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right"><?= $this->formLabel($TotalView)?></td>
+                    <td><?= $this->formElement($TotalView)?></td>
+                  </tr>
+                </tfoot>
+            </table>
+            <?= '<label>CANTIDAD EN:</label>'. $this->formElement($Cantidad_Letras)?>
+            <table>
+                <tbody>
+                  <tr>
+                    <td><?= $this->formLabel($Motivo)?><?= $this->formElement($Motivo)?></td>
+                    
+                  </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                    </tr>
+                </thead>
+                <tbody><?php foreach ($user as $u) : ?>
+                    <tr>
+                      <td><label>COD:<?= $this->escapeHtml($u->Cod_Usuario)?>-<?= $this->escapeHtml($u->Usuario)?></label></td>
+                    </tr><?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>Original: cliente</td>
+                    <td>Copia1: Obligado tributario</td>
+                    <td>Copia2: Archivo</td>
+                    <td>Fecha de impresión:<?= date('y-m-d H:i:s')?></td>
+                  </tr>
+                   <tr>        
+                    <td>Fecha de impresión:<?= date('y-m-d H:i:s')?></td>
+                  </tr>
+                </tfoot>
+
+            </table>
+             <table class="prod">
+               <tr>
+                <td>__________________________________</td>
+              </tr>
+              <tr>
+                <td>Firma y sello</td>
+              </tr>
+            </table>
+        </div>
+     </section>
+  </body>
+</html>

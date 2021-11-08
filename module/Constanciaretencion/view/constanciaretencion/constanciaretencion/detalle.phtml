@@ -1,66 +1,39 @@
 <?php
-$title = 'Guía De Remisión';
+$title = 'Constancia de Retención';
 $this->headTitle($title);
-
 $Fecha_Emision =$form->get('Fecha_Emision');
-$Fecha_Emision->setAttribute('readonly', 'readonly');
-
+$Autorizacion_Sar=$form->get('Autorizacion_Sar');
+$Autorizacion_Sar->setAttribute('readonly', 'readonly');
+$Sucursal=$form->get('Sucursal');
+$Sucursal->setAttribute('disabled', 'disabled');
+$Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
 $Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
-$Consecutivo_Actual_Establ->setAttribute('readonly', 'readonly');
-
 $Consecutivo_Actual_Punto=$form->get('Consecutivo_Actual_Punto');
-$Consecutivo_Actual_Punto->setAttribute('readonly', 'readonly');
-
 $Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
-$Consecutivo_Actual_Tipo->setAttribute('readonly', 'readonly');
-
 $Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
-$Consecutivo_Actual_Correlativo->setAttribute('readonly', 'readonly');
-
-$Motivo_Traslado=$form->get('Motivo_Traslado');
-$Motivo_Traslado->setAttribute('disabled','disabled');
-
-$Num_Transferencia=$form->get('Num_Transferencia');
-$Num_Transferencia->setAttribute('readonly', 'readonly');
-
-$Punto_Partida=$form->get('Punto_Partida');
-$Punto_Partida->setAttribute('disabled', 'disabled');
-
-$Punto_Destino=$form->get('Punto_Destino');
-$Punto_Destino->setAttribute('disabled', 'disabled');
-
-$Autorizacion_Sar=$form->get('Autorizacion_Sar');
-$Autorizacion_Sar->setAttribute('readonly', 'readonly');
-
-$Fecha_Inicio_Traslado=$form->get('Fecha_Inicio_Traslado');
-$Fecha_Inicio_Traslado->setAttribute('readonly', 'readonly');
-
-$Fecha_Final_Traslado=$form->get('Fecha_Final_Traslado');
-$Fecha_Final_Traslado->setAttribute('readonly', 'readonly');
-
-$Sucursal_Destino=$form->get('Sucursal_Destino');
-$Sucursal_Destino->setAttribute('disabled', 'disabled');
-
-$Sucursal_Remitente=$form->get('Sucursal_Remitente');
-$Sucursal_Remitente->setAttribute('disabled', 'disabled');
-
-$Unidad_Transporte=$form->get('Unidad_Transporte');
-$Unidad_Transporte->setAttribute('disabled', 'disabled');
-
-$Conductor=$form->get('Conductor');
-$Conductor->setAttribute('disabled', 'disabled');
-
-$Autorizacion_Sar=$form->get('Autorizacion_Sar');
-$Autorizacion_Sar->setAttribute('readonly', 'readonly');
-
-$Usuario=$form->get('Usuario');
-$Usuario->setAttribute('readonly', 'readonly');
-
-$form->prepare();
-echo $this->form()->openTag($form);
+$Tipo_Retencion=$form->get('Tipo_Retencion');
+$Tipo_Retencion->setAttribute('disabled', 'disabled');
+$Base_Gravable_Impuesto=$form->get('Base_Gravable_Impuesto');
+$Base_Gravable_Impuesto->setAttribute('readonly', 'readonly');
+$Importe_Retencion=$form->get('Importe_Retencion');
+$Importe_Retencion->setAttribute('readonly', 'readonly');
+$Proveedor=$form->get('Proveedor');
+$Proveedor->setAttribute('disabled', 'disabled');
+$Direccion_Proveedor=$form->get('Direccion_Proveedor');
+$Direccion_Proveedor->setAttribute('disabled', 'disabled');
+$Documento_Retencion=$form->get('Documento_Retencion');
+$Documento_Retencion->setAttribute('readonly', 'readonly');
+$No_Correlativo=$form->get('No_Correlativo');
+$No_Correlativo->setAttribute('readonly', 'readonly');
+$RTN_Proveedor=$form->get('RTN_Proveedor');
+$RTN_Proveedor->setAttribute('disabled', 'disabled');
+$Cai_Documento=$form->get('Cai_Documento');
+$Cai_Documento->setAttribute('readonly', 'readonly');
+$Descripcion_Tributo_Retenido=$form->get('Descripcion_Tributo_Retenido');
+$Descripcion_Tributo_Retenido->setAttribute('readonly', 'readonly');
 ?>
 <section>
-    <div class="container-fluid">
+    <div class="container">
           <div class="container">
             <table>
                 <tbody>
@@ -70,8 +43,6 @@ echo $this->form()->openTag($form);
                           <strong>FUERZAS ARMADAS DE HONDURAS</strong><br>
                           <strong>INSTITUTO DE PREVISIÓN MILITAR(IPM)</strong><br>
                           <strong>LA ARMERIA</strong><br>
-                          <strong>RTN 08019003238214</strong><br>
-                          <strong>LA ARMERIA AEROPUERTO</strong><br>
                         </td>
                          <td  style= "width:35%;"><img src="<?= $this->basePath('img/logoIPM.png') ?>" class="img-responsive" style="height:20%; width:20%;display: block;margin-right: auto;margin-left:80%;"></td>
                     </tr>
@@ -95,7 +66,6 @@ echo $this->form()->openTag($form);
                     </tr>
                 </tbody>
             </table><br>
-                <h5 style="text-align: center;font-weight: bold">Guía De Remisión</h5>
             <table>
                 <thead>
                   <tr>
@@ -105,126 +75,164 @@ echo $this->form()->openTag($form);
                     <th>Fiscal</th>
                     <th></th>
                     <th></th>
-                    <th>Fecha de emision</th>
                   </tr>
                 </thead>
                 <tbody><?php foreach ($Cai as $b) : ?>
                   <tr>
-                      <td style="width:30%"><strong>CAI:<?= $this->escapeHtml($b->Cai) ?></strong></td>
-                      <td style="width:8%"><?= $this->formElement($Consecutivo_Actual_Establ)?></td>
-                      <td style="width:8% "><?= $this->formElement($Consecutivo_Actual_Tipo)?></td>
-                      <td style="width:8%"><?= $this->formElement($Consecutivo_Actual_Punto)?></td>
-                      <td style="width:10%"><?= $this->formElement($Consecutivo_Actual_Correlativo)?></td>
-                      <td style="width:5%"></td>
-                      <td style="width:15%"><?= $this->formElement($Fecha_Emision)?></td>
+                      <td width ="40%"><strong>CAI:<?= $this->escapeHtml($b->Cai) ?></strong></td>
+                      <td width ="10%"><?= $this->formElement($Consecutivo_Actual_Establ)?></td>
+                      <td width ="10%"><?= $this->formElement($Consecutivo_Actual_Tipo)?></td>
+                      <td width ="10%"><?= $this->formElement($Consecutivo_Actual_Punto)?></td>
+                      <td width ="10%"><?= $this->formElement($Consecutivo_Actual_Correlativo)?></td>
                   </tr><?php endforeach;?>
                 </tbody>
             </table><br>
-                 <h5>Información de sucursales</h5>
-                <div class="row">
-                  <div class="col-md-6">
-                        <div class="form-group">
-                            <?= "<label>Remitente</label>" ?>
-                            <?= $this->formElement($Sucursal_Remitente) ?>
-                            <?= $this->formElementErrors()->render($Sucursal_Remitente, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <?= "<label>Destinatario</label>"?>
-                            <?= $this->formElement($Sucursal_Destino) ?>
-                            <?= $this->formElementErrors()->render($Sucursal_Destino, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
+             <h5 style="text-align: center;font-weight: bold">CONSTANCIA DE RETENCIÓN</h5>
+                <p>
+                  Por medio de la presente hago constar que el Instituto de Previsión Militar(I.P.M), a través de la dependencia LA ARMERIA, con RTN: 080119003238214, designado como Agente de Retención y en cumplimiento al Artículo 50 de la ley del Impuesto sobre la Renta y Acuerdo No. DEI-217-2010, ha realizado la retención  que acontinuación se detalla.
+                 </p>
+               <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <?= $this->formLabel($Proveedor) ?>
+                  </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <?= $this->formLabel($Punto_Partida) ?>
-                            <?= $this->formElement($Punto_Partida) ?>
-                            <?= $this->formElementErrors()->render($Punto_Partida, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                       <?= $this->formElement($Proveedor) ?>
+                  </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <?= $this->formLabel($Punto_Destino) ?>
-                            <?= $this->formElement($Punto_Destino) ?>
-                            <?= $this->formElementErrors()->render($Punto_Destino, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                </div><br>
-                <h5>Información adicional</h5>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <?= $this->formLabel($Unidad_Transporte) ?>
-                            <?= $this->formElement($Unidad_Transporte) ?>
-                            <?= $this->formElementErrors()->render($Unidad_Transporte, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <?= $this->formLabel($Conductor) ?>
-                            <?= $this->formElement($Conductor) ?>
-                            <?= $this->formElementErrors()->render($Conductor, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <?= $this->formLabel($Motivo_Traslado) ?><br>
-                            <?= $this->formElement($Motivo_Traslado) ?>
-                            <?= $this->formElementErrors()->render($Motivo_Traslado, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                </div><br>
-                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <?= $this->formLabel($Fecha_Inicio_Traslado) ?>
-                            <?= $this->formElement($Fecha_Inicio_Traslado) ?>
-                            <?= $this->formElementErrors()->render($Fecha_Inicio_Traslado, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <?= $this->formLabel($Fecha_Final_Traslado) ?>
-                            <?= $this->formElement($Fecha_Final_Traslado) ?>
-                            <?= $this->formElementErrors()->render($Fecha_Final_Traslado, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <?= $this->formLabel($Num_Transferencia) ?>
-                            <?= $this->formElement($Num_Transferencia) ?>
-                            <?= $this->formElementErrors()->render($Num_Transferencia, ['class' => 'help-inline  text-danger']) ?>
-                        </div>
-                    </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <?= $this->formLabel($RTN_Proveedor) ?>
+                   </div>
                 </div>
-                <h5>Listado de producto</h5>
-                <table  class="table table-bordered">
-                <thead style="background-color:#E6E6FA">
-                  <tr>
-                    <th>No.</th>
-                    <th>Código  producto</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                  </tr>
-                </thead>
-                <tbody><?php  $count=1;
-                     foreach ($Detalle as $a) : 
-                      ?>
-                    <tr>
-                      <td><?= $count ?></td>
-                      <td><?= $this->escapeHtml($a->Cod_Producto) ?></td>
-                      <td><?= $this->escapeHtml($a->Nombre_Producto) ?></td>
-                      <td><?= $this->escapeHtml($a->Cantidad) ?></td>
-                     </tr><?php  $count++;
-                      endforeach; 
-                      ?>
-                </tbody>
-            </table>
+                <div class="col-md-9">
+                  <div class="form-group">
+                      <?= $this->formElement($RTN_Proveedor) ?>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                     <?= $this->formLabel($Direccion_Proveedor) ?>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                     <?= $this->formElement($Direccion_Proveedor) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                     <?= $this->formLabel($Tipo_Retencion) ?><br>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                      <?= $this->formElement($Tipo_Retencion) ?>
+                </div>
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                     <?= $this->formLabel($Base_Gravable_Impuesto) ?><br>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                    <?= $this->formElement($Base_Gravable_Impuesto) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <?= $this->formLabel($Importe_Retencion) ?>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                     <?= $this->formElement($Importe_Retencion) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <?= $this->formLabel($Documento_Retencion) ?>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                   <?= $this->formElement($Documento_Retencion) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                   <?= $this->formLabel($No_Correlativo) ?>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                   <?= $this->formElement($No_Correlativo) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                   <?= $this->formLabel($Cai_Documento) ?>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                  <?= $this->formElement($Cai_Documento) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <?= $this->formLabel($Descripcion_Tributo_Retenido) ?>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                   <?= $this->formElement($Descripcion_Tributo_Retenido) ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <?= $this->formLabel($Fecha_Emision) ?>
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="form-group">
+                   <?= $this->formElement($Fecha_Emision) ?>
+                  </div>
+                </div>
+              </div>
+                  <p>
+              Para los fines que estime conveniente el interesado, se extiende la presente :
+            </p>
+            <p>
+             a los <?php
+              setlocale(LC_TIME, "spanish");
+              echo strftime("%d días del mes de %B" );
+              ?> del año 2021.
+            </p>
             <table width="100%">
                 <tbody>
                 <?php foreach ($Sar as $a) : ?>
@@ -237,41 +245,31 @@ echo $this->form()->openTag($form);
                 </tbody>
             </table>
             <table>
-                <tbody><?php foreach ($Lic as $u) : ?>
-                    <tr>
-                      <td><label>Licencia de conducir:<?= $this->escapeHtml($u->Licencia_Conducir)?></label></td>
-                    </tr><?php endforeach; ?>
-                </tbody>
-            </table>
-            <table width="100%">
-                <thead>
-                    <tr>
-                        <th><?= '<label>Entregado por:</label>' ?></th>
-                        <th><?= '<label>Recibido por:</label>' ?></th>
-                        <th>Usuario</th>
-                    </tr>
-                </thead>
                 <tbody><?php foreach ($user as $u) : ?>
                     <tr>
-                      <td><label>_______________________</label></td>
-                      <td><label>_______________________</label></td>
-                      <td><label>COD:<?= $this->escapeHtml($u->Cod_Usuario)?>-<?= $this->escapeHtml($u->Usuario)?></label></td>
+                      <td>
+                        <label>user:<?= $this->escapeHtml($u->Cod_Usuario)?>-<?= $this->escapeHtml($u->Usuario)?></label>
+                      </td>
                     </tr><?php endforeach; ?>
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td>Original: Destinatario</td>
-                    <td>Copia: Remitente</td>
-                    <td>Copia: Administración tributaria</td>
+                    <td>Original: Cliente</td>
+                  </tr>
+                  <tr>
+                    <td>Copia1: Obligado Tributario Emisor</td>
+                  </tr>
+                  <tr>
+                    <td>Copia2: Contabilidad</td>
                   </tr>
                 </tfoot>
-            </table><br>
+            </table>
             <table width="100%">
                 <tbody> 
                     <tr>
                       <td></td>
                       <td width="30%">
-                        <a type="button"  target="_blank" class="btn btn-danger btn-md btn-block"  href="<?= $this->url('boletasremision/pdf',['Cod_Boleta'=>$Cod_Boleta])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>
+                        <a type="button"  target="_blank" class="btn btn-danger btn-md btn-block"  href="<?= $this->url('constanciaretencion/pdf',['Cod_Constancia'=>$Cod_Constancia])?>"><i class="fa fa-file-pdf-o"></i>PDF</a>
                       </td>
                       <td></td>
                     </tr>
@@ -280,3 +278,4 @@ echo $this->form()->openTag($form);
          </div>
     </div>
 </section>
+<script>

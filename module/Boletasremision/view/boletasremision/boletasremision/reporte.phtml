@@ -106,7 +106,7 @@ $Usuario->setAttribute('readonly', 'readonly');
         select{
            display: block;
            width: 100%;
-           height: 16px;
+           height: 18px;
            padding: 1px 3px;
            text-align: center;
            font-size:xx-small;
@@ -122,11 +122,16 @@ $Usuario->setAttribute('readonly', 'readonly');
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
         }
          
-        .pro{ 
-          padding: .35em .625em .75em;
-          margin: 0 2px;
+        .table{ 
           width:100%;
           border: 1px solid #c0c0c0;
+        }
+        .pro-th{ 
+         background-color: #E6E6FA;
+         text-align: center;
+        }
+         .text-center{
+          text-align: center;
         }
        </style>
 </head>
@@ -142,7 +147,6 @@ $Usuario->setAttribute('readonly', 'readonly');
                              <strong>INSTITUTO DE PREVISIÓN MILITAR(IPM)</strong><br>
                              <strong>LA ARMERIA</strong><br>
                              <strong>RTN 08019003238214</strong><br>
-                             <strong>LA ARMERIA AEROPUERTO</strong><br>
                         </td>
                         <td  style= "width:30%;"><img src="http://laarmeria/img/logoIPM.png" style="height:60px; width:60px;display: block;margin-right:auto;margin-left:60%;"></td>
                     </tr>
@@ -176,7 +180,7 @@ $Usuario->setAttribute('readonly', 'readonly');
                     <th>Fiscal</th>
                     <th></th>
                     <th></th>
-                    <th>Fecha de emision</th>
+                    <th>Fecha de emisi&oacute;n</th>
                   </tr>
                 </thead>
                 <tbody><?php foreach ($Cai as $b) : ?>
@@ -252,8 +256,8 @@ $Usuario->setAttribute('readonly', 'readonly');
                   </tr>
                 </tbody>
             </table>
-		        <table  class="pro">
-                <thead>
+		        <table class="table">
+                <thead class="pro-th">
                   <tr>
                     <th style="text-align:center;">No.</th>
                     <th style="text-align:center;">Código  producto</th>
@@ -297,29 +301,29 @@ $Usuario->setAttribute('readonly', 'readonly');
             <table>
                 <tbody><?php foreach ($Lic as $j) : ?>
                     <tr>
-                      <td><label>Licencia de conducir:<?= $this->escapeHtml($j->Licencia_Conducir)?></label></td>
+                      <td>Licencia de conducir:<?= $this->escapeHtml($j->Licencia_Conducir)?></td>
                     </tr><?php endforeach; ?>
                 </tbody>
             </table>
             <table>
-                <thead>
-                    <tr>
-                        <th><?= '<label>Entregado por:</label>' ?></th>
-                        <th><?= '<label>Recibido por:</label>' ?></th>
-                        <th>Usuario</th>
-                    </tr>
-                </thead>
                 <tbody><?php foreach ($user as $u) : ?>
                     <tr>
-                      <td><label>_______________________</label></td>
-                      <td><label>_______________________</label></td>
-                      <td><label>COD:<?= $this->escapeHtml($u->Cod_Usuario)?>-<?= $this->escapeHtml($u->Usuario)?></label></td>
+                      <td>Usuario COD:<?= $this->escapeHtml($u->Cod_Usuario)?>-<?= $this->escapeHtml($u->Usuario)?></td>
                     </tr><?php endforeach; ?>
                 </tbody>
                 <tfoot>
+                   <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center">_________________________________</td>
+                  </tr>
+                  <tr>
                     <td>Original: Destinatario</td>
                     <td>Copia: Remitente</td>
                     <td>Copia: Administración tributaria</td>
+                    <td class="text-center">Firma</td>
+                  </tr>
                 </tfoot>
             </table>
         </div>

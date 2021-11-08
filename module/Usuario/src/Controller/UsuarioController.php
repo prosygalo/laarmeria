@@ -59,16 +59,16 @@ class UsuarioController extends AbstractActionController
         $form = new RegistroForm();
         $form->get('submit')->setValue('Crear usuario administrador');
         
-        //Comprueba la existencia de usuarios en la base de datos
+        //Comprueba la existencia de usuarios en la base de datos 
         
         //Datos estáticos
-        $form->get('Cod_Empleado')->setValue('ADMIN1');
-        $form->get('Departamento')->setValueOptions(['D23'=>'Tecnología']);
-        $form->get('Sucursal')->setValueOptions(['Sucursal1'=>'Sucursal1']);
-        $form->get('Correo')->setValue('admin@example.com');
+        $form->get('Cod_Empleado')->setValue('Superadmin');
+        $form->get('Departamento')->setValueOptions(['Tecnologia'=>'Tecnologia']);
+        $form->get('Sucursal')->setValueOptions(['CasaPrincipal'=>'CasaPrincipal']);
+        $form->get('Correo')->setValue('superadmin@laarmeria.hn');
         $form->get('ClaveView')->setValue('Secur1ty');
-        $form->get('Usuario')->setValue('Admin');
-        $form->get('Rol')->setValueOptions(['Admin'=>'Admin']);
+        $form->get('Usuario')->setValue('Superadmin');
+        $form->get('Rol')->setValueOptions(['Superadmin'=>'Superadmin']);
         $form->get('Estado')->setValueOptions(['Activo'=>'Activo']);
 
         //Encriptación de contraseña
@@ -82,13 +82,13 @@ class UsuarioController extends AbstractActionController
           
         //Enviar al tablegateway
         $data = [
-            'Cod_Empleado'=>'ADMIN1',
-            'Departamento'=>'D23',
-            'Sucursal'=>'Sucursal1',
-            'Correo'=>'admin@example.com',
-            'Usuario'=>'Admin',
+            'Cod_Empleado'=>'Superadmin',
+            'Departamento'=>'Tecnologia',
+            'Sucursal'=>'CasaPrincipal',
+            'Correo'=>'superadmin@laarmeria.hn',
+            'Usuario'=>'Superadmin',
             'Clave'=>$Clavesegura,
-            'Rol'=>'Admin',
+            'Rol'=>'Superadmin',
             'Estado'=>'Activo',
         ];
         $this->UsuarioTable->insertUserAdmin($data);

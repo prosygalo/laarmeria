@@ -1,12 +1,12 @@
 <?php
-$title = 'Listado de sucursales';
+$title = 'Sucursales';
 $this->headTitle($title);
 ?>
 <div class="container-fluid">
   <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
     <p><a class="btn btn-outline-info float-right"  role="button"  href="<?= $this->url('sucursal/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a></p>
-      <table class="table table-hover"  id="example"  style="width:100%">
-          <thead style="background-color:brown;color:white;">
+      <table class="table table-hover"    id="example"  style="width:100%">
+          <thead class="thead-light" >
             <tr>
               <th>c&oacute;digo de sucursal</th>
               <th>Nombre  Sucursal</th>

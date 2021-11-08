@@ -56,18 +56,8 @@ class ProveedorForm extends Form
                 'label' => 'RTN',
             ],
         ]);
-         
-         $this->add([
-            'name' => 'Cai_Proveedor',
-            'type' => 'text',
-            'options' => [
-                'label' => 'C.A.I',
-            ],
-        ]);
-         
-         
-       
-        
+     
+     
          $this->add([
             'name' => 'submit',
             'type' => 'submit',

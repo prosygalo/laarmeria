@@ -1,0 +1,402 @@
+<?php
+$title = 'Agregar Nota de Débito';
+$this->headTitle($title);
+$Fecha_Emision =$form->get('Fecha_Emision');
+$Fecha_Emision_Comprobante =$form->get('Fecha_Emision_Comprobante');
+$Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
+$Consecutivo_Actual_Punto=$form->get('Consecutivo_Actual_Punto');
+$Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
+$Consecutivo_Actual_Correlativo=$form->get('Consecutivo_Actual_Correlativo');
+$Sucursal=$form->get('Sucursal');
+$Sucursal->setAttribute('readonly', 'readonly');
+$Autorizacion_Sar=$form->get('Autorizacion_Sar');
+$Autorizacion_Sar->setAttribute('readonly', 'readonly');
+$Cliente=$form->get('Cliente');
+$RTN_DNI=$form->get('RTN_DNI');
+$No_Correlativo=$form->get('No_Correlativo');
+$No_Correlativo->setAttribute('placeholder', '000-000-00-00000000');
+$Cai_Comprobante=$form->get('Cai_Comprobante');
+$Cai_Comprobante->setAttribute('placeholder', '6E7C83-81B02E-9E47B7-BB1747-32EAAE-47');
+$Motivo=$form->get('Motivo');
+$productos=$form->get('productos');
+$Total=$form->get('Total');
+$Gravado=$form->get('Gravado');
+$Exento=$form->get('Exento');
+$Exonerado=$form->get('Exonerado');
+$Isv=$form->get('Isv');
+$Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
+$Agregar=$form->get('Agregar');
+$Cancelar=$form->get('Cancelar');
+$submit=$form->get('submit');
+$form->prepare();
+?>
+<section id="cover">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center"><i class="fa fa-file fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+            </div>
+            <div class="card-body">
+                <?= $this->form()->openTag($form)?>
+                <strong>Documento Fiscal No.</strong>
+                <div class="row">
+                      <div class="col-md-1">
+                          <div class="form-group">
+                            <?= $this->formLabel($Consecutivo_Actual_Establ) ?>
+                            <?= $this->formElement($Consecutivo_Actual_Establ) ?>
+                            <?= $this->formElementErrors()->render($Consecutivo_Actual_Establ, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                      </div>
+                      <div class="col-md-1">
+                          <div class="form-group">
+                            <?= $this->formLabel($Consecutivo_Actual_Punto) ?>
+                            <?= $this->formElement($Consecutivo_Actual_Punto) ?>
+                            <?= $this->formElementErrors()->render($Consecutivo_Actual_Punto, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                      </div>
+                      <div class="col-md-1">
+                          <div class="form-group">
+                            <?= $this->formLabel($Consecutivo_Actual_Tipo) ?>
+                            <?= $this->formElement($Consecutivo_Actual_Tipo) ?>
+                            <?= $this->formElementErrors()->render($Consecutivo_Actual_Tipo, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                      </div>
+                      <div class="col-md-2">
+                          <div class="form-group">
+                            <?= $this->formLabel($Consecutivo_Actual_Correlativo) ?>
+                            <?= $this->formElement($Consecutivo_Actual_Correlativo) ?>
+                            <?= $this->formElementErrors()->render($Consecutivo_Actual_Correlativo, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                      </div>
+                </div><br>
+                 <strong>Información de cliente</strong>
+                <div class="row" style="background-color:#F5F5F5">
+                   <div class="col-md-5">
+                        <div class="form-group">
+                            <?= $this->formLabel($RTN_DNI) ?>
+                            <?= $this->formElement($RTN_DNI) ?>
+                            <?= $this->formElementErrors()->render($RTN_DNI, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                  <div class="col-md-7">
+                        <div class="form-group">
+                            <?= $this->formLabel($Cliente) ?>
+                            <?= $this->formElement($Cliente) ?>
+                            <?= $this->formElementErrors()->render($Cliente, ['class' => 'help-inline  text-danger']) ?>
+                           
+                        </div>
+                    </div>
+                </div><br>
+                <strong>Datos adicionales</strong>
+                <div class="row" style="background-color:#F5F5F5">
+                   <div class="col-md-4">
+                       <div class="form-group">
+                            <?= $this->formLabel($Cai_Comprobante) ?>
+                            <?= $this->formElement($Cai_Comprobante) ?>
+                            <?= $this->formElementErrors()->render($Cai_Comprobante, ['class' => 'help-inline  text-danger']) ?>
+                           
+                        </div>
+                    </div>
+                  <div class="col-md-4">
+                         <div class="form-group">
+                            <?= $this->formLabel($Fecha_Emision_Comprobante) ?>
+                            <?= $this->formElement($Fecha_Emision_Comprobante) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Emision_Comprobante, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <?= $this->formLabel($No_Correlativo) ?>
+                            <?= $this->formElement($No_Correlativo) ?>
+                            <?= $this->formElementErrors()->render($No_Correlativo, ['class' => 'help-inline  text-danger']) ?>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="row"  style="background-color:#F5F5F5">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <?= $this->formLabel($Usuario) ?>
+                            <?= $this->formElement($Usuario) ?>
+                            <?= $this->formElementErrors()->render($Usuario, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Sucursal) ?>
+                            <?= $this->formElement($Sucursal) ?>
+                            <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                     <div class="col-md-3">
+                        <div class="form-group">
+                            <?= $this->formLabel($Autorizacion_Sar) ?>
+                            <?= $this->formElement($Autorizacion_Sar) ?>
+                            <?= $this->formElementErrors()->render($Autorizacion_Sar, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                    </div>
+                     <div class="col-md-4">
+                          <div class="form-group">
+                            <?= $this->formLabel($Fecha_Emision) ?>
+                            <?= $this->formElement($Fecha_Emision) ?>
+                            <?= $this->formElementErrors()->render($Fecha_Emision, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                      </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                          <div class="form-group">
+                            <?= $this->formLabel($Motivo) ?>
+                            <?= $this->formElement($Motivo) ?>
+                            <?= $this->formElementErrors()->render($Motivo, ['class' => 'help-inline  text-danger']) ?>
+                          </div>
+                    </div>
+                </div>
+                <strong>Lista de productos</strong> 
+                <div class="row">         
+                    <div class="col-md-12">
+                        <table id="TablaPro" class="table">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <th>Descripci&oacute;n</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th>Tipo Importe</th>
+                                    <th>Subtotal</th>
+                                    <th>Acci&oacute;n</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ProSelected">
+                              <!--Ingreso al tbody-->
+                                <tr>
+                    
+                                </tr>
+                                <tr>
+                                    <td><span id="Cantidad"></span></td>
+                                    <td><span id="Precio"></span></td>
+                                    <td><span id="Subtotal"></span></td>
+                                 </tr>
+                            </tbody>
+                            <tfoot  class="text-right">
+                              <tr></tr>
+                              <tr>
+                                <td></td>
+                                <td>Importe Gravado</td>
+                                <td>Importe Exento</td>
+                                <td>Importe Exonerado</td>
+                                <td>15% I.S.V.</td>
+                                <td>Total</td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td></td>
+                                <td><span id="gravado">0</span>
+                                    <?= $this->formHidden($form->get('Gravado'))?>
+                                </td>
+                                <td><span id="exento">0</span>
+                                    <?= $this->formHidden($form->get('Exento'))?>
+                                </td>
+                                <td><span id="exonerado">0</span>
+                                    <?= $this->formHidden($form->get('Exonerado'))?>
+                                </td>
+                                <td><span id="isv">0</span>
+                                    <?= $this->formHidden($form->get('Isv'))?>
+                                </td>
+                                <td><span id="total">0</span>
+                                    <?= $this->formHidden($form->get('Total'))?>
+                                </td>
+                                <td></td>
+                              </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <!-- cancelar-->
+                        <?= $this->formButton($Agregar)?>
+                            <span id="limit" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!--cancelar-->
+                        <div class="form-group">
+                        <?= $this->formButton($Cancelar)?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <!-- guardado-->
+                        <?php
+                            echo  $this->formSubmit($submit);
+                            echo  $this->formHidden($form->get('Cod_Nota'));
+                        ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <?=  $this->form()->closeTag()?> 
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+  $( document ).ready(function(){           
+    $('#Fecha_Emision_Comprobante').datepicker({
+      iconsLibrary: 'fontawesome',
+      footer: true,
+      modal: true,
+      format: 'yyyy-mm-dd',
+      //locale: 'es-es'
+      });
+     $('#RTN_DNI').focus();
+  });
+  function cancelar(){
+     window.location.href="<?= $this->url('home')?>";
+   }
+   $(function(){
+       $('#RTN_DNI').change(function(){
+         var RTN_DNI = $(this).val();
+         if(RTN_DNI){
+            $.ajax({
+             type: "GET",
+             url: "/notadebito/cliente/" + $(this).val(),
+             async: true,
+             dataType: "json",
+             beforeSend: function(x) {
+                if(x && x.overrideMimeType) {
+                   x.overrideMimeType("application/j-son;charset=UTF-8");
+                }
+             },
+             success: function(data){
+                var Nom_Cli = '';
+                   for (var i = 0; i < data.length; i++) {
+                    Nom_Cli += '<option value="' + data[i].Cod_Cliente + '">' + data[i].Nombres_Cliente +' '+ data[i].Apellidos_Cliente + '</option>';
+                   }
+                   $('#Cliente').html(Nom_Cli);
+            }
+        });
+      }else{
+           $('#Cliente').html('<option value>Seleccione RTN</option>');
+      }});
+    });
+  function RefrescaProducto(){
+    var ip = [];
+    var i = 0;
+    $('.contadorfilas').each(function(index, element){
+      i++;
+      ip.push({
+          id_pro: $(this).val()
+        });
+      });
+    if(i != ''){
+      $('#submit').removeAttr('disabled', 'disabled');
+    }else{
+      $('#submit').attr('disabled', 'disabled');
+    }
+    if(i == 12){
+      $('.blo').attr('disabled', 'disabled');
+    }
+    if(i <  12){
+      $('.blo').removeAttr('disabled', 'disabled');
+       
+      }
+    }
+
+  function agregarProducto(){
+         var text = $('#pro_id').find(':selected').text(); 
+         var Producto = $('#pro_id').find(':selected').val();
+          
+            var newtr = '<tr class="item" data-id="">';//Obtengo en el tr el Id
+            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" required ></td><td><input class="form-control text-center Cantidad" maxlength="4"  type="text" id="Cantidad[]" name="Cantidad[]" value ="1" onkeypress="return int(event)"   onChange="Calcular(this);" required/></td><td><input class="form-control text-right Precio" maxlength="10"  type="text" id="Precio[]" name="Precio[]" value ="0" onChange="Calcular(this);" required /></td><td><select class="form-control" name="Tipo_Importe[]" id="Tipo_Importe[]"><option>E</option><option>G</option></select></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0"  onChange="Calcular(this);" required onFocus="this.blur()" readonly/></td>';
+            newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
+            $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
+
+              RefrescaProducto(); //Refresco Productos
+                
+      
+            $('.remove-item').off().click(function(e){
+                var total = document.getElementById("total");
+                total.innerHTML = parseFloat(total.innerHTML) - parseFloat(this.parentNode.parentNode.childNodes[3].childNodes[0].value);
+                $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
+                if ($('#ProSelected tr').length == 0)
+                $('#ProSelected .no-item').slideDown(300);
+
+                RefrescaProducto();
+               
+                Calcular(e.target);
+                });
+
+                $('.contadorfilas').off().change(function(e){
+                RefrescaProducto();
+            
+              });
+    
+          }
+          
+          function Calcular(ele){
+            var cantidad = 0, precio = 0, Subtotal = 0;
+            var tr = ele.parentNode.parentNode;
+            var nodes = tr.childNodes;
+        
+            for (var x = 0; x < nodes.length; x++) {
+                
+                if (nodes[x].firstChild.id == 'Cantidad[]'){
+                    cantidad = parseFloat(nodes[x].firstChild.value,10);
+                }
+                if (nodes[x].firstChild.id == 'Precio[]'){
+                    precio = parseFloat(nodes[x].firstChild.value,10);
+                }
+               if (nodes[x].firstChild.id == 'Subtotal[]'){
+                    anterior = nodes[x].firstChild.value;
+                    Subtotal = parseFloat((precio * cantidad),10);
+                    nodes[x].firstChild.value = Subtotal;
+                }        
+            }
+            var total = document.getElementById("total");
+            total.innerHTML = (parseFloat(total.innerHTML)+ Subtotal - anterior).toFixed(2);
+            var to = document.querySelector('#total').innerText;
+            var input_to = document.querySelector('input[name="Total"]');
+             input_to.value = to;
+            
+            var isv = document.getElementById("isv");
+            isv.innerHTML = ((parseFloat(total.innerHTML)/1.15) * 0.15).toFixed(2);
+            var is = document.querySelector('#isv').innerText;
+            var input_is = document.querySelector('input[name="Isv"]');
+             input_is.value = is;
+ 
+            var gravado= document.getElementById("gravado");
+            gravado.innerHTML = (parseFloat(total.innerHTML)/1.15).toFixed(2);
+            var gra = document.querySelector('#gravado').innerText;
+            var input_gra = document.querySelector('input[name="Gravado"]');
+            input_gra.value = gra;
+
+            var exento = document.getElementById("exento");
+            exento.innerHTML = (parseFloat(total.innerHTML) - parseFloat(isv.innerHTML) - parseFloat(gravado.innerHTML)).toFixed(2);
+            var exe = document.querySelector('#exento').innerText;
+            var input_exe = document.querySelector('input[name="Exento"]');
+            input_exe.value = exe;
+
+            
+            var exonerado = document.getElementById("exonerado");
+            exonerado.innerHTML = (parseFloat(exonerado.innerHTML)+ 0).toFixed(2);
+            var exo = document.querySelector('#exonerado').innerText;
+            var input_exo = document.querySelector('input[name="Exonerado"]');
+            input_exo.value = exo;
+          }
+          
+          function int(e){
+          tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla==8){
+               return true;
+             }
+            patron =/^[0-9]+$/;
+            tecla_final = String.fromCharCode(tecla);
+               return patron.test(tecla_final);
+           }
+          /* function generalIsv(){
+
+           }   */   
+
+</script>

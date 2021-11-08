@@ -10,6 +10,7 @@ use Zend\Validator\StringLength;
 use Zend\Validator\Regex;
 use Zend\Validator\Db\NoRecordExists;
 use Zend\Db\Adapter\Adapter;
+use Zend\I18n\Validator\IsFloat;
 
 
 class ProductoEditFilter  extends InputFilter   
@@ -113,6 +114,38 @@ class ProductoEditFilter  extends InputFilter
                        'messages'=>[
                         // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
                         \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+        
+        $this->add([
+            'name' => 'Precio',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 5,
+                        'max' =>10,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'Precio es  incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Precio debe tener mínimo 4 dígitos',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Precio debe tener máximo 8 dígitos y dos decimales',
+                        ]
+                    ],
+                ],
+                 ['name' => IsFloat::class,
+                     'options' => [
+                       'messages'=>[
+                        \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
+                        \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se proporcionó un tipo no válido. Se espera entero o decimal',
             
                       ],
                     ],

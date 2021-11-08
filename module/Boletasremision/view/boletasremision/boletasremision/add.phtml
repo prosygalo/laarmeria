@@ -1,5 +1,5 @@
 <?php
-$title = 'Agregar Guía De Remisión';
+$title = 'AGREGAR GUÍA DE REMISIÓN';
 $this->headTitle($title);
 $Fecha_Emision =$form->get('Fecha_Emision');
 $Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
@@ -10,6 +10,7 @@ $Motivo_Traslado=$form->get('Motivo_Traslado');
 $Num_Transferencia=$form->get('Num_Transferencia');
 $Punto_Partida=$form->get('Punto_Partida');
 $Punto_Destino=$form->get('Punto_Destino');
+$Punto_Destino->setAttribute('readonly', 'readonly');
 $Fecha_Inicio_Traslado=$form->get('Fecha_Inicio_Traslado');
 $Fecha_Inicio_Traslado->setAttribute('placeholder','yyyy-mm-dd');
 $Fecha_Final_Traslado=$form->get('Fecha_Final_Traslado');
@@ -29,11 +30,14 @@ $submit=$form->get('submit');
 $form->prepare();
 ?>
 <section id="cover">
-    <div id="cover-caption">
-        <div id="container" class="container">                                              
-            <h4 class="text-center"><i class="fa fa-id-card fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title text-center"><i class="fa fa-file fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h5>
+            </div>
+            <div class="card-body"> 
                 <?= $this->form()->openTag($form)?>
-                <h5>Documento fiscal</h5>
+                <strong>Documento Fiscal No.</strong>
                 <div class="row" style="background-color:#E6E6FA">
                       <div class="col-md-1">
                           <div class="form-group">
@@ -78,7 +82,7 @@ $form->prepare();
                           </div>
                       </div>
                 </div><br>
-                 <h5>Información de sucursales</h5>
+                 <strong>Información de sucursales</strong>
                 <div class="row" style="background-color:#F5F5F5">
                   <div class="col-md-3">
                         <div class="form-group">
@@ -111,7 +115,7 @@ $form->prepare();
                         </div>
                     </div>
                 </div><br>
-                <h5>Información adicional</h5>
+                <strong>Información adicional</strong>
                 <div class="row" style="background-color:#F5F5F5">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -165,7 +169,7 @@ $form->prepare();
                         </div>
                     </div>
                 </div>
-                <h5>Lista de productos</h5> 
+                <strong>Lista de productos</strong> 
                 <div class="row" style="background-color:#E6E6FA">          
                     <div class="col-md-12">
                         <table id="TablaPro" class="table">
@@ -213,6 +217,7 @@ $form->prepare();
                 </div>
               <?=  $this->form()->closeTag()?> 
           </div>
+      </div>
     </div>
 </section>
     <!-- Large modal -->
@@ -245,14 +250,14 @@ $form->prepare();
       footer: true,
       modal: true,
       format: 'yyyy-mm-dd',
-         //locale: 'es-es'
+      //locale: 'es-es'
       });
     $('#Fecha_Final_Traslado').datepicker({
       iconsLibrary: 'fontawesome',
       footer: true,
       modal: true,
       format: 'yyyy-mm-dd',
-         //locale: 'es-es'
+      //locale: 'es-es',
       });
   });
 
@@ -290,7 +295,7 @@ $form->prepare();
     var text = $('#pro_id').find(':selected').text(); 
     var Cod_Producto = $('#pro_id').find(':selected').val(); 
     var newtr ='<tr class="item">';
-        newtr= newtr+'<td class="contadorfilas"><td><input type="hidden" name="Cod_Detalle[]" required><td/><td><input type="text" class="form-control" readonly="readonly" name="Cod_Producto[]" id="Cod_Producto[]" value="'+Cod_Producto+'"></td><td><input type="text" class="form-control" id="Descripcion[]" readonly="readonly"  required value="'+text+'"></td><td><input type="text" class="form-control" name="Cantidad[]" id="Cantidad[]" value="1" onkeypress="return int(event)" maxlength="4" required ></td>';
+        newtr= newtr+'<td class="contadorfilas"><td><input type="hidden" name="Cod_Detalle[]" required><td/><td><input type="text" class="form-control" required readonly="readonly" name="Cod_Producto[]" id="Cod_Producto[]" value="'+Cod_Producto+'"></td><td><input type="text" class="form-control" id="Descripcion[]" required readonly="readonly"  value="'+text+'"></td><td><input type="text" class="form-control" required name="Cantidad[]" id="Cantidad[]" value="1" onkeypress="return int(event)" maxlength="4" required ></td>';
                 newtr= newtr+'<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
         $('#ProSelected').append(newtr);
           RefrescaProducto(); //Refresco Productos
@@ -310,5 +315,36 @@ $form->prepare();
         patron =/^[1-9]+$/;
         tecla_final = String.fromCharCode(tecla);
         return patron.test(tecla_final);
-          }       
+          }
+   function cancelar(){
+     window.location.href="<?= $this->url('home')?>";
+   }
+
+   $(function(){
+       $('#Sucursal_Destino').change(function(){
+         var Sucursal_Destino = $(this).val();
+         if(Sucursal_Destino){
+            $.ajax({
+             type: "GET",
+             url: "/boletasremision/sucdes/" + $(this).val(),
+             async: true,
+             dataType: "json",
+             beforeSend: function(x) {
+                if(x && x.overrideMimeType) {
+                   x.overrideMimeType("application/j-son;charset=UTF-8");
+                }
+             },
+             success: function(data){
+                var sucdes= '';
+                   for (var i = 0; i < data.length; i++) {
+                    sucdes += data[i].Direccion;
+                   }
+                   $('#Punto_Destino').val(sucdes);
+            }
+        });
+      }else{
+           $('#Punto_Destino').val('Seleccione Sucursal destino');
+
+      }});
+    });       
 </script>

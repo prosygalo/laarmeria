@@ -21,40 +21,27 @@ echo $this->form()->openTag($form);
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-5">
-            <h4 class="text-center"><i class="fa fa-user" aria-hidden="true"></i>Iniciar sesión</h4>
-                 <div class="form-group">
+            <div class="card">
+                    <div class="card-header">
+                       <h4 class="text-center"><i class="fa fa-user" aria-hidden="true"></i>Iniciar sesión</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
                         <?= $this->formLabel($Correo) ?>
                         <?= $this->formElement($Correo) ?>
                         <?= $this->formElementErrors()->render($Correo, ['class' => 'help-inline  text-danger']) ?>
-                </div>
-                 <div class="form-group">
-                    <?= $this->formLabel($Clave) ?>
-                     <div class="row">
-                         <div class="col-md-10">
-                             <?= $this->formElement($Clave)?>
-                             <?= $this->formElementErrors()->render($Clave, ['class' => 'help-inline  text-danger']) ?>
-                         </div>
-                         <div class="col-md-2">
-                           <button class="btn btn-default btn-sm" type="button" onclick="mostrarContrasena()"><i class="fa fa-eye-slash fa-sm" aria-hidden="true"></i></button>
-                         </div>
-                    </div>   
-                </div>
-                <div class="form-group">
-                 <?php
-                    echo $this->formSubmit($submit);
-                    echo $this->form()->closeTag(); 
-                ?>  
-                </div>
+                        </div>
+                        <div class="form-group">
+                        <?= $this->formLabel($Clave) ?>
+                        <?= $this->formElement($Clave)?>
+                        <?= $this->formElementErrors()->render($Clave, ['class' => 'help-inline  text-danger']) ?>
+                        </div>
+                       <?php
+                         echo $this->formSubmit($submit);
+                         echo $this->form()->closeTag(); 
+                        ?>  
+                    </div>
+            </div>
         </div>
     </div>
 </div>
-<script>
-  function mostrarContrasena(){
-      var tipo = document.getElementById("Clave");
-      if(tipo.type == "password"){
-          tipo.type = "text";
-      }else{
-          tipo.type = "password";
-      }
-  }
-</script>
