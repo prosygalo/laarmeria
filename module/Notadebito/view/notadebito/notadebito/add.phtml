@@ -14,11 +14,8 @@ $Autorizacion_Sar->setAttribute('readonly', 'readonly');
 $Cliente=$form->get('Cliente');
 $RTN_DNI=$form->get('RTN_DNI');
 $No_Correlativo=$form->get('No_Correlativo');
-$No_Correlativo->setAttribute('placeholder', '000-000-00-00000000');
 $Cai_Comprobante=$form->get('Cai_Comprobante');
-$Cai_Comprobante->setAttribute('placeholder', '6E7C83-81B02E-9E47B7-BB1747-32EAAE-47');
 $Motivo=$form->get('Motivo');
-$productos=$form->get('productos');
 $Total=$form->get('Total');
 $Gravado=$form->get('Gravado');
 $Exento=$form->get('Exento');
@@ -89,15 +86,15 @@ $form->prepare();
                 </div><br>
                 <strong>Datos adicionales</strong>
                 <div class="row" style="background-color:#F5F5F5">
-                   <div class="col-md-4">
+                   <div class="col-md-5">
                        <div class="form-group">
                             <?= $this->formLabel($Cai_Comprobante) ?>
                             <?= $this->formElement($Cai_Comprobante) ?>
                             <?= $this->formElementErrors()->render($Cai_Comprobante, ['class' => 'help-inline  text-danger']) ?>
-                           
+                           <span>*Formato 6E7C83-81B02E-9E47B7-BB1747-32EAAE-47</span>
                         </div>
                     </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                          <div class="form-group">
                             <?= $this->formLabel($Fecha_Emision_Comprobante) ?>
                             <?= $this->formElement($Fecha_Emision_Comprobante) ?>
@@ -109,7 +106,7 @@ $form->prepare();
                             <?= $this->formLabel($No_Correlativo) ?>
                             <?= $this->formElement($No_Correlativo) ?>
                             <?= $this->formElementErrors()->render($No_Correlativo, ['class' => 'help-inline  text-danger']) ?>
-                           
+                           <span>*Formato 000-000-00-00000000</span>
                         </div>
                     </div>
                 </div>
@@ -157,25 +154,19 @@ $form->prepare();
                     <div class="col-md-12">
                         <table id="TablaPro" class="table">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <td></td>
                                     <th>Descripci&oacute;n</th>
-                                    <th>Cantidad</th>
                                     <th>Precio</th>
+                                    <th>Cantidad</th>
                                     <th>Tipo Importe</th>
                                     <th>Subtotal</th>
-                                    <th>Acci&oacute;n</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody id="ProSelected">
                               <!--Ingreso al tbody-->
                                 <tr>
-                    
-                                </tr>
-                                <tr>
-                                    <td><span id="Cantidad"></span></td>
-                                    <td><span id="Precio"></span></td>
-                                    <td><span id="Subtotal"></span></td>
                                  </tr>
                             </tbody>
                             <tfoot  class="text-right">
@@ -193,18 +184,23 @@ $form->prepare();
                                 <td></td>
                                 <td><span id="gravado">0</span>
                                     <?= $this->formHidden($form->get('Gravado'))?>
+                                    <?= $this->formElementErrors()->render($Gravado, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                 <td><span id="exento">0</span>
                                     <?= $this->formHidden($form->get('Exento'))?>
+                                     <?= $this->formElementErrors()->render($Exento, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                 <td><span id="exonerado">0</span>
                                     <?= $this->formHidden($form->get('Exonerado'))?>
+                                    <?= $this->formElementErrors()->render($Exonerado, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                 <td><span id="isv">0</span>
                                     <?= $this->formHidden($form->get('Isv'))?>
+                                     <?= $this->formElementErrors()->render($Isv, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                 <td><span id="total">0</span>
                                     <?= $this->formHidden($form->get('Total'))?>
+                                     <?= $this->formElementErrors()->render($Total, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                 <td></td>
                               </tr>
@@ -309,22 +305,21 @@ $form->prepare();
          var Producto = $('#pro_id').find(':selected').val();
           
             var newtr = '<tr class="item" data-id="">';//Obtengo en el tr el Id
-            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" required ></td><td><input class="form-control text-center Cantidad" maxlength="4"  type="text" id="Cantidad[]" name="Cantidad[]" value ="1" onkeypress="return int(event)"   onChange="Calcular(this);" required/></td><td><input class="form-control text-right Precio" maxlength="10"  type="text" id="Precio[]" name="Precio[]" value ="0" onChange="Calcular(this);" required /></td><td><select class="form-control" name="Tipo_Importe[]" id="Tipo_Importe[]"><option>E</option><option>G</option></select></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0"  onChange="Calcular(this);" required onFocus="this.blur()" readonly/></td>';
-            newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
+            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" required ></td><td><input class="form-control text-right Precio" maxlength="8"  type="text" id="Precio[]" name="Precio[]" value="0" onChange="Calcular(this);" onkeypress="return filterFloat(event,this);" required /></td><td><input class="form-control text-center"  type="number"  min="1" max="99" onkeypress="return event.target.value.length < 2" id="Cantidad[]" name="Cantidad[]" value = "1"   onChange="Calcular(this);" required/></td><td><select class="form-control" name="Tipo_Importe[]" id="Tipo_Importe[]"><option value="E">E</option><option value="G">G</option></select></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0"  onChange="Calcular(this);" required onFocus="this.blur()" readonly/></td>';
+           /*newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';*/
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
 
               RefrescaProducto(); //Refresco Productos
                 
       
             $('.remove-item').off().click(function(e){
-                var total = document.getElementById("total");
+                var total = document.getElementById("Total");
                 total.innerHTML = parseFloat(total.innerHTML) - parseFloat(this.parentNode.parentNode.childNodes[3].childNodes[0].value);
                 $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
                 if ($('#ProSelected tr').length == 0)
                 $('#ProSelected .no-item').slideDown(300);
 
                 RefrescaProducto();
-               
                 Calcular(e.target);
                 });
 
@@ -333,10 +328,10 @@ $form->prepare();
             
               });
     
-          }
+}
           
-          function Calcular(ele){
-            var cantidad = 0, precio = 0, Subtotal = 0;
+function Calcular(ele){
+            var cantidad = 0, precio = 0, tipo_importe = 0; Subtotal = 0;
             var tr = ele.parentNode.parentNode;
             var nodes = tr.childNodes;
         
@@ -348,11 +343,14 @@ $form->prepare();
                 if (nodes[x].firstChild.id == 'Precio[]'){
                     precio = parseFloat(nodes[x].firstChild.value,10);
                 }
+                if (nodes[x].firstChild.id == 'Tipo_Importe[]'){
+                    tipo_importe = nodes[x].firstChild.value;
+                }
                if (nodes[x].firstChild.id == 'Subtotal[]'){
                     anterior = nodes[x].firstChild.value;
-                    Subtotal = parseFloat((precio * cantidad),10);
+                    Subtotal = parseFloat((precio * cantidad),10); 
                     nodes[x].firstChild.value = Subtotal;
-                }        
+                }          
             }
             var total = document.getElementById("total");
             total.innerHTML = (parseFloat(total.innerHTML)+ Subtotal - anterior).toFixed(2);
@@ -378,25 +376,58 @@ $form->prepare();
             var input_exe = document.querySelector('input[name="Exento"]');
             input_exe.value = exe;
 
-            
             var exonerado = document.getElementById("exonerado");
             exonerado.innerHTML = (parseFloat(exonerado.innerHTML)+ 0).toFixed(2);
             var exo = document.querySelector('#exonerado').innerText;
             var input_exo = document.querySelector('input[name="Exonerado"]');
             input_exo.value = exo;
+}
+function filterFloat(evt,input){
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode;    
+    var chark = String.fromCharCode(key);
+    var tempValue = input.value+chark;
+    if(key >= 48 && key <= 57){
+        if(filter(tempValue)=== false){
+            return false;
+        }else{       
+            return true;
+        }
+    }else{
+          if(key == 8 || key == 13 || key == 46 || key == 0) {            
+              return true;              
+          }else{
+              return false;
           }
-          
-          function int(e){
-          tecla = (document.all) ? e.keyCode : e.which;
-            if (tecla==8){
-               return true;
+    }
+}
+
+function filter(__val__){
+    var preg = /^([0-9]+\.?[0-9]{0,2})$/; 
+    if(preg.test(__val__) === true){
+        return true;
+    }else{
+       return false;
+    }
+    
+}  
+function fac(e){
+           tecla = (document.all) ? e.keyCode : e.which;
+           if (tecla==8){
+            return true;
              }
-            patron =/^[0-9]+$/;
-            tecla_final = String.fromCharCode(tecla);
-               return patron.test(tecla_final);
-           }
-          /* function generalIsv(){
-
-           }   */   
-
+          patron =/^[0-9-]$/;
+          tecla_final = String.fromCharCode(tecla);
+  
+          return patron.test(tecla_final);
+}
+function ca(e){
+           tecla = (document.all) ? e.keyCode : e.which;
+           if (tecla == 8){
+            return true;
+             }
+          patron =/^[A-Z0-9-]$/;
+          tecla_final = String.fromCharCode(tecla);
+          return patron.test(tecla_final);
+}
 </script>

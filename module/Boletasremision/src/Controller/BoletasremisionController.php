@@ -75,7 +75,7 @@ class BoletasremisionController extends AbstractActionController
 
         $fecha= date('Y-m-d'); 
         //-------Consecutivo autorizacion sar----
-        $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionBoletaRemision($Sucursal_Remitente);
+        $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionBoletaRemision($Sucursal_Remitente);  
             foreach ($UltimaAutorizacion  as $a):
                 $Cod_Autorizacion = $a->Cod_Autorizacion;
                 $Consecutivo_Inicial_Establ = $a->Consecutivo_Inicial_Establ;

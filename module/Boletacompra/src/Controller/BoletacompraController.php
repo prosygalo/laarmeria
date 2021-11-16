@@ -164,6 +164,8 @@ class BoletacompraController extends AbstractActionController
             $Descripcion = $this->request->getPost("Descripcion");
             $Cantidad = $this->request->getPost("Cantidad");
             $Precio = $this->request->getPost("Precio");
+
+            
                
             // Almacenar los datos en la tabla boleta de remision  
                $lastId = $this->BoletacompraTable->insertBoleta($boletacompra);

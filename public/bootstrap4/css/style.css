@@ -5,6 +5,10 @@
 .zf-brown {
     color: #D2691E;
 }
+.zf-background{
+    color: #D2691E;
+    
+}
 
 
 .btn-success {
@@ -36,3 +40,6 @@
           padding-top:10px ;
           margin-left: 300px;
         }
+.Cantidad {
+  width: 2em;
+}

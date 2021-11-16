@@ -6,7 +6,6 @@ use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
 use Zend\Filter\ToInt;
 use Zend\InputFilter\InputFilter;
-//use Zend\InputFilter\ArrayInput;
 use Zend\Validator\StringLength;
 use Zend\Validator\Regex;
 use Zend\Validator\Date;
@@ -14,6 +13,7 @@ use Zend\Validator\EmailAddress;
 //use Zend\Validator\InArray;
 use Zend\Validator\Db\NoRecordExists;
 use Zend\Db\Adapter\Adapter;
+use Zend\I18n\Validator\IsFloat;
 
 
 
@@ -37,7 +37,7 @@ class NotadebitoFilter  extends InputFilter
              ],
         ]);
 
-        $this->add([
+       $this->add([
             'name' => 'Fecha_Emision',
             'required' => true,
             'filters' => [
@@ -383,6 +383,165 @@ class NotadebitoFilter  extends InputFilter
                 ],
             ],
           ]);
+        
+       $this->add([
+            'name' => 'Gravado',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 3,
+                        'max' => 9,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'Importe Gravado es incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Importe Gravado esta por debajo de mínimo',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Importe Gravado debe contener máximo 8 digitos y dos cifras despúes del punto',
+                        ]
+                    ],
+                ],
+                ['name' => IsFloat::class,
+                     'options' => [
+                       'messages'=>[
+                        \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
+                        \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se espera entero o decimal',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+        $this->add([
+            'name' => 'Isv',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 9,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'Isv es incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Isv puede ser cero',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Isv debe contener máximo 8 digitos y dos cifras despúes del punto',
+                        ]
+                    ],
+                ],
+                ['name' => IsFloat::class,
+                     'options' => [
+                       'messages'=>[
+                        \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
+                        \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se espera entero o decimal',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'Exento',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 9,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'Importe Exento es incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Importe Exento esta por debajo de mínimo',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Importe Exento debe contener máximo 8 digitos y dos cifras despúes del punto',
+                        ]
+                    ],
+                ],
+                ['name' => IsFloat::class,
+                     'options' => [
+                       'messages'=>[
+                        \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
+                        \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se espera entero o decimal',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'Exonerado',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 3,
+                        'max' => 9,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'Importe Exonerado es incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Importe Exonerado esta por debajo de mínimo',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Importe Exonerado debe contener máximo 8 digitos y dos cifras despúes del punto',
+                        ]
+                    ],
+                ],
+                ['name' => IsFloat::class,
+                     'options' => [
+                       'messages'=>[
+                        \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
+                        \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se espera entero o decimal',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'Total',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 3,
+                        'max' => 9,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'Total es incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Total esta por debajo de mínimo',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Total debe contener máximo 8 digitos y dos cifras despúes del punto',
+                        ]
+                    ],
+                ],
+                ['name' => IsFloat::class,
+                     'options' => [
+                       'messages'=>[
+                        \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
+                        \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se espera entero o decimal',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
     
         $this->add([
             'name' => 'Autorizacion_Sar',
@@ -404,5 +563,29 @@ class NotadebitoFilter  extends InputFilter
                 ],
             ],
           ]);
+
+        $this->add([
+            'name' => 'Motivo',
+            'filters' => [
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                [
+                    'name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 4,
+                        'max' => 100,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'Motivo es  incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Motivo es obligatorio y  debe contener m&aacute;s de 4 car&aacute;cteres',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Motivo debe contener menos de 100 car&aacute;cteres',
+                        ]
+                    ],
+            
+                ],
+            ],
+        ]);
     }    
 }

@@ -42,6 +42,16 @@ class ProveedorTable
                 $resultSet=$this->tableGateway->selectWith($rowset);
                 return $resultSet;
      }
+      public function getProveedorConstancia($Cod_Proveedor)
+     {
+                $Cod_Proveedor = $Cod_Proveedor;
+                $rowset=$this->tableGateway->getSql()->select();
+                $rowset->columns(['Cod_Proveedor','Direccion_Proveedor','Nombre_Proveedor','RTN_Proveedor']);
+                $rowset->where(['Cod_Proveedor' => $Cod_Proveedor]);
+                $resultSet=$this->tableGateway->selectWith($rowset);
+                return $resultSet;
+     }
+     
       public function getProveedorSelectRTN(){
 
                 $rowset = $this->tableGateway->getSql()->select();

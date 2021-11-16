@@ -43,6 +43,8 @@ class NotadebitoForm extends Form
         $Cai_Comprobante = new Element\Text('Cai_Comprobante');
         $Cai_Comprobante->setAttribute('class','form-control text-center');
         $Cai_Comprobante->setAttribute('id','Cai_Comprobante');
+        $Cai_Comprobante->setAttribute('maxlength','37');
+        $Cai_Comprobante->setAttribute('onkeypress','return ca(event,this)');
         $Cai_Comprobante->setAttribute('required','required');
         $Cai_Comprobante->setLabel('C.A.I');
         $this->add($Cai_Comprobante);
@@ -52,6 +54,7 @@ class NotadebitoForm extends Form
         $No_Correlativo->setAttribute('class','form-control text-center');
         $No_Correlativo->setAttribute('required','required');
         $No_Correlativo->setAttribute('maxlength','19');
+        $No_Correlativo->setAttribute('onkeypress','return fac(event,this);');
         $No_Correlativo->setLabel('No. de Correlativo');
         $this->add($No_Correlativo);
 
@@ -112,18 +115,11 @@ class NotadebitoForm extends Form
         //Agregar entrada Motivo 
         $Motivo = new Element\Text('Motivo');
         $Motivo->setAttribute('class','form-control');
+        $Motivo->setAttribute('maxlength','100');
         $Motivo->setAttribute('required','required');
         $Motivo->setLabel('Motivo');
         $this->add($Motivo);
         
-        //Agregar objeto de selección productos
-        $productos = new Element\Select('productos');
-        $productos->setAttribute('id', 'pro_id');
-        $productos->setAttribute('style', 'cursor:pointer');
-        $productos->setAttribute('data-width', '100%');
-        $productos->setAttribute('data-live-search', 'true');
-        $productos->setAttribute('class', 'form-control selectpicker  pro_id'); 
-        $this->add($productos);
 
         //Agregar entrada Usuario que registra la boleta generada
         $Usuario = new Element\Text('Usuario');

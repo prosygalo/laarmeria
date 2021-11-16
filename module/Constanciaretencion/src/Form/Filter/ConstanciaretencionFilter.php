@@ -220,6 +220,37 @@ class  ConstanciaretencionFilter  extends InputFilter
                 ],
             ],
         ]);
+        $this->add([
+            'name' => 'Cai_Documento',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 37,
+                        'max' => 37,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'CAI es  incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'CAI debe contener 32 car&aacute;cteres alfanuméricos separados por guiones',
+                        \Zend\Validator\StringLength::TOO_LONG=>'CAI debe contener máximo 32 car&aacute;cteres alfanuméricos separados por guiones',
+                        ]
+                    ],
+                ],
+                 ['name' => Regex::class, 
+                     'options' => [
+                       'pattern' => '/^[a-zA-Z0-9_-]+$/',
+                       'messages'=>[
+                        \Zend\Validator\Regex::NOT_MATCH=>'Formato de CAI incorrecto',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
 
         $this->add([
             'name' => 'Base_Gravable_Impuesto',
@@ -232,12 +263,12 @@ class  ConstanciaretencionFilter  extends InputFilter
                 ['name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 5,
+                        'min' => 4,
                         'max' =>10,
                         'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Base gravable del impuesto es  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Base gravable del impuesto',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Base gravable del impuesto',
+                        \Zend\Validator\StringLength::INVALID=>'Base Gravable del Impuesto es  incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Base Gravable del Impuesto  debe  tener mínimo 4 dígitos',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Base Gravable del Impuesto debe tener como máximo 10 dígitos',
                         ]
                     ],
                 ],

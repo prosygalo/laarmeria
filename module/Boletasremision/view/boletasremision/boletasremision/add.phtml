@@ -176,8 +176,7 @@ $form->prepare();
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th></th>   
-                                    <th></th>
+                                    <th></th>    
                                     <th>Código</th>
                                     <th>Descripci&oacute;n</th>
                                     <th>Cantidad</th>
@@ -294,9 +293,9 @@ $form->prepare();
   function agregarP(){
     var text = $('#pro_id').find(':selected').text(); 
     var Cod_Producto = $('#pro_id').find(':selected').val(); 
-    var newtr ='<tr class="item">';
-        newtr= newtr+'<td class="contadorfilas"><td><input type="hidden" name="Cod_Detalle[]" required><td/><td><input type="text" class="form-control" required readonly="readonly" name="Cod_Producto[]" id="Cod_Producto[]" value="'+Cod_Producto+'"></td><td><input type="text" class="form-control" id="Descripcion[]" required readonly="readonly"  value="'+text+'"></td><td><input type="text" class="form-control" required name="Cantidad[]" id="Cantidad[]" value="1" onkeypress="return int(event)" maxlength="4" required ></td>';
-                newtr= newtr+'<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
+        var newtr ='<tr class="item">';
+        newtr= newtr+'<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]" required><td/><td><input type="text" class="form-control" required readonly="readonly" name="Cod_Producto[]" id="Cod_Producto[]" value="'+Cod_Producto+'"></td><td><input type="text" class="form-control" id="Descripcion[]" required readonly="readonly"  value="'+text+'"></td><td><input class="form-control text-center"  type="number"  min="1" max="99"  id="Cantidad[]" name="Cantidad[]" value ="1"  onkeypress="return event.target.value.length < 2"  onChange="Calcular(this);" required/></td>';
+         newtr= newtr+'<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
         $('#ProSelected').append(newtr);
           RefrescaProducto(); //Refresco Productos
         $('.remove-item').off().click(function(e){

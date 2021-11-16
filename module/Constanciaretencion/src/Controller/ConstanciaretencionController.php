@@ -171,8 +171,6 @@ class ConstanciaretencionController extends AbstractActionController
         $RTN_Proveedor = $this->params()->fromRoute('RTN_Proveedor');
         
         $rowset3 = $this->ProveedorTable->getProveedorSelectNombre($RTN_Proveedor); //llenar select sucursal  remiten
-        //$form->get('Nombre_Proveedor')->setValueOptions($rowset3); 
-        /*$form->get('Direccion_Proveedor')->setValueOptions($rowset4);*/
         return  new JsonModel($rowset3);
 
 
@@ -180,7 +178,7 @@ class ConstanciaretencionController extends AbstractActionController
 
     public function  detalleAction()
     {
-       //Recibir el código de boleta  para mostrar el detalle que corresponde
+      //Recibir el código de boleta  para mostrar el detalle que corresponde
         $Cod_Constancia = $this->params()->fromRoute('Cod_Constancia');
         //Si el código es incorrecto redirigie a listado de boletas
         if ($Cod_Constancia === NULL) {
@@ -212,22 +210,24 @@ class ConstanciaretencionController extends AbstractActionController
         $Suc = $this->SucursalTable->getSucursalMembrete($Sucursal);
 
         //Autorizacion datos 
-        $Autorizacion_Sar = [ 'Autorizacion_Sar'=>$constanciaretencion->Autorizacion_Sar];
+        $Autorizacion_Sar = ['Autorizacion_Sar'=>$constanciaretencion->Autorizacion_Sar];
         $Sar = $this->AutorizacionsarTable->getAutorizacionReporte($Autorizacion_Sar);
         $Cai = $this->AutorizacionsarTable->getCai($Autorizacion_Sar);
 
         //Usuario
-        $Cod_Usuario = [ 'Usuario'=>$constanciaretencion->Usuario];
+        $Cod_Usuario = ['Usuario'=>$constanciaretencion->Usuario];
         $user = $this->UsuarioTable->getUsuarioBoleta($Cod_Usuario);
         
-        $RTN_Proveedor = [ 'Proveedor'=>$constanciaretencion->RTN_Proveedor];
-        $rowset2 = $this->ProveedorTable->getProveedorSelectNombre($RTN_Proveedor); //llenar select sucursal  
-        foreach ($rowset2  as $a):
-           $form->get('Proveedor')->setValueOptions([$a->Cod_Proveedor =>$a->Nombre_Proveedor]);
-           $form->get('RTN_Proveedor')->setValueOptions([$a->RTN_Proveedor =>$a->RTN_Proveedor]);
-           $Direccion_Proveedor = $a->Direccion_Proveedor;  
-        endforeach;  
-            $form->get('Direccion_Proveedor')->setValue($Direccion_Proveedor);
+        $Proveedor = [ 'Proveedor'=>$constanciaretencion->Proveedor];
+        $Pro = $this->ProveedorTable->getProveedorConstancia($Proveedor); 
+        foreach ($Pro  as $s):
+            $RTN_Proveedor = $s->RTN_Proveedor;
+            $Nombre_Proveedor = $s->Nombre_Proveedor;
+            $Direccion_Proveedor = $s->Direccion_Proveedor;
+        endforeach;
+        $form->get('Nombre_Proveedor')->setValue($Nombre_Proveedor);
+        $form->get('RTN_View')->setValue($RTN_Proveedor); 
+        $form->get('Direccion_Proveedor')->setValue($Direccion_Proveedor);
        
        
         //Verifica si la usuario ha enviado el formulario
@@ -245,6 +245,7 @@ class ConstanciaretencionController extends AbstractActionController
             return $viewData;
         }
     }
+
 
     public function reporteAction()
     {
@@ -285,15 +286,17 @@ class ConstanciaretencionController extends AbstractActionController
         //Usuario
         $Cod_Usuario = [ 'Usuario'=>$constanciaretencion->Usuario];
         $user = $this->UsuarioTable->getUsuarioBoleta($Cod_Usuario);
-        
-        $RTN_Proveedor = [ 'Proveedor'=>$constanciaretencion->RTN_Proveedor];
-        $rowset2 = $this->ProveedorTable->getProveedorSelectNombre($RTN_Proveedor); //llenar select sucursal  
-        foreach ($rowset2  as $a):
-           $form->get('Proveedor')->setValueOptions([$a->Cod_Proveedor =>$a->Nombre_Proveedor]);
-           $form->get('RTN_Proveedor')->setValueOptions([$a->RTN_Proveedor =>$a->RTN_Proveedor]);
-           $Direccion_Proveedor = $a->Direccion_Proveedor;  
-        endforeach;  
-            $form->get('Direccion_Proveedor')->setValue($Direccion_Proveedor); 
+
+        $Proveedor = [ 'Proveedor'=>$constanciaretencion->Proveedor];
+        $Pro = $this->ProveedorTable->getProveedorConstancia($Proveedor); 
+        foreach ($Pro  as $s):
+            $RTN_Proveedor = $s->RTN_Proveedor;
+            $Nombre_Proveedor = $s->Nombre_Proveedor;
+            $Direccion_Proveedor = $s->Direccion_Proveedor;
+        endforeach;
+        $form->get('Nombre_Proveedor')->setValue($Nombre_Proveedor);
+        $form->get('RTN_View')->setValue($RTN_Proveedor); 
+        $form->get('Direccion_Proveedor')->setValue($Direccion_Proveedor);
        
         //Verifica si la usuario ha enviado el formulario
         $request = $this->getRequest();

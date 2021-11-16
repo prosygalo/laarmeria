@@ -2,6 +2,7 @@
 $title = 'Agregar Boleta de Compra';
 $this->headTitle($title);
 $Fecha_Emision =$form->get('Fecha_Emision');
+$Fecha_Emision->setAttribute('readonly', 'readonly');
 $Consecutivo_Actual_Establ=$form->get('Consecutivo_Actual_Establ');
 $Consecutivo_Actual_Punto=$form->get('Consecutivo_Actual_Punto');
 $Consecutivo_Actual_Tipo=$form->get('Consecutivo_Actual_Tipo');
@@ -10,8 +11,11 @@ $Sucursal=$form->get('Sucursal');
 $Sucursal->setAttribute('readonly', 'readonly');
 $Proveedor=$form->get('Proveedor');
 $Direccion_Proveedor=$form->get('Direccion_Proveedor');
+$Direccion_Proveedor->setAttribute('readonly', 'readonly');
 $Telefono_Proveedor=$form->get('Telefono_Proveedor');
+$Telefono_Proveedor->setAttribute('readonly', 'readonly');
 $RTN_Proveedor=$form->get('RTN_Proveedor');
+$Total=$form->get('Total');
 $No_Registro_Sag=$form->get('No_Registro_Sag');
 $No_Orden_Compra_Exenta=$form->get('No_Orden_Compra_Exenta');
 $No_Constancia_Registro_Exonerado=$form->get('No_Constancia_Registro_Exonerado');
@@ -27,7 +31,7 @@ $form->prepare();
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title text-center"><i class="fa fa-file fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h5>
+                <h4 class="card-title text-center"><i class="fa fa-file fa-md" aria-hidden="true"></i><?= $this->escapeHtml($title) ?></h4>
             </div>
             <div class="card-body">                                            
                 <?= $this->form()->openTag($form)?>
@@ -158,11 +162,11 @@ $form->prepare();
                         <table id="TablaPro" class="table">
                             <thead>
                                 <tr>
-                                    <td></td>
+                                    <th></th>
                                     <th>C&oacute;digo</th>
                                     <th>Descripci&oacute;n</th>
-                                    <th>Cantidad</th>
                                     <th>Precio</th>
+                                     <th>Cantidad</th>
                                     <th>Subtotal</th>
                                     <th>Acci&oacute;n</th>
                                 </tr>
@@ -183,7 +187,9 @@ $form->prepare();
                                     <td colspan="4"></td>
                                     <td>Total</td>
                                     <td><span id="total">0</span>
-                                    <?= $this->formHidden($form->get('Total'))?></td>
+                                    <?= $this->formHidden($form->get('Total'))?>
+                                    <?= $this->formElementErrors()->render($Total, ['class' => 'help-inline  text-danger']) ?>
+                                  </td>
                                  </tr>
                             </tfoot>
                         </table>
@@ -278,13 +284,12 @@ $form->prepare();
     }
     if(i <  12){
       $('.blo').removeAttr('disabled', 'disabled');
-       
       }
     }
 
   function agregarProducto(){
             var newtr = '<tr class="item" data-id="">';//Obtengo en el tr el Id
-            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input type="text" class="form-control codigo" name="Producto[]" id="Producto[]" required ></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" required ></td><td><input class="form-control text-center Cantidad" maxlength="4"  type="text" id="Cantidad[]" name="Cantidad[]" value ="1" onkeypress="return int(event)"   onChange="Calcular(this);" required/></td><td><input class="form-control text-right Precio" maxlength="10"  type="text" id="Precio[]" name="Precio[]" value ="0" onChange="Calcular(this);" required /></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0"  onChange="Calcular(this);" required onFocus="this.blur()" readonly/></td>';
+            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input type="text" class="form-control codigo" name="Producto[]" id="Producto[]" required ></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" required ></td><td><input class="form-control text-right Precio" maxlength="8"  type="text" id="Precio[]" name="Precio[]"  value="0" onChange="Calcular(this);" onkeypress="return filterFloat(event,this);" required /></td><td><input  id="Cantidad[]" name="Cantidad[]" class="form-control text-center"  type="number"  min="1" max="99"  value ="1"  onkeypress="return event.target.value.length < 2"  onChange="Calcular(this);" required/></td><td><input  id="Subtotal[]" name="Subtotal[]" class="form-control text-right Subtotal" type="text"  value ="0"  onChange="Calcular(this);" required onFocus="this.blur()" readonly/></td>';
             newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
 
@@ -306,10 +311,9 @@ $form->prepare();
                 $('.contadorfilas').off().change(function(e){
                 RefrescaProducto();
             
-                }); 
-            }
-
-          function Calcular(ele){
+                });
+  } 
+  function Calcular(ele){
             var cantidad = 0, precio = 0, subtotal = 0;
             var tr = ele.parentNode.parentNode;
             var nodes = tr.childNodes;
@@ -333,8 +337,6 @@ $form->prepare();
              total.innerHTML = (parseFloat(total.innerHTML)+ 0).toFixed(2);
               
             }
-
-
             if (total.innerHTML != 'NaN') {   
             total.innerHTML = (parseFloat(total.innerHTML)+ subtotal - anterior).toFixed(2);
             }
@@ -342,16 +344,34 @@ $form->prepare();
             var to = document.querySelector('#total').innerText;
             var input_to = document.querySelector('input[name="Total"]');
              input_to.value = to;
+}
+function filterFloat(evt,input){
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode;    
+    var chark = String.fromCharCode(key);
+    var tempValue = input.value+chark;
+    if(key >= 48 && key <= 57){
+        if(filter(tempValue)=== false){
+            return false;
+        }else{       
+            return true;
+        }
+    }else{
+          if(key == 8 || key == 13 || key == 46 || key == 0) {            
+              return true;              
+          }else{
+              return false;
           }
-          
-          function int(e){
-          tecla = (document.all) ? e.keyCode : e.which;
-            if (tecla==8){
-               return true;
-             }
-            patron =/^[0-9]+$/;
-            tecla_final = String.fromCharCode(tecla);
-               return patron.test(tecla_final);
-           }      
-
+    }
+}
+function filter(__val__){
+    var preg = /^([0-9]+\.?[0-9]{0,2})$/; 
+    if(preg.test(__val__) === true){
+        return true;
+    }else{
+       return false;
+    }
+    
+}
+  
 </script>

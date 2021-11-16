@@ -14,8 +14,7 @@ use Zend\Validator\EmailAddress;
 //use Zend\Validator\InArray;
 use Zend\Validator\Db\NoRecordExists;
 use Zend\Db\Adapter\Adapter;
-
-
+use Zend\I18n\Validator\IsFloat;
 
 class BoletacompraFilter  extends InputFilter
 { 
@@ -228,6 +227,40 @@ class BoletacompraFilter  extends InputFilter
             'filters' => [
                 ['name' => ToInt::class],
              ],
-           ]); 
+           ]);
+
+
+        $this->add([
+            'name' => 'Total',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 3,
+                        'max' => 9,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'Total es incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Total esta por debajo de mínimo',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Total debe contener máximo 8 digitos y dos cifras despúes del punto',
+                        ]
+                    ],
+                ],
+                ['name' => IsFloat::class,
+                     'options' => [
+                       'messages'=>[
+                        \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
+                        \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se espera entero o decimal',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+     
     }    
 }

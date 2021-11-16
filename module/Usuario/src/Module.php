@@ -85,10 +85,8 @@ class Module implements ConfigProviderInterface
                     $acl= new Acl();   
                  /**agregar  los roles con la herencia de controles de acceso*/
                     $acl->addRole(new Role('Publico'))
-                    /**El usuario invitado hereda controles de acceso de publico*/
-                    ->addRole(new Role('Invitado'), 'Publico')
                     /**El usuario miembro hereda controles de acceso de invitado*/
-                    ->addRole(new Role('Miembro'), 'Invitado')
+                    ->addRole(new Role('Miembro'), 'Publico')
                     /**El usuario especial hereda controles de acceso de miembro*/
                     ->addRole(new Role('Admin'), 'Miembro')
                     /**El administrador no hereda controles de acceso pues tiene acceso a todo*/
@@ -124,7 +122,7 @@ class Module implements ConfigProviderInterface
                     ->addResource(new Resource('usuario:usuario'))
                     ->addResource(new Resource('usuario:auth'))
                     ->addResource(new Resource('notadebito:notadebito'))
-                     ->addResource(new Resource('cliente:cliente'))
+                    ->addResource(new Resource('cliente:cliente'))
                      /**
                       Permitir al público tener acceso a las siguientes acciones
                       */
@@ -135,17 +133,8 @@ class Module implements ConfigProviderInterface
                     ->allow('Publico','boletacompra:boletacompra',['pdf','reporte'])
                     ->allow('Publico','constanciaretencion:constanciaretencion',['pdf','reporte'])
                     ->allow('Publico','notadebito:notadebito',['pdf','reporte'])
-                    /**
-                      Permitir a invitado  acceder a la pagina de inicio, auth y emision de documentos fiscales,vista, reporte del documento emitido, perfil y cierre de sesión.
-                      */
-                    ->allow('Invitado','usuario:auth')
-                    ->allow('Invitado','usuario:usuario',['perfil'])
-                    ->allow('Invitado','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error','sucdes'])
-                    ->allow('Invitado','boletacompra:boletacompra',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
-                    ->allow('Invitado','constanciaretencion:constanciaretencion',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
-                    ->allow('Invitado','notadebito:notadebito',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
-                     /**
-                      Permitir a miembros  acceder a inicio, emisión de documento fiscales, vista, reporte del documento emitido,perfil y cierre de sesión.
+                   
+                     /* Permitir a miembros  acceder a inicio, emisión de documento fiscales, vista, reporte del documento emitido,perfil y cierre de sesión.
                      */
                     ->allow('Miembro','usuario:auth')
                     ->allow('Miembro','usuario:usuario',['perfil'])

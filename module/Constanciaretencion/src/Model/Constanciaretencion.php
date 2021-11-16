@@ -22,6 +22,8 @@ class Constanciaretencion
     public $Descripcion_Tributo_Retenido;
     public $Usuario;
     public $Fecha_Ingreso;
+    public $Nombre_Proveedor;
+    public $Direccion_Proveedor;
      //sucursal
     public $Nombre_Sucursal;
     public $Direccion;
@@ -51,6 +53,8 @@ class Constanciaretencion
         $this->Descripcion_Tributo_Retenido = !empty($data['Descripcion_Tributo_Retenido']) ? $data['Descripcion_Tributo_Retenido'] : null;
         $this->Fecha_Ingreso = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
         $this->Usuario = !empty($data['Usuario']) ? $data['Usuario'] : null;
+        $this->Nombre_Proveedor= !empty($data['Nombre_Proveedor']) ? $data['Nombre_Proveedor'] : null;
+        $this->Direccion_Proveedor= !empty($data['Direccion_Proveedor']) ? $data['Direccion_Proveedor'] : null;
         //Propiedades de otras tablegateway
         $this->Nombre_Sucursal = !empty($data['Nombre_Sucursal']) ? $data['Nombre_Sucursal'] : null;
         $this->Direccion = !empty($data['Direccion']) ? $data['Direccion'] : null;
@@ -82,6 +86,8 @@ class Constanciaretencion
             'Cai_Documento' => $this->Cai_Documento,
             'Descripcion_Tributo_Retenido'  => $this->Descripcion_Tributo_Retenido,
             'Fecha_Ingreso'  => $this->Fecha_Ingreso,
+            'Nombre_Proveedor' => $this->Nombre_Proveedor,
+            'Direccion_Proveedor' => $this->Direccion_Proveedor,
             'Usuario'  => $this->Usuario,
             'Fecha_Ingreso'=>$this->Fecha_Ingreso,
         ];

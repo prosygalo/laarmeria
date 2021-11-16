@@ -250,19 +250,19 @@ $form->prepare();
                     <th class="text-center">Cantidad</th>
                     <th class="text-center">Precio</th>
                     <th class="text-center">Tipo Importe</th>
-                    <th class ="text-left">Subtotal</th>
+                    <th class ="text-center">Subtotal</th>
                   </tr>
                 </thead>
                  <tbody><?php  
                      $count=1;
-                     $Importe=0;
+                     $Subtotal=0;
                      foreach ($Detalle as $a) : 
                       ?>
                     <tr>
                       <td><?= $count ?></td>
                       <td class="text-center sizetext"><?= $this->escapeHtml($a->Descripcion) ?></td>
                       <td class="text-center sizetext"><?= $this->escapeHtml($a->Cantidad)?></td>
-                      <td class="text-right  sizetext">
+                      <td class="text-right sizetext">
                         <?php 
                         $precio = $this->escapeHtml($a->Precio);
                         echo number_format($precio, 2, ".", ","); 
@@ -273,8 +273,8 @@ $form->prepare();
                       <?php
                           $cantidad = $this->escapeHtml($a->Cantidad);
                           $precio = $this->escapeHtml($a->Precio);
-                          $Importe = $cantidad*$precio;
-                             echo 'L. '. number_format($Importe, 2, ".", ",");
+                          $Subtotal = $cantidad*$precio;
+                             echo 'L. '. number_format($Subtotal, 2, ".", ",");
                       ?>
                       </td>
                     </tr><?php 

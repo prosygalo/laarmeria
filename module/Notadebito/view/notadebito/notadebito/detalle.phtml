@@ -57,7 +57,6 @@ $TotalView=$form->get('TotalView');
 
 $Cantidad_Letras=$form->get('Cantidad_Letras');
 
-
 $Usuario=$form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
 $Usuario->setAttribute('readonly', 'readonly');
 
@@ -166,7 +165,7 @@ $form->prepare();
                 </div><br>
                 <table  class="table table-bordered">
                 <thead style="background-color:#E6E6FA">
-                  <tr>
+                  <tr class="text-center">
                     <th>No.</th>
                     <th colspan="2">Descripcion</th>
                     <th>Cantidad</th>

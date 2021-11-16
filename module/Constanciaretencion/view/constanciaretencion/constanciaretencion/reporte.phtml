@@ -18,16 +18,16 @@ $Base_Gravable_Impuesto=$form->get('Base_Gravable_Impuesto');
 $Base_Gravable_Impuesto->setAttribute('readonly', 'readonly');
 $Importe_Retencion=$form->get('Importe_Retencion');
 $Importe_Retencion->setAttribute('readonly', 'readonly');
-$Proveedor=$form->get('Proveedor');
-$Proveedor->setAttribute('disabled', 'disabled');
+$Nombre_Proveedor=$form->get('Nombre_Proveedor');
+$Nombre_Proveedor->setAttribute('readonly', 'readonly');
 $Direccion_Proveedor=$form->get('Direccion_Proveedor');
 $Direccion_Proveedor->setAttribute('disabled', 'disabled');
 $Documento_Retencion=$form->get('Documento_Retencion');
 $Documento_Retencion->setAttribute('readonly', 'readonly');
 $No_Correlativo=$form->get('No_Correlativo');
 $No_Correlativo->setAttribute('readonly', 'readonly');
-$RTN_Proveedor=$form->get('RTN_Proveedor');
-$RTN_Proveedor->setAttribute('disabled', 'disabled');
+$RTN_View=$form->get('RTN_View');
+$RTN_View->setAttribute('readonly', 'readonly');
 $Cai_Documento=$form->get('Cai_Documento');
 $Cai_Documento->setAttribute('readonly', 'readonly');
 $Descripcion_Tributo_Retenido=$form->get('Descripcion_Tributo_Retenido');
@@ -185,16 +185,16 @@ $Descripcion_Tributo_Retenido->setAttribute('readonly', 'readonly');
             <table>
                 <tbody>
                   <tr>
-                    <td style="width:30%"><?= $this->formlabel($Proveedor)?></td>
-                    <td><?= $this->formElement($Proveedor)?></td>
+                    <td style="width:30%"><?= $this->formlabel($Nombre_Proveedor)?></td>
+                    <td><?= $this->formElement($Nombre_Proveedor)?></td>
                   </tr>
                 </tbody>
             </table>
              <table>
                 <tbody>
                   <tr>
-                    <td style="width:30%"><?= $this->formlabel($RTN_Proveedor)?></td>
-                    <td><?= $this->formElement($RTN_Proveedor)?></td>
+                    <td style="width:30%"><?= $this->formlabel($RTN_View)?></td>
+                    <td><?= $this->formElement($RTN_View)?></td>
                   </tr>
                 </tbody>
             </table>

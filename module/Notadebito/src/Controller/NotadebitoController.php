@@ -155,7 +155,7 @@ class NotadebitoController extends AbstractActionController
             $form->setInputFilter(new  \Notadebito\Form\Filter\NotadebitoFilter($this->dbAdapter));//Filtrado y vlidacion  de los  datos
             $form->setData($request->getPost());
                 
-            if ($form->isValid()){
+            if (! $form->isValid()){
                 return ['form' => $form];
             }
             //--------Tomar datos del formulario-y los guardamos en la base de datos, para ello realizamos tres procesos.
@@ -166,10 +166,8 @@ class NotadebitoController extends AbstractActionController
             $Precio = $this->request->getPost("Precio");
             $Tipo_Importe = $this->request->getPost("Tipo_Importe");
 
-
-                return  new JsonModel($form->getData());
                 // Almacenar los datos en la tabla boleta de remision  
-                   $lasId = $this->NotadebitoTable->insertNotaDebito($notadebito);
+                   $lastId = $this->NotadebitoTable->insertNotaDebito($notadebito);
                 //Actualice el numero de consecutivo de la boleta de la guia de remision en la tabla autorizaciones SAR 
                    $Cod_Autorizacion= $this->request->getPost("Autorizacion_Sar");
                    $Consecutivo_Actual_Establ= $this->request->getPost("Consecutivo_Actual_Establ");
@@ -179,8 +177,8 @@ class NotadebitoController extends AbstractActionController
                    
                    $this->AutorizacionsarTable->UpdateConsecutivoActual($Cod_Autorizacion, $Consecutivo_Actual_Establ, $Consecutivo_Actual_Punto, $Consecutivo_Actual_Tipo, $Consecutivo_Actual_Correlativo);                   
                 //Cada producto debe de registrarse con el codigo de boleta  y almacenarse en el detalle
-                   $this->DetalleNotadebitoTable->insertDetalleNotadebito($Descripcion,$Cantidad,$Precio,$Tipo_Importe, $lasId);// Enviar Datos a la tabla detalle a la BD                        
-                    return $this->redirect()->toRoute('notadebito/detalle',['Cod_Nota'=>$lasId]);
+                   $this->DetalleNotadebitoTable->insertDetalleNotadebito($Descripcion, $Cantidad, $Precio, $Tipo_Importe, $lastId);// Enviar Datos a la tabla detalle a la BD                        
+                    return $this->redirect()->toRoute('notadebito/detalle',['Cod_Nota'=>$lastId]);
 
         
     }
@@ -255,7 +253,7 @@ class NotadebitoController extends AbstractActionController
         $Cod_Usuario = [ 'Usuario'=>$notadebito->Usuario];
         $user = $this->UsuarioTable->getUsuarioBoleta($Cod_Usuario);
 
-        //Usuario
+        //Cliente
         $Cliente = [ 'Cliente'=>$notadebito->Cliente];
         $Cli = $this->ClienteTable->getclienteNota($Cliente); 
         foreach ($Cli  as $s):
@@ -264,7 +262,7 @@ class NotadebitoController extends AbstractActionController
             $Apellidos_Cliente = $s->Apellidos_Cliente;
         endforeach;
         $form->get('RTN_View')->setValue($RTN_DNI); 
-        $form->get('Nombres_Cliente')->setValue($Nombres_Cliente);
+        $form->get('Nombres_Cliente')->setValue($Nombres_Cliente." ".$Apellidos_Cliente);
        
         //Detalle de la boleta enviada 
         $Detalle = $this->DetalleNotadebitoTable->getDetalleNota($Cod_Nota);
@@ -350,7 +348,7 @@ class NotadebitoController extends AbstractActionController
             $Apellidos_Cliente = $s->Apellidos_Cliente;
         endforeach;
         $form->get('RTN_View')->setValue($RTN_DNI); 
-        $form->get('Nombres_Cliente')->setValue($Nombres_Cliente);
+        $form->get('Nombres_Cliente')->setValue($Nombres_Cliente." ".$Apellidos_Cliente);
        
         //Detalle de la boleta enviada 
         $Detalle = $this->DetalleNotadebitoTable->getDetalleNota($Cod_Nota);

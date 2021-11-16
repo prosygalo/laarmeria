@@ -24,7 +24,7 @@ class BoletasremisionForm extends Form
         //Agregar entada  fecha de emisión
         $Fecha_Emision = new Element\Text('Fecha_Emision');
         $Fecha_Emision->setAttribute('type','text');
-        $Fecha_Emision->setLabel("Fecha emisión");
+        $Fecha_Emision->setLabel("Fecha Emisión");
         $Fecha_Emision->setAttribute('class', 'form-control autofocus');
         $Fecha_Emision->setAttribute('readonly', 'readonly');
         $Fecha_Emision->setAttribute('required', 'required');
@@ -122,7 +122,7 @@ class BoletasremisionForm extends Form
         $Punto_Partida = new Element\Text('Punto_Partida');
         $Punto_Partida->setAttribute('class','form-control');
         $Punto_Partida->setAttribute('required','required');
-        $Punto_Partida->setLabel('Punto partida');
+        $Punto_Partida->setLabel('Punto Partida');
         $this->add($Punto_Partida);
 
        //Agregar entrada Punto de destino
@@ -130,12 +130,12 @@ class BoletasremisionForm extends Form
         $Punto_Destino->setAttribute('class','form-control');
         $Punto_Destino->setAttribute('required','required');
         $Punto_Destino->setAttribute('id', 'Punto_Destino');
-        $Punto_Destino->setLabel('Punto destino');
+        $Punto_Destino->setLabel('Punto Destino');
         $this->add($Punto_Destino);
 
         //Agregar entrada fecha inicial de traslado
         $Fecha_Inicio_Traslado = new Element\Text('Fecha_Inicio_Traslado');
-        $Fecha_Inicio_Traslado->setLabel('Fecha inicio de traslado');
+        $Fecha_Inicio_Traslado->setLabel('Fecha Inicio Traslado');
         $Fecha_Inicio_Traslado->setAttribute('class','form-control');
         $Fecha_Inicio_Traslado->setAttribute('required','required');
         $Fecha_Inicio_Traslado->setAttribute('id','Fecha_Inicio_Traslado');
@@ -143,7 +143,7 @@ class BoletasremisionForm extends Form
 
         //Agregar entrada fecha final de traslado
         $Fecha_Final_Traslado = new Element\Text('Fecha_Final_Traslado');
-        $Fecha_Final_Traslado->setLabel('Fecha final de traslado');
+        $Fecha_Final_Traslado->setLabel('Fecha Final  Traslado');
         $Fecha_Final_Traslado->setAttribute('class','form-control');
         $Fecha_Final_Traslado->setAttribute('required','required');
         $Fecha_Final_Traslado->setAttribute('id','Fecha_Final_Traslado');

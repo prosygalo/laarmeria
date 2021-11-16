@@ -65,10 +65,10 @@ class ConstanciaretencionForm extends Form
         $Base_Gravable_Impuesto->setAttribute('type','text');
         $Base_Gravable_Impuesto->setAttribute('id','Base_Gravable_Impuesto');
         $Base_Gravable_Impuesto->setLabel("Base Gravable del Impuesto");
+        $Base_Gravable_Impuesto->setAttribute('maxlength','10');
         $Base_Gravable_Impuesto->setAttribute('class', 'form-control text-center');
         $Base_Gravable_Impuesto->setAttribute('required', 'required');
         $this->add($Base_Gravable_Impuesto);
-
 
         //Agregar entrada  
         $Importe_Retencion = new Element\Text('Importe_Retencion');
@@ -128,7 +128,7 @@ class ConstanciaretencionForm extends Form
 
         //Agregar entrada Usuario que registra la boleta generada
         $Proveedor= new Element\Select('Proveedor');
-        $Proveedor->setEmptyOption('Seleccione');
+        $Proveedor->setEmptyOption('Seleccione RTN');
         $Proveedor->setAttribute('class','form-control text-center');
         $Proveedor->setAttribute('required','required');
         $Proveedor->setDisableInArrayValidator(true);
@@ -146,12 +146,14 @@ class ConstanciaretencionForm extends Form
         $Direccion_Proveedor->setLabel('Dirección Proveedor');
         $Direccion_Proveedor->setAttribute('readonly','readonly');
         $this->add($Direccion_Proveedor);
-        
+      
+
         //Agregar entrada 
         $No_Correlativo = new Element\Text('No_Correlativo');
         $No_Correlativo->setAttribute('class','form-control text-center');
         $No_Correlativo->setAttribute('required','required');
         $No_Correlativo->setAttribute('maxlength','19');
+        $No_Correlativo->setAttribute('onkeypress','return fac(event,this)');
         $No_Correlativo->setLabel('No. de Correlativo');
         $this->add($No_Correlativo);
 
@@ -164,11 +166,27 @@ class ConstanciaretencionForm extends Form
         $RTN_Proveedor->setLabel('RTN');
         $this->add($RTN_Proveedor);
 
+        //Agregar entrada 
+        $Nombre_Proveedor= new Element\Text('Nombre_Proveedor');
+        $Nombre_Proveedor->setAttribute('class','form-control text-center');
+        $Nombre_Proveedor->setAttribute('id','Nombre_Proveedor');
+        $Nombre_Proveedor->setLabel('Nombre Proveedor');
+        $this->add($Nombre_Proveedor);
+
+         //Agregar entrada 
+        $RTN_View= new Element\Text('RTN_View');
+        $RTN_View->setAttribute('class','form-control text-center');
+        $RTN_View->setAttribute('id','RTN_View');
+        $RTN_View->setLabel('RTN');
+        $this->add($RTN_View);
+
 
        //Agregar entrada 
         $Cai_Documento = new Element\Text('Cai_Documento');
         $Cai_Documento->setAttribute('class','form-control text-center');
         $Cai_Documento->setAttribute('required','required');
+        $Cai_Documento->setAttribute('maxlength','37');
+        $Cai_Documento->setAttribute('onkeypress','return ca(event,this)');
         $Cai_Documento->setLabel('C.A.I');
         $this->add($Cai_Documento);
 

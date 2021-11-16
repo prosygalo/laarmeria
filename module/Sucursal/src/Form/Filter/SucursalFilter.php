@@ -144,9 +144,9 @@ class SucursalFilter   extends InputFilter
                         'min' => 4,
                         'max' => 200,
                         'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Direcci&acute;on es  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Direcci&acute;on n es obligatorio y  debe contener m&aacute;s de 4 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Direcci&acute;on  debe contener menos de 200 car&aacute;cteres',
+                        \Zend\Validator\StringLength::INVALID=>'Dirección es  incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Dirección  es obligatorio y  debe contener m&aacute;s de 4 car&aacute;cteres',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Dirección  debe contener menos de 200 car&aacute;cteres',
                         ]
                     ],
             

@@ -32,10 +32,10 @@ class DetalleNotadebitoTable
         $Descripcion = $Descripcion;
         $Cantidad = $Cantidad;
         $Precio = $Precio;
-        $Tipo_Importe=$Tipo_Importe;
+        $Tipo_Importe = $Tipo_Importe;
         $lastId = $lastId;
 
-        for($count = 0; $count < count($Producto); $count++){
+        for($count = 0; $count < count($Precio); $count++){
             $data = array();           
              $data = [
                 'Nota_debito' =>$lastId,

@@ -200,6 +200,38 @@ class BoletasremisionFilter  extends InputFilter
             ],
 
         ]);
+         
+         $this->add([
+            'name' => 'Num_Transferencia',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 20,
+                        'max' => 20,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'No. Transferencia es  incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'No. Transferencia   debe contener 5 car&aacute;cteres numéricos',
+                        \Zend\Validator\StringLength::TOO_LONG=>'No. Transferencia  debe contener máximo 20 car&aacute;cteres numéricos',
+                        ]
+                    ],
+                ],
+                 ['name' => Regex::class, 
+                     'options' => [
+                       'pattern' => '/^[0-9_-]+$/',
+                       'messages'=>[
+                        \Zend\Validator\Regex::NOT_MATCH=>'Formato de No. Transferencia   incorrecto',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
 
         $this->add([
             'name' => 'Motivo_Traslado',
