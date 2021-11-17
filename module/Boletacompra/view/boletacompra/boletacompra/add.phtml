@@ -303,16 +303,19 @@ $form->prepare();
                 $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
                 if ($('#ProSelected tr').length == 0)
                 $('#ProSelected .no-item').slideDown(300);
-                RefrescaProducto();
                 
-                Calcular(e.target);
+                RefrescaProducto();
+               
                 });
 
                 $('.contadorfilas').off().change(function(e){
+                
                 RefrescaProducto();
-            
+                
+                Calcular(e.target);
+
                 });
-  } 
+    } 
   function Calcular(ele){
             var cantidad = 0, precio = 0, subtotal = 0;
             var tr = ele.parentNode.parentNode;
@@ -329,10 +332,9 @@ $form->prepare();
                 if (nodes[x].firstChild.id == 'Subtotal[]'){
                     anterior = nodes[x].firstChild.value;
                     subtotal = parseFloat((precio*cantidad),10);
-                    nodes[x].firstChild.value = subtotal.toFixed(2);
+                    nodes[x].firstChild.value = subtotal;
                 }        
             }
-            
             if (total.innerHTML === 'NaN') {
              total.innerHTML = (parseFloat(total.innerHTML)+ 0).toFixed(2);
               

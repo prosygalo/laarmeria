@@ -149,19 +149,17 @@ $form->prepare();
                           </div>
                     </div>
                 </div>
-                <strong>Lista de productos</strong> 
                 <div class="row">         
                     <div class="col-md-12">
                         <table id="TablaPro" class="table">
                             <thead>
                                 <tr class="text-center">
                                     <td></td>
+                                    <th>Cant.</th>
                                     <th>Descripci&oacute;n</th>
-                                    <th>Precio</th>
-                                    <th>Cantidad</th>
-                                    <th>Tipo Importe</th>
+                                    <th>Precio unitario</th>
+                                    <th>Impuesto</th>
                                     <th>Subtotal</th>
-                                    
                                 </tr>
                             </thead>
                             <tbody id="ProSelected">
@@ -305,7 +303,7 @@ $form->prepare();
          var Producto = $('#pro_id').find(':selected').val();
           
             var newtr = '<tr class="item" data-id="">';//Obtengo en el tr el Id
-            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" required ></td><td><input class="form-control text-right Precio" maxlength="8"  type="text" id="Precio[]" name="Precio[]" value="0" onChange="Calcular(this);" onkeypress="return filterFloat(event,this);" required /></td><td><input class="form-control text-center"  type="number"  min="1" max="99" onkeypress="return event.target.value.length < 2" id="Cantidad[]" name="Cantidad[]" value = "1"   onChange="Calcular(this);" required/></td><td><select class="form-control" name="Tipo_Importe[]" id="Tipo_Importe[]"><option value="E">E</option><option value="G">G</option></select></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0"  onChange="Calcular(this);" required onFocus="this.blur()" readonly/></td>';
+            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input class="form-control text-center"  type="number"  min="1" max="99" onkeypress="return event.target.value.length < 2" id="Cantidad[]" name="Cantidad[]" value = "1"   onChange="Calcular(this);" required/></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" required ></td><td><input class="form-control text-right Precio" maxlength="8"  type="text" id="Precio[]" name="Precio[]" value="0.0" onChange="Calcular(this);" onkeypress="return filterFloat(event,this);" required /></td><td><select class="form-control" name="Tipo_Importe[]" id="Tipo_Importe[]"><option value="G">G</option><option value="E">E</option></select></td><td><input class="form-control text-right Subtotal" type="text" id="Subtotal[]" name="Subtotal[]" value ="0"  onChange="Calcular(this);" required onFocus="this.blur()" readonly/></td>';
            /*newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';*/
             $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
 
@@ -320,7 +318,7 @@ $form->prepare();
                 $('#ProSelected .no-item').slideDown(300);
 
                 RefrescaProducto();
-                Calcular(e.target);
+               
                 });
 
                 $('.contadorfilas').off().change(function(e){
@@ -331,7 +329,7 @@ $form->prepare();
 }
           
 function Calcular(ele){
-            var cantidad = 0, precio = 0, tipo_importe = 0; Subtotal = 0;
+            var cantidad = 0, precio = 0, tipo_importe = 0; subtotal = 0; importisv=0; importgra=0; importexe=0;
             var tr = ele.parentNode.parentNode;
             var nodes = tr.childNodes;
         
@@ -346,32 +344,43 @@ function Calcular(ele){
                 if (nodes[x].firstChild.id == 'Tipo_Importe[]'){
                     tipo_importe = nodes[x].firstChild.value;
                 }
-               if (nodes[x].firstChild.id == 'Subtotal[]'){
+                if (nodes[x].firstChild.id == 'Subtotal[]'){
                     anterior = nodes[x].firstChild.value;
-                    Subtotal = parseFloat((precio * cantidad),10); 
-                    nodes[x].firstChild.value = Subtotal;
-                }          
+                    subtotal = parseFloat((precio * cantidad),10); 
+                    nodes[x].firstChild.value = subtotal;
+                
+                   if (tipo_importe === 'G'){
+                    importisv = (subtotal / 1.15) * 0.15;
+                    importgra = (subtotal / 1.15);
+                    importexe = 0;
+                  }
+                  if(tipo_importe === 'E' ){
+                    importisv = 0;
+                    importgra = 0;
+                    importexe = subtotal;
+                  }
+                }         
             }
             var total = document.getElementById("total");
-            total.innerHTML = (parseFloat(total.innerHTML)+ Subtotal - anterior).toFixed(2);
+            total.innerHTML = (parseFloat(total.innerHTML)+ subtotal - anterior).toFixed(2);
             var to = document.querySelector('#total').innerText;
             var input_to = document.querySelector('input[name="Total"]');
              input_to.value = to;
             
             var isv = document.getElementById("isv");
-            isv.innerHTML = ((parseFloat(total.innerHTML)/1.15) * 0.15).toFixed(2);
+            isv.innerHTML = (parseFloat(isv.innerHTML)+ importisv).toFixed(2);
             var is = document.querySelector('#isv').innerText;
             var input_is = document.querySelector('input[name="Isv"]');
              input_is.value = is;
  
-            var gravado= document.getElementById("gravado");
-            gravado.innerHTML = (parseFloat(total.innerHTML)/1.15).toFixed(2);
+            var gravado = document.getElementById("gravado");
+            gravado.innerHTML = (parseFloat(gravado.innerHTML)+ importgra).toFixed(2);
             var gra = document.querySelector('#gravado').innerText;
             var input_gra = document.querySelector('input[name="Gravado"]');
             input_gra.value = gra;
 
             var exento = document.getElementById("exento");
-            exento.innerHTML = (parseFloat(total.innerHTML) - parseFloat(isv.innerHTML) - parseFloat(gravado.innerHTML)).toFixed(2);
+            exento.innerHTML = (parseFloat(exento.innerHTML)+ importexe).toFixed(2);
             var exe = document.querySelector('#exento').innerText;
             var input_exe = document.querySelector('input[name="Exento"]');
             input_exe.value = exe;
