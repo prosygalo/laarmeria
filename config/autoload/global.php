@@ -32,8 +32,8 @@
        /* 'driver'         => 'Pdo',
         'dsn'            => 'mysql:dbname=cdf_la_armeria_db;host:localhost',
         'driver_opcions' => array (PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES \'utf8\''),
-        'username'=> 'RoselyG',
-        'password'=>'RoselyGmysql',*/
+        'username'=> '',
+        'password'=>'',*/
         'driver'   => 'pdo_sqlsrv',
             'host'     =>  'NEW',
             'database' =>  'cdf_laarmeria_db',
@@ -50,8 +50,8 @@
              /* 'driver'         => 'Pdo',
                'dsn'            => 'mysql:dbname=articulos_db;host:localhost',
                'driver_opcions' =>  array (PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES \'utf8\''),
-               'username'=> 'RoselyG',
-                'password'=>'RoselyGmysql',*/
+               'username'=> '',
+                'password'=>'',*/
             'driver'   => 'pdo_sqlsrv',
             'host'     =>  'NEW',
             'database' =>  'articulos_db',
