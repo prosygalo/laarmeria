@@ -33,15 +33,14 @@ class ProductoTable
                 }
                 return $row;
      } 
-     public function getPrecioProducto($Cod_Producto)
+     public function getProductoNotadebito($Cod_Producto)
      {
                 $Cod_Producto = $Cod_Producto;
                 $rowset2 = $this->tableGateway->getSql()->select();
-                $rowset2->columns(array('Precio','Tipo_Importe'));
+                $rowset2->columns(array('Cod_Producto','Nombre_Producto','Descripcion','Precio','Tipo_Importe'));
                 $rowset2->where(['Cod_Producto'=>$Cod_Producto]);
                 $resultSet = $this->tableGateway->selectWith($rowset2);
                 return $resultSet; 
-
      }
      public function getProductoSelect(){
 
@@ -51,7 +50,7 @@ class ProductoTable
                 $resultSet = $this->tableGateway->selectWith($rowset); 
                 $data= array();
                 foreach($resultSet as $row){
-                   $data[$row->Cod_Producto] = $row->Nombre_Producto;
+                   $data[$row->Cod_Producto] = $row->Nombre_Producto . $row->Descripcion;
                 }
                    return $data;
                

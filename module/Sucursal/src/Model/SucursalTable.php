@@ -54,11 +54,12 @@ class SucursalTable
                 $Cod_Sucursal = $Cod_Sucursal;
                 $rowset = $this->SucursalTableGateway->getSql()->select();
                 $rowset->columns(array('Cod_Sucursal','Nombre_Sucursal','Direccion'));
+                 $rowset->where(['Cod_Sucursal' => $Cod_Sucursal]);
                 $resultSet = $this->SucursalTableGateway->selectWith($rowset);
                 return $resultSet;
 
     }
-     public function getPuntoDestino($Cod_Sucursal){
+     public function getDireccion($Cod_Sucursal){
                 $Cod_Sucursal = $Cod_Sucursal;
                 $rowset = $this->SucursalTableGateway->getSql()->select();
                 $rowset->columns(array('Cod_Sucursal','Nombre_Sucursal','Direccion'));

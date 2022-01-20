@@ -108,6 +108,7 @@ class RegistroForm extends Form
             'options' => [
                 'label' => 'Rol',
                 'value_options' => [ 
+                      'Estandar' =>'Estandar',
                       'Miembro' =>'Miembro',
                       'Admin'   =>'Admin',
                ],

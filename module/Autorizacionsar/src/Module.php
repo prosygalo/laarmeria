@@ -12,7 +12,6 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature\FormElementProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Sucursal\Model\SucursalTable;
-use Tipodocumento\Model\TipodocumentoTable;
 
 
 class Module implements ConfigProviderInterface
@@ -51,7 +50,6 @@ class Module implements ConfigProviderInterface
                         $container,
                         $container->get(Model\AutorizacionsarTable::class),
                         $container->get(SucursalTable::class),
-                        $container->get(TipodocumentoTable::class),
                         $dbAdapter
                     );
                 },

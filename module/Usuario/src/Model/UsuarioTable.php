@@ -93,6 +93,7 @@ class UsuarioTable
             return;
 
     }
+
     public function getPerfil($Cod_Usuario)
     {          
         $Cod_Usuario = $Cod_Usuario;
@@ -103,5 +104,17 @@ class UsuarioTable
             return $resultSet;
                
     }
+    public function getsuperAdmin($Rol)
+    {
+        $Rol=$Rol;
+        $rowset=$this->tableGateway->getSql()->select();
+        $rowset->columns(['Rol']);
+        $rowset->where(['Rol' => $Rol]);
+        $row=$this->tableGateway->selectWith($rowset);
+        if (! $row) {
+            return false;
+        }
+        return $row;
+    }      
 
 }

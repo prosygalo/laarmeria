@@ -21,12 +21,15 @@ class Notadebito
     public $Exonerado;
     public $Isv;
     public $Total;
-    //detalle
-    public $Cod_Detalle;
+   //Productos
+    public $Cod_Producto;
+    public $Nombre_Producto;
     public $Descripcion;
-    public $Cantidad;
     public $Precio;
     public $Tipo_Importe;
+    //detalle
+    public $Cod_Detalle;
+    public $Cantidad;
     //sucursal
     public $Nombre_Sucursal;
     //Cliente
@@ -55,12 +58,15 @@ class Notadebito
         $this->Exonerado = !empty($data['Exonerado']) ? $data['Exonerado'] : null;
         $this->Isv = !empty($data['Isv']) ? $data['Isv'] : null;
         $this->Total = !empty($data['Total']) ? $data['Total'] : null;
+        //Productos
+        $this->Cod_Producto = !empty($data['Cod_Producto']) ? $data['Cod_Producto'] : null;
+        $this->Nombre_Producto = !empty($data['Nombre_Producto']) ? $data['Nombre_Producto'] : null;
+        $this->Descripcion = !empty($data['Descripcion']) ? $data['Descripcion'] : null;
+        $this->Precio = !empty($data['Precio']) ? $data['Precio'] : null;
+        $this->Tipo_Importe= !empty($data['Tipo_Importe']) ? $data['Tipo_Importe'] : null;
         //Propiedad de la tabla producto
         $this->Cod_Detalle = !empty($data['Cod_Detalle']) ? $data['Cod_Detalle'] : null;
-        $this->Descripcion = !empty($data['Descripcion']) ? $data['Descripcion'] : null;
         $this->Cantidad= !empty($data['Cantidad']) ? $data['Cantidad'] : null;
-        $this->Precio= !empty($data['Precio']) ? $data['Precio'] : null;
-        $this->Tipo_Importe= !empty($data['Tipo_Importe']) ? $data['Tipo_Importe'] : null;
         //Propiedades de otras tablegateway
         $this->Nombre_Sucursal = !empty($data['Nombre_Sucursal']) ? $data['Nombre_Sucursal'] : null;
         //Propiedades proveedor
@@ -95,7 +101,8 @@ class Notadebito
             'Isv' => $this->Isv,
             'Total' => $this->Total,
             'Cod_Detalle' => $this->Cod_Detalle,
-            'Descripcion' => $this->Descripcion,
+            'Cod_Producto' => $this->Cod_Producto,
+            'Descripcion'  => $this->Descripcion,
             'Cantidad'  => $this->Cantidad,
             'Precio'  => $this->Precio,
             'Tipo_Importe'  => $this->Tipo_Importe,

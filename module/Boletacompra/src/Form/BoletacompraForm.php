@@ -137,7 +137,6 @@ class BoletacompraForm extends Form
         //-----Datos de Proveedor
         $Nombre_Proveedor = new Element\Text('Nombre_Proveedor');
         $Nombre_Proveedor->setAttribute('class','form-control');
-        $Nombre_Proveedor->setAttribute('required','required');
         $Nombre_Proveedor->setAttribute('id','Nombre_Proveedor');
         $Nombre_Proveedor->setLabel('Proveedor');
         $this->add($Nombre_Proveedor);
@@ -145,7 +144,6 @@ class BoletacompraForm extends Form
         //Agregar entrada Dirección de proveedor
         $Direccion_Proveedor = new Element\Text('Direccion_Proveedor');
         $Direccion_Proveedor->setAttribute('class','form-control');
-        $Direccion_Proveedor->setAttribute('required','required');
         $Direccion_Proveedor->setAttribute('id','Direccion_Proveedor');
         $Direccion_Proveedor->setLabel('Dirección');
         $this->add($Direccion_Proveedor);
@@ -162,14 +160,12 @@ class BoletacompraForm extends Form
         $RTN_View = new Element\Text('RTN_View');
         $RTN_View->setAttribute('class','form-control');
         $RTN_View->setAttribute('id','RTN_Proveedor');
-        $RTN_View->setAttribute('required','required');
         $RTN_View->setLabel('RTN');
         $this->add($RTN_View);
 
         //Agregar entrada telefono proveedor
         $Telefono_Proveedor = new Element\Text('Telefono_Proveedor');
         $Telefono_Proveedor->setAttribute('class','form-control');
-        $Telefono_Proveedor->setAttribute('required','required');
         $Telefono_Proveedor->setAttribute('id','Telefono_Proveedor');
         $Telefono_Proveedor->setLabel('Teléfono');
         $this->add($Telefono_Proveedor);
@@ -190,31 +186,7 @@ class BoletacompraForm extends Form
         $No_Constancia_Registro_Exonerado->setLabel('No. Constancia de Registro de Exonerado');
         $this->add($No_Constancia_Registro_Exonerado);
 
-     
-     /*   $Cod_Detalle_Compra = new Element\Text('Cod_Detalle_Compra');
-        $Cod_Detalle_Compra->setAttribute('type','hidden');
-        $this->add($Cod_Detalle_Compra);
-    
-        $Cod_Producto = new Element\Text('Cod_Producto');
-        $Cod_Producto->setAttribute('class', 'form-control codigo');
-        $Cod_Producto->setAttribute('id','Cod_Producto');
-        $this->add($Cod_Producto);
-     
-        $Nombre_Producto = new Element\Text('Nombre_Producto');
-        $Nombre_Producto->setAttribute('class', 'form-control codigo');
-        $Nombre_Producto->setAttribute('id','Nombre_Producto');
-        $this->add($Nombre_Producto);
         
-        
-        //Agregar entada  fecha de emisión
-        $Cantidad = new Element\Text('Cantidad');
-        $Cantidad ->setAttribute('class', 'form-control autofocus cant');
-        $Cantidad->setAttribute('id','Cantidad');
-        $Cantidad->setAttribute('maxlength','3');
-        $Cantidad->setAttribute('onkeypress','return int(event)');
-        $this->add($Cantidad);*/
-        //<button type="button" id="blo" onclick="agregarProducto()" class="btn btn-primary btn-danger active btn-lg">Agregar</button>
-        //Agregar botón de agregar productos a la tabla
         $Agregar = new Element\Button('agregar');
         $Agregar->setLabel("Agregar");
         $Agregar->setAttribute('type','button');

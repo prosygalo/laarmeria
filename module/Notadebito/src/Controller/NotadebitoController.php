@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
 namespace Notadebito\Controller;
 
 use Notadebito\Form\NotadebitoForm;
@@ -19,7 +24,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Luecano\NumeroALetras\NumeroALetras;
 /**
- * This controller is responsible for 
+ * Este controlador es el encargado de las acciones en el módulo Nota de débitos: Listar, agregar, ver y convertir una nota de debito en formato PDF.
  */
 
 class NotadebitoController extends AbstractActionController
@@ -60,17 +65,12 @@ class NotadebitoController extends AbstractActionController
     {
         //Recibir el código de boleta  para mostrar el detalle que corresponde
         $Sucursal = $this->params()->fromRoute('Sucursal');
-        $Sucursal_Estado = $this->SucursalTable->getSucursalEstado($Sucursal);
-        foreach ($Sucursal_Estado  as $n):
-            $Estado = $n->Estado;
-        endforeach; 
-
-        if($Estado != 'Disponible'){
-            return $this->redirect()->toRoute('boletacompra/inactiva');                             
-        }
-        $fecha= date('Y-m-d');
+        $fecha = date('Y-m-d');
         //-------Consecutivo autorizacion sar----
-        $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionBoletaCompra($Sucursal);
+        $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionNotaDebito($Sucursal);
+          if(is_null($UltimaAutorizacion)){
+             return $this->redirect()->toRoute('notadebito/errorautorizacion');                           
+          }
             foreach ($UltimaAutorizacion  as $a):
                 $Cod_Autorizacion = $a->Cod_Autorizacion;
                 $Consecutivo_Inicial_Establ = $a->Consecutivo_Inicial_Establ;
@@ -85,7 +85,7 @@ class NotadebitoController extends AbstractActionController
                 $Tipo_de_Documento = $a->Tipo_de_Documento;
                 $Fecha_Limite = $a->Fecha_Limite;
               endforeach;           
-                    if($Cod_Autorizacion == NULL){
+                    if(is_null($Cod_Autorizacion)){
                             return $this->redirect()->toRoute('notadebito/errorautorizacion');                           
                     }elseif($fecha > $Fecha_Limite){
                             return $this->redirect()->toRoute('notadebito/vencimientofecha');
@@ -143,7 +143,9 @@ class NotadebitoController extends AbstractActionController
             //llenado de  Proveedores
             $rowset = $this->ClienteTable->getClienteRTNSelect(); //llenar select sucursal  remiten
             $form->get('RTN_DNI')->setValueOptions($rowset);
-            
+
+            $rowset4 = $this->ProductoTable->getProductoSelect(); //llenar select Conductor 
+            $productos = $form->get('productos')->setValueOptions($rowset4);             
            
             //-------Solicitud-------------------------
             $request = $this->getRequest();
@@ -151,20 +153,19 @@ class NotadebitoController extends AbstractActionController
                  return ['form' => $form];
 
             }          
+
             //Validacion del formulario
             $form->setInputFilter(new  \Notadebito\Form\Filter\NotadebitoFilter($this->dbAdapter));//Filtrado y vlidacion  de los  datos
             $form->setData($request->getPost());
                 
-            if (! $form->isValid()){
+            if ( $form->isValid()){
                 return ['form' => $form];
             }
             //--------Tomar datos del formulario-y los guardamos en la base de datos, para ello realizamos tres procesos.
             $notadebito = new Notadebito();
             $notadebito->exchangeArray($form->getData());
-            $Descripcion = $this->request->getPost("Descripcion");
+            $Cod_Producto = $this->request->getPost("Cod_Producto");
             $Cantidad = $this->request->getPost("Cantidad");
-            $Precio = $this->request->getPost("Precio");
-            $Tipo_Importe = $this->request->getPost("Tipo_Importe");
 
                 // Almacenar los datos en la tabla boleta de remision  
                    $lastId = $this->NotadebitoTable->insertNotaDebito($notadebito);
@@ -177,7 +178,7 @@ class NotadebitoController extends AbstractActionController
                    
                    $this->AutorizacionsarTable->UpdateConsecutivoActual($Cod_Autorizacion, $Consecutivo_Actual_Establ, $Consecutivo_Actual_Punto, $Consecutivo_Actual_Tipo, $Consecutivo_Actual_Correlativo);                   
                 //Cada producto debe de registrarse con el codigo de boleta  y almacenarse en el detalle
-                   $this->DetalleNotadebitoTable->insertDetalleNotadebito($Descripcion, $Cantidad, $Precio, $Tipo_Importe, $lastId);// Enviar Datos a la tabla detalle a la BD                        
+                   $this->DetalleNotadebitoTable->insertDetalleNotadebito($Cod_Producto, $Cantidad, $lastId);// Enviar Datos a la tabla detalle a la BD                        
                     return $this->redirect()->toRoute('notadebito/detalle',['Cod_Nota'=>$lastId]);
 
         
@@ -190,11 +191,11 @@ class NotadebitoController extends AbstractActionController
         return  new JsonModel($rowset3);
 
     }
-    public function precioAction()
+     public function productoAction()
     {
-        $Producto = $this->params()->fromRoute('Producto');
+        $Producto = $this->params()->fromRoute('Cod_Producto');
         
-        $rowset4 = $this->ProductoTable->getPrecioProducto($Producto); //llenar select sucursal  remiten
+        $rowset4 = $this->ProductoTable->getProductoNotadebito($Producto); //llenar select sucursal  remiten
         return  new JsonModel($rowset4);
 
     }
@@ -411,7 +412,12 @@ class NotadebitoController extends AbstractActionController
                 'Message' => 'La fecha límite de emisión de documento fiscal ha expirado',
             ]);
     }
-
+  public function inactivaAction()
+    {
+        return new ViewModel([
+                'Message'=>'La sucursal a la que se esta asignado, no esta disponible para emitir documentos fiscales'
+            ]);
+    }
     // formato Json para pruebas
     public function pruebaAction()
     { 

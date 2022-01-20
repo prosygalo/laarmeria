@@ -23,7 +23,7 @@ class Module implements ConfigProviderInterface
                     return new Model\ProductoTable($tableGateway);
                 },
                 Model\TableGateway::class => function ($container) {
-                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $dbAdapter = $container->get('db2');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Producto());
                     return new TableGateway('productos', $dbAdapter, null, $resultSetPrototype);
@@ -37,7 +37,7 @@ class Module implements ConfigProviderInterface
         return [
             'factories' => [
                 Controller\ProductoController::class => function($container) {
-                     $dbAdapter = $container->get(AdapterInterface::class);
+                     $dbAdapter = $container->get('db2');
                     return new Controller\ProductoController (
                         $container->get(Model\ProductoTable::class),
                         $dbAdapter

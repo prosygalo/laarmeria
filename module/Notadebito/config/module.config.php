@@ -48,6 +48,15 @@ return [
                         ],
                     ],
                 ],
+                'producto' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/producto[/:Cod_Producto]',
+                        'defaults' => [
+                            'action' => 'producto',
+                        ],
+                    ],
+                ],
 
                 'errorautorizacion' => [
                     'type' =>Segment::class,
@@ -73,6 +82,15 @@ return [
                         'route'    => '/expirocorrelativo',
                         'defaults' => [
                             'action' => 'expirocorrelativo',
+                        ],
+                    ],
+                ],
+                 'inactiva' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/inactiva',
+                        'defaults' => [
+                            'action' => 'inactiva',
                         ],
                     ],
                 ],

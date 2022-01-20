@@ -30,7 +30,7 @@ class BoletacompraFilter  extends InputFilter
 
         $this->add([
             'name' => 'Cod_Boleta_Compra',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => ToInt::class],
              ],
@@ -222,15 +222,6 @@ class BoletacompraFilter  extends InputFilter
         ]);
 
         $this->add([
-            'name' => 'Autorizacion_Sar',
-            'required' => true,
-            'filters' => [
-                ['name' => ToInt::class],
-             ],
-           ]);
-
-
-        $this->add([
             'name' => 'Total',
             'required' => true,
             'filters' => [
@@ -261,6 +252,15 @@ class BoletacompraFilter  extends InputFilter
                 ],
             ],
         ]);
+        
+        $this->add([
+            'name' => 'Autorizacion_Sar',
+            'required' => true,
+            'filters' => [
+                ['name' => ToInt::class],
+             ],
+           ]);
+
      
     }    
 }

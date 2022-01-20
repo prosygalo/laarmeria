@@ -85,8 +85,10 @@ class Module implements ConfigProviderInterface
                     $acl= new Acl();   
                  /**agregar  los roles con la herencia de controles de acceso*/
                     $acl->addRole(new Role('Publico'))
-                    /**El usuario miembro hereda controles de acceso de invitado*/
-                    ->addRole(new Role('Miembro'), 'Publico')
+                     /**El usuario estandar hereda controles de acceso de publico*/
+                    ->addRole(new Role('Estandar'), 'Publico')
+                    /**El usuario miembro hereda controles de acceso de estandar*/
+                    ->addRole(new Role('Miembro'), 'Estandar')
                     /**El usuario especial hereda controles de acceso de miembro*/
                     ->addRole(new Role('Admin'), 'Miembro')
                     /**El administrador no hereda controles de acceso pues tiene acceso a todo*/
@@ -136,9 +138,10 @@ class Module implements ConfigProviderInterface
                    
                      /* Permitir a miembros  acceder a inicio, emisión de documento fiscales, vista, reporte del documento emitido,perfil y cierre de sesión.
                      */
-                    ->allow('Miembro','usuario:auth')
-                    ->allow('Miembro','usuario:usuario',['perfil'])
-                    ->allow('Miembro','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error','sucdes'])
+                    ->allow('Estandar','usuario:auth')
+                    ->allow('Estandar','usuario:usuario',['perfil'])
+                    ->allow('Estandar','boletasremision:boletasremision',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error','sucdes'])
+                     
                      ->allow('Miembro','constanciaretencion:constanciaretencion',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
                     ->allow('Miembro','boletacompra:boletacompra',['add','pre','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error'])
                     ->allow('Miembro','notadebito:notadebito',['add','vencimientofecha','expirocorrelativo','errorautorizacion','detalle','pdf','reporte','listo','error','sucdes'])

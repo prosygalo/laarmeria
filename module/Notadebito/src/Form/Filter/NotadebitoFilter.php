@@ -31,7 +31,7 @@ class NotadebitoFilter  extends InputFilter
 
         $this->add([
             'name' => 'Cod_Nota',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => ToInt::class],
              ],
@@ -58,28 +58,8 @@ class NotadebitoFilter  extends InputFilter
                     ],              
                 ],
         ]);
-          $this->add([
-            'name' => 'Fecha_Emision_Comprobante',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-               ],
-             'validators' => [
-                    ['name'=>Date::class,
-                      'options'=>[
-                      'format' => 'Y-m-d',
-                      'messages' => [
-                        \Zend\Validator\Date::INVALID=>'Fecha Emisión Comprobante no válida',
-                        \Zend\Validator\Date::INVALID_DATE=>'Fecha Inválida',
-                        \Zend\Validator\Date::FALSEFORMAT=>'Formato de fecha incorrecto',
-                         ],
-                      ],
-
-                    ],              
-                ],
-        ]);
-
+          
+          
         $this->add([
             'name' => 'Consecutivo_Actual_Establ',
             'required' => true,
@@ -222,6 +202,29 @@ class NotadebitoFilter  extends InputFilter
 
         ]);
 
+
+        $this->add([
+            'name' => 'Autorizacion_Sar',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+             'validators' => [
+                     ['name' => Regex::class, 
+                     'options' => [
+                       'pattern' => '/^[0-9]+$/',
+                       'messages'=>[
+                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
+                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
+            
+                      ],
+                    ],
+                ],
+            ],
+          ]);
+
+
         $this->add([
             'name' => 'Sucursal',
             'required' => true,
@@ -332,7 +335,31 @@ class NotadebitoFilter  extends InputFilter
         ]);
 
         $this->add([
+            'name' => 'Fecha_Emision_Comprobante',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+               ],
+             'validators' => [
+                    ['name'=>Date::class,
+                      'options'=>[
+                      'format' => 'Y-m-d',
+                      'messages' => [
+                        \Zend\Validator\Date::INVALID=>'Fecha Emisión Comprobante no válida',
+                        \Zend\Validator\Date::INVALID_DATE=>'Fecha Inválida',
+                        \Zend\Validator\Date::FALSEFORMAT=>'Formato de fecha incorrecto',
+                         ],
+                      ],
+
+                    ],              
+                ],
+        ]);
+
+
+        $this->add([
             'name' => 'RTN_DNI',
+            'required' => true,
                'filters' => [
                     ['name' => StripTags::class],
                   //['name' => StringTrim::class],
@@ -368,7 +395,7 @@ class NotadebitoFilter  extends InputFilter
             'required' => true,
             'filters' => [
                ['name' => StripTags::class],
-               ['name' => StringTrim::class],
+               //['name' => StringTrim::class],
             ],
              'validators' => [
                      ['name' => Regex::class, 
@@ -543,27 +570,6 @@ class NotadebitoFilter  extends InputFilter
             ],
         ]);
     
-        $this->add([
-            'name' => 'Autorizacion_Sar',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-            ],
-             'validators' => [
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-          ]);
-
         $this->add([
             'name' => 'Motivo',
             'filters' => [

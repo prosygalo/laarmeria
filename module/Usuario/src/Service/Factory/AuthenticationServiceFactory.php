@@ -24,16 +24,11 @@ class AuthenticationServiceFactory implements FactoryInterface
         };
 
     /** Crear el adaptor de autenticacion */
-    $AuthAdapter = new  CallbackCheckAdapter(
-      $dbAdapter,
-      'usuarios', 
-      'Correo', 
-      'Clave',
-       $credentialCallback //ejecutar la funcion para comparar contraseñas
+    $AuthAdapter = new  CallbackCheckAdapter($dbAdapter,'usuarios', 'Correo', 'Clave', $credentialCallback //ejecutar la funcion para comparar contraseñas
     );
     
     $select = $AuthAdapter->getDbSelect();
-    $select->where('Estado = "Activo"');
+    $select->where(['Estado' => 'Activo']);
 
     // Finalmente se crea el servicio
     $authService = new AuthenticationService($container->get(AuthStorage::class), $AuthAdapter);

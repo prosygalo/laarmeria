@@ -58,6 +58,15 @@ return [
                         ],
                     ],
                 ],
+                'inactiva' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/inactiva',
+                        'defaults' => [
+                            'action' => 'inactiva',
+                        ],
+                    ],
+                ],
 
                 'detalle' => [
                     'type' =>Segment::class,

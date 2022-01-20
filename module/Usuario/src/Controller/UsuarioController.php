@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
 namespace Usuario\Controller;
 
 use Usuario\Form\RegistroForm;
@@ -54,17 +59,25 @@ class UsuarioController extends AbstractActionController
      */
      public function registroadminuserAction()
      {
-        $user = $this->UsuarioTable->fetchAll();
         
+        //Comprueba la existencia de usuarios en la base de datos
+        $user = $this->UsuarioTable->getsuperAdmin('Superadmin');
+       // return  new JsonModel($user);
+        /*foreach ($user as $n):
+            $Rol = $n->Rol;
+        endforeach; */
+
+        if($user = null){
+            return $this->redirect()->toRoute('home');                             
+        }
+
         $form = new RegistroForm();
         $form->get('submit')->setValue('Crear usuario administrador');
-        
-        //Comprueba la existencia de usuarios en la base de datos 
-        
+         
         //Datos estáticos
         $form->get('Cod_Empleado')->setValue('Superadmin');
-        $form->get('Departamento')->setValueOptions(['Tecnologia'=>'Tecnologia']);
-        $form->get('Sucursal')->setValueOptions(['CasaPrincipal'=>'CasaPrincipal']);
+        $form->get('Departamento')->setValueOptions(['LAD1'=>'LAD1']);
+        $form->get('Sucursal')->setValueOptions(['CPT'=>'CPT']);
         $form->get('Correo')->setValue('superadmin@laarmeria.hn');
         $form->get('ClaveView')->setValue('Secur1ty');
         $form->get('Usuario')->setValue('Superadmin');
@@ -83,11 +96,11 @@ class UsuarioController extends AbstractActionController
         //Enviar al tablegateway
         $data = [
             'Cod_Empleado'=>'Superadmin',
-            'Departamento'=>'Tecnologia',
-            'Sucursal'=>'CasaPrincipal',
+            'Departamento'=>'LAD1',
+            'Sucursal'=>'CPT',
             'Correo'=>'superadmin@laarmeria.hn',
             'Usuario'=>'Superadmin',
-            'Clave'=>$Clavesegura,
+            'Clave'=>$Clavesegura, 
             'Rol'=>'Superadmin',
             'Estado'=>'Activo',
         ];

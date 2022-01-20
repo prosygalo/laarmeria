@@ -3,6 +3,7 @@ namespace Autorizacionsar;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
+//Agregaremos una ruta para las acciones en el AutorizacionsarController
 
 return [    
 'router' => [

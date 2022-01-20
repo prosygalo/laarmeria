@@ -13,6 +13,7 @@ $this->headTitle($title);
               <th>Registro Nacional Tributario (RTN)</th>
               <th>Direcci&oacute;n</th>
               <th>Correo</th>
+              <th>Teléfono</th>
               <th>Estado</th>
               <th>Fecha de ingreso</th>
               <th>Fecha de actualizaci&oacute;n</th>
@@ -27,7 +28,8 @@ $this->headTitle($title);
               <td><?= $this->escapeHtml($suc->RTN) ?></td>
               <td><?= $this->escapeHtml($suc->Direccion) ?></td>
               <td><?= $this->escapeHtml($suc->Correo) ?></td>
-               <td><?= $this->escapeHtml($suc->Estado) ?></td>
+              <td><?= $this->escapeHtml($suc->Telefono) ?></td>
+              <td><?= $this->escapeHtml($suc->Estado) ?></td>
               <td><?= $this->escapeHtml($suc->Fecha_Ingreso) ?></td>
               <td><?= $this->escapeHtml($suc->Fecha_Actualizacion) ?></td>
               <td>

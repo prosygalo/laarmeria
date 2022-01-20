@@ -6,16 +6,10 @@ use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
 use Zend\Filter\ToInt;
 use Zend\InputFilter\InputFilter;
-//use Zend\InputFilter\ArrayInput;
 use Zend\Validator\StringLength;
 use Zend\Validator\Regex;
 use Zend\Validator\Date;
-use Zend\Validator\EmailAddress;
-//use Zend\Validator\InArray;
-use Zend\Validator\Db\NoRecordExists;
 use Zend\Db\Adapter\Adapter;
-
-
 
 class BoletasremisionFilter  extends InputFilter
 { 
@@ -31,9 +25,10 @@ class BoletasremisionFilter  extends InputFilter
 
         $this->add([
             'name' => 'Cod_Boleta',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => ToInt::class],
+                ['name' => StripTags::class],
              ],
         ]);
 
@@ -187,32 +182,105 @@ class BoletasremisionFilter  extends InputFilter
                       ],
                     ],
                 ],
-                ['name' =>NoRecordExists::class,
-                          'options' => [
-                            'table' => 'autorizaciones_sar',
-                            'field' => 'Consecutivo_Actual_Correlativo',
-                            'adapter' =>  $this->dbAdapter,
-                            'messages' => [
-                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'Se detecto inactividad en la aplicación  y su correlativo esta comprometido, favor intentarlo nuevamente',
-                           ],
-                        ],
-                  ],
             ],
 
         ]);
-         
+
+        $this->add([
+            'name' => 'Sucursal_Remitente',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ],
+             'validators' => [
+                     ['name' => Regex::class, 
+                     'options' => [
+                       'pattern' => '/^[a-zA-Z0-9]+$/',
+                       'messages'=>[
+                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
+                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+
          $this->add([
-            'name' => 'Num_Transferencia',
+            'name' => 'Sucursal_Destino',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ],
+             'validators' => [
+                     ['name' => Regex::class, 
+                     'options' => [
+                       'pattern' => '/^[a-zA-Z0-9]+$/',
+                       'messages'=>[
+                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
+                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+
+          $this->add([
+            'name' => 'Fecha_Inicio_Traslado',
             'required' => true,
             'filters' => [
                ['name' => StripTags::class],
                ['name' => StringTrim::class],
+               ],
+             'validators' => [
+                    ['name'=>Date::class,
+                      'options'=>[
+                      'format' => 'Y-m-d',
+                      'messages' => [
+                        \Zend\Validator\Date::INVALID=>'Fecha  no válida',
+                        \Zend\Validator\Date::INVALID_DATE=>'Fecha Inválida',
+                        \Zend\Validator\Date::FALSEFORMAT=>'Formato de fecha incorrecto',
+                         ],
+                      ],
+
+                    ],              
+                ],
+        ]);
+
+           $this->add([
+            'name' => 'Fecha_Final_Traslado',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+               ],
+             'validators' => [
+                    ['name'=>Date::class,
+                      'options'=>[
+                      'format' => 'Y-m-d',
+                      'messages' => [
+                        \Zend\Validator\Date::INVALID=>'Fecha no válida',
+                        \Zend\Validator\Date::INVALID_DATE=>'Fecha Inválida',
+                        \Zend\Validator\Date::FALSEFORMAT=>'Formato de fecha incorrecto',
+                         ],
+                      ],
+
+                    ],              
+                ],
+        ]);
+
+        $this->add([
+            'name' => 'Num_Transferencia',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
             ],
             'validators' => [
                 ['name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 20,
+                        'min' => 5,
                         'max' => 20,
                         'messages' => [
                         \Zend\Validator\StringLength::INVALID=>'No. Transferencia es  incorrecto',
@@ -233,12 +301,11 @@ class BoletasremisionFilter  extends InputFilter
             ],
         ]);
 
-        $this->add([
+         $this->add([
             'name' => 'Motivo_Traslado',
             'required' => true,
             'filters' => [
                ['name' => StripTags::class],
-              
             ],
             'validators' => [
                 [
@@ -249,8 +316,8 @@ class BoletasremisionFilter  extends InputFilter
                         'max' => 50,
                         'messages' => [
                         \Zend\Validator\StringLength::INVALID=>'Motivo de traslado es  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Motivo traslado debe contener m&aacute;s de 3 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Motivo de traslado  debe contener menos de 50 car&aacute;cteres',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Debe contener m&aacute;s de 3 car&aacute;cteres',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Debe contener menos de 50 car&aacute;cteres',
                         ]
                     ],
                 ],
@@ -266,152 +333,7 @@ class BoletasremisionFilter  extends InputFilter
                 ],
             ],
         ]);
-      
-        
-        $this->add([
-            'name' => 'Fecha_Inicio_Traslado',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-               ],
-             'validators' => [ 
-                    ['name'=>Date::class,
-                      'options'=>[
-                      'format' => 'Y-m-d',
-                      'messages' => [
-                        \Zend\Validator\Date::INVALID=>'Fecha  no válida',
-                        \Zend\Validator\Date::INVALID_DATE=>'Fecha inválida',
-                        \Zend\Validator\Date::FALSEFORMAT=>'Formato de fecha incorrecto',
-                         ],
-                      ],
-
-                    ],              
-                ],
-        ]);
-
-        $this->add([
-            'name' => 'Fecha_Final_Traslado',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-               ],
-             'validators' => [
-                    ['name'=>Date::class,
-                      'options'=>[
-                      'format' => 'Y-m-d',
-                      'messages' => [
-                        \Zend\Validator\Date::INVALID=>'Fecha  no válida',
-                        \Zend\Validator\Date::INVALID_DATE=>'Fecha inválida',
-                        \Zend\Validator\Date::FALSEFORMAT=>'Formato de fecha incorrecto',
-                         ],
-                      ],
-
-                    ],              
-              ],
-        ]);
-          
-        $this->add([
-            'name' => 'Punto_Partida',
-            'required' => true,
-            'filters' => [
-                ['name' => StripTags::class],
-                ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                [
-                    'name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 4,
-                        'max' => 200,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Punto de artida es  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Punto de partida es obligatorio y  debe contener m&aacute;s de 4 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Punto pde artida  debe contener menos de 200 car&aacute;cteres',
-                        ]
-                    ],
-            
-                ],
-            ],
-        ]);
-
-        $this->add([
-            'name' => 'Punto_Destino',
-            'required' => false,
-            'filters' => [
-                ['name' => StripTags::class],
-                ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                [
-                    'name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 4,
-                        'max' => 200,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Punto de destino es  incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Punto de destino es obligatorio y  debe contener m&aacute;s de 4 car&aacute;cteres',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Punto de destino debe contener menos de 200 car&aacute;cteres',
-                        ]
-                    ],
-            
-                ],
-            ],
-        ]);
-        
-        $this->add([
-            'name' => 'Sucursal_Remitente',
-            'required' => true,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-               ],
-             'validators' => [
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[a-zA-Z0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);
-        $this->add([
-            'name' => 'Sucursal_Destino',
-            'required' => false,
-            'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-               ],
-             'validators' => [
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[a-zA-Z0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-        ]);
-
-        $this->add([
-            'name' => 'Autorizacion_Sar',
-            'required' => true,
-            'filters' => [
-                ['name' => ToInt::class],
-             ],
-           ]);
-
-          $this->add([
+         $this->add([
             'name' => 'Unidad_Transporte',
             'filters' => [
                ['name' => StripTags::class],
@@ -475,6 +397,26 @@ class BoletasremisionFilter  extends InputFilter
                 ],
             ],
         ]);
-    }
-    
+         
+        $this->add([
+            'name' => 'Autorizacion_Sar',
+            'required' => true,
+            'filters' => [
+                ['name' => ToInt::class],
+                ['name' => StripTags::class],
+             ],
+           ]);
+
+        
+        $this->add([
+            'name' => 'Usuario',
+            'required' => true,
+            'filters' => [
+                ['name' => ToInt::class],
+                ['name' => StripTags::class],
+             ],
+           ]);
+
+     
+    }    
 }

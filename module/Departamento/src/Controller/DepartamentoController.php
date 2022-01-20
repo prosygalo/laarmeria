@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
 namespace Departamento\Controller;
 
 use Departamento\Form\DepartamentoForm;
@@ -10,7 +15,7 @@ use Zend\View\Model\ViewModel;
 
 
 /**
- * This controller is responsible for 
+ * Este controlador es el encargado de las acciones en el módulo Departamento : Listar , Agregar y editarlos registros agregados
  */
 class DepartamentoController extends AbstractActionController
 {

@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
 namespace Constanciaretencion\Controller;
 
 use Constanciaretencion\Form\ConstanciaretencionForm;
@@ -16,7 +21,7 @@ use Usuario\Model\UsuarioTable;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 /**
- * This controller is responsible for 
+ * Este  controlador es encargado  de acciones del módulo constancias de retención :listar, agregar , ver y convertir en las constancias en formato PDF.
  */
 
 class ConstanciaretencionController extends AbstractActionController
@@ -53,19 +58,13 @@ class ConstanciaretencionController extends AbstractActionController
      public function addAction()
     {
         //Recibir el código de boleta  para mostrar el detalle que corresponde
-        $Sucursal = $this->params()->fromRoute('Sucursal');
-        $Sucursal_Estado = $this->SucursalTable->getSucursalEstado($Sucursal); 
-        foreach ($Sucursal_Estado  as $n):
-            $Estado = $n->Estado;
-        endforeach; 
-
-        if($Estado != 'Disponible'){
-            return $this->redirect()->toRoute('constanciaretencion/inactiva');                             
-        }
-
+        $Sucursal = $this->params()->fromRoute('Sucursal');  
         $fecha= date('Y-m-d'); 
         //-------Consecutivo autorizacion sar----
         $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionConstanciaretencion($Sucursal);
+        if(is_null($UltimaAutorizacion)){
+            return $this->redirect()->toRoute('constanciaretencion/errorautorizacion'); 
+         }
             foreach ($UltimaAutorizacion  as $a):
                 $Cod_Autorizacion = $a->Cod_Autorizacion;
                 $Consecutivo_Inicial_Establ = $a->Consecutivo_Inicial_Establ;
@@ -79,7 +78,7 @@ class ConstanciaretencionController extends AbstractActionController
                 $Consecutivo_Actual_Correlativo = $a->Consecutivo_Actual_Correlativo;
                 $Fecha_Limite = $a->Fecha_Limite;
               endforeach;           
-                    if($Cod_Autorizacion == NULL){
+                    if(is_null($Cod_Autorizacion)){
                             return $this->redirect()->toRoute('constanciaretencion/errorautorizacion');                           
                     }elseif($fecha > $Fecha_Limite){
                             return $this->redirect()->toRoute('constanciaretencion/vencimientofecha');

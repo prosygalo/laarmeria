@@ -176,11 +176,8 @@ $form->prepare();
                                 <tr>
                     
                                 </tr>
-                                <tr>
-                                    <td><span id="Cantidad"></span></td>
-                                    <td><span id="Precio"></span></td>
-                                    <td><span id="Subtotal"></span></td>
-                                 </tr>
+                                
+                                
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -288,18 +285,18 @@ $form->prepare();
     }
 
   function agregarProducto(){
-            var newtr = '<tr class="item" data-id="">';//Obtengo en el tr el Id
-            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input type="text" class="form-control codigo" name="Producto[]" id="Producto[]" required ></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]" required ></td><td><input class="form-control text-right Precio" maxlength="8"  type="text" id="Precio[]" name="Precio[]"  value="0" onChange="Calcular(this);" onkeypress="return filterFloat(event,this);" required /></td><td><input  id="Cantidad[]" name="Cantidad[]" class="form-control text-center"  type="number"  min="1" max="99"  value ="1"  onkeypress="return event.target.value.length < 2"  onChange="Calcular(this);" required/></td><td><input  id="Subtotal[]" name="Subtotal[]" class="form-control text-right Subtotal" type="text"  value ="0"  onChange="Calcular(this);" required onFocus="this.blur()" readonly/></td>';
+
+            var newtr = '<tr class="item">';//Obtengo en el tr el Id
+            newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input type="text" class="form-control codigo" name="Producto[]" id="Producto[]" onkeypress="return  fac(event,this);"  maxlength="18" required ></td><td><input class="form-control Descripcion"  type="text" id="Descripcion[]" name="Descripcion[]"  onkeypress="return event.target.value.length < 50" required ></td><td><input class="form-control text-right Precio" maxlength="8"  type="text" id="Precio[]" name="Precio[]"  value="0" onChange="Calcular(this);" onkeypress="return filterFloat(event,this);" required /></td><td><input  id="Cantidad[]" name="Cantidad[]" value="0" class="form-control cantidad text-center"  type="text"  onkeypress="return event.target.value.length < 2"  onChange="Calcular(this);" required/></td><td><input type="text" id="Subtotal[]" name="Subtotal[]" onChange="Calcular(this);"  class="form-control text-right Subtotal"   value ="0" required onFocus="this.blur()" readonly/></td>';
             newtr = newtr + '<td><button type="button" class="btn btn-danger btn-xs remove-item" ><i class="fa fa-times"></i></button></td></tr>';
-            $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected
-
-            $('.codigo').focus();
-
-            RefrescaProducto(); //Refresco Productos
+            $('#ProSelected').append(newtr); //Agrego el Producto al tbody de la Tabla con el id=ProSelected 
+             $('.codigo').focus();
+            
+           RefrescaProducto(); //Refresco Productos
             
             $('.remove-item').off().click(function(e){
                 var total = document.getElementById("total");
-                total.innerHTML = parseFloat(total.innerHTML) - parseFloat(this.parentNode.parentNode.childNodes[3].childNodes[0].value);
+                total.innerHTML = parseFloat(total.innerHTML) - parseFloat(this.parentNode.parentNode.childNodes[5].childNodes[0].value);
                 $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
                 if ($('#ProSelected tr').length == 0)
                 $('#ProSelected .no-item').slideDown(300);
@@ -313,11 +310,12 @@ $form->prepare();
                 RefrescaProducto();
                 
                 Calcular(e.target);
-
+ 
                 });
-    } 
+  }
+
   function Calcular(ele){
-            var cantidad = 0, precio = 0, subtotal = 0;
+            var cantidad = 0, precio = 0, subtotal = 0; 
             var tr = ele.parentNode.parentNode;
             var nodes = tr.childNodes;
         
@@ -333,20 +331,25 @@ $form->prepare();
                     anterior = nodes[x].firstChild.value;
                     subtotal = parseFloat((precio*cantidad),10);
                     nodes[x].firstChild.value = subtotal;
-                }        
-            }
-            if (total.innerHTML === 'NaN') {
-             total.innerHTML = (parseFloat(total.innerHTML)+ 0).toFixed(2);
-              
-            }
-            if (total.innerHTML != 'NaN') {   
-            total.innerHTML = (parseFloat(total.innerHTML)+ subtotal - anterior).toFixed(2);
-            }
+                }  
+                if (isNaN(precio)){
+                    subtotal = 0;
+                    nodes[x].firstChild.value = subtotal;
+                } 
+                if (isNaN(cantidad)){
+                    subtotal = 0;
+                    nodes[x].firstChild.value = subtotal;
+                }   
+             }
+             
+              var total = document.getElementById("total");
+              total.innerHTML = (parseFloat(total.innerHTML) + subtotal - anterior).toFixed(2);
+              var to = document.querySelector('#total').innerText;
+              var input_to = document.querySelector('input[name="Total"]');
+              input_to.value = to;
+ } 
 
-            var to = document.querySelector('#total').innerText;
-            var input_to = document.querySelector('input[name="Total"]');
-             input_to.value = to;
-}
+
 function filterFloat(evt,input){
     // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
     var key = window.Event ? evt.which : evt.keyCode;    
@@ -366,6 +369,7 @@ function filterFloat(evt,input){
           }
     }
 }
+
 function filter(__val__){
     var preg = /^([0-9]+\.?[0-9]{0,2})$/; 
     if(preg.test(__val__) === true){
@@ -374,6 +378,25 @@ function filter(__val__){
        return false;
     }
     
+}  
+function fac(e){
+           tecla = (document.all) ? e.keyCode : e.which;
+           if (tecla==8){
+            return true;
+             }
+          patron =/^[0-9-]$/;
+          tecla_final = String.fromCharCode(tecla);
+  
+          return patron.test(tecla_final);
+}
+function ca(e){
+           tecla = (document.all) ? e.keyCode : e.which;
+           if (tecla == 8){
+            return true;
+             }
+          patron =/^[A-Z0-9-]$/;
+          tecla_final = String.fromCharCode(tecla);
+          return patron.test(tecla_final);
 }
   
 </script>

@@ -26,8 +26,8 @@ $Num_Transferencia->setAttribute('readonly', 'readonly');
 $Punto_Partida=$form->get('Punto_Partida');
 $Punto_Partida->setAttribute('disabled', 'disabled');
 
-$Punto_Destino=$form->get('Punto_Destino');
-$Punto_Destino->setAttribute('disabled', 'disabled');
+$Destino_View=$form->get('Destino_View');
+$Destino_View->setAttribute('disabled', 'disabled');
 
 $Autorizacion_Sar=$form->get('Autorizacion_Sar');
 $Autorizacion_Sar->setAttribute('readonly', 'readonly');
@@ -213,13 +213,13 @@ $Usuario->setAttribute('readonly', 'readonly');
                 <thead>
                   <tr>
                     <th style="width:30%"><?= $this->formlabel($Sucursal_Destino)?></th>
-                    <th style="width:70%"><?= $this->formLabel($Punto_Destino)?></th>
+                    <th style="width:70%"><?= $this->formLabel($Destino_View)?></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td><?= $this->formElement($Sucursal_Destino)?></td>
-                    <td><?= $this->formElement($Punto_Destino)?></td>
+                    <td><?= $this->formElement($Destino_View)?></td>
                   </tr>
                 </tbody>
             </table>
@@ -261,7 +261,7 @@ $Usuario->setAttribute('readonly', 'readonly');
                   <tr>
                     <th style="text-align:center;">No.</th>
                     <th style="text-align:center;">Código  producto</th>
-                    <th style="text-align:center;">Producto</th>
+                    <th style="text-align:center;">Descripción</th>
                     <th style="text-align:center;">Cantidad</th>
                   </tr>
                 </thead>
@@ -272,7 +272,7 @@ $Usuario->setAttribute('readonly', 'readonly');
                     <tr>
                       <td style="text-align:center;"><?= $count ?></td>
                       <td style="text-align:center;"><?= $this->escapeHtml($a->Cod_Producto) ?></td>
-                      <td style="text-align:center;"><?= $this->escapeHtml($a->Nombre_Producto) ?></td style="text-align:center;">
+                      <td style="text-align:center;"><?= $this->escapeHtml($a->Descripcion) ?></td style="text-align:center;">
                       <td style="text-align:center;"><?= $this->escapeHtml($a->Cantidad) ?></td>
                      </tr><?php
                       $count++;

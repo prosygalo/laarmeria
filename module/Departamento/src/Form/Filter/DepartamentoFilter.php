@@ -97,7 +97,7 @@ class DepartamentoFilter  extends InputFilter
                  ['name' =>NoRecordExists::class,
                           'options' => [
                             'table' => 'departamentos',
-                            'field' => 'Nombre_Departamento',
+                            'field' => 'Nombre_Depto',
                             'adapter' =>  $this->dbAdapter,
                             'messages' => [
                                 \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El nombre de departamento  ya existe',

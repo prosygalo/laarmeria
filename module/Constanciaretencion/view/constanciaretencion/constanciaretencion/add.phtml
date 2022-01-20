@@ -142,7 +142,7 @@ $form->prepare();
                             <?= $this->formLabel($No_Correlativo) ?>
                             <?= $this->formElement($No_Correlativo) ?>
                             <?= $this->formElementErrors()->render($No_Correlativo, ['class' => 'help-inline  text-danger']) ?>
-                           <span id="bas" class="text-info">*Formato 000-000-00-00000000</span>
+                           <span id="bas" class="text-info">*Formato ejemplo  000-000-00-00000000</span>
                         </div>
                         <div class="form-group">
                             <?= $this->formLabel($Cai_Documento) ?>
@@ -228,7 +228,6 @@ $form->prepare();
                 var Importe_Retencion = parseFloat((Base_Gravable_Impuesto * tasa) / 100 ).toFixed(2);
                 $('#Base_Gravable_Impuesto').html(Base_Gravable_Impuesto);
                 $('#Importe_Retencion').val(Importe_Retencion);
-                
             }else{
                 $('#Base_Gravable_Impuesto').val('0');
                 $('#Importe_Retencion').val('0');

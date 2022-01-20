@@ -113,6 +113,12 @@ class AutorizacionsarForm extends Form
             'options' => [
                 'label' => 'Tipo de documento',
                 'empty_option' => 'Seleccione',
+                'value_options' => [
+                       '1' => 'Guia de Remisión',
+                       '2' => 'Boleta de Compra',
+                       '3' => 'Constancia de Retención',
+                       '4' => 'Nota de Débito',
+               ],
              ],
         ]);
 

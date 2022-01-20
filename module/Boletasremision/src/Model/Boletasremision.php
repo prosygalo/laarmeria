@@ -25,6 +25,7 @@ class Boletasremision
     //detalle
     public $Cod_Detalle;
     public $Cod_Producto;
+    public $Descripcion;
     public $Cantidad;
     public $Nombre_Producto;
     //sucursal
@@ -59,6 +60,7 @@ class Boletasremision
         //Propiedad de la tabla producto
         $this->Cod_Detalle = !empty($data['Cod_Detalle']) ? $data['Cod_Detalle'] : null;
         $this->Cod_Producto = !empty($data['Cod_Producto']) ? $data['Cod_Producto'] : null;
+        $this->Descripcion= !empty($data['Descripcion']) ? $data['Descripcion'] : null;
         $this->Cantidad= !empty($data['Cantidad']) ? $data['Cantidad'] : null;
         $this->Nombre_Producto= !empty($data['Nombre_Producto']) ? $data['Nombre_Producto'] : null;
         //Propiedades de otras tablegateway
@@ -82,8 +84,6 @@ class Boletasremision
             'Consecutivo_Actual_Correlativo'  => $this->Consecutivo_Actual_Correlativo,
             'Motivo_Traslado'  => $this->Motivo_Traslado,
             'Num_Transferencia' => $this->Num_Transferencia,
-            'Punto_Partida' => $this->Punto_Partida,
-            'Punto_Destino'  => $this->Punto_Destino,
             'Fecha_Inicio_Traslado'  => $this->Fecha_Inicio_Traslado,
             'Fecha_Final_Traslado' => $this->Fecha_Final_Traslado,
             'Autorizacion_Sar' => $this->Autorizacion_Sar,
@@ -95,6 +95,7 @@ class Boletasremision
             'Usuario'  => $this->Usuario,
             'Cod_Detalle' => $this->Cod_Detalle,
             'Cod_Producto' => $this->Cod_Producto,
+            'Descripcion' => $this->Descripcion,
             'Cantidad'  => $this->Cantidad,
         ];
     }   

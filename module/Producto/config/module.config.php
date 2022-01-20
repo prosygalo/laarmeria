@@ -89,7 +89,6 @@ return [
     ],
 ],
 
-
     'view_manager' => [
         'template_path_stack' => [
             'producto' => __DIR__ . '/../view',

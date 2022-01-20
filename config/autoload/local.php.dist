@@ -1,8 +1,18 @@
 <?php
+return array(
+    'db' => array(
+        // for primary db adapter that called
+        // by $sm->get('Zend\Db\Adapter\Adapter')
+         'username'=> 'RoselyG',
+         'password'=>'RoselyGmysql'),
 
-return [
-   /*'db' =>[
-   	 'username'=> 'root',
-     'password'=>''
-   ],*/
-];
+        // to allow other adapter to be called by
+        // $sm->get('db1') or $sm->get('db2') based on the adapters config.
+        'adapters' => array(
+            'db2' => array(
+                 'username'=> 'RoselyG',
+                 'password'=>'RoselyGmysql'),
+            ),
+        ),
+    ),
+);

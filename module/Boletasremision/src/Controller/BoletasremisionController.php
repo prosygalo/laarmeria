@@ -1,8 +1,12 @@
 <?php
+/**
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
 namespace Boletasremision\Controller;
 
 use Boletasremision\Form\BoletasremisionForm;
-use Boletasremision\Form\BoletasremisionPreForm;
 use Boletasremision\Model\Boletasremision;
 use Boletasremision\Model\BoletasremisionTable;
 use Boletasremision\Model\DetalleTable;
@@ -10,7 +14,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Interop\Container\ContainerInterface;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
-use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Sucursal\Model\SucursalTable;
 use Conductor\Model\ConductorTable;
 use Unidadtransporte\Model\UnidadtransporteTable;
@@ -21,7 +24,7 @@ use Usuario\Model\UsuarioTable;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 /**
- * This controller is responsible for 
+ * Esta Clase Controlador es encargado de las acciones en módulo boletas guía de remisión: Listar, Agregar , ver la boleta emitida y convertir la boleta en formato PDF. 
  */
 
 class BoletasremisionController extends AbstractActionController
@@ -64,18 +67,12 @@ class BoletasremisionController extends AbstractActionController
     {
         //Recibir el código de boleta  para mostrar el detalle que corresponde
         $Sucursal_Remitente = $this->params()->fromRoute('Sucursal_Remitente');
-        $Sucursal_Estado = $this->SucursalTable->getSucursalEstado($Sucursal_Remitente); 
-        foreach ($Sucursal_Estado  as $n):
-            $Estado = $n->Estado;
-        endforeach; 
-
-        if($Estado != 'Disponible'){
-            return $this->redirect()->toRoute('boletasremision/inactiva');                             
-        }
-
         $fecha= date('Y-m-d'); 
         //-------Consecutivo autorizacion sar----
-        $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionBoletaRemision($Sucursal_Remitente);  
+        $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionBoletaRemision($Sucursal_Remitente);
+        if(is_null($UltimaAutorizacion)){
+            return $this->redirect()->toRoute('boletacompra/errorautorizacion'); 
+         } 
             foreach ($UltimaAutorizacion  as $a):
                 $Cod_Autorizacion = $a->Cod_Autorizacion;
                 $Consecutivo_Inicial_Establ = $a->Consecutivo_Inicial_Establ;
@@ -89,8 +86,8 @@ class BoletasremisionController extends AbstractActionController
                 $Consecutivo_Actual_Correlativo = $a->Consecutivo_Actual_Correlativo;
                 $Fecha_Limite = $a->Fecha_Limite;
               endforeach;           
-                    if($Cod_Autorizacion == NULL){
-                            return $this->redirect()->toRoute('boletasremision/errorautorizacion');                           
+                    if(is_null($Cod_Autorizacion)){
+                            return $this->redirect()->toRoute('boletasremision/errorautorizacion');                         
                     }elseif($fecha > $Fecha_Limite){
                             return $this->redirect()->toRoute('boletasremision/vencimientofecha');
                     }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo >= $Consecutivo_Final_Correlativo){
@@ -145,7 +142,6 @@ class BoletasremisionController extends AbstractActionController
             //llenado de  Sucursal Remitente
             $rowset = $this->SucursalTable->getSucursalRemitente($Sucursal_Remitente);  
                 foreach ($rowset  as $s):
-                    $Sucursal_Remitente = $s->Cod_Sucursal;
                     $Punto_Partida = $s->Direccion;
                 endforeach; 
             $form->get('Sucursal_Remitente')->setValue($Sucursal_Remitente);
@@ -169,46 +165,43 @@ class BoletasremisionController extends AbstractActionController
                  return ['form' => $form];
 
             }          
-            
+            //Validacion del formulario
             $form->setInputFilter(new  \Boletasremision\Form\Filter\BoletasremisionFilter($this->dbAdapter));//Filtrado y vlidacion  de los  datos
             $form->setData($request->getPost());
                 
-            if ($form->isValid()){
+            if (! $form->isValid()){
+                
                 return ['form' => $form];
                   
             }
             //--------Tomar datos del formulario-y los guardamos en la base de datos, para ello realizamos tres procesos.
             $boletasremision = new Boletasremision();
-            $boletasremision->exchangeArray($form->getData());     
-            $Cod_Producto = $this->request->getPost("Cod_Producto"); //confirmar existe un producto en el detalle
-            $Cantidad =     $this->request->getPost("Cantidad");
-            //return  new JsonModel($form->getData());
-                
-            if($Cod_Producto != NULL && $Cantidad != NULL){
-                //return  new JsonModel($form->getData());
-                // Almacenar los datos en la tabla boleta de remision  
-                   $lasId = $this->BoletasremisionTable->insertBoleta($boletasremision);
+            $boletasremision->exchangeArray($form->getData());
+            $Cod_Producto = $this->request->getPost("Cod_Producto");
+            $Descripcion = $this->request->getPost("Descripcion");
+            $Cantidad = $this->request->getPost("Cantidad");
+                            
+           
+            // Almacenar los datos en la tabla boleta de remision  
+             $lastId = $this->BoletasremisionTable->insertBoleta($boletasremision);
                 //Actualice el numero de consecutivo de la boleta de la guia de remision en la tabla autorizaciones SAR 
-                   $Cod_Autorizacion= $this->request->getPost("Autorizacion_Sar");
-                   $Consecutivo_Actual_Establ= $this->request->getPost("Consecutivo_Actual_Establ");
-                   $Consecutivo_Actual_Punto= $this->request->getPost("Consecutivo_Actual_Punto");
-                   $Consecutivo_Actual_Tipo= $this->request->getPost("Consecutivo_Actual_Tipo");
-                   $Consecutivo_Actual_Correlativo = $this->request->getPost("Consecutivo_Actual_Correlativo");
+            $Cod_Autorizacion= $this->request->getPost("Autorizacion_Sar");
+            $Consecutivo_Actual_Establ= $this->request->getPost("Consecutivo_Actual_Establ");
+            $Consecutivo_Actual_Punto= $this->request->getPost("Consecutivo_Actual_Punto");
+            $Consecutivo_Actual_Tipo= $this->request->getPost("Consecutivo_Actual_Tipo");
+            $Consecutivo_Actual_Correlativo = $this->request->getPost("Consecutivo_Actual_Correlativo");
                    
-                   $this->AutorizacionsarTable->UpdateConsecutivoActual($Cod_Autorizacion, $Consecutivo_Actual_Establ, $Consecutivo_Actual_Punto, $Consecutivo_Actual_Tipo, $Consecutivo_Actual_Correlativo);                   
+            $this->AutorizacionsarTable->UpdateConsecutivoActual($Cod_Autorizacion, $Consecutivo_Actual_Establ, $Consecutivo_Actual_Punto, $Consecutivo_Actual_Tipo, $Consecutivo_Actual_Correlativo);                   
                 //Cada producto debe de registrarse con el codigo de boleta  y almacenarse en el detalle
-                   $this->DetalleTable->insertDetalle($Cod_Producto, $lasId, $Cantidad);// Enviar Datos a la tabla detalle a la BD                        
-                    return $this->redirect()->toRoute('boletasremision/detalle',['Cod_Boleta'=>$lasId]);
-
-            }
-            return $this->redirect()->toRoute('home');
+            $this->DetalleTable->insertDetalle($Cod_Producto, $Descripcion, $Cantidad, $lastId);// Enviar Datos a la tabla detalle a la BD                        
+            return $this->redirect()->toRoute('boletasremision/detalle',['Cod_Boleta'=>$lastId]);
 
     }
     public function sucdesAction()
     {
         $Sucursal_Destino = $this->params()->fromRoute('Sucursal_Destino');
         
-        $rowset3 = $this->SucursalTable->getPuntoDestino($Sucursal_Destino); //llenar select sucursal  remiten
+        $rowset3 = $this->SucursalTable->getDireccion($Sucursal_Destino); //llenar select sucursal  remiten
         return  new JsonModel($rowset3);
 
     }
@@ -234,6 +227,16 @@ class BoletasremisionController extends AbstractActionController
         //Sucursal desde la que se hace la psolicitud de boleta
         $Sucursal_Remitente = [ 'Sucursal_Remitente'=>$boleta->Sucursal_Remitente];
         $Suc = $this->SucursalTable->getSucursalMembrete($Sucursal_Remitente);
+        $Sucursal_Destino = [ 'Sucursal_Destino'=>$boleta->Sucursal_Destino];
+        $SucRem = $this->SucursalTable->getDireccion($Sucursal_Remitente);
+        $SucDes = $this->SucursalTable->getDireccion($Sucursal_Destino);
+        foreach ($SucRem  as $a):
+             $PuntoA = $a->Direccion;
+        endforeach;
+        $form->get('Punto_Partida')->setValue($PuntoA); 
+        foreach ($SucDes  as $a):
+             $form->get('Punto_Destino')->setValueOptions([$a->Direccion=>$a->Direccion]);
+        endforeach;    
 
         //Autorizacion datos 
         $Autorizacion_Sar = [ 'Autorizacion_Sar'=>$boleta->Autorizacion_Sar];
@@ -250,6 +253,7 @@ class BoletasremisionController extends AbstractActionController
         
         //Detalle de la boleta enviada 
         $Detalle = $this->DetalleTable->detalle($Cod_Boleta);
+        
         
          //------llenado de los Listado de selección--------------- 
 
@@ -302,11 +306,21 @@ class BoletasremisionController extends AbstractActionController
         //crear instancia de formulario
         $form = new BoletasremisionForm();
         $form->bind($boleta);
-       
+        
         //Sucursal desde la que se hace la psolicitud de boleta
         $Sucursal_Remitente = [ 'Sucursal_Remitente'=>$boleta->Sucursal_Remitente];
         $Suc = $this->SucursalTable->getSucursalMembrete($Sucursal_Remitente);
-
+        $Sucursal_Destino = [ 'Sucursal_Destino'=>$boleta->Sucursal_Destino];
+        $SucRem = $this->SucursalTable->getDireccion($Sucursal_Remitente);
+        $SucDes = $this->SucursalTable->getDireccion($Sucursal_Destino);
+        foreach ($SucRem  as $a):
+             $PuntoA = $a->Direccion;
+        endforeach;
+        $form->get('Punto_Partida')->setValue($PuntoA); 
+        foreach ($SucDes  as $a):
+             $form->get('Destino_View')->setValue($a->Direccion);
+        endforeach;   
+        
         //Autorizacion datos 
         $Autorizacion_Sar = [ 'Autorizacion_Sar'=>$boleta->Autorizacion_Sar];
         $Sar = $this->AutorizacionsarTable->getAutorizacionReporte($Autorizacion_Sar);

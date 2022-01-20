@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
 namespace Conductor\Controller;
 
 use Conductor\Form\ConductorForm;
@@ -9,7 +14,7 @@ use Zend\View\Model\ViewModel;
 
 
 /**
- * This controller is responsible for letting the user to log in and log out.
+ * Esta clase controlador es el encargado de las acciones en el módulo conductor: listar , agregar y editar registros de los conductiores
  */
 class ConductorController extends AbstractActionController
 {

@@ -46,7 +46,6 @@ class Autorizacionsar
         $this->Fecha_Limite = !empty($data['Fecha_Limite']) ? $data['Fecha_Limite'] : null;
         $this->Fecha_Ingreso  = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
         //documento fiscales
-        $this->Nombre_Documento  = !empty($data['Nombre_Documento']) ? $data['Nombre_Documento'] : null;
 
 
     }

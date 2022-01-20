@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
 namespace Boletacompra\Controller;
 
 use Boletacompra\Form\BoletacompraForm;
@@ -19,7 +24,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Luecano\NumeroALetras\NumeroALetras;
 /**
- * This controller is responsible for 
+ * Este clase controlador es responsable de las acciones en el módulo boletas de compra, listar , agregar nueva boleta, ver la boleta que se emitió y convertir las boleta en formato PDF
  */
 
 class BoletacompraController extends AbstractActionController
@@ -59,18 +64,13 @@ class BoletacompraController extends AbstractActionController
      public function addAction()
     {
         //Recibir el código de boleta  para mostrar el detalle que corresponde
-        $Sucursal = $this->params()->fromRoute('Sucursal');
-        $Sucursal_Estado = $this->SucursalTable->getSucursalEstado($Sucursal);
-        foreach ($Sucursal_Estado  as $n):
-            $Estado = $n->Estado;
-        endforeach; 
-
-        if($Estado != 'Disponible'){
-            return $this->redirect()->toRoute('boletacompra/inactiva');                             
-        }
-        $fecha= date('Y-m-d');
+        $Sucursal = $this->params()->fromRoute('Sucursal');        
+        $fecha = date('Y-m-d');
         //-------Consecutivo autorizacion sar----
         $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionBoletaCompra($Sucursal);
+        if(is_null($UltimaAutorizacion)){
+            return $this->redirect()->toRoute('boletacompra/errorautorizacion'); 
+         }
             foreach ($UltimaAutorizacion  as $a):
                 $Cod_Autorizacion = $a->Cod_Autorizacion;
                 $Consecutivo_Inicial_Establ = $a->Consecutivo_Inicial_Establ;
@@ -83,11 +83,15 @@ class BoletacompraController extends AbstractActionController
                 $Consecutivo_Actual_Tipo = $a->Consecutivo_Actual_Tipo;
                 $Consecutivo_Actual_Correlativo = $a->Consecutivo_Actual_Correlativo;
                 $Fecha_Limite = $a->Fecha_Limite;
-              endforeach;           
-                    if($Cod_Autorizacion == NULL){
-                            return $this->redirect()->toRoute('boletacompra/errorautorizacion');                           
+              endforeach;       
+
+                    if(is_null($Cod_Autorizacion)){
+                            return $this->redirect()->toRoute('boletacompra/errorautorizacion'); 
+
                     }elseif($fecha > $Fecha_Limite){
+
                             return $this->redirect()->toRoute('boletacompra/vencimientofecha');
+
                     }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo >= $Consecutivo_Final_Correlativo){
                             return $this->redirect()->toRoute('boletacompra/expirocorrelativo');                            
                     }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo == NULL){                           
@@ -164,7 +168,6 @@ class BoletacompraController extends AbstractActionController
             $Descripcion = $this->request->getPost("Descripcion");
             $Cantidad = $this->request->getPost("Cantidad");
             $Precio = $this->request->getPost("Precio");
-
             
                
             // Almacenar los datos en la tabla boleta de remision  
@@ -377,6 +380,13 @@ class BoletacompraController extends AbstractActionController
                 'Message' => 'La fecha límite de emisión de documento fiscal ha expirado',
             ]);
     }
+    public function inactivaAction()
+    {
+        return new ViewModel([
+                'Message'=>'La sucursal a la que se esta asignado, no esta disponible para emitir documentos fiscales'
+            ]);
+    }
+
 
     // formato Json para pruebas
     public function pruebaAction()
