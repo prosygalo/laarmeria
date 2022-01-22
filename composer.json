@@ -31,7 +31,6 @@
         "zendframework/zend-permissions-acl": "^2.7",
         "zendframework/zend-crypt": "^3.3",
         "dompdf/dompdf": "^0.8.3",
-        "spipu/html2pdf": "^5.2",
         "luecano/numero-a-letras": "^2.0"
     },
     "autoload": {
