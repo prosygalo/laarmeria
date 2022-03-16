@@ -1,5 +1,5 @@
 <?php
-$title = 'Editar Producto';
+$title = 'Editar Artículo';
 $this->headTitle($title);
 
 $Cod_Producto=$form->get('Cod_Producto');
@@ -15,8 +15,11 @@ $Descripcion->setAttribute('class', 'form-control');
 $Precio=$form->get('Precio');
 $Precio->setAttribute('class', 'form-control  text-right');
 
-$Tipo_Importe=$form->get('Tipo_Importe');
-$Tipo_Importe->setAttribute('class', 'form-control text-center');
+$Cantidad=$form->get('Cantidad');
+$Cantidad->setAttribute('class', 'form-control text-right');
+
+$Sucursal=$form->get('Sucursal');
+$Sucursal->setAttribute('class', 'form-control text-center');
 
 $submit = $form->get('submit');
 $submit->setAttribute('class', 'btn btn-success  btn-block');
@@ -42,7 +45,7 @@ $form->prepare();
                                     <?= $this->formElement($Cod_Producto) ?>
                                     <?= $this->formElementErrors()->render($Cod_Producto, ['class' => 'help-inline  text-danger']) ?>
                                 </div> 
-                            </div>
+                            </div> 
                         </div>
                         <div class="row">
                              <div class="col-md-6">
@@ -54,12 +57,21 @@ $form->prepare();
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <?= $this->formLabel($Sucursal) ?>
+                                    <?= $this->formElement($Sucursal) ?>
+                                    <?= $this->formElementErrors()->render($Sucursal, ['class' => 'help-inline  text-danger']) ?>
+                                </div> 
+                            </div>    
+                        </div>
+                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <?= $this->formLabel($Descripcion) ?>
                                     <?= $this->formElement($Descripcion) ?>
                                     <?= $this->formElementErrors()->render($Descripcion, ['class' => 'help-inline  text-danger']) ?>
                                 </div>
                                    
-                            </div>    
+                            </div>
                         </div>
                         <div class="row">
                              <div class="col-md-6">
@@ -71,9 +83,9 @@ $form->prepare();
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <?= $this->formLabel($Tipo_Importe) ?>
-                                    <?= $this->formElement($Tipo_Importe) ?>
-                                    <?= $this->formElementErrors()->render($Tipo_Importe, ['class' => 'help-inline  text-danger']) ?>
+                                    <?= $this->formLabel($Cantidad) ?>
+                                    <?= $this->formElement($Cantidad) ?>
+                                    <?= $this->formElementErrors()->render($Cantidad, ['class' => 'help-inline  text-danger']) ?>
                                 </div>
                             </div>
                         </div>

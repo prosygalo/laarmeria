@@ -9,7 +9,6 @@ class Conductor
     public $Licencia_Conducir;
     public $Estado;
     public $Fecha_Ingreso;
-    public $Fecha_Actualizacion;
 
     public function exchangeArray(array $data)
     {   
@@ -19,7 +18,6 @@ class Conductor
         $this->Licencia_Conducir = !empty($data['Licencia_Conducir']) ? $data['Licencia_Conducir'] : null;
         $this->Estado = !empty($data['Estado']) ? $data['Estado'] : null;
         $this->Fecha_Ingreso  = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
-        $this->Fecha_Actualizacion = !empty($data['Fecha_Actualizacion']) ? $data['Fecha_Actualizacion'] : null;
 
     }
    
@@ -33,7 +31,6 @@ class Conductor
             'Licencia_Conducir'=>$this->Licencia_Conducir,
             'Estado'=>$this->Estado,
             'Fecha_Ingreso'=>$this->Fecha_Ingreso,
-            'Fecha_Actualizacion'=>$this->Fecha_Actualizacion,
         ];
     }
     

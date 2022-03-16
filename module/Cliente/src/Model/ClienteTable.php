@@ -37,15 +37,14 @@ class ClienteTable
     public function getClienteRTNSelect(){
 
                 $rowset = $this->tableGateway->getSql()->select();
-                $rowset->columns(array('RTN_DNI','RTN_DNI'));
-                $rowset->order('RTN_DNI Asc');
+                $rowset->columns(array('RTN_DNI'));
                 $resultSet = $this->tableGateway->selectWith($rowset); 
 
                 $data= array();
                 foreach($resultSet as $row){
                    $data[$row->RTN_DNI] = $row->RTN_DNI;
                 }
-                   return $data;            
+                   return $data;             
      }
       public function getClienteNota($Cod_Cliente){
 

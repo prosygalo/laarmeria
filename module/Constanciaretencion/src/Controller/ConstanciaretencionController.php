@@ -50,21 +50,22 @@ class ConstanciaretencionController extends AbstractActionController
 
     public function indexAction()
     {
-         return new ViewModel([
+          return new ViewModel([
                 'constancias' => $this->ConstanciaretencionTable->fetchAll(),
+
             ]);
+         
+              
     }
     
      public function addAction()
     {
         //Recibir el código de boleta  para mostrar el detalle que corresponde
         $Sucursal = $this->params()->fromRoute('Sucursal');  
-        $fecha= date('Y-m-d'); 
+        $fecha = date('Y-m-d'); 
         //-------Consecutivo autorizacion sar----
         $UltimaAutorizacion = $this->AutorizacionsarTable->getUltimaAutorizacionConstanciaretencion($Sucursal);
-        if(is_null($UltimaAutorizacion)){
-            return $this->redirect()->toRoute('constanciaretencion/errorautorizacion'); 
-         }
+      
             foreach ($UltimaAutorizacion  as $a):
                 $Cod_Autorizacion = $a->Cod_Autorizacion;
                 $Consecutivo_Inicial_Establ = $a->Consecutivo_Inicial_Establ;
@@ -77,14 +78,15 @@ class ConstanciaretencionController extends AbstractActionController
                 $Consecutivo_Actual_Tipo = $a->Consecutivo_Actual_Tipo;
                 $Consecutivo_Actual_Correlativo = $a->Consecutivo_Actual_Correlativo;
                 $Fecha_Limite = $a->Fecha_Limite;
-              endforeach;           
-                    if(is_null($Cod_Autorizacion)){
+              endforeach;
+
+                    if(empty($Cod_Autorizacion)){
                             return $this->redirect()->toRoute('constanciaretencion/errorautorizacion');                           
                     }elseif($fecha > $Fecha_Limite){
                             return $this->redirect()->toRoute('constanciaretencion/vencimientofecha');
-                    }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo >= $Consecutivo_Final_Correlativo){
+                    }elseif((!empty($Cod_Autorizacion)) && $Consecutivo_Actual_Correlativo >= $Consecutivo_Final_Correlativo){
                             return $this->redirect()->toRoute('constanciaretencion/expirocorrelativo');                            
-                    }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo == NULL){                           
+                    }elseif((!empty($Cod_Autorizacion)) && $Consecutivo_Actual_Correlativo == NULL){                        
                             $form = new ConstanciaretencionForm();
                             $form->get('submit')->setValue('Guardar');
                             $form->get('Fecha_Emision')->setValue($fecha);
@@ -93,7 +95,7 @@ class ConstanciaretencionController extends AbstractActionController
                             $form->get('Consecutivo_Actual_Tipo')->setValue($Consecutivo_Inicial_Tipo); 
                             $form->get('Consecutivo_Actual_Correlativo')->setValue($Consecutivo_Inicial_Correlativo);
                             $form->get('Autorizacion_Sar')->setValue($Cod_Autorizacion);                                   
-                   }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo <= $Consecutivo_Final_Correlativo &&  $Fecha_Limite >=  $fecha) {
+                   }elseif((!empty($Cod_Autorizacion)) && $Consecutivo_Actual_Correlativo <= $Consecutivo_Final_Correlativo &&  $Fecha_Limite >=  $fecha) {
 
                             $form = new ConstanciaretencionForm();
                             $form->get('submit')->setValue('Guardar');

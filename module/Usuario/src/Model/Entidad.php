@@ -20,8 +20,6 @@ class Entidad
     public $Rol;
     public $Estado;
     public $Fecha_Ingreso;
-    public $Fecha_Actualizacion;
-
    /**
     * 
     */
@@ -37,7 +35,6 @@ class Entidad
         $this->Rol = !empty($data['Rol']) ? $data['Rol'] : null;
         $this->Estado = !empty($data['Estado']) ? $data['Estado'] : null;
         $this->Fecha_Ingreso  = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
-        $this->Fecha_Actualizacion = !empty($data['Fecha_Actualizacion']) ? $data['Fecha_Actualizacion'] : null;
     }
 
 /**
@@ -56,7 +53,6 @@ class Entidad
             'Rol'=>$this->Rol,
             'Estado'=>$this->Estado,
             'Fecha_Ingreso'=>$this->Fecha_Ingreso,
-            'Fecha_Actualizacion'=>$this->Fecha_Actualizacion,
         ];
     }
     

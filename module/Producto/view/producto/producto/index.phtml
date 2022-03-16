@@ -1,5 +1,5 @@
 <?php
-$title = 'Productos';
+$title = 'Artículos';
 $this->headTitle($title);
 ?>
 <div class="container">
@@ -11,13 +11,13 @@ $this->headTitle($title);
      <table class="table table-hover"    id="example"  style="width:100%">
       <thead class="thead-light">
         <tr>
-          <th>c&oacute;digo de producto</th>
-          <th>Nombre de producto</th>
-          <th>Descripci&oacute;n de producto</th>
+          <th>C&oacute;digo</th>
+          <th>Nombre</th>
+          <th>Descripci&oacute;n</th>
           <th>Precio</th>
-          <th>Impuesto</th>
+          <th>Cantidad</th>
+          <th>Sucursal</th>
           <th>Fecha de ingreso</th>
-          <th>Fecha de actualizaci&oacute;n</th>
           <th>Acci&oacute;n</th>
         </tr>
       </thead>
@@ -33,9 +33,9 @@ $this->headTitle($title);
               echo 'L.'.number_format($Pre, 2, ".", ",");
            ?>
           </td>
-          <td class="text-center"><?= $this->escapeHtml($pro->Tipo_Importe) ?></td>
+          <td class="text-center"><?= $this->escapeHtml($pro->Cantidad)+0?></td>
+          <td class="text-center"><?= $this->escapeHtml($pro->Sucursal) ?></td>
           <td><?= $this->escapeHtml($pro->Fecha_Ingreso) ?></td>
-          <td><?= $this->escapeHtml($pro->Fecha_Actualizacion) ?></td>
           <td> 
             <a type="button" class=" btn btn-primary btn-block btn-sm"  href="<?=$this->url('productos/edit',['Cod_Producto'=>$pro->Cod_Producto])?>"><i class="fa fa-pencil">Editar</i></a>      
           </td>

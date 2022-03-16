@@ -9,7 +9,6 @@ class Proveedor
     public $Telefono_Proveedor;
     public $RTN_Proveedor;
     public $Fecha_Ingreso;
-    public $Fecha_Actualizacion;
 
     public function exchangeArray(array $data)
     {   
@@ -19,8 +18,6 @@ class Proveedor
         $this->Telefono_Proveedor = !empty($data['Telefono_Proveedor']) ? $data['Telefono_Proveedor'] : null;
         $this->RTN_Proveedor = !empty($data['RTN_Proveedor']) ? $data['RTN_Proveedor'] : null;
         $this->Fecha_Ingreso  = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
-        $this->Fecha_Actualizacion = !empty($data['Fecha_Actualizacion']) ? $data['Fecha_Actualizacion'] : null;
-
     }
    
 
@@ -33,7 +30,6 @@ class Proveedor
             'Telefono_Proveedor'=>$this->Telefono_Proveedor,
             'RTN_Proveedor'=>$this->RTN_Proveedor,
             'Fecha_Ingreso'=>$this->Fecha_Ingreso,
-            'Fecha_Actualizacion'=>$this->Fecha_Actualizacion,
         ];
     }
     

@@ -12,12 +12,11 @@ $this->headTitle($title);
     <table class="table table-hover"    id="example"  style="width:100%">
       <thead class="thead-light" style="">
         <tr>
-          <th>c&oacute;digo de  conductor</th>
+          <th>C&oacute;digo </th>
           <th>Nombres </th>
           <th>Apellidos</th>
           <th>RTN/DNI</th>
           <th>Fecha de ingreso</th>
-          <th>Fecha de actualizaci&oacute;n</th>
           <th>Acci&oacute;n</th>
         </tr>
       </thead>
@@ -29,7 +28,6 @@ $this->headTitle($title);
           <td><?= $this->escapeHtml($cond->Apellidos_Cliente) ?></td>
           <td><?= $this->escapeHtml($cond->RTN_DNI) ?></td>
           <td><?= $this->escapeHtml($cond->Fecha_Ingreso) ?></td>
-          <td><?= $this->escapeHtml($cond->Fecha_Actualizacion) ?></td>
           <td>
              <a type="button" class=" btn btn-primary btn-block btn-sm"  href="<?= $this->url('cliente/edit',['Cod_Cliente'=>$cond->Cod_Cliente])?>"><i class="fa fa-pencil">Editar</i></a>
           </td>

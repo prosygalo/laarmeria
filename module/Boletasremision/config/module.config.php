@@ -39,6 +39,15 @@ return [
                         ],
                     ],
                 ],
+                 'producto' => [
+                    'type' =>Segment::class,
+                    'options' => [
+                        'route'    => '/producto[/:Cod_Producto]',
+                        'defaults' => [
+                            'action' => 'producto',
+                        ],
+                    ],
+                ],
 
                 'errorautorizacion' => [
                     'type' =>Segment::class,

@@ -12,13 +12,13 @@ $this->headTitle($title);
         <tr>
           <th>No.</th>
           <th>Sucursal</th>
-          <th>Tipo documento fiscal</th>
+          <th rowspan="2" width="15%">Documento fiscal</th>
           <th>Clave de autorización de impresión</th>
           <th>Consecutivo Inicial</th>
           <th>Consecutivo Final</th>
           <th>Consecutivo Actual</th>
-          <th>Fecha l&iacute;mite de emisi&oacute;n</th>
-          <th>Fecha de ingreso</th>
+          <th>Fecha l&iacute;mite</th>
+          <th>Fecha Ingreso</th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +28,20 @@ $this->headTitle($title);
         <tr>
           <td><?= $count ?></td>
           <td><?= $this->escapeHtml($a->Nombre_Sucursal) ?></td>
-          <td><?= $this->escapeHtml($a->Tipo_de_Documento)?></td>
+          <td><?Php 
+           $Tipo = $this->escapeHtml($a->Tipo_de_Documento);
+           if($Tipo == 1){
+            echo 'Guía De Remisión';
+          }elseif($Tipo == 2){
+            echo 'Boleta De Compra';
+          }elseif($Tipo == 3){
+            echo 'Constancia De Retención'; 
+          }elseif($Tipo == 4){
+            echo 'Nota De Débito';
+          }else{
+            echo 'Error';
+          }
+          ?></td>
           <td><?= $this->escapeHtml($a->Cai) ?></td>
           <td><?= $this->escapeHtml($a->Consecutivo_Inicial_Establ."-".$a->Consecutivo_Inicial_Punto."-".$a->Consecutivo_Inicial_Tipo."-".$a->Consecutivo_Inicial_Correlativo) ?></td>
           <td><?= $this->escapeHtml($a->Consecutivo_Final_Establ."-".$a->Consecutivo_Final_Punto."-".$a->Consecutivo_Final_Tipo."-".$a->Consecutivo_Final_Correlativo)  ?></td>

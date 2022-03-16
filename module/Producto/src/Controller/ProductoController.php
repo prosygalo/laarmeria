@@ -9,6 +9,7 @@ namespace Producto\Controller;
 use Producto\Form\ProductoForm;
 use Producto\Model\Producto;
 use Producto\Model\ProductoTable;
+use Sucursal\Model\SucursalTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -21,12 +22,16 @@ class ProductoController extends AbstractActionController
  // Add this property:
     private $table;
     private $dbAdapter;
+    private $SucursalTable; 
 
     // Add this constructor:
-    public function __construct(ProductoTable $table, $dbAdapter)
+    public function __construct(ProductoTable $table, SucursalTable $SucursalTable, $dbAdapter)
      {
             $this->table = $table;
             $this->dbAdapter= $dbAdapter;
+            $this->SucursalTable = $SucursalTable;
+
+
      }
 
     public function indexAction()
@@ -39,6 +44,8 @@ class ProductoController extends AbstractActionController
      public function addAction()
      {
             $form = new ProductoForm();
+            $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal 
+            $form->get('Sucursal')->setValueOptions($rowset);
             $form->get('submit')->setValue('Guardar');
 
             $request = $this->getRequest();
@@ -79,6 +86,8 @@ class ProductoController extends AbstractActionController
         }
 
         $form = new ProductoForm();
+        $rowset = $this->SucursalTable->getSucursalListado(); //llenar select sucursal 
+        $form->get('Sucursal')->setValueOptions($rowset);
         $form->bind($producto);
         $form->get('submit')->setAttribute('value', 'Actualizar');
 

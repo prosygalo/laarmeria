@@ -11,6 +11,7 @@ use Zend\Validator\Regex;
 use Zend\Validator\Db\NoRecordExists;
 use Zend\Db\Adapter\Adapter;
 use Zend\I18n\Validator\IsFloat;
+use Zend\I18n\Validator\IsInt;
 
 
 class ProductoFilter  extends InputFilter   
@@ -155,6 +156,37 @@ class ProductoFilter  extends InputFilter
                        'messages'=>[
                         \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
                         \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se proporcionó un tipo no válido. Se espera entero o decimal',
+            
+                      ],
+                    ],
+                ],
+            ],
+        ]);
+           $this->add([
+            'name' => 'Cantidad',
+            'required' => true,
+            'filters' => [
+               ['name' => StripTags::class],
+               ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                ['name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' =>1,
+                        'max' =>10,
+                        'messages' => [
+                        \Zend\Validator\StringLength::INVALID=>'Cantidad es  incorrecto',
+                        \Zend\Validator\StringLength::TOO_SHORT=>'Cantidad debe tener mínimo 1 dígito',
+                        \Zend\Validator\StringLength::TOO_LONG=>'Cantidad debe tener máximo 8 dígitos',
+                        ]
+                    ],
+                ],
+                 ['name' => IsInt::class,
+                     'options' => [
+                       'messages'=>[
+                        \Zend\I18n\Validator\IsInt::INVALID=>'Tipo no válido',
+                        \Zend\I18n\Validator\IsInt::NOT_INT =>'Se proporcionó un tipo no válido. Se espera entero',
             
                       ],
                     ],

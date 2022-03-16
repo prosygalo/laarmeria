@@ -11,7 +11,6 @@ class Notadebito
     public $Consecutivo_Actual_Tipo;
     public $Consecutivo_Actual_Correlativo;
     public $Autorizacion_Sar;
-    public $RTN_DNI;
     public $No_Correlativo;
     public $Cai_Comprobante;
     public $Sucursal;
@@ -26,7 +25,6 @@ class Notadebito
     public $Nombre_Producto;
     public $Descripcion;
     public $Precio;
-    public $Tipo_Importe;
     //detalle
     public $Cod_Detalle;
     public $Cantidad;
@@ -34,6 +32,7 @@ class Notadebito
     public $Nombre_Sucursal;
     //Cliente
     public $Cliente;
+    public $RTN_DNI;
     public $Nombres_Cliente;
     //adquiriente exonerado
     public $Usuario;
@@ -63,7 +62,6 @@ class Notadebito
         $this->Nombre_Producto = !empty($data['Nombre_Producto']) ? $data['Nombre_Producto'] : null;
         $this->Descripcion = !empty($data['Descripcion']) ? $data['Descripcion'] : null;
         $this->Precio = !empty($data['Precio']) ? $data['Precio'] : null;
-        $this->Tipo_Importe= !empty($data['Tipo_Importe']) ? $data['Tipo_Importe'] : null;
         //Propiedad de la tabla producto
         $this->Cod_Detalle = !empty($data['Cod_Detalle']) ? $data['Cod_Detalle'] : null;
         $this->Cantidad= !empty($data['Cantidad']) ? $data['Cantidad'] : null;
@@ -71,8 +69,8 @@ class Notadebito
         $this->Nombre_Sucursal = !empty($data['Nombre_Sucursal']) ? $data['Nombre_Sucursal'] : null;
         //Propiedades proveedor
         $this->Cliente = !empty($data['Cliente']) ? $data['Cliente'] : null;
-        $this->Nombres_Cliente = !empty($data['Nombres_Cliente']) ? $data['Nombres_Cliente'] : null;
         $this->RTN_DNI = !empty($data['RTN_DNI']) ? $data['RTN_DNI'] : null;
+        $this->Nombres_Cliente = !empty($data['Nombres_Cliente']) ? $data['Nombres_Cliente'] : null;
         //Propiedades de otras tablegateway
         $this->Usuario = !empty($data['Usuario']) ? $data['Usuario'] : null;
         $this->Fecha_Ingreso = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
@@ -90,7 +88,6 @@ class Notadebito
             'Consecutivo_Actual_Tipo'  => $this->Consecutivo_Actual_Tipo,
             'Consecutivo_Actual_Correlativo'  => $this->Consecutivo_Actual_Correlativo,
             'Autorizacion_Sar' => $this->Autorizacion_Sar,
-            'RTN_DNI' => $this->RTN_DNI,
             'No_Correlativo' => $this->No_Correlativo,
             'Cai_Comprobante' => $this->Cai_Comprobante,
             'Sucursal' => $this->Sucursal,
@@ -105,7 +102,6 @@ class Notadebito
             'Descripcion'  => $this->Descripcion,
             'Cantidad'  => $this->Cantidad,
             'Precio'  => $this->Precio,
-            'Tipo_Importe'  => $this->Tipo_Importe,
             'Cliente' => $this->Cliente,
             'Nombres_Cliente' => $this->Nombres_Cliente,
             'Usuario'  => $this->Usuario,

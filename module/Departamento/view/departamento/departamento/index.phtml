@@ -13,7 +13,6 @@ $this->headTitle($title);
           <th>c&oacute;digo de departamento</th>
           <th>Nombre de departamento</th>
           <th>Fecha de ingreso</th>
-          <th>Fecha de actualizaci&oacute;n</th>
           <th>Acci&oacute;n</th>
         </tr> 
       </thead>
@@ -23,7 +22,6 @@ $this->headTitle($title);
           <td><?= $this->escapeHtml($dep->Cod_Departamento) ?></td>
           <td><?= $this->escapeHtml($dep->Nombre_Depto) ?></td>
           <td><?= $this->escapeHtml($dep->Fecha_Ingreso) ?></td>
-          <td><?= $this->escapeHtml($dep->Fecha_Actualizacion) ?></td>
           <td>
              <a type="button" class="btn btn-primary btn-block btn-sm"  href="<?= $this->url('departamento/edit',['Cod_Departamento'=>$dep->Cod_Departamento])?>"><i class="fa fa-pencil">Editar</i></a>      
           </td>

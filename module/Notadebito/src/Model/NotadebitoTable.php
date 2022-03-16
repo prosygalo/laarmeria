@@ -70,7 +70,6 @@ class NotadebitoTable
             'Cliente' => $notadebito->Cliente,
             'Motivo' => $notadebito->Motivo,
             'Usuario'  => $notadebito->Usuario, 
-            'Fecha_Ingreso'  => $notadebito->Fecha_Ingreso,
             ];
            
             $Cod_Nota = $notadebito->Cod_Nota;

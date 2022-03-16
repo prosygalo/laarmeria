@@ -8,7 +8,6 @@ class Cliente
     public $Apellidos_Cliente;
     public $RTN_DNI;
     public $Fecha_Ingreso;
-    public $Fecha_Actualizacion;
 
     public function exchangeArray(array $data)
     {   
@@ -17,7 +16,6 @@ class Cliente
         $this->Apellidos_Cliente = !empty($data['Apellidos_Cliente']) ? $data['Apellidos_Cliente'] : null;
         $this->RTN_DNI= !empty($data['RTN_DNI']) ? $data['RTN_DNI'] : null;
         $this->Fecha_Ingreso  = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
-        $this->Fecha_Actualizacion = !empty($data['Fecha_Actualizacion']) ? $data['Fecha_Actualizacion'] : null;
 
     }
    
@@ -30,7 +28,6 @@ class Cliente
             'Apellidos_Cliente' => $this->Apellidos_Cliente,
             'RTN_DNI'=>$this->RTN_DNI,
             'Fecha_Ingreso'=>$this->Fecha_Ingreso,
-            'Fecha_Actualizacion'=>$this->Fecha_Actualizacion,
         ];
     }
     

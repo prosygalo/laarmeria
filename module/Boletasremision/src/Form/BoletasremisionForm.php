@@ -184,7 +184,7 @@ class BoletasremisionForm extends Form
         $productos->setAttribute('id', 'pro_id');
         $productos->setAttribute('data-width', '100%');
         $productos->setAttribute('data-live-search', 'true');
-        $productos->setAttribute('class', 'form-control selectpicker  pro_id'); 
+        $productos->setAttribute('class', 'form-control custom-select selectpicker  pro_id'); 
         $this->add($productos);
     
 
@@ -218,7 +218,7 @@ class BoletasremisionForm extends Form
         
         //Agregar botón de agregar productos a la tabla
         $Agregar = new Element\Button('agregar');
-        $Agregar->setLabel("Agregar  productos a la lista");
+        $Agregar->setLabel("Agregar artículo");
         $Agregar->setAttribute('type','button');
         $Agregar->setAttribute('id','agregar');
         $Agregar->setAttribute('class', 'btn btn-success btn-block blo');

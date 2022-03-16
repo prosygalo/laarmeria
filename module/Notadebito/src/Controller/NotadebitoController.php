@@ -85,13 +85,13 @@ class NotadebitoController extends AbstractActionController
                 $Tipo_de_Documento = $a->Tipo_de_Documento;
                 $Fecha_Limite = $a->Fecha_Limite;
               endforeach;           
-                    if(is_null($Cod_Autorizacion)){
+                    if(empty($Cod_Autorizacion)){
                             return $this->redirect()->toRoute('notadebito/errorautorizacion');                           
                     }elseif($fecha > $Fecha_Limite){
                             return $this->redirect()->toRoute('notadebito/vencimientofecha');
-                    }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo >= $Consecutivo_Final_Correlativo){
+                    }elseif((!empty($Cod_Autorizacion)) && $Consecutivo_Actual_Correlativo >= $Consecutivo_Final_Correlativo){
                             return $this->redirect()->toRoute('notadebito/expirocorrelativo');                            
-                    }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo == NULL){                           
+                    }elseif((!empty($Cod_Autorizacion)) && $Consecutivo_Actual_Correlativo == NULL){                           
                             $form = new NotadebitoForm();
                             $form->get('submit')->setValue('Guardar');
                             $form->get('Fecha_Emision')->setValue($fecha);
@@ -100,7 +100,7 @@ class NotadebitoController extends AbstractActionController
                             $form->get('Consecutivo_Actual_Tipo')->setValue($Consecutivo_Inicial_Tipo); 
                             $form->get('Consecutivo_Actual_Correlativo')->setValue($Consecutivo_Inicial_Correlativo);
                             $form->get('Autorizacion_Sar')->setValue($Cod_Autorizacion);                                   
-                   }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo <= $Consecutivo_Final_Correlativo &&  $Fecha_Limite >=  $fecha) {
+                   }elseif((!empty($Cod_Autorizacion)) && $Consecutivo_Actual_Correlativo <= $Consecutivo_Final_Correlativo &&  $Fecha_Limite >=  $fecha) {
 
                             $form = new NotadebitoForm();
                             $form->get('submit')->setValue('Guardar');
@@ -144,44 +144,79 @@ class NotadebitoController extends AbstractActionController
             $rowset = $this->ClienteTable->getClienteRTNSelect(); //llenar select sucursal  remiten
             $form->get('RTN_DNI')->setValueOptions($rowset);
 
-            $rowset4 = $this->ProductoTable->getProductoSelect(); //llenar select Conductor 
+            $rowset4 = $this->ProductoTable->getProductoSelect($Sucursal); //llenar select Conductor 
             $productos = $form->get('productos')->setValueOptions($rowset4);             
            
             //-------Solicitud-------------------------
             $request = $this->getRequest();
             if (! $request->isPost()) {
-                 return ['form' => $form];
+                return ['form' => $form];
 
             }          
 
             //Validacion del formulario
             $form->setInputFilter(new  \Notadebito\Form\Filter\NotadebitoFilter($this->dbAdapter));//Filtrado y vlidacion  de los  datos
             $form->setData($request->getPost());
-                
-            if ( $form->isValid()){
-                return ['form' => $form];
+            if (! $form->isValid()){
+                 return ['form' => $form];
+               
+
             }
+
             //--------Tomar datos del formulario-y los guardamos en la base de datos, para ello realizamos tres procesos.
             $notadebito = new Notadebito();
             $notadebito->exchangeArray($form->getData());
+
             $Cod_Producto = $this->request->getPost("Cod_Producto");
+            $Descripcion = $this->request->getPost("Descripcion");
             $Cantidad = $this->request->getPost("Cantidad");
+            $Precio = $this->request->getPost("Precio");
+             
+             //Si se recibieron Codigo de producto duplicado, se retornará el formulario sin el listado de producto
+            $unique = array_unique($Cod_Producto);
+            $duplicado = array_diff_assoc($Cod_Producto, $unique);
+             
+             if ($duplicado != null){
+                 return ['form' => $form];
+             }
+             //Si se recibe un codigo de producto con '0' cantidad , se retornará el formulario sin el listado de producto
+             if (in_array("0", $Cantidad)){
+                return ['form' => $form];
+             }
+             // Si se recibe un codigo de producto con null cantidad , se retornará el formulario sin el listado de producto
+             if (in_array(null, $Cantidad)){
+                return ['form' => $form];
+             }
+            
+            //$existencia = $this->ProductoTable->ComprobarExistencia($Cod_Producto, $Cantidad);
 
-                // Almacenar los datos en la tabla boleta de remision  
-                   $lastId = $this->NotadebitoTable->insertNotaDebito($notadebito);
-                //Actualice el numero de consecutivo de la boleta de la guia de remision en la tabla autorizaciones SAR 
-                   $Cod_Autorizacion= $this->request->getPost("Autorizacion_Sar");
-                   $Consecutivo_Actual_Establ= $this->request->getPost("Consecutivo_Actual_Establ");
-                   $Consecutivo_Actual_Punto= $this->request->getPost("Consecutivo_Actual_Punto");
-                   $Consecutivo_Actual_Tipo= $this->request->getPost("Consecutivo_Actual_Tipo");
-                   $Consecutivo_Actual_Correlativo = $this->request->getPost("Consecutivo_Actual_Correlativo");
-                   
-                   $this->AutorizacionsarTable->UpdateConsecutivoActual($Cod_Autorizacion, $Consecutivo_Actual_Establ, $Consecutivo_Actual_Punto, $Consecutivo_Actual_Tipo, $Consecutivo_Actual_Correlativo);                   
-                //Cada producto debe de registrarse con el codigo de boleta  y almacenarse en el detalle
-                   $this->DetalleNotadebitoTable->insertDetalleNotadebito($Cod_Producto, $Cantidad, $lastId);// Enviar Datos a la tabla detalle a la BD                        
-                    return $this->redirect()->toRoute('notadebito/detalle',['Cod_Nota'=>$lastId]);
+           /// if(){
+             
+            //Actualización de existencias
+                $this->ProductoTable->UpdateExistenciaProducto($Cod_Producto, $Cantidad);
+            
+            // Almacenar los datos en la tabla boleta de remision  
+                $lastId = $this->NotadebitoTable->insertNotaDebito($notadebito);
+            
+            //Actualice el numero de consecutivo de la boleta de la guia de remision en la tabla autorizaciones SAR 
+                $Cod_Autorizacion= $this->request->getPost("Autorizacion_Sar");
+                $Consecutivo_Actual_Establ= $this->request->getPost("Consecutivo_Actual_Establ");
+                $Consecutivo_Actual_Punto= $this->request->getPost("Consecutivo_Actual_Punto");
+                $Consecutivo_Actual_Tipo= $this->request->getPost("Consecutivo_Actual_Tipo");
+                $Consecutivo_Actual_Correlativo = $this->request->getPost("Consecutivo_Actual_Correlativo");
+                                   
+                
+            //Almacenar el detalle
+                $this->DetalleNotadebitoTable->insertDetalleNotadebito($Cod_Producto, $Descripcion, $Precio, $Cantidad, $lastId);                     
+  
+            //Actualización de consecutivo en autorizaciones
+                $this->AutorizacionsarTable->UpdateConsecutivoActual($Cod_Autorizacion, $Consecutivo_Actual_Establ, $Consecutivo_Actual_Punto, $Consecutivo_Actual_Tipo, $Consecutivo_Actual_Correlativo);   
 
-        
+            return $this->redirect()->toRoute('notadebito/detalle',['Cod_Nota'=>$lastId]);
+    /* }else{
+
+             return $this->redirect()->toRoute('home');
+        }*/
     }
     public function clienteAction()
     {
@@ -195,7 +230,7 @@ class NotadebitoController extends AbstractActionController
     {
         $Producto = $this->params()->fromRoute('Cod_Producto');
         
-        $rowset4 = $this->ProductoTable->getProductoNotadebito($Producto); //llenar select sucursal  remiten
+        $rowset4 = $this->ProductoTable->getProductoExistencia($Producto); //llenar select sucursal  remiten
         return  new JsonModel($rowset4);
 
     }
@@ -267,6 +302,7 @@ class NotadebitoController extends AbstractActionController
        
         //Detalle de la boleta enviada 
         $Detalle = $this->DetalleNotadebitoTable->getDetalleNota($Cod_Nota);
+
         
         //Verifica si la usuario ha enviado el formulario
         $request = $this->getRequest();
@@ -421,8 +457,8 @@ class NotadebitoController extends AbstractActionController
     // formato Json para pruebas
     public function pruebaAction()
     { 
-         $UltimaAutorizacion =  $this->DetalleNotadebitoTable->getDetalleNota('2');
-        return  new JsonModel($UltimaAutorizacion);
+          $total = $this->DetalleNotadebitoTable->getTotal('3011');
+        return  new JsonModel($total);
     }
     public function listoAction()
     {

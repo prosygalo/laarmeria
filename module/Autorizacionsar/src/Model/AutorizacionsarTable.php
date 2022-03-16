@@ -74,6 +74,7 @@ class AutorizacionsarTable
             $subquery2=$this->tableGateway->getSql()->select();
             $subquery2->columns(['Cod_Autorizacion' => new  Expression('MAX(Cod_Autorizacion)')]);
             $subquery2->Where(['Tipo_de_Documento'=> $Tipo_de_Documento , 'Sucursal' => $Sucursal]);
+
            
             $rowset=$this->tableGateway->getSql()->select();
             $rowset->columns(['Cod_Autorizacion' ,'Cai','Consecutivo_Inicial_Establ','Consecutivo_Inicial_Punto','Consecutivo_Inicial_Tipo','Consecutivo_Inicial_Correlativo','Consecutivo_Final_Establ','Consecutivo_Final_Punto','Consecutivo_Final_Tipo','Consecutivo_Final_Correlativo','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Fecha_Limite','Sucursal','Fecha_Ingreso']);
@@ -96,7 +97,8 @@ class AutorizacionsarTable
             $rowset->columns(['Cod_Autorizacion' ,'Cai','Consecutivo_Inicial_Establ','Consecutivo_Inicial_Punto','Consecutivo_Inicial_Tipo','Consecutivo_Inicial_Correlativo','Consecutivo_Final_Establ','Consecutivo_Final_Punto','Consecutivo_Final_Tipo','Consecutivo_Final_Correlativo','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Fecha_Limite','Sucursal','Fecha_Ingreso']);
             $rowset->where(['Cod_Autorizacion'=>($subquery2)]);
             $resultSet=$this->tableGateway->selectWith($rowset);
-             return $resultSet;
+            return $resultSet;
+            
      } 
      public function getUltimaAutorizacionNotaDebito($Sucursal)
      {      
@@ -106,6 +108,7 @@ class AutorizacionsarTable
             $subquery2=$this->tableGateway->getSql()->select();
             $subquery2->columns(['Cod_Autorizacion' => new  Expression('MAX(Cod_Autorizacion)')]);
             $subquery2->Where(['Tipo_de_Documento'=> $Tipo_de_Documento , 'Sucursal' => $Sucursal]);
+      
            
             $rowset=$this->tableGateway->getSql()->select();
             $rowset->columns(['Cod_Autorizacion' ,'Cai','Consecutivo_Inicial_Establ','Consecutivo_Inicial_Punto','Consecutivo_Inicial_Tipo','Consecutivo_Inicial_Correlativo','Consecutivo_Final_Establ','Consecutivo_Final_Punto','Consecutivo_Final_Tipo','Consecutivo_Final_Correlativo','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Fecha_Limite','Sucursal','Fecha_Ingreso']);

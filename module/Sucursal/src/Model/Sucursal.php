@@ -12,7 +12,6 @@ class Sucursal
     public $Correo;
     public $Estado;
     public $Fecha_Ingreso;
-    public $Fecha_Actualizacion;
 
     public function exchangeArray(array $data)
     {   
@@ -24,7 +23,6 @@ class Sucursal
         $this->Correo = !empty($data['Correo']) ? $data['Correo'] : null;
         $this->Estado = !empty($data['Estado']) ? $data['Estado'] : null;
         $this->Fecha_Ingreso  = !empty($data['Fecha_Ingreso']) ? $data['Fecha_Ingreso'] : null;
-        $this->Fecha_Actualizacion  = !empty($data['Fecha_Actualizacion']) ? $data['Fecha_Actualizacion'] : null;
     }
 
     public function getArrayCopy()
@@ -38,7 +36,6 @@ class Sucursal
             'Correo'  => $this->Correo,
             'Estado'=>$this->Estado,
             'Fecha_Ingreso'=>$this->Fecha_Ingreso,
-            'Fecha_Actualizacion'=>$this->Fecha_Actualizacion,
         ];
     }
     

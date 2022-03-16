@@ -1,5 +1,4 @@
 <?php
-
 namespace Producto\Model;
 
 use RuntimeException;
@@ -33,24 +32,25 @@ class ProductoTable
                 }
                 return $row;
      } 
-     public function getProductoNotadebito($Cod_Producto)
+     public function getProductoExistencia($Cod_Producto)
      {
                 $Cod_Producto = $Cod_Producto;
                 $rowset2 = $this->tableGateway->getSql()->select();
-                $rowset2->columns(array('Cod_Producto','Nombre_Producto','Descripcion','Precio','Tipo_Importe'));
                 $rowset2->where(['Cod_Producto'=>$Cod_Producto]);
                 $resultSet = $this->tableGateway->selectWith($rowset2);
                 return $resultSet; 
      }
-     public function getProductoSelect(){
+     public function getProductoSelect($Sucursal){
 
+                $Sucursal=$Sucursal;
                 $rowset = $this->tableGateway->getSql()->select();
-                $rowset->columns(array('Cod_Producto','Nombre_Producto','Descripcion','Precio','Tipo_Importe'));
+                $rowset->columns(array('Cod_Producto','Nombre_Producto','Descripcion'));
+                $rowset->where(['Sucursal'=>$Sucursal, 'Cantidad > 1 ']);
                 $rowset->order('Nombre_Producto Asc');
                 $resultSet = $this->tableGateway->selectWith($rowset); 
                 $data= array();
                 foreach($resultSet as $row){
-                   $data[$row->Cod_Producto] = $row->Nombre_Producto . $row->Descripcion;
+                   $data[$row->Cod_Producto] = $row->Nombre_Producto .' '. $row->Descripcion;
                 }
                    return $data;
                
@@ -62,7 +62,9 @@ class ProductoTable
                 'Nombre_Producto'  => $producto->Nombre_Producto,
                 'Descripcion'  => $producto->Descripcion,
                 'Precio'  => $producto->Precio,
-                'Tipo_Importe'  => $producto->Tipo_Importe,
+                'Sucursal'   => $producto->Sucursal,
+                'Cantidad'  => $producto->Cantidad,
+             
             ];
            
             $Cod_Producto = $producto->Cod_Producto;
@@ -82,7 +84,8 @@ class ProductoTable
                     'Nombre_Producto' => $producto->Nombre_Producto,
                     'Descripcion'   => $producto->Descripcion,
                     'Precio'   => $producto->Precio,
-                    'Tipo_Importe'   => $producto->Tipo_Importe,
+                    'Sucursal'   => $producto->Sucursal,
+                    'Cantidad'  => $producto->Cantidad,
                 ];
 
                 $Cod_Producto = $producto->Cod_Producto;
@@ -97,6 +100,68 @@ class ProductoTable
                 $this->tableGateway->update($data, ['Cod_Producto' => $Cod_Producto]);
                 return;
     }
+    public function ComprobarExistencia($Cod_Producto, $Cantidad)
+    {  
+        $Cod_Producto = $Cod_Producto;
+        $Cantidad = $Cantidad;
+
+        for($count = 0; $count < count($Cod_Producto); $count++){
+
+            $data = array(); 
+            $Codigo =  ['Cod_Producto'=>$Cod_Producto[$count]];
+            
+            $exis = $this->tableGateway->getSql()->select();
+            $exis->columns(array('Cantidad'));
+            $exis->where(['Cod_Producto'=>$Codigo]);
+            $result = $this->tableGateway->selectWith($exis);
+
+            foreach ($result as $n) {
+                 $existencia = $n->Cantidad;
+            }
+                  if ($existencia >= $Cantidad[$count]){
+                          
+                   $data =[];
+                  
+                  }else{
+                     
+                   $data = [];  
+                 }
+           
+         }
+        
+        return $data;
+     }
 
 
+    public function UpdateExistenciaProducto($Cod_Producto, $Cantidad)
+    {  
+        $Cod_Producto = $Cod_Producto;
+        $Cantidad = $Cantidad;
+
+        for($count = 0; $count < count($Cod_Producto); $count++){
+
+            $data = array(); 
+            $Codigo =  ['Cod_Producto'=>$Cod_Producto[$count]];
+            
+            $exis = $this->tableGateway->getSql()->select();
+            $exis->columns(array('Cantidad'));
+            $exis->where(['Cod_Producto'=>$Codigo]);
+            $result = $this->tableGateway->selectWith($exis);
+
+            foreach ($result as $n) {
+                $existencia = $n->Cantidad;
+            }
+            if ($existencia >= $Cantidad[$count]){
+
+                $data = ['Cantidad' => $existencia - $Cantidad[$count]]; 
+            }else{
+                $data = ['Cantidad' => $existencia - 0];    
+            }
+           
+            
+            $this->tableGateway->update($data, ['Cod_Producto' => $Codigo]);
+         }
+        
+        return $data;
+     }
 }

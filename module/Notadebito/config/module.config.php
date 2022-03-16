@@ -145,7 +145,7 @@ return [
                  'prueba' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/prueba',
+                         'route'    => '/prueba[/:Cod_Nota]',
                         'defaults' => [
                             'action' => 'prueba',
                         ],

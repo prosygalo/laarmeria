@@ -10,7 +10,7 @@ $this->headTitle($title);
     <table class="table table-hover"    id="example"  style="width:100%">
       <thead class="thead-light" >
           <tr>
-            <th>c&oacute;digo de usuario</th>
+            <th>C&oacute;digo </th>
             <th>Empleado</th>
             <th>Sucursal</th>
             <th>Departamento</th>
@@ -19,7 +19,6 @@ $this->headTitle($title);
             <th>Rol</th>
             <th>Estado</th>
             <th>Fecha de ingreso</th>
-            <th>Fecha de actualizaci&oacute;n</th>
             <th></th>
             <th></th>
           </tr>
@@ -36,7 +35,6 @@ $this->headTitle($title);
             <td><?= $this->escapeHtml($u->Rol) ?></td>
             <td><?= $this->escapeHtml($u->Estado) ?></td>
             <td><?= $this->escapeHtml($u->Fecha_Ingreso) ?></td>
-            <td><?= $this->escapeHtml($u->Fecha_Actualizacion) ?></td>
             <td>
               <a type="button" class=" btn btn-primary btn-block btn-sm"  href="<?= $this->url('usuario/edit',['Cod_Usuario'=>$u->Cod_Usuario])?>"><i class="fa fa-pencil">Editar</i></a>
             </td>

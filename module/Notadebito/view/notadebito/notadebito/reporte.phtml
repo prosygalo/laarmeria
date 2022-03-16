@@ -249,7 +249,6 @@ $form->prepare();
                     <th class="text-center">Descripción</th>
                     <th class="text-center">Cantidad</th>
                     <th class="text-center">Precio</th>
-                    <th class="text-center">Tipo Importe</th>
                     <th class ="text-center">Subtotal</th>
                   </tr>
                 </thead>
@@ -268,7 +267,6 @@ $form->prepare();
                         echo number_format($precio, 2, ".", ","); 
                         ?>  
                       </td>
-                      <td class="text-center  sizetext"><?= $this->escapeHtml($a->Tipo_Importe)?></td>
                       <td  class="text-right sizetext">
                       <?php
                           $cantidad = $this->escapeHtml($a->Cantidad);
@@ -287,12 +285,10 @@ $form->prepare();
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
                     <td class="text-right"><?= $this->formLabel($GravadoView)?></td>
                     <td><?= $this->formElement($GravadoView)?></td>
                   </tr>
                   <tr>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -303,7 +299,6 @@ $form->prepare();
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
                     <td class="text-right"><?= $this->formLabel($ExoneradoView)?></td>
                     <td><?= $this->formElement($ExoneradoView)?></td>
                   </tr>
@@ -311,12 +306,10 @@ $form->prepare();
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
                     <td class="text-right"><?= $this->formLabel($IsvView)?></td>
                     <td><?= $this->formElement($IsvView)?></td>
                   </tr>
                   <tr>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -350,7 +343,6 @@ $form->prepare();
                     <td>Original: cliente</td>
                     <td>Copia1: Obligado tributario</td>
                     <td>Copia2: Archivo</td>
-                    <td>Fecha de impresión:<?= date('y-m-d H:i:s')?></td>
                   </tr>
                    <tr>        
                     <td>Fecha de impresión:<?= date('y-m-d H:i:s')?></td>

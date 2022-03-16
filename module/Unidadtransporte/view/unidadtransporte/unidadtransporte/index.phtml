@@ -10,13 +10,12 @@ $this->headTitle($title);
     <table class="table table-hover"    id="example"  style="width:100%">
       <thead class="thead-light">
           <tr>
-            <th>c&oacute;digo</th>
-            <th>Marca de vehiculo</th>
-            <th>Modelo de vehiculo</th>
-            <th>Placa de vehiculo</th>
+            <th>C&oacute;digo</th>
+            <th>Marca Vehículo</th>
+            <th>Modelo Vehículo</th>
+            <th>Placa Vehículo</th>
             <th>Estado</th>
             <th>Fecha de ingreso</th>
-            <th>Fecha de actualizaci&oacute;n</th>
             <th>Acci&oacute;n</th>
           </tr>
         </thead>
@@ -29,7 +28,6 @@ $this->headTitle($title);
           <td><?= $this->escapeHtml($unit->Placa_Vehiculo) ?></td>
           <td><?= $this->escapeHtml($unit->Estado) ?></td>
           <td><?= $this->escapeHtml($unit->Fecha_Ingreso) ?></td>
-          <td><?= $this->escapeHtml($unit->Fecha_Actualizacion) ?></td>
           <td>
              <a  type="button" class="btn btn-primary btn-block btn-sm"  href="<?=$this->url('unidadtransporte/edit',['Cod_Unidad'=>$unit->Cod_Unidad])?>"><i class="fa fa-pencil">Editar</i></a>     
           </td>

@@ -79,6 +79,7 @@ class SucursalController extends AbstractActionController
         }
         //crear instancia de formulario sucursal
         $form = new SucursalForm();
+         
         $form->bind($sucursal);
         $form->get('submit')->setAttribute('value', 'Actualizar');
        //verificar si la solicitud es enviada

@@ -17,7 +17,7 @@ class ProductoForm extends Form
             'name' => 'Cod_Producto',
             'type' => 'text',
             'options' => [
-                'label' => 'Código de producto',
+                'label' => 'Código',
             ],
         ]);
        
@@ -25,7 +25,7 @@ class ProductoForm extends Form
             'name' => 'Nombre_Producto',
             'type' => 'text',
             'options' => [
-                'label' => 'Nombre de producto',
+                'label' => 'Nombre',
             ],
         ]);
 
@@ -47,17 +47,28 @@ class ProductoForm extends Form
                  'value' => '0',
             ],
         ]);
+          $this->add([
+            'name' => 'Cantidad',
+            'type' => 'text',
+            'options' => [
+                'label' => 'Cantidad',
+            ],
+            'attributes' => [
+                 'value' => '0',
+            ],
+        ]);
 
 
          $this->add([
             'type' => Element\Select::class,
-            'name' => 'Tipo_Importe',
+            'name' => 'Sucursal',
             'options' => [
-                'label' => 'Tipo de Importe',
-                'value_options' => [
-                       'G' => 'G',
-                       'E' => 'E',
-               ],
+                'label' => 'Sucursal',
+                'empty_option' => 'Seleccione',
+            ],
+            'attributes' => [
+                 'id' => 'Sucursal',
+                 'class'=>'form-control'
             ],
         ]);
 

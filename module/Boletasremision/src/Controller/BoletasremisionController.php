@@ -90,9 +90,9 @@ class BoletasremisionController extends AbstractActionController
                             return $this->redirect()->toRoute('boletasremision/errorautorizacion');                         
                     }elseif($fecha > $Fecha_Limite){
                             return $this->redirect()->toRoute('boletasremision/vencimientofecha');
-                    }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo >= $Consecutivo_Final_Correlativo){
+                    }elseif((!empty($Cod_Autorizacion)) && $Consecutivo_Actual_Correlativo >= $Consecutivo_Final_Correlativo){
                             return $this->redirect()->toRoute('boletasremision/expirocorrelativo');                            
-                    }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo == NULL){                           
+                    }elseif((!empty($Cod_Autorizacion)) && $Consecutivo_Actual_Correlativo == NULL){                           
                             $form = new BoletasremisionForm();
                             $form->get('submit')->setValue('Guardar');
                             $form->get('Fecha_Emision')->setValue($fecha);
@@ -101,7 +101,7 @@ class BoletasremisionController extends AbstractActionController
                             $form->get('Consecutivo_Actual_Tipo')->setValue($Consecutivo_Inicial_Tipo); 
                             $form->get('Consecutivo_Actual_Correlativo')->setValue($Consecutivo_Inicial_Correlativo);
                             $form->get('Autorizacion_Sar')->setValue($Cod_Autorizacion);                                   
-                   }elseif($Cod_Autorizacion != NULL && $Consecutivo_Actual_Correlativo <= $Consecutivo_Final_Correlativo &&  $Fecha_Limite >=  $fecha) {
+                    }elseif((!empty($Cod_Autorizacion)) && $Consecutivo_Actual_Correlativo <= $Consecutivo_Final_Correlativo &&  $Fecha_Limite >=  $fecha) {
 
                             $form = new BoletasremisionForm();
                             $form->get('submit')->setValue('Guardar');
@@ -156,7 +156,7 @@ class BoletasremisionController extends AbstractActionController
             $rowset3 = $this->ConductorTable->getConductorSelect(); //llenar select Conductor 
             $Conductor = $form->get('Conductor')->setValueOptions($rowset3); 
 
-            $rowset4 = $this->ProductoTable->getProductoSelect(); //llenar select Conductor 
+            $rowset4 = $this->ProductoTable->getProductoSelect($Sucursal_Remitente); //llenar select Conductor 
             $productos = $form->get('productos')->setValueOptions($rowset4); 
 
             //-------Solicitud-------------------------
@@ -180,7 +180,25 @@ class BoletasremisionController extends AbstractActionController
             $Cod_Producto = $this->request->getPost("Cod_Producto");
             $Descripcion = $this->request->getPost("Descripcion");
             $Cantidad = $this->request->getPost("Cantidad");
-                            
+            
+             //Si se recibieron Codigo de producto duplicado, se retornará el formulario sin el listado de producto
+            $unique = array_unique($Cod_Producto);
+            $duplicado = array_diff_assoc($Cod_Producto, $unique);
+             
+            if ($duplicado != null){
+                 return ['form' => $form];
+             }
+             //Si se recibe un codigo de producto con '0' cantidad , se retornará el formulario sin el listado de producto
+             if (in_array("0", $Cantidad)){
+                return ['form' => $form];
+             }
+             // Si se recibe un codigo de producto con null cantidad , se retornará el formulario sin el listado de producto
+             if (in_array(null, $Cantidad)){
+                return ['form' => $form];
+             }
+
+             //Actualización de existencias
+            $this->ProductoTable->UpdateExistenciaProducto($Cod_Producto, $Cantidad);             
            
             // Almacenar los datos en la tabla boleta de remision  
              $lastId = $this->BoletasremisionTable->insertBoleta($boletasremision);
@@ -203,6 +221,14 @@ class BoletasremisionController extends AbstractActionController
         
         $rowset3 = $this->SucursalTable->getDireccion($Sucursal_Destino); //llenar select sucursal  remiten
         return  new JsonModel($rowset3);
+
+    }
+    public function productoAction()
+    {
+        $Producto = $this->params()->fromRoute('Cod_Producto');
+        
+        $rowset4 = $this->ProductoTable->getProductoExistencia($Producto); //llenar select sucursal  remiten
+        return  new JsonModel($rowset4);
 
     }
 
@@ -266,8 +292,8 @@ class BoletasremisionController extends AbstractActionController
             $rowset3 = $this->ConductorTable->getConductorSelect(); //llenar select Conductor 
             $Conductor = $form->get('Conductor')->setValueOptions($rowset3); 
 
-            $rowset4 = $this->ProductoTable->getProductoSelect(); //llenar select Conductor 
-            $productos = $form->get('productos')->setValueOptions($rowset4);
+           /* $rowset4 = $this->ProductoTable->getProductoSelect($Sucursal_Remitente); //llenar select Conductor 
+            $productos = $form->get('productos')->setValueOptions($rowset4);*/
 
         
         //Verifica si la usuario ha enviado el formulario
@@ -348,8 +374,8 @@ class BoletasremisionController extends AbstractActionController
             $rowset3 = $this->ConductorTable->getConductorSelect(); //llenar select Conductor 
             $Conductor = $form->get('Conductor')->setValueOptions($rowset3); 
 
-            $rowset4 = $this->ProductoTable->getProductoSelect(); //llenar select Conductor 
-            $productos = $form->get('productos')->setValueOptions($rowset4);
+           /* $rowset4 = $this->ProductoTable->getProductoSelect($Sucursal_Remitente); //llenar select Conductor 
+            $productos = $form->get('productos')->setValueOptions($rowset4);*/
         
         //Verifica si la usuario ha enviado el formulario
         $request = $this->getRequest();

@@ -2,21 +2,20 @@
 $title = 'Sucursales';
 $this->headTitle($title);
 ?>
-<div class="container-fluid">
+<div class="container">
   <h4 class="text-center"><?= $this->escapeHtml($title) ?></h4>
     <p><a class="btn btn-outline-info float-right"  role="button"  href="<?= $this->url('sucursal/add')?>"><i class="fa fa-plus-circle"></i>Agregar</a></p>
       <table class="table table-hover"    id="example"  style="width:100%">
           <thead class="thead-light" >
             <tr>
-              <th>c&oacute;digo de sucursal</th>
+              <th>C&oacute;digo</th>
               <th>Nombre  Sucursal</th>
-              <th>Registro Nacional Tributario (RTN)</th>
+              <th>RTN</th>
               <th>Direcci&oacute;n</th>
               <th>Correo</th>
               <th>Teléfono</th>
               <th>Estado</th>
               <th>Fecha de ingreso</th>
-              <th>Fecha de actualizaci&oacute;n</th>
               <th>Acci&oacute;n</th>
             </tr>
           </thead>
@@ -31,7 +30,6 @@ $this->headTitle($title);
               <td><?= $this->escapeHtml($suc->Telefono) ?></td>
               <td><?= $this->escapeHtml($suc->Estado) ?></td>
               <td><?= $this->escapeHtml($suc->Fecha_Ingreso) ?></td>
-              <td><?= $this->escapeHtml($suc->Fecha_Actualizacion) ?></td>
               <td>
                 <a type="button" class="btn btn-primary btn-block btn-sm"  href="<?=$this->url('sucursal/edit',['Cod_Sucursal'=>$suc->Cod_Sucursal])?>"><i class="fa fa-pencil">Editar</i></a>     
               </td>

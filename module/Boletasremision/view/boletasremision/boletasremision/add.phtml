@@ -168,12 +168,12 @@ $form->prepare();
                     <div class="col-md-12">
                         <table id="TablaPro" class="table">
                             <thead>
-                                <tr>
-                                    <th></th>  
-                                    <th></th>    
+                                <tr> 
+                                    <th></th>     
                                     <th>Código</th>
-                                    <th>Descripci&oacute;n</th>
+                                    <th width="40%">Descripci&oacute;n</th>
                                     <th>Cantidad</th>
+                                    <th rowspan="2" class="text-center">Stock Disponible</th>
                                     <th>Acci&oacute;n</th>
                                 </tr>
                             </thead>
@@ -183,6 +183,11 @@ $form->prepare();
                               
                                 </tr>
                             </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="7"><span id="error"></span></td>
+                              </tr>
+                            </tfoot>
                         </table>
                     </div>
                   </div>
@@ -215,11 +220,11 @@ $form->prepare();
       </div>
 <!-- Large modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
                     <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                   <h4 class="modal-title"><i class="fa fa-shopping-cart"></i>Agregar productos a la lista</h4>
+                   <h4 class="modal-title"><i class="fa fa-shopping-cart"></i>Agregar artículo a la lista</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                        <span aria-hidden="true">&times;</span>
                     </button>            
@@ -254,7 +259,8 @@ $(document).ready(function(){
       format: 'yyyy-mm-dd',
       //locale: 'es-es',
       });
-  });
+ });
+   
   function cancelar(){
      window.location.href="<?= $this->url('home')?>";
    }
@@ -286,24 +292,91 @@ $(document).ready(function(){
     }
 
    function agregarP(){
-    var text = $('#pro_id').find(':selected').text(); 
-    var Cod_Producto = $('#pro_id').find(':selected').val(); 
+         var Cod = $('#pro_id').find(':selected').val();
+         $.ajax({
+             type: "GET",
+             url: "/boletasremision/producto/" + $('#pro_id').find(':selected').val(),
+             dataType: "json",
+             beforeSend: function(x) {
+                if(x && x.overrideMimeType) {
+                   x.overrideMimeType("application/j-son;charset=UTF-8");
+                }
+             },
+             success: function(prod){
+              var id='';
+              var Proc = '';
+              var Des = '';
+              var Exis ='';
+              var Cant ='';
+              
+                  for (var i = 0; i  < prod.length; i++) {
+                    id +=  prod[i].Cod_Producto;
+                    Proc +=  prod[i].Nombre_Producto;
+                    Des +=  prod[i].Descripcion;
+                    Exis += prod[i].Cantidad;
+                   }
+                   if(checkId(id)){
+                     swal({ 
+                       type: "warning",
+                      title: 'Lo sentimos...',
+                      text: '¡El código de artículo ya ha sido agregado!',
+                       },
+                     );
+                    }else{
 
-        var newtr ='<tr class="item">';
-        newtr= newtr+'<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"/><td/><td><input type="text" class="form-control" name="Cod_Producto[]" id="Cod_Producto[]" value="'+Cod_Producto+'"  required></td><td><input type="text" class="form-control" name="Descripcion[]"  id="Descripcion[]"  value="'+text+'"></td><td><input class="form-control text-center"  type="number"  min="1" max="99"  id="Cantidad[]" name="Cantidad[]" value ="1"  onkeypress="return event.target.value.length < 2" required/></td>';
-         newtr= newtr+'<td><button type="button" class="btn btn-danger btn-xs remove-item"><i class="fa fa-times"></i></button></td></tr>';
-        $('#ProSelected').append(newtr);
+                    var newtr = '<tr class="item" id="'+id+'">';//Obtengo en el tr el Id
+                     newtr = newtr + '<td class="contadorfilas"><input type="hidden" name="Cod_Detalle[]"></td><td><input type="text" name="Cod_Producto[]" id="Cod_Producto[]" class="form-control" value="'+id+'" required/></td><td><input class="form-control Descripcion"  type="text" name="Descripcion[]" id="Descripcion[]"  value="'+Proc+Des+'" readonly /><td><input class="form-control text-center"  type="number" min="1" max ="'+Exis+'" onkeypress="return event.target.value.length < 2" id="Cantidad[]" name="Cantidad[]"  value="1"  onChange="Calcular(this);" required/></td><td class="text-center"><input class="btn btn-primary"  type="button"  id="Existencia[]" name="Existencia[]" value="'+Exis+'" onChange="Calcular(this);"/></td>';
+                       newtr= newtr+'<td><button type="button"  class="btn btn-danger btn-xs remove-item"><i class="fa fa-times"></i></button></td></tr>';
+                     $('#ProSelected').append(newtr);
           
-          RefrescaProducto(); //Refresco Productos
+                    RefrescaProducto(); //Refresco Productos
         
-        $('.remove-item').off().click(function(e){
-           $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
-              if ($('#ProSelected tr').length == 0)
-                 $('#ProSelected .no-item').slideDown(300);
-            RefrescaProducto();         
-        });
+                  $('.remove-item').off().click(function(e){
+                  $(this).parent('td').parent('tr').remove(); //En accion elimino el Producto de la Tabla
+                  if ($('#ProSelected tr').length == 0)
+                  $('#ProSelected .no-item').slideDown(300);
+                    RefrescaProducto();         
+                  });
+                 }
+               }
+             
+               });
+
                
   }
+function checkId(id){
+                    let ids = document.querySelectorAll('#TablaPro tr[id]');
+                  return [].filter.call(ids, tr => tr.id=== id).length === 1;
+}
+
+  
+
+function Calcular(ele){
+            var cantidad = 0,  existencia = 0, max=0;
+            var tr = ele.parentNode.parentNode;
+            var nodes = tr.childNodes;
+        
+            for (var x = 0; x < nodes.length; x++) {
+                
+                if (nodes[x].firstChild.id == 'Cantidad[]'){
+                    cantidad = parseFloat(nodes[x].firstChild.value);
+                    max = parseFloat(nodes[x].firstChild.max);
+                }
+                if (nodes[x].firstChild.id == 'Existencia[]'){
+                    existencia = parseFloat(nodes[x].firstChild.value);
+                    
+                }
+                if(cantidad > max){
+                   $('#submit').attr('disabled', 'disabled');
+                   $('#error').html('<center><div class="alert alert-danger">*Stock no Disponible</div></center>');
+                }  
+                if(cantidad <= max){
+                   $('#submit').removeAttr('disabled', 'disabled');
+                   $('#error').html('');
+                }         
+           }
+                  
+   }
 
  function int(e){
     tecla = (document.all) ? e.keyCode : e.which;
@@ -341,4 +414,4 @@ $(document).ready(function(){
            $('#Punto_Destino').html('<option value>Seleccione Destino</option>');
       }});
     }); 
-</script>
+</script> 

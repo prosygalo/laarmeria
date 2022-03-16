@@ -9,18 +9,14 @@ use Zend\InputFilter\InputFilter;
 use Zend\Validator\StringLength;
 use Zend\Validator\Regex;
 use Zend\Validator\Date;
-use Zend\Validator\EmailAddress;
-//use Zend\Validator\InArray;
-use Zend\Validator\Db\NoRecordExists;
 use Zend\Db\Adapter\Adapter;
 use Zend\I18n\Validator\IsFloat;
-
 
 
 class NotadebitoFilter  extends InputFilter
 { 
   // Add this property:    
-    private $dbAdapter;    
+    private $dbAdapter; 
 
     /**
      * Constructor.     
@@ -34,10 +30,11 @@ class NotadebitoFilter  extends InputFilter
             'required' => false,
             'filters' => [
                 ['name' => ToInt::class],
+                ['name' => StripTags::class],
              ],
         ]);
 
-       $this->add([
+        $this->add([
             'name' => 'Fecha_Emision',
             'required' => true,
             'filters' => [
@@ -49,7 +46,7 @@ class NotadebitoFilter  extends InputFilter
                       'options'=>[
                       'format' => 'Y-m-d',
                       'messages' => [
-                        \Zend\Validator\Date::INVALID=>'Fecha Emisión no válida',
+                        \Zend\Validator\Date::INVALID=>'Fecha emisión no válida',
                         \Zend\Validator\Date::INVALID_DATE=>'Fecha Inválida',
                         \Zend\Validator\Date::FALSEFORMAT=>'Formato de fecha incorrecto',
                          ],
@@ -58,8 +55,7 @@ class NotadebitoFilter  extends InputFilter
                     ],              
                 ],
         ]);
-          
-          
+
         $this->add([
             'name' => 'Consecutivo_Actual_Establ',
             'required' => true,
@@ -188,16 +184,6 @@ class NotadebitoFilter  extends InputFilter
                       ],
                     ],
                 ],
-                ['name' =>NoRecordExists::class,
-                          'options' => [
-                            'table' => 'notas_debito',
-                            'field' => 'Consecutivo_Actual_Correlativo',
-                            'adapter' =>  $this->dbAdapter,
-                            'messages' => [
-                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => 'El correlativo ya existe',
-                           ],
-                        ],
-                  ],
             ],
 
         ]);
@@ -207,22 +193,10 @@ class NotadebitoFilter  extends InputFilter
             'name' => 'Autorizacion_Sar',
             'required' => true,
             'filters' => [
-               ['name' => StripTags::class],
-               ['name' => StringTrim::class],
-            ],
-             'validators' => [
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-          ]);
+                ['name' => ToInt::class],
+                ['name' => StripTags::class],
+             ],
+           ]);
 
 
         $this->add([
@@ -251,7 +225,7 @@ class NotadebitoFilter  extends InputFilter
             'name' => 'Cliente',
             'required' => true,
             'filters' => [
-               ['name' => StripTags::class],
+               //['name' => StripTags::class],
                ['name' => StringTrim::class],
             ],
              'validators' => [
@@ -279,7 +253,7 @@ class NotadebitoFilter  extends InputFilter
                 ['name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 19,
+                        'min' => 8,
                         'max' => 19,
                         'messages' => [
                         \Zend\Validator\StringLength::INVALID=>'No. Correlativo es  incorrecto',
@@ -362,7 +336,7 @@ class NotadebitoFilter  extends InputFilter
             'required' => true,
                'filters' => [
                     ['name' => StripTags::class],
-                  //['name' => StringTrim::class],
+                    ['name' => StringTrim::class],
                     ],
                'validators' => [
                     ['name' => StringLength::class,
@@ -390,28 +364,17 @@ class NotadebitoFilter  extends InputFilter
                 ],
             ]);
   
-        $this->add([
+        
+         $this->add([
             'name' => 'Usuario',
             'required' => true,
             'filters' => [
-               ['name' => StripTags::class],
-               //['name' => StringTrim::class],
-            ],
-             'validators' => [
-                     ['name' => Regex::class, 
-                     'options' => [
-                       'pattern' => '/^[0-9]+$/',
-                       'messages'=>[
-                        // \Zend\Validator\Regex::INVALID_CHARACTERS =>'Caracteres invalidos',
-                        \Zend\Validator\Regex::NOT_MATCH=>'Formato incorrecto',
-            
-                      ],
-                    ],
-                ],
-            ],
-          ]);
-        
-       $this->add([
+                ['name' => ToInt::class],
+                ['name' => StripTags::class],
+             ],
+           ]); 
+         
+        $this->add([
             'name' => 'Gravado',
             'required' => true,
             'filters' => [
@@ -422,7 +385,7 @@ class NotadebitoFilter  extends InputFilter
                 ['name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 3,
+                        'min' => 1,
                         'max' => 9,
                         'messages' => [
                         \Zend\Validator\StringLength::INVALID=>'Importe Gravado es incorrecto',
@@ -442,7 +405,7 @@ class NotadebitoFilter  extends InputFilter
                 ],
             ],
         ]);
-        $this->add([
+       $this->add([
             'name' => 'Isv',
             'required' => true,
             'filters' => [
@@ -517,7 +480,7 @@ class NotadebitoFilter  extends InputFilter
                 ['name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 3,
+                        'min' => 1,
                         'max' => 9,
                         'messages' => [
                         \Zend\Validator\StringLength::INVALID=>'Importe Exonerado es incorrecto',
@@ -549,7 +512,7 @@ class NotadebitoFilter  extends InputFilter
                 ['name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 3,
+                        'min' => 1,
                         'max' => 9,
                         'messages' => [
                         \Zend\Validator\StringLength::INVALID=>'Total es incorrecto',
@@ -569,7 +532,7 @@ class NotadebitoFilter  extends InputFilter
                 ],
             ],
         ]);
-    
+      
         $this->add([
             'name' => 'Motivo',
             'filters' => [
@@ -581,7 +544,7 @@ class NotadebitoFilter  extends InputFilter
                     'name' => StringLength::class,
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 4,
+                        'min' => 1,
                         'max' => 100,
                         'messages' => [
                         \Zend\Validator\StringLength::INVALID=>'Motivo es  incorrecto',

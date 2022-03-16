@@ -170,7 +170,6 @@ $form->prepare();
                     <th colspan="2">Descripcion</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
-                    <th>Tipo Importe</th>
                     <th>Subtotal</th>
                   </tr>
                 </thead>
@@ -184,12 +183,11 @@ $form->prepare();
                       <td colspan="2"><?= $this->escapeHtml($a->Descripcion) ?></td>
                       <td><?= $this->escapeHtml($a->Cantidad)?></td>
                       <td><?= $this->escapeHtml($a->Precio) ?></td>
-                      <td><?= $this->escapeHtml($a->Tipo_Importe) ?></td>
                       <td class="text-right">
                       <?php
                           $cantidad = $this->escapeHtml($a->Cantidad);
                           $precio = $this->escapeHtml($a->Precio);
-                          $Importe = $cantidad*$precio;
+                          $Importe = $cantidad * $precio;
                              echo 'L. '.number_format($Importe, 2, ".", ",");
                       ?>
                       </td>
@@ -200,31 +198,31 @@ $form->prepare();
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="6" class="text-right" >
+                    <td colspan="5" class="text-right" >
                      <?= $this->formLabel($GravadoView) ?>
                     </td>
                     <td><?= $this->formElement($GravadoView)?></td>
                   </tr>
                   <tr>
-                    <td colspan="6" class="text-right">
+                    <td colspan="5" class="text-right">
                       <?= $this->formLabel($ExentoView) ?>
                     </td>
                     <td><?= $this->formElement($ExentoView) ?></td>
                   </tr>
                   <tr>
-                    <td colspan="6" class="text-right" >
+                    <td colspan="5" class="text-right" >
                     <?= $this->formLabel($ExoneradoView) ?>
                   </td>
                     <td><?= $this->formElement($ExoneradoView) ?></td>
                   </tr>
                   <tr>
-                    <td colspan="6" class="text-right">
+                    <td colspan="5" class="text-right">
                       <?= $this->formLabel($IsvView)?>
                     </td>
                     <td><?= $this->formElement($IsvView) ?></td>
                   </tr>
                   <tr>
-                    <td colspan="6" class="text-right" >
+                    <td colspan="5" class="text-right" >
                       <?= $this->formLabel($TotalView) ?>
                     </td>
                     <td><?= $this->formElement($TotalView) ?></td>

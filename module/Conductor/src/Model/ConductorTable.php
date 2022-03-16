@@ -83,7 +83,7 @@ class ConductorTable
 
             $data = [
                 'Cod_Conductor' => $conductor->Cod_Conductor,
-                'Nombres_Conductor'  => $conductor->Nombres_Conductor,'Estado'  => $conductor->Estado,
+                'Nombres_Conductor'  => $conductor->Nombres_Conductor,
                 'Apellidos_Conductor' =>$conductor->Apellidos_Conductor,
                 'Licencia_Conducir'  => $conductor->Licencia_Conducir,
                 'Estado'  => $conductor->Estado,

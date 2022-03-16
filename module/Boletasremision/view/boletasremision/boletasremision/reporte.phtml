@@ -261,7 +261,7 @@ $Usuario->setAttribute('readonly', 'readonly');
                   <tr>
                     <th style="text-align:center;">No.</th>
                     <th style="text-align:center;">Código  producto</th>
-                    <th style="text-align:center;">Descripción</th>
+                    <th style="text-align:left;">Descripción</th>
                     <th style="text-align:center;">Cantidad</th>
                   </tr>
                 </thead>
@@ -272,7 +272,7 @@ $Usuario->setAttribute('readonly', 'readonly');
                     <tr>
                       <td style="text-align:center;"><?= $count ?></td>
                       <td style="text-align:center;"><?= $this->escapeHtml($a->Cod_Producto) ?></td>
-                      <td style="text-align:center;"><?= $this->escapeHtml($a->Descripcion) ?></td style="text-align:center;">
+                      <td style="text-align:left;"><?= $this->escapeHtml($a->Descripcion) ?></td style="text-align:center;">
                       <td style="text-align:center;"><?= $this->escapeHtml($a->Cantidad) ?></td>
                      </tr><?php
                       $count++;

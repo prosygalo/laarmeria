@@ -4,6 +4,7 @@ namespace Notadebito\Model;
 
 use RuntimeException;
 use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Expression;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
 class DetalleNotadebitoTable
@@ -20,22 +21,26 @@ class DetalleNotadebitoTable
      {      
         $Cod_Nota = $Cod_Nota;
         $sqlSelect = $this->DetalleNotadebitoTableGateway->getSql()->select();
-        $sqlSelect->columns(array('Cod_Detalle','Nota_Debito','Cod_Producto','Cantidad'));
+        $sqlSelect->columns(array('Cod_Detalle','Nota_Debito','Cod_Producto','Descripcion','Precio','Cantidad'));
         //$sqlSelect->join('productos', 'productos.Cod_Producto = detalle_nota_debito.Cod_Producto', array('Cod_Producto','Nombre_Producto','Descripcion','Precio','Tipo_Importe'), 'left');
         $sqlSelect->where(['Nota_Debito' => $Cod_Nota]);
         $resultSet = $this->DetalleNotadebitoTableGateway->selectWith($sqlSelect);
         return $resultSet;        
     }  
-    public function insertDetalleNotadebito($Cod_Producto, $Cantidad, $lastId)
+    public function insertDetalleNotadebito($Cod_Producto,  $Descripcion, $Precio, $Cantidad, $lastId)
     {  
         $Cod_Producto = $Cod_Producto;
         $Cantidad = $Cantidad;
+        $Descripcion=$Descripcion;
+        $Precio=$Precio;
         $lastId = $lastId;
 
         for($count = 0; $count < count($Cod_Producto); $count++){
             $data = array();           
              $data = [
                 'Cod_Producto' =>$Cod_Producto[$count],
+                'Descripcion' =>$Descripcion[$count],
+                'Precio' =>$Precio[$count],
                 'Cantidad' =>$Cantidad[$count],
                 'Nota_debito' =>$lastId,
             ];

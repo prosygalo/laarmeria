@@ -61,15 +61,9 @@ class UsuarioController extends AbstractActionController
      {
         
         //Comprueba la existencia de usuarios en la base de datos
-        $user = $this->UsuarioTable->getsuperAdmin('Superadmin');
-       // return  new JsonModel($user);
-        /*foreach ($user as $n):
-            $Rol = $n->Rol;
-        endforeach; */
+        $user = $this->UsuarioTable->fetchAll();
 
-        if($user = null){
-            return $this->redirect()->toRoute('home');                             
-        }
+        if(is_null($user)){
 
         $form = new RegistroForm();
         $form->get('submit')->setValue('Crear usuario administrador');
@@ -107,6 +101,9 @@ class UsuarioController extends AbstractActionController
         $this->UsuarioTable->insertUserAdmin($data);
         //Redireccionar al listado de usuarios
         return $this->redirect()->toRoute('login');
+
+        }
+        return $this->redirect()->toRoute('home'); 
           
     } 
 

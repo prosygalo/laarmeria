@@ -5,6 +5,7 @@ use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Sucursal\Model\SucursalTable;
 
 class Module implements ConfigProviderInterface
 {
@@ -40,6 +41,7 @@ class Module implements ConfigProviderInterface
                      $dbAdapter = $container->get('db2');
                     return new Controller\ProductoController (
                         $container->get(Model\ProductoTable::class),
+                        $container->get(SucursalTable::class),
                         $dbAdapter
                     );
                 },
