@@ -32,7 +32,7 @@ class Notadebito
     public $Nombre_Sucursal;
     //Cliente
     public $Cliente;
-    public $RTN_DNI;
+    public $Rtn_Dni;
     public $Nombres_Cliente;
     //adquiriente exonerado
     public $Usuario;
@@ -69,7 +69,7 @@ class Notadebito
         $this->Nombre_Sucursal = !empty($data['Nombre_Sucursal']) ? $data['Nombre_Sucursal'] : null;
         //Propiedades proveedor
         $this->Cliente = !empty($data['Cliente']) ? $data['Cliente'] : null;
-        $this->RTN_DNI = !empty($data['RTN_DNI']) ? $data['RTN_DNI'] : null;
+        $this->Rtn_Dni = !empty($data['Rtn_Dni']) ? $data['Rtn_Dni'] : null;
         $this->Nombres_Cliente = !empty($data['Nombres_Cliente']) ? $data['Nombres_Cliente'] : null;
         //Propiedades de otras tablegateway
         $this->Usuario = !empty($data['Usuario']) ? $data['Usuario'] : null;
@@ -102,6 +102,7 @@ class Notadebito
             'Descripcion'  => $this->Descripcion,
             'Cantidad'  => $this->Cantidad,
             'Precio'  => $this->Precio,
+            'Rtn_Dni'  => $this->Rtn_Dni,
             'Cliente' => $this->Cliente,
             'Nombres_Cliente' => $this->Nombres_Cliente,
             'Usuario'  => $this->Usuario,

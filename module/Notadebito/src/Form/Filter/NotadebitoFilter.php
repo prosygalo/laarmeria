@@ -332,7 +332,7 @@ class NotadebitoFilter  extends InputFilter
 
 
         $this->add([
-            'name' => 'RTN_DNI',
+            'name' => 'Rtn_Dni',
             'required' => true,
                'filters' => [
                     ['name' => StripTags::class],
@@ -444,29 +444,6 @@ class NotadebitoFilter  extends InputFilter
                ['name' => StripTags::class],
                ['name' => StringTrim::class],
             ],
-            'validators' => [
-                ['name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 1,
-                        'max' => 9,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Importe Exento es incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Importe Exento esta por debajo de mínimo',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Importe Exento debe contener máximo 8 digitos y dos cifras despúes del punto',
-                        ]
-                    ],
-                ],
-                ['name' => IsFloat::class,
-                     'options' => [
-                       'messages'=>[
-                        \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
-                        \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se espera entero o decimal',
-            
-                      ],
-                    ],
-                ],
-            ],
         ]);
 
         $this->add([
@@ -475,29 +452,6 @@ class NotadebitoFilter  extends InputFilter
             'filters' => [
                ['name' => StripTags::class],
                ['name' => StringTrim::class],
-            ],
-            'validators' => [
-                ['name' => StringLength::class,
-                    'options' => [
-                        'encoding' => 'UTF-8',
-                        'min' => 1,
-                        'max' => 9,
-                        'messages' => [
-                        \Zend\Validator\StringLength::INVALID=>'Importe Exonerado es incorrecto',
-                        \Zend\Validator\StringLength::TOO_SHORT=>'Importe Exonerado esta por debajo de mínimo',
-                        \Zend\Validator\StringLength::TOO_LONG=>'Importe Exonerado debe contener máximo 8 digitos y dos cifras despúes del punto',
-                        ]
-                    ],
-                ],
-                ['name' => IsFloat::class,
-                     'options' => [
-                       'messages'=>[
-                        \Zend\I18n\Validator\IsFloat::INVALID=>'Tipo no válido',
-                        \Zend\I18n\Validator\IsFloat::NOT_FLOAT=>'Se espera entero o decimal',
-            
-                      ],
-                    ],
-                ],
             ],
         ]);
 

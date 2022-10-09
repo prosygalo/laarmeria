@@ -22,7 +22,7 @@ class NotadebitoTable
                 $sqlSelect = $this->NotadebitoTableGateway->getSql()->select();
                 $sqlSelect->columns(array('Cod_Nota','Fecha_Emision','Fecha_Emision_Comprobante','No_Correlativo','Cai_Comprobante','Consecutivo_Actual_Establ','Consecutivo_Actual_Punto','Consecutivo_Actual_Tipo','Consecutivo_Actual_Correlativo','Motivo','Sucursal','Autorizacion_Sar','Isv','Exonerado','Exento','Gravado','Total','Cliente','Usuario','Fecha_Ingreso'));
                 $sqlSelect->join('sucursales', 'sucursales.Cod_Sucursal = notas_debito.Sucursal', array('Nombre_Sucursal'), 'left');
-                $sqlSelect->join('clientes', 'clientes.Cod_Cliente = notas_debito.Cliente', array('Nombres_Cliente','RTN_DNI'), 'left');
+                $sqlSelect->join('clientes', 'clientes.Cod_Cliente = notas_debito.Cliente', array('Nombres_Cliente','Rtn_Dni'), 'left');
                 $resultSet = $this->NotadebitoTableGateway->selectWith($sqlSelect);
                  return $resultSet;
      }
@@ -50,7 +50,8 @@ class NotadebitoTable
      }
      
     public function insertNotaDebito(Notadebito $notadebito)
-     {        
+     { 
+
             $data = [
             'Fecha_Emision' =>$notadebito->Fecha_Emision,
             'Fecha_Emision_Comprobante' =>$notadebito->Fecha_Emision_Comprobante,
@@ -69,7 +70,8 @@ class NotadebitoTable
             'Total' => $notadebito->Total,
             'Cliente' => $notadebito->Cliente,
             'Motivo' => $notadebito->Motivo,
-            'Usuario'  => $notadebito->Usuario, 
+            'Usuario'  => $notadebito->Usuario,
+            'Fecha_Ingreso'  => $notadebito->Fecha_Ingreso, 
             ];
            
             $Cod_Nota = $notadebito->Cod_Nota;

@@ -33,7 +33,7 @@ return [
                 'cliente' => [
                     'type' =>Segment::class,
                     'options' => [
-                        'route'    => '/cliente[/:RTN_DNI]',
+                        'route'    => '/cliente[/:Rtn_Dni]',
                         'defaults' => [
                             'action' => 'cliente',
                         ],

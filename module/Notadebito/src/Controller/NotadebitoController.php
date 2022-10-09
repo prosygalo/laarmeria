@@ -142,7 +142,7 @@ class NotadebitoController extends AbstractActionController
             $form->get('Sucursal')->setValue($Sucursal);
             //llenado de  Proveedores
             $rowset = $this->ClienteTable->getClienteRTNSelect(); //llenar select sucursal  remiten
-            $form->get('RTN_DNI')->setValueOptions($rowset);
+            $form->get('Rtn_Dni')->setValueOptions($rowset);
 
             $rowset4 = $this->ProductoTable->getProductoSelect($Sucursal); //llenar select Conductor 
             $productos = $form->get('productos')->setValueOptions($rowset4);             
@@ -159,13 +159,12 @@ class NotadebitoController extends AbstractActionController
             $form->setData($request->getPost());
             if (! $form->isValid()){
                  return ['form' => $form];
-               
-
             }
 
             //--------Tomar datos del formulario-y los guardamos en la base de datos, para ello realizamos tres procesos.
             $notadebito = new Notadebito();
             $notadebito->exchangeArray($form->getData());
+            return  new JsonModel($form->getData());
 
             $Cod_Producto = $this->request->getPost("Cod_Producto");
             $Descripcion = $this->request->getPost("Descripcion");
@@ -220,9 +219,9 @@ class NotadebitoController extends AbstractActionController
     }
     public function clienteAction()
     {
-        $RTN_DNI = $this->params()->fromRoute('RTN_DNI');
+        $Rtn_Dni = $this->params()->fromRoute('Rtn_Dni');
         
-        $rowset3 = $this->ClienteTable->getClienteNombre($RTN_DNI); //llenar select sucursal  remiten
+        $rowset3 = $this->ClienteTable->getClienteNombre($Rtn_Dni); //llenar select sucursal  remiten
         return  new JsonModel($rowset3);
 
     }
@@ -293,7 +292,7 @@ class NotadebitoController extends AbstractActionController
         $Cliente = [ 'Cliente'=>$notadebito->Cliente];
         $Cli = $this->ClienteTable->getclienteNota($Cliente); 
         foreach ($Cli  as $s):
-            $RTN_DNI = $s->RTN_DNI;
+            $RTN_DNI = $s->Rtn_Dni;
             $Nombres_Cliente = $s->Nombres_Cliente;
             $Apellidos_Cliente = $s->Apellidos_Cliente;
         endforeach;
@@ -380,7 +379,7 @@ class NotadebitoController extends AbstractActionController
         $Cliente = [ 'Cliente'=>$notadebito->Cliente];
         $Cli = $this->ClienteTable->getclienteNota($Cliente); 
         foreach ($Cli  as $s):
-            $RTN_DNI = $s->RTN_DNI;
+            $RTN_DNI = $s->Rtn_Dni;
             $Nombres_Cliente = $s->Nombres_Cliente;
             $Apellidos_Cliente = $s->Apellidos_Cliente;
         endforeach;

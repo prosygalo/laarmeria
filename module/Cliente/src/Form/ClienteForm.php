@@ -42,7 +42,7 @@ class ClienteForm extends Form
             ],
         ]);
          $this->add([
-            'name' => 'RTN_DNI',
+            'name' => 'Rtn_Dni',
             'type' => 'text',
             'options' => [
                 'label' => 'RTN/Documento de Identificación',

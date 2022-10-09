@@ -12,12 +12,17 @@ $Sucursal->setAttribute('readonly', 'readonly');
 $Autorizacion_Sar = $form->get('Autorizacion_Sar');
 $Autorizacion_Sar->setAttribute('readonly', 'readonly');
 $Cliente = $form->get('Cliente');
-$RTN_DNI = $form->get('RTN_DNI');
+$Rtn_Dni = $form->get('Rtn_Dni');
 $No_Correlativo = $form->get('No_Correlativo');
 $Cai_Comprobante = $form->get('Cai_Comprobante');
 $Motivo = $form->get('Motivo');
 $Usuario = $form->get('Usuario')->setValue($this->identity()['Cod_Usuario']);
 $productos = $form->get('productos');
+$Isv=$form->get('Isv');
+$Exonerado=$form->get('Exonerado');
+$Exento=$form->get('Exento');
+$Gravado=$form->get('Gravado');
+$Total=$form->get('Total');
 $Cancelar = $form->get('Cancelar');
 $Agregar = $form->get('Agregar');
 $submit = $form->get('submit');
@@ -66,9 +71,9 @@ $form->prepare();
                 <div class="row" style="background-color:#F5F5F5">
                    <div class="col-md-5">
                         <div class="form-group">
-                            <?= $this->formLabel($RTN_DNI) ?>
-                            <?= $this->formElement($RTN_DNI) ?>
-                            <?= $this->formElementErrors()->render($RTN_DNI, ['class' => 'help-inline  text-danger']) ?>
+                            <?= $this->formLabel($Rtn_Dni) ?>
+                            <?= $this->formElement($Rtn_Dni) ?>
+                            <?= $this->formElementErrors()->render($Rtn_Dni, ['class' => 'help-inline  text-danger']) ?>
                         </div>
                     </div>
                     <div class="col-md-7">
@@ -160,7 +165,9 @@ $form->prepare();
                             </thead>
                             <tbody id="ProSelected">
                               <!--Ingreso al tbody-->
-                                
+                                <tr>
+                    
+                                </tr>
                             </tbody>
                             <tfoot  class="text-right">
                               <tr>
@@ -176,24 +183,24 @@ $form->prepare();
                                 <td></td>
                                  <td><span id="exonerado">0</span>
                                     <?= $this->formHidden($form->get('Exonerado'))?>
-                                    <?= $this->formElementErrors()->render($form->get('Exonerado'), ['class' => 'help-inline  text-danger']) ?>
+                                    <?= $this->formElementErrors()->render($Exonerado, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                 <td><span id="exento">0</span>
                                     <?= $this->formHidden($form->get('Exento'))?>
-                                     <?= $this->formElementErrors()->render($form->get('Exento'), ['class' => 'help-inline  text-danger']) ?>
+                                     <?= $this->formElementErrors()->render($Exento, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                  <td><span id="gravado">0</span>
                                     <?= $this->formHidden($form->get('Gravado'))?>
-                                    <?= $this->formElementErrors()->render($form->get('Gravado'), ['class' => 'help-inline  text-danger']) ?>
+                                    <?= $this->formElementErrors()->render($Gravado, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                
                                 <td><span id="isv">0</span>
                                     <?= $this->formHidden($form->get('Isv'))?>
-                                     <?= $this->formElementErrors()->render($form->get('Isv'), ['class' => 'help-inline  text-danger']) ?>
+                                     <?= $this->formElementErrors()->render($Isv, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                 <td><span id="total">0</span>
                                     <?= $this->formHidden($form->get('Total'))?>
-                                     <?= $this->formElementErrors()->render($form->get('Total'), ['class' => 'help-inline  text-danger']) ?>
+                                     <?= $this->formElementErrors()->render($Total, ['class' => 'help-inline  text-danger']) ?>
                                 </td>
                                 <td></td>
                               </tr>
@@ -265,16 +272,16 @@ $form->prepare();
       format: 'yyyy-mm-dd',
       //locale: 'es-es'
       });
-     $('#RTN_DNI').focus();
+     $('#Rtn_Dni').focus();
 
   });
   function cancelar(){
      window.location.href="<?= $this->url('home')?>";
    }
    $(function(){
-       $('#RTN_DNI').change(function(){
-         var RTN_DNI = $(this).val();
-         if(RTN_DNI){
+       $('#Rtn_Dni').change(function(){
+         var Rtn_Dni = $(this).val();
+         if(Rtn_Dni){
             $.ajax({
              type: "GET",
              url: "/notadebito/cliente/" + $(this).val(),
@@ -441,13 +448,13 @@ function Calcular(ele){
             input_gra.value = gra;
 
             var exento = document.getElementById("exento");
-            exento.innerHTML = (parseFloat(exento.innerHTML)+0).toFixed(2);
+            exento.innerHTML = 222.00;
             var exe = document.querySelector('#exento').innerText;
             var input_exe = document.querySelector('input[name="Exento"]');
             input_exe.value = exe;
 
             var exonerado = document.getElementById("exonerado");
-            exonerado.innerHTML = (parseFloat(exonerado.innerHTML)+0).toFixed(2);
+            exonerado.innerHTML = 222.00;
             var exo = document.querySelector('#exonerado').innerText;
             var input_exo = document.querySelector('input[name="Exonerado"]');
             input_exo.value = exo;

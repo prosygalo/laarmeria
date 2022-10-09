@@ -45,7 +45,7 @@ class ProductoTable
                 $Sucursal=$Sucursal;
                 $rowset = $this->tableGateway->getSql()->select();
                 $rowset->columns(array('Cod_Producto','Nombre_Producto','Descripcion'));
-                $rowset->where(['Sucursal'=>$Sucursal, 'Cantidad > 1 ']);
+                $rowset->where(['Sucursal'=>$Sucursal, 'Cantidad > = 1 ']);
                 $rowset->order('Nombre_Producto Asc');
                 $resultSet = $this->tableGateway->selectWith($rowset); 
                 $data= array();

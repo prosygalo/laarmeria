@@ -98,7 +98,7 @@ class ClienteEditFilter  extends InputFilter
             ]);
 
           $this->add([
-            'name' => 'RTN_DNI',
+            'name' => 'Rtn_Dni',
                'filters' => [
                     ['name' => StripTags::class],
                   //['name' => StringTrim::class],

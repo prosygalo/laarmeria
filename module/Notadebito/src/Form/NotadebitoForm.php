@@ -25,7 +25,7 @@ class NotadebitoForm extends Form
         $Fecha_Emision->setLabel('Fecha Emisión');
         $Fecha_Emision->setAttribute('class', 'form-control');
         $Fecha_Emision->setAttribute('readonly', 'readonly');
-        //$Fecha_Emision->setAttribute('required', 'required');
+        $Fecha_Emision->setAttribute('required', 'required');
         $this->add($Fecha_Emision); 
 
         
@@ -70,7 +70,7 @@ class NotadebitoForm extends Form
         //Agregar entrada Autorización de la SAR
         $Autorizacion_Sar = new Element\Text('Autorizacion_Sar');
         $Autorizacion_Sar->setAttribute('class','form-control');
-        //$Autorizacion_Sar->setAttribute('required','required');
+        $Autorizacion_Sar->setAttribute('required','required');
         $Autorizacion_Sar->setLabel('Autorización SAR');
         $this->add($Autorizacion_Sar);
 
@@ -78,7 +78,7 @@ class NotadebitoForm extends Form
         $Sucursal = new Element\Text('Sucursal');
         $Sucursal->setAttribute('name', 'Sucursal');
         $Sucursal->setAttribute('class', 'form-control');
-        //$Sucursal->setAttribute('required', 'required');
+        $Sucursal->setAttribute('required', 'required');
         $Sucursal->setAttribute('id', 'Sucursal');
         $Sucursal->setLabel('Sucursal');
         $this->add($Sucursal);
@@ -86,7 +86,7 @@ class NotadebitoForm extends Form
          //Agregar entrada codigo de proveedor
         $Cliente = new Element\Select('Cliente');
         $Cliente->setAttribute('class','form-control');
-        //$Cliente->setAttribute('required','required');
+        $Cliente->setAttribute('required','required');
         $Cliente->setEmptyOption('Seleccione');
         $Cliente->setDisableInArrayValidator(true);
         $Cliente->setAttribute('id','Cliente');
@@ -94,13 +94,13 @@ class NotadebitoForm extends Form
         $this->add($Cliente);
 
          //Agregar entrada RTN/DNI  
-        $RTN_DNI = new Element\Select('RTN_DNI');
-        $RTN_DNI->setAttribute('class','form-control');
-        $RTN_DNI->setEmptyOption('Seleccione');
-        $RTN_DNI->setAttribute('id','RTN_DNI');
-        //$RTN_DNI->setAttribute('required','required');
-        $RTN_DNI->setLabel('RTN/DNI');
-        $this->add($RTN_DNI);
+        $Rtn_Dni = new Element\Select('Rtn_Dni');
+        $Rtn_Dni->setAttribute('class','form-control');
+        $Rtn_Dni->setEmptyOption('Seleccione');
+        $Rtn_Dni->setAttribute('id','Rtn_Dni');
+        $Rtn_Dni->setAttribute('required','required');
+        $Rtn_Dni->setLabel('RTN/DNI');
+        $this->add($Rtn_Dni);
 
         //-----Datos
         $Nombres_Cliente = new Element\Text('Nombres_Cliente');
@@ -113,7 +113,7 @@ class NotadebitoForm extends Form
         //Agregar entrada 
         $No_Correlativo = new Element\Text('No_Correlativo');
         $No_Correlativo->setAttribute('class','form-control');
-        //$No_Correlativo->setAttribute('required','required');
+        $No_Correlativo->setAttribute('required','required');
         $No_Correlativo->setAttribute('maxlength','19');
         $No_Correlativo->setAttribute('onkeypress','return fac(event,this);');
         $No_Correlativo->setLabel('No. de Correlativo');
@@ -127,7 +127,7 @@ class NotadebitoForm extends Form
         $Cai_Comprobante->setAttribute('id','Cai_Comprobante');
         $Cai_Comprobante->setAttribute('maxlength','37');
         $Cai_Comprobante->setAttribute('onkeypress','return ca(event,this)');
-        //$Cai_Comprobante->setAttribute('required','required');
+        $Cai_Comprobante->setAttribute('required','required');
         $Cai_Comprobante->setLabel('C.A.I');
         $this->add($Cai_Comprobante);
 
@@ -136,7 +136,7 @@ class NotadebitoForm extends Form
         $Fecha_Emision_Comprobante->setAttribute('id','Fecha_Emision_Comprobante');
         $Fecha_Emision_Comprobante->setLabel('Fecha Emisión del Comprobante');
         $Fecha_Emision_Comprobante->setAttribute('class', 'form-control');
-        //$Fecha_Emision_Comprobante->setAttribute('required', 'required');
+        $Fecha_Emision_Comprobante->setAttribute('required', 'required');
         $this->add($Fecha_Emision_Comprobante);
 
 
@@ -144,7 +144,7 @@ class NotadebitoForm extends Form
         $Motivo = new Element\Text('Motivo');
         $Motivo->setAttribute('class','form-control');
         $Motivo->setAttribute('maxlength','100');
-       // $Motivo->setAttribute('required','required');
+        $Motivo->setAttribute('required','required');
         $Motivo->setLabel('Motivo');
         $this->add($Motivo);
 
@@ -152,7 +152,7 @@ class NotadebitoForm extends Form
         //Agregar entrada Usuario que registra la boleta generada
         $Usuario = new Element\Text('Usuario');
         $Usuario->setAttribute('class','form-control');
-        //$Usuario->setAttribute('required','required');
+        $Usuario->setAttribute('required','required');
         $Usuario->setLabel('Usuario');
         $Usuario->setAttribute('readonly','readonly');
         $this->add($Usuario);
@@ -240,7 +240,7 @@ class NotadebitoForm extends Form
        
        
         $RTN_View = new Element\Text('RTN_View');
-        $RTN_View->setAttribute('class','form-control text-center');
+        $RTN_View->setAttribute('class','form-control');
         $RTN_View->setAttribute('id','RTN_Proveedor');
         $RTN_View->setLabel('RTN');
         $this->add($RTN_View);

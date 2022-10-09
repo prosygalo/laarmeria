@@ -37,12 +37,12 @@ class ClienteTable
     public function getClienteRTNSelect(){
 
                 $rowset = $this->tableGateway->getSql()->select();
-                $rowset->columns(array('RTN_DNI'));
+                $rowset->columns(array('Rtn_Dni'));
                 $resultSet = $this->tableGateway->selectWith($rowset); 
 
                 $data= array();
                 foreach($resultSet as $row){
-                   $data[$row->RTN_DNI] = $row->RTN_DNI;
+                   $data[$row->Rtn_Dni] = $row->Rtn_Dni;
                 }
                    return $data;             
      }
@@ -50,18 +50,18 @@ class ClienteTable
 
                 $Cod_Cliente = $Cod_Cliente;
                 $rowset = $this->tableGateway->getSql()->select();
-                $rowset->columns(array('Cod_Cliente','Nombres_Cliente','Apellidos_Cliente','RTN_DNI'));
+                $rowset->columns(array('Cod_Cliente','Nombres_Cliente','Apellidos_Cliente','Rtn_Dni'));
                 $rowset->where(['Cod_Cliente'=>$Cod_Cliente]);
                 $resultSet = $this->tableGateway->selectWith($rowset); 
                 return $resultSet; 
                
      }
-     public function getClienteNombre($RTN_DNI){
+     public function getClienteNombre($Rtn_Dni){
 
-                $RTN_DNI = $RTN_DNI;
+                $Rtn_Dni = $Rtn_Dni;
                 $rowset = $this->tableGateway->getSql()->select();
                 $rowset->columns(array('Cod_Cliente','Nombres_Cliente','Apellidos_Cliente'));
-                $rowset->where(['RTN_DNI'=>$RTN_DNI]);
+                $rowset->where(['Rtn_Dni'=>$Rtn_Dni]);
                 $resultSet = $this->tableGateway->selectWith($rowset); 
                 return $resultSet; 
                
@@ -71,7 +71,7 @@ class ClienteTable
             $data = [
                 'Nombres_Cliente'  => $cliente->Nombres_Cliente,
                 'Apellidos_Cliente' =>$cliente->Apellidos_Cliente,
-                'RTN_DNI'  => $cliente->RTN_DNI,
+                'Rtn_Dni'  => $cliente->Rtn_Dni,
             ];
            
             $Cod_Cliente = $cliente->Cod_Cliente;
@@ -89,7 +89,7 @@ class ClienteTable
             $data = [
                 'Nombres_Cliente'  => $cliente->Nombres_Cliente,
                 'Apellidos_Cliente' =>$cliente->Apellidos_Cliente,
-                'RTN_DNI'  => $cliente->RTN_DNI,
+                'Rtn_Dni'  => $cliente->Rtn_Dni,
 
             ];
                $Cod_Cliente = $cliente->Cod_Cliente;
